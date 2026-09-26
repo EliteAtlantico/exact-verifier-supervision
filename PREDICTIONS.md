@@ -54,3 +54,16 @@ alpha 16, 3 epochs, lr 2e-4, bf16, greedy decoding, n = 180 training examples, 2
   Also reported, labelled post hoc: the fraction of fully correct 6-digit traces vs p^6, and answer accuracy vs
   p^6 + (1 - p^6) * g, where g is the answer-correct rate when the trace is wrong (4-digit: g = 0.561), since a
   wrong trace still yields the right yes/no answer about half the time.
+- 2026-09-25 21:40 Toronto — **S5 (primary) FAILED as preregistered**: 6-digit div7 B seed 0 = 96.2% vs p^6 = 75.8%
+  (+20.4 pp > 10 pp tolerance). Its own per-step accuracy is 98.8% (vs 95.5% for the 4-digit model), so p is not
+  a fixed property that transfers between training sets.
+- 2026-09-25 21:40 Toronto — **S7 (new hypothesis, preregistered before any of its cells ran):** per-step trace
+  accuracy p is set by the number of supervised transitions per entry of the (remainder, digit) table,
+  m = k * n / (10 * d) (k steps per trace, n training examples, 10d table entries). Observed so far: div7 n=180
+  m=10.3 -> p=0.955; div7_6d n=180 m=15.4 -> p=0.988; div13 n=180 m=5.5 -> p=0.566. Predictions:
+  (a) div13 B n=540 seed 0 (m=16.6): p >= 0.95 and answer accuracy >= 85%;
+  (b) div7 B n=270 seed 0 (4-digit, m=15.4): p >= 0.97;
+  (c) div7 B n=90 seed 0 (m=5.1): p <= 0.80 and answer accuracy <= 75%;
+  (d) div11 B n=180 (m=6.5, not yet run): 0.566 < p < 0.955;
+  (e) div3 B n=180 (m=24) and div2 B n=180 (m=36): p >= 0.97.
+  S7 passes if at least 4 of (a)-(e) hold; every cell is reported either way.
