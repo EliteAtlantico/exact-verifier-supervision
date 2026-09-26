@@ -306,3 +306,11 @@ run div7 B 180 1 --eval-only auto --eval-task div7_6d [Qwen/Qwen2.5-3B-Instruct]
 run div7 A 180 0 --eval-only auto --eval-task div7_6d [Qwen/Qwen2.5-3B-Instruct] ...
   acc 0.5042  (4s)
 scripts/run_5090.sh: line 63: hostname: command not found
+scripts/run_5090.sh: line 66: hostname: command not found
+committed: 3B eval-only extras
+=== summary
+results/v2/runs_Qwen2.5-0.5B-Instruct.jsonl: 4 rows
+results/v2/runs_Qwen2.5-3B-Instruct.jsonl: 20 rows
+results/v2/runs_Qwen2.5-7B-Instruct.jsonl: 2 rows
+results/v2/evals_Qwen2.5-3B-Instruct.jsonl: 7 rows
+scripts/run_5090.sh: line 95: hostname: command not found
