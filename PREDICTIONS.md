@@ -100,3 +100,10 @@ commit timestamps, which are the authoritative record.
   and n = 180 as the Qwen cells (queue results/queues/q5_family.txt). Predictions: (a, primary) div7 B - A >= 20 pp in
   seeds 0 and 1; (b) div7 D (correct trace of a different number) within 10 pp of A in seed 0. S11 passes if (a) and
   (b) hold. prime and valid A/B and div7 base are reported without a prediction.
+- 2026-09-26 (time = this commit) **Correction to the S10 entry above (post hoc, analysis only).** The trace-correctness
+  numbers quoted there (36.5% at 1.5B, 13.9% / 14.5% at 3B, 26.7% at 7B) come from the worker's parser, which only
+  recognises the long-division format. Self-generated traces often divide directly ("n / 7 = q", "\div", decimals). An
+  extended re-audit of the saved traces (experiments/analysis_steps.py, gate unchanged) finds 62.9% of kept 1.5B div7
+  traces fully correct, and at 3B it parses 97.7% of kept traces, 96.4% of which are correct. So the sentence "kept traces
+  whose steps are mostly wrong" is withdrawn. S10's accuracy clause failed either way; its trace clause holds under the
+  preregistered parser and fails under the re-audit. Both are reported.
