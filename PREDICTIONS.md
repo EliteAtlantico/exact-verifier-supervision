@@ -111,3 +111,12 @@ commit timestamps, which are the authoritative record.
   also fails. prime S seed 0 = 67.1% (no prediction). div7 S seed 1 is running and will be reported.
 - 2026-09-26 (time = this commit) **S10, last primary cell.** 1.5B div7 S seed 1 = 65.8% (limit <= 65%). With seed 0 at
   77.9%, the accuracy clause fails in both seeds. S10 is reported as failed.
+- 2026-09-26 (time = this commit) **S12 (answer-only optimisation sweep), preregistered before any of its cells ran.**
+  Reviewers asked whether arm A's chance-level div7 accuracy (and its constant-answer collapse at 3B and at 1.5B n=540)
+  is an optimisation failure of the single untuned configuration (lr 2e-4, 3 epochs). Cells: 1.5B div7 arm A, n = 180,
+  lr in {2e-5, 5e-5} x epochs in {10, 30}, seeds 0 and 1 (10-30 epochs give A 3,600-10,800 supervised answer tokens,
+  about B's budget at 3 epochs); positive control 1.5B div3 A, lr 5e-5, 10 epochs, seed 0. Queues in
+  results/queues/sweepA/, rows in results/v2/sweep/ (kept out of the main analysis files). Decision rule: S12 holds if
+  no A configuration reaches div7 >= 65% in either seed, AND at least one configuration does not collapse (Yes-rate in
+  [0.2, 0.8]), AND div3 A >= 90%. If any configuration reaches >= 65% on div7, the claim that answer-only supervision
+  cannot learn div7 at this n is withdrawn and the paper says so. Every cell is reported.

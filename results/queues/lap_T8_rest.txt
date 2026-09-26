@@ -1,0 +1,10 @@
+# laptop stage 6, part 3: the stage-4 seed cells not yet run when stage 4 was stopped to make room for S12
+div7 B 90 2
+div7 B 270 2
+div13 B 360 2
+div13 B 540 2
+div7 B 60 1
+div7 B 60 2
+div2 A 180 1
+div2 B 180 1
+div13 C 180 1

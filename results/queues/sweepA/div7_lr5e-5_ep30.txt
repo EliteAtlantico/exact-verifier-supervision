@@ -1,0 +1,3 @@
+# S12 answer-only sweep, 1.5B div7 A n=180, lr 5e-5, 30 epochs (default is 2e-4, 3)
+div7 A 180 0 --lr 5e-5 --epochs 30 --no-save-adapter --save-dir results/v2/sweep/gens
+div7 A 180 1 --lr 5e-5 --epochs 30 --no-save-adapter --save-dir results/v2/sweep/gens

@@ -105,6 +105,8 @@ def parse_args(argv=None):
     ap.add_argument("--save-dir", default="results/v2/gens")
     ap.add_argument("--adapter-root", default="results/adapters")
     ap.add_argument("--no-save-adapter", action="store_true")
+    ap.add_argument("--lr", type=float, default=None, help="learning rate (default 2e-4); non-default values tag the cell name")
+    ap.add_argument("--epochs", type=int, default=None, help="epochs (default EPOCHS=3); non-default values tag the cell name")
     a = ap.parse_args(argv)
     a.eval_task = a.eval_task or a.task
     if a.eval_only is not None and a.eval_only.lower() == "none":
@@ -121,6 +123,8 @@ def cell_name(a) -> str:
         name += f"__{a.prompt_mode}"
     if a.eval_only not in (None, "none"):
         name += "__reeval"
+    if getattr(a, "lr", None) is not None or getattr(a, "epochs", None) is not None:
+        name += "__lr%g_ep%d" % (a.lr if a.lr is not None else 2e-4, a.epochs if a.epochs is not None else EPOCHS)
     return name
 
 
@@ -283,12 +287,12 @@ def main(argv=None):
         cfg = LoraConfig(r=8, lora_alpha=16, lora_dropout=0.05, bias="none", task_type="CAUSAL_LM",
                          target_modules=["q_proj", "k_proj", "v_proj", "o_proj"])
         model = get_peft_model(model, cfg)
-        opt = torch.optim.AdamW([p for p in model.parameters() if p.requires_grad], lr=2e-4)
+        opt = torch.optim.AdamW([p for p in model.parameters() if p.requires_grad], lr=(a.lr if a.lr is not None else 2e-4))
         exs = [build_example(tok, e["prompt"], e["completion"]) for e in picked]
         model.train()
         rng = random.Random(seed)
         t0 = time.time()
-        for _ep in range(EPOCHS):
+        for _ep in range(a.epochs if a.epochs is not None else EPOCHS):
             rng.shuffle(exs)
             for ids, labels in exs:
                 out = model(input_ids=torch.tensor([ids], device=DEV),
@@ -327,6 +331,7 @@ def main(argv=None):
         "req_n": n, "model": a.model, "prompt_mode": a.prompt_mode, "eval_task": a.eval_task,
         "eval_only": a.eval_only is not None, "adapter": adapter_path, "max_new": max_new,
         "eval_bs": a.eval_bs, "repetition_penalty": a.repetition_penalty,
+        "lr": a.lr if a.lr is not None else 2e-4, "epochs": a.epochs if a.epochs is not None else EPOCHS,
         "n_hit_cap": sum(r["hit_cap"] for r in rows), "eval_limit": a.eval_limit,
         "gens_path": str(gpath.relative_to(REPO)) if gpath.is_relative_to(REPO) else str(gpath)}))
 
