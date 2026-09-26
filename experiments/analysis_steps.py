@@ -149,6 +149,8 @@ def score_div(rows, test_by_id, d, step_truth):
             "answer_acc_given_trace_correct": ans_ok_trace_ok / trace_ok if trace_ok else None,
             "answer_acc_given_trace_wrong": ans_ok_trace_bad / n_trace_bad if n_trace_bad else None,
             "predicted_acc_p_cond_pow_k": p_cond ** k_mode, "predicted_acc_prod_p_i": prod,
+            "post_hoc_predicted_answer_acc_own_g": (None if n_trace_bad == 0 else
+                                                     p_cond ** k_mode + (1 - p_cond ** k_mode) * (ans_ok_trace_bad / n_trace_bad)),
             "observed_minus_predicted_pp": 100 * (ans_ok / n_items - p_cond ** k_mode),
             "ground_truth_mismatches": truth_mismatch}
 
@@ -255,10 +257,15 @@ def main():
 
 
 def s5_check(div_cells, run_acc):
-    """Per model: p from 4-digit div7 B gens (plain), observed = B accuracy on div7_6d."""
+    """S5 per the PREDICTIONS.md decision-log entry of 2026-09-25 21:27 (commit 27ba807, before any S5 result):
+    PRIMARY = arm B trained AND tested on div7_6d, seeds 0 and 1: answer accuracy within 10 pp of p^6, where
+    p = per-step accuracy (p_cond) of the same model's 4-digit div7 B generations (same seed when present, else
+    item-weighted pooled over the available 4-digit seeds). SECONDARY = the 4-digit div7 B adapter evaluated on
+    div7_6d ('div7->div7_6d', evals file). POST HOC (labelled): fully-correct 6-digit trace fraction vs p^6, and
+    answer accuracy vs p^6 + (1 - p^6) * g, g = answer-correct rate when the 4-digit trace is wrong."""
     four = defaultdict(dict)
     for c in div_cells:
-        if c["task"] == "div7" and c["arm"] == "B":
+        if c["task"] == "div7" and c["arm"] == "B" and c["prompt_mode"] == "plain":
             four[c["model"]][c["seed"]] = c
     six_gens = {(c["task"], c["model"], c["seed"], c["n"]): c for c in div_cells
                 if c["eval_task"] == "div7_6d" and c["arm"] == "B" and c["prompt_mode"] == "plain"}
@@ -267,46 +274,72 @@ def s5_check(div_cells, run_acc):
     cells = []
     for key in sorted(set(six_gens) | set(six_runs)):
         label, model, seed, n = key
+        role = "primary" if label == "div7_6d" else "secondary"
         fd = four.get(model, {})
         if not fd:
-            cells.append({"task": label, "model": model, "seed": seed, "n": n, "status": "PENDING",
+            cells.append({"task": label, "role": role, "model": model, "seed": seed, "n": n, "status": "PENDING",
                           "why": "no 4-digit div7 B generations for this model"})
             continue
-        src = [fd[seed]] if seed in fd else list(fd.values())          # same seed, else pooled (item-weighted)
+        src = [fd[seed]] if seed in fd else list(fd.values())
         w = sum(c["n_items"] for c in src)
         p = sum(c["p_cond"] * c["n_items"] for c in src) / w
         p2 = sum((c["p_cond_after_first_step"] or 0) * c["n_items"] for c in src) / w
+        gs = [c for c in src if c["answer_acc_given_trace_wrong"] is not None]
+        g = (sum(c["answer_acc_given_trace_wrong"] * c["n_items"] for c in gs) / sum(c["n_items"] for c in gs)) if gs else None
         p_src = f"div7 B seed {seed}" if seed in fd else f"div7 B pooled seeds {sorted(fd)}"
         obs = six_gens[key]["answer_acc"] if key in six_gens else six_runs[key]
         pred = p ** 6
-        cells.append({"task": label, "primary": label == "div7->div7_6d", "model": model, "seed": seed, "n": n,
+        tc = six_gens[key]["trace_correct_rate"] if key in six_gens else None
+        cells.append({"task": label, "role": role, "primary": role == "primary", "model": model, "seed": seed, "n": n,
                       "p": p, "p_source": p_src, "predicted_p6": pred, "observed_acc": obs,
                       "obs_source": "gens" if key in six_gens else "run row", "diff_pp": 100 * (obs - pred),
                       "within_10pp": abs(obs - pred) <= S5_TOL,
-                      "sensitivity_first_step_free": {"p_after_first": p2, "predicted": p2 ** 5,
-                                                      "note": "step 1 (r = d mod 7) is near-trivial; p' over steps 2..k, "
-                                                              "prediction p'^5 (not the preregistered rule)"},
-                      "observed_trace_correct": six_gens[key]["trace_correct_rate"] if key in six_gens else None})
-    prim = [c for c in cells if c.get("primary") and "within_10pp" in c]
-    sec = [c for c in cells if not c.get("primary") and "within_10pp" in c]
-    use = prim or sec
-    status = ("PENDING" if not use else ("PASS" if all(c["within_10pp"] for c in use) else "FAIL"))
-    if use and not prim:
-        status += " (secondary cells only: B trained on div7_6d)"
-    return {"status": status, "tolerance_pp": 100 * S5_TOL, "cells": cells}
+                      "post_hoc": {"label": "post hoc (decision log 2026-09-25 21:27)",
+                                   "trace_correct_6digit": tc,
+                                   "trace_correct_minus_p6_pp": None if tc is None else 100 * (tc - pred),
+                                   "g_4digit_answer_acc_when_trace_wrong": g,
+                                   "predicted_answer_acc_with_guessing": None if g is None else pred + (1 - pred) * g,
+                                   "answer_minus_guess_model_pp": None if g is None else 100 * (obs - (pred + (1 - pred) * g)),
+                                   "p_after_first_step": p2, "p_after_first_step_pow5": p2 ** 5}})
+
+    def verdict(cs, need_seeds):
+        done = [c for c in cs if "within_10pp" in c]
+        missing = sorted(set(need_seeds or []) - {c["seed"] for c in done})
+        if any(not c["within_10pp"] for c in done):
+            bad = sorted(c["seed"] for c in done if not c["within_10pp"])
+            return f"FAIL (seed(s) {bad} outside 10 pp" + (f"; seed(s) {missing} not yet run)" if missing else ")")
+        if need_seeds and not set(need_seeds) <= {c["seed"] for c in done}:
+            return f"PENDING ({len(done)}/{len(need_seeds)} primary seeds done, all within 10 pp so far)" if done else "PENDING"
+        return "PASS" if done else "PENDING"
+    by_model = defaultdict(list)
+    for c in cells:
+        by_model[c["model"]].append(c)
+    per_model = {m: {"primary": verdict([c for c in cs if c["role"] == "primary"], [0, 1]),
+                     "secondary": verdict([c for c in cs if c["role"] == "secondary"], None)}
+                 for m, cs in by_model.items()}
+    m15 = C.short_model(C.DEFAULT_MODEL)
+    status = per_model.get(m15, {}).get("primary", "PENDING")
+    return {"status": status, "status_by_model": per_model, "tolerance_pp": 100 * S5_TOL,
+            "rule": "PRIMARY = B trained+tested on div7_6d (seeds 0,1) vs p^6, p from 4-digit div7 B gens; "
+                    "SECONDARY = 4-digit B adapter on div7_6d (PREDICTIONS.md decision log, 27ba807)",
+            "cells": cells}
 
 
 def write_md(o):
     L = ["# Step-level trace scoring (auto-generated by experiments/analysis_steps.py; do not edit)", ""]
     if o["div"]:
-        L += ["## div tasks", "", "| task | model | arm | mode | n | seed | k | answer acc | trace correct | p_cond | p_uncond | "
-              "p_cond^k | prod p_i | local arith | digit copy | answer-trace consistency | acc given trace wrong |",
-              "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
+        L += ["## div tasks", "", "p_cond = P(step correct | previous step correct), pooled over positions; p after 1 = the same "
+              "over steps 2..k (step 1 is r = digit mod d, near-trivial); guess model (post hoc) = p^k + (1 - p^k) g with g = this "
+              "cell's answer accuracy when its trace is wrong.", "",
+              "| task | model | arm | mode | n | seed | k | answer acc | trace correct | p_cond | p after 1 | p_uncond | "
+              "p_cond^k | prod p_i | guess model | local arith | digit copy | answer-trace consistency | acc given trace wrong |",
+              "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
         f = lambda v: "-" if v is None else f"{100 * v:.1f}"   # noqa: E731
         for c in o["div"]:
             L.append(f"| {c['task']} | {c['model']} | {c['arm']} | {c['prompt_mode']} | {c['n']} | {c['seed']} | {c['k']} | "
-                     f"{f(c['answer_acc'])} | {f(c['trace_correct_rate'])} | {f(c['p_cond'])} | {f(c['p_uncond'])} | "
-                     f"{f(c['predicted_acc_p_cond_pow_k'])} | {f(c['predicted_acc_prod_p_i'])} | {f(c['local_arith_acc'])} | "
+                     f"{f(c['answer_acc'])} | {f(c['trace_correct_rate'])} | {f(c['p_cond'])} | {f(c['p_cond_after_first_step'])} | "
+                     f"{f(c['p_uncond'])} | {f(c['predicted_acc_p_cond_pow_k'])} | {f(c['predicted_acc_prod_p_i'])} | "
+                     f"{f(c['post_hoc_predicted_answer_acc_own_g'])} | {f(c['local_arith_acc'])} | "
                      f"{f(c['digit_copy_acc'])} | {f(c['answer_trace_consistency'])} | {f(c['answer_acc_given_trace_wrong'])} |")
     if o["prime"]:
         f = lambda v: "-" if v is None else f"{100 * v:.1f}"   # noqa: E731
@@ -319,14 +352,22 @@ def write_md(o):
                      f"{c['n_truncated_no_answer_line']} | {c['n_truncated_and_wrong']} | {c['n_hit_cap']} | {c['n_wrong_with_answer_line']} | {f(c['step_arith_acc'])} | "
                      f"{f(c['divisor_sequence_faithful_rate'])} | " + " / ".join(
                          f"{f(v['acc'])} (n={v['n']})" for v in b.values()) + " |")
-    L += ["", f"## S5: {o['S5']['status']}", ""]
+    L += ["", f"## S5 (primary, {C.short_model(C.DEFAULT_MODEL)}): {o['S5']['status']}", "", o["S5"]["rule"], ""]
+    for m, v in o["S5"].get("status_by_model", {}).items():
+        L.append(f"- {m}: primary {v['primary']}; secondary {v['secondary']}")
+    L.append("")
     for c in o["S5"]["cells"]:
         if "p" in c:
-            L.append(f"- {c['task']} {c['model']} n={c['n']} s{c['seed']}: p={c['p']:.4f} ({c['p_source']}) -> p^6="
-                     f"{100 * c['predicted_p6']:.1f}%, observed {100 * c['observed_acc']:.1f}% ({c['obs_source']}), "
-                     f"diff {c['diff_pp']:+.1f} pp -> {'within' if c['within_10pp'] else 'OUTSIDE'} 10 pp")
+            ph = c["post_hoc"]
+            tc = "-" if ph["trace_correct_6digit"] is None else f"{100 * ph['trace_correct_6digit']:.1f}%"
+            gm = ("-" if ph["predicted_answer_acc_with_guessing"] is None
+                  else f"{100 * ph['predicted_answer_acc_with_guessing']:.1f}%")
+            L.append(f"- [{c['role']}] {c['task']} {c['model']} n={c['n']} s{c['seed']}: p={c['p']:.4f} ({c['p_source']}) -> "
+                     f"p^6={100 * c['predicted_p6']:.1f}%, observed answer acc {100 * c['observed_acc']:.1f}% ({c['obs_source']}), "
+                     f"diff {c['diff_pp']:+.1f} pp -> {'within' if c['within_10pp'] else 'OUTSIDE'} 10 pp. "
+                     f"Post hoc: fully correct 6-digit traces {tc} vs p^6; guess model p^6 + (1 - p^6) g = {gm}")
         else:
-            L.append(f"- {c['task']} {c['model']} s{c['seed']}: PENDING ({c['why']})")
+            L.append(f"- [{c['role']}] {c['task']} {c['model']} s{c['seed']}: PENDING ({c['why']})")
     if o["notes"]:
         L += ["", "## Notes", ""] + [f"- {n}" for n in o["notes"]]
     open(os.path.join(C.OUT, "steps.md"), "w", encoding="utf-8").write("\n".join(L) + "\n")

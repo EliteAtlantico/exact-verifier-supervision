@@ -2,9 +2,18 @@
 
 ## div tasks
 
-| task | model | arm | mode | n | seed | k | answer acc | trace correct | p_cond | p_uncond | p_cond^k | prod p_i | local arith | digit copy | answer-trace consistency | acc given trace wrong |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| div7 | Qwen2.5-1.5B-Instruct | B | plain | 180 | 0 | 4 | 92.5 | 82.9 | 95.5 | 90.7 | 83.2 | 82.9 | 94.7 | 100.0 | 100.0 | 56.1 |
+p_cond = P(step correct | previous step correct), pooled over positions; p after 1 = the same over steps 2..k (step 1 is r = digit mod d, near-trivial); guess model (post hoc) = p^k + (1 - p^k) g with g = this cell's answer accuracy when its trace is wrong.
 
-## S5: PENDING
+| task | model | arm | mode | n | seed | k | answer acc | trace correct | p_cond | p after 1 | p_uncond | p_cond^k | prod p_i | guess model | local arith | digit copy | answer-trace consistency | acc given trace wrong |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| div13 | Qwen2.5-1.5B-Instruct | B | plain | 180 | 0 | 4 | 54.6 | 2.1 | 56.6 | 23.7 | 43.4 | 10.2 | 2.2 | 58.4 | 35.4 | 99.8 | 100.0 | 53.6 |
+| div7 | Qwen2.5-1.5B-Instruct | B | plain | 180 | 0 | 4 | 92.5 | 82.9 | 95.5 | 93.9 | 90.7 | 83.2 | 82.9 | 92.6 | 94.7 | 100.0 | 100.0 | 56.1 |
+| div7_6d | Qwen2.5-1.5B-Instruct | B | plain | 180 | 0 | 6 | 96.2 | 92.9 | 98.8 | 98.5 | 96.7 | 93.0 | 92.9 | 96.3 | 99.4 | 98.9 | 100.0 | 47.1 |
 
+## S5 (primary, Qwen2.5-1.5B-Instruct): FAIL (seed(s) [0] outside 10 pp; seed(s) [1] not yet run)
+
+PRIMARY = B trained+tested on div7_6d (seeds 0,1) vs p^6, p from 4-digit div7 B gens; SECONDARY = 4-digit B adapter on div7_6d (PREDICTIONS.md decision log, 27ba807)
+
+- Qwen2.5-1.5B-Instruct: primary FAIL (seed(s) [0] outside 10 pp; seed(s) [1] not yet run); secondary PENDING
+
+- [primary] div7_6d Qwen2.5-1.5B-Instruct n=180 s0: p=0.9549 (div7 B seed 0) -> p^6=75.8%, observed answer acc 96.2% (gens), diff +20.4 pp -> OUTSIDE 10 pp. Post hoc: fully correct 6-digit traces 92.9% vs p^6; guess model p^6 + (1 - p^6) g = 89.4%

@@ -3,6 +3,50 @@
  "notes": [],
  "div": [
   {
+   "task": "div13",
+   "eval_task": "div13",
+   "train_task": "div13",
+   "arm": "B",
+   "n": 180,
+   "seed": 0,
+   "model": "Qwen2.5-1.5B-Instruct",
+   "prompt_mode": "plain",
+   "gens_path": "results/v2/gens/Qwen2.5-1.5B-Instruct/div13_B_180_0.jsonl",
+   "n_items": 240,
+   "k": 4,
+   "answer_acc": 0.5458333333333333,
+   "parse_rate": 1.0,
+   "exact_k_steps_rate": 1.0,
+   "p_uncond": 0.434375,
+   "p_cond": 0.5655296229802513,
+   "p_cond_by_position": [
+    1.0,
+    0.21666666666666667,
+    0.21153846153846154,
+    0.48
+   ],
+   "p_cond_after_first_step": 0.23659305993690852,
+   "p_uncond_by_position": [
+    1.0,
+    0.21666666666666667,
+    0.10416666666666667,
+    0.4166666666666667
+   ],
+   "local_arith_acc": 0.3541666666666667,
+   "digit_copy_acc": 0.9979166666666667,
+   "carry_consistency": 1.0,
+   "trace_correct_rate": 0.020833333333333332,
+   "answer_trace_consistency": 1.0,
+   "n_consistency_items": 240,
+   "answer_acc_given_trace_correct": 1.0,
+   "answer_acc_given_trace_wrong": 0.5361702127659574,
+   "predicted_acc_p_cond_pow_k": 0.10228723392212602,
+   "predicted_acc_prod_p_i": 0.022000000000000002,
+   "post_hoc_predicted_answer_acc_own_g": 0.5836140787128159,
+   "observed_minus_predicted_pp": 44.35460994112073,
+   "ground_truth_mismatches": 0
+  },
+  {
    "task": "div7",
    "eval_task": "div7",
    "train_task": "div7",
@@ -42,14 +86,96 @@
    "answer_acc_given_trace_wrong": 0.5609756097560976,
    "predicted_acc_p_cond_pow_k": 0.8315981921170909,
    "predicted_acc_prod_p_i": 0.8293269230769231,
+   "post_hoc_predicted_answer_acc_own_g": 0.926067498978235,
    "observed_minus_predicted_pp": 9.340180788290919,
+   "ground_truth_mismatches": 0
+  },
+  {
+   "task": "div7_6d",
+   "eval_task": "div7_6d",
+   "train_task": "div7_6d",
+   "arm": "B",
+   "n": 180,
+   "seed": 0,
+   "model": "Qwen2.5-1.5B-Instruct",
+   "prompt_mode": "plain",
+   "gens_path": "results/v2/gens/Qwen2.5-1.5B-Instruct/div7_6d_B_180_0.jsonl",
+   "n_items": 240,
+   "k": 6,
+   "answer_acc": 0.9625,
+   "parse_rate": 1.0,
+   "exact_k_steps_rate": 1.0,
+   "p_uncond": 0.9673611111111111,
+   "p_cond": 0.9879261363636364,
+   "p_cond_by_position": [
+    1.0,
+    0.9875,
+    0.9915611814345991,
+    0.9744680851063829,
+    0.9868995633187773,
+    0.986784140969163
+   ],
+   "p_cond_after_first_step": 0.985445205479452,
+   "p_uncond_by_position": [
+    1.0,
+    0.9875,
+    0.9791666666666666,
+    0.9541666666666667,
+    0.9458333333333333,
+    0.9375
+   ],
+   "local_arith_acc": 0.99375,
+   "digit_copy_acc": 0.9888888888888889,
+   "carry_consistency": 1.0,
+   "trace_correct_rate": 0.9291666666666667,
+   "answer_trace_consistency": 1.0,
+   "n_consistency_items": 240,
+   "answer_acc_given_trace_correct": 1.0,
+   "answer_acc_given_trace_wrong": 0.47058823529411764,
+   "predicted_acc_p_cond_pow_k": 0.9297086060431481,
+   "predicted_acc_prod_p_i": 0.9292217327459618,
+   "post_hoc_predicted_answer_acc_own_g": 0.9627869090816666,
+   "observed_minus_predicted_pp": 3.2791393956851933,
    "ground_truth_mismatches": 0
   }
  ],
  "prime": [],
  "S5": {
-  "status": "PENDING",
+  "status": "FAIL (seed(s) [0] outside 10 pp; seed(s) [1] not yet run)",
+  "status_by_model": {
+   "Qwen2.5-1.5B-Instruct": {
+    "primary": "FAIL (seed(s) [0] outside 10 pp; seed(s) [1] not yet run)",
+    "secondary": "PENDING"
+   }
+  },
   "tolerance_pp": 10.0,
-  "cells": []
+  "rule": "PRIMARY = B trained+tested on div7_6d (seeds 0,1) vs p^6, p from 4-digit div7 B gens; SECONDARY = 4-digit B adapter on div7_6d (PREDICTIONS.md decision log, 27ba807)",
+  "cells": [
+   {
+    "task": "div7_6d",
+    "role": "primary",
+    "primary": true,
+    "model": "Qwen2.5-1.5B-Instruct",
+    "seed": 0,
+    "n": 180,
+    "p": 0.954945054945055,
+    "p_source": "div7 B seed 0",
+    "predicted_p6": 0.7583510715581868,
+    "observed_acc": 0.9625,
+    "obs_source": "gens",
+    "diff_pp": 20.41489284418132,
+    "within_10pp": false,
+    "post_hoc": {
+     "label": "post hoc (decision log 2026-09-25 21:27)",
+     "trace_correct_6digit": 0.9291666666666667,
+     "trace_correct_minus_p6_pp": 17.08155951084799,
+     "g_4digit_answer_acc_when_trace_wrong": 0.5609756097560976,
+     "predicted_answer_acc_with_guessing": 0.8939102265377405,
+     "answer_minus_guess_model_pp": 6.858977346225947,
+     "p_after_first_step": 0.9388059701492537,
+     "p_after_first_step_pow5": 0.7292546612433968
+    }
+   }
+  ]
  }
 }

@@ -108,13 +108,25 @@ def prereg(st, ru, sp):
     res["S4"] = {"status": "PENDING" if not trs else ("PASS" if all(x["diff"] > 0 for x in trs) else "FAIL"),
                  "detail": [f"{C.short_model(x['model'])} s{x['seed']}: B {pct(x['acc_x'])} A {pct(x['acc_y'])} "
                             f"diff {100 * x['diff']:+.1f} pp p={x['p_exact']:.1g}" for x in trs] or ["no Qwen2.5-3B div7 A/B pair yet"]}
-    # S5: from steps.json
+    # S5: from steps.json (primary/secondary per the PREDICTIONS.md decision log, 27ba807)
     if sp:
         cells = [c for c in sp["S5"]["cells"] if "p" in c]
+        det = []
+        for c in cells:
+            ph = c.get("post_hoc", {})
+            extra = []
+            if ph.get("trace_correct_6digit") is not None:
+                extra.append(f"fully correct traces {pct(ph['trace_correct_6digit'])}")
+            if ph.get("predicted_answer_acc_with_guessing") is not None:
+                extra.append(f"p^6+(1-p^6)g {pct(ph['predicted_answer_acc_with_guessing'])} "
+                             f"(g={ph['g_4digit_answer_acc_when_trace_wrong']:.3f})")
+            det.append(f"[{c.get('role', '?')}] {c['task']} {c['model']} s{c['seed']}: p={c['p']:.3f} ({c['p_source']}), "
+                       f"p^6 {pct(c['predicted_p6'])} vs answer acc {pct(c['observed_acc'])} ({c['diff_pp']:+.1f} pp, "
+                       f"{'within' if c['within_10pp'] else 'OUTSIDE'} 10)" + (f"; post hoc: {', '.join(extra)}" if extra else ""))
+        sm = sp["S5"].get("status_by_model", {})
         res["S5"] = {"status": sp["S5"]["status"],
-                     "detail": [f"{c['task']} {c['model']} s{c['seed']}: p={c['p']:.3f} ({c['p_source']}), p^6 {pct(c['predicted_p6'])} "
-                                f"vs observed {pct(c['observed_acc'])} ({c['diff_pp']:+.1f} pp)" for c in cells]
-                     or ["needs div7 B gens (4-digit) and a B cell scored on div7_6d"]}
+                     "detail": ([f"{m}: primary {v['primary']}, secondary {v['secondary']}" for m, v in sm.items()] + det)
+                     or ["primary = B trained+tested on div7_6d (seeds 0,1); needs 4-digit div7 B gens and div7_6d B runs"]}
     else:
         res["S5"] = {"status": "PENDING", "detail": ["steps.json missing"]}
     # S6 (per model): prime A adapter on prime_hard: acc < 60% and agreement with 'odd & no factor <= 7' > truth
@@ -269,12 +281,16 @@ def main():
     if sp and (sp.get("div") or sp.get("prime")):
         L += ["## 4. Trace steps (generations)", ""]
         if sp.get("div"):
-            L += ["| model | task | arm | mode | seed | k | answer acc | trace correct | p_cond | p_cond^k | local arith | "
-                  "answer-trace consistency |", "|---|---|---|---|---|---|---|---|---|---|---|---|"]
-            for c in sp["div"]:
+            L += ["p_cond = P(step correct | previous correct); p after 1 excludes the near-trivial first step; guess model "
+                  "(post hoc) = p^k + (1 - p^k) g, g = the cell's answer accuracy when its trace is wrong.", "",
+                  "| model | task | arm | mode | seed | k | answer acc | trace correct | p_cond | p after 1 | p_cond^k | guess model | "
+                  "local arith | answer-trace consistency |", "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
+            for c in sorted(sp["div"], key=lambda c: (c["model"], C.divisor_of_task(c["eval_task"]) or 0, c["task"], c["arm"], c["seed"])):
                 L.append(f"| {c['model']} | {c['task']} | {c['arm']} | {c['prompt_mode']} | {c['seed']} | {c['k']} | "
                          f"{pct(c['answer_acc'])} | {pct(c['trace_correct_rate'])} | {pct(c['p_cond'])} | "
-                         f"{pct(c['predicted_acc_p_cond_pow_k'])} | {pct(c['local_arith_acc'])} | {pct(c['answer_trace_consistency'])} |")
+                         f"{pct(c.get('p_cond_after_first_step'))} | {pct(c['predicted_acc_p_cond_pow_k'])} | "
+                         f"{pct(c.get('post_hoc_predicted_answer_acc_own_g'))} | {pct(c['local_arith_acc'])} | "
+                         f"{pct(c['answer_trace_consistency'])} |")
         if sp.get("prime"):
             L += ["", "| model | task | arm | seed | acc | errors | truncated & wrong | wrong with Answer line | "
                   "acc by true #trial divisions (1 / 2-3 / 4-8 / 9-16 / 17+) |", "|---|---|---|---|---|---|---|---|---|"]

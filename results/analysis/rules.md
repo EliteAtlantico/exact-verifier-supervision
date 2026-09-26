@@ -7,12 +7,14 @@ Agreement = fraction of test items where the model's (recovered) answer equals t
 | arm | n | seed | model | src | acc | P(Yes) | always_No | always_Yes | last_digit_is_3 | last_digit_0_or_5 | last_digit_even | digit_sum_div_13 | digit_sum_div_3 | contains_digit_7 | true_label | best shortcut |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | A | 180 | 0 | Qwen2.5-1.5B-Instruct | gens | 49.6 | 0.00 | 99.6 | 0.4 | 87.1 | 82.5 | 48.8 | 92.1 | 67.1 | 62.1 | 49.6 | digit_sum_div_13 (92.1; kappa -0.01 vs truth -0.01) |
+| B | 180 | 0 | Qwen2.5-1.5B-Instruct | gens | 54.6 | 0.76 | 23.8 | 76.2 | 29.6 | 24.2 | 36.2 | 29.6 | 39.6 | 48.8 | 54.6 | contains_digit_7 (48.8; kappa 0.09 vs truth 0.09) |
 
 Best agreement by ANY function of the last digit / digit sum (vs permutation-null mean, q95)
 
 | arm | n | seed | last digit | null mean / q95 | digit sum | null mean / q95 |
 |---|---|---|---|---|---|---|
 | A | 180 | 0 | 99.6 | 99.6 / 99.6 | 99.6 | 99.6 / 99.6 |
+| B | 180 | 0 | 84.6 | 76.3 / 76.2 | 77.1 | 77.2 / 78.3 |
 
 ## div7
 
@@ -47,6 +49,18 @@ Best agreement by ANY function of the last digit / digit sum (vs permutation-nul
 | C | 180 | 0 | 72.1 | 72.1 / 72.5 | 75.0 | 73.5 / 75.0 |
 | C | 180 | 1 | 69.6 | 69.7 / 70.4 | 71.2 | 71.5 / 73.3 |
 | base | 0 | 0 | 71.7 | 71.8 / 72.5 | 72.1 | 73.2 / 75.0 |
+
+## div7_6d
+
+| arm | n | seed | model | src | acc | P(Yes) | always_No | always_Yes | last_digit_is_7 | last_digit_0_or_5 | last_digit_even | digit_sum_div_7 | digit_sum_div_3 | contains_digit_7 | true_label | best shortcut |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| B | 180 | 0 | Qwen2.5-1.5B-Instruct | gens | 96.2 | 0.48 | 52.1 | 47.9 | 48.8 | 53.8 | 53.8 | 52.9 | 50.0 | 50.8 | 96.2 | last_digit_even (53.8; kappa 0.07 vs truth 0.93) |
+
+Best agreement by ANY function of the last digit / digit sum (vs permutation-null mean, q95)
+
+| arm | n | seed | last digit | null mean / q95 | digit sum | null mean / q95 |
+|---|---|---|---|---|---|---|
+| B | 180 | 0 | 56.7 | 57.9 / 61.3 | 63.7 | 64.2 / 67.5 |
 
 ## prime
 
