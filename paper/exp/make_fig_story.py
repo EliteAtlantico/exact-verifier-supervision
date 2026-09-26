@@ -99,7 +99,7 @@ def panel_a(ax, runs):
     ax.set_xticklabels([labels[a] for _ in range(3) for a in arms], rotation=40, ha="right", fontsize=8.6)
     ax.set_ylim(40, 108)
     ax.set_ylabel("div7 accuracy (%)")
-    ax.set_title("(a) erasure and retention (div7)", fontsize=9.5, loc="left")
+    ax.set_title("(a) removal and retention (div7)", fontsize=9.5, loc="left")
     ax.grid(axis="y", color=GRID, lw=0.6, zorder=0)
 
 
@@ -160,14 +160,40 @@ def panel_c(ax, runs, model="Qwen2.5-1.5B-Instruct"):
     ax.grid(axis="y", color=GRID, lw=0.6, zorder=0)
 
 
+def panel_d(ax, runs, model="Qwen2.5-1.5B-Instruct"):
+    for arm, lab in (("A", "A answers"), ("B", "B trace")):
+        rs = [r for r in runs if r["task"] == "div7" and r["arm"] == arm and r["model"] == model
+              and (r.get("eval_task") or "div7") == "div7" and (r.get("prompt_mode") or "plain") == "plain"
+              and not r.get("eval_only") and r.get("train_tokens")]
+        byn = {}
+        for r in rs:
+            byn.setdefault((r["n"], r["train_tokens"]), []).append(r["acc"])
+        pts = sorted(byn.items())
+        xs = [k[1] for k, _ in pts]
+        ys = [100 * sum(v) / len(v) for _, v in pts]
+        ax.plot(xs, ys, marker="o", ms=4, lw=1.3, color=COL[arm], label=lab, zorder=3)
+        for (n_, tok), v in pts:
+            ax.annotate(f"n={n_}", (tok, 100 * sum(v) / len(v)), xytext=(3, 4), textcoords="offset points",
+                        fontsize=6.5, color=MUTED)
+    ax.axhline(50, color=MUTED, lw=0.7, ls=(0, (1, 2)), zorder=1)
+    ax.set_xscale("log")
+    ax.set_xlabel("supervised completion tokens (train)")
+    ax.set_ylabel("div7 accuracy (%), 1.5B")
+    ax.set_ylim(40, 108)
+    ax.set_title("(d) tokens are not matched", fontsize=9.5, loc="left")
+    ax.legend(frameon=False, fontsize=7.5, loc="upper left")
+    ax.grid(axis="y", color=GRID, lw=0.6, zorder=0)
+
+
 def main():
     runs = load_runs()
     fig = plt.figure(figsize=(7.0, 4.55))
     gs = fig.add_gridspec(2, 2, width_ratios=[1.55, 1.0], height_ratios=[1.0, 0.95], hspace=1.05, wspace=0.32)
-    axes = [fig.add_subplot(gs[0, 0]), fig.add_subplot(gs[0, 1]), fig.add_subplot(gs[1, :])]
+    axes = [fig.add_subplot(gs[0, 0]), fig.add_subplot(gs[0, 1]), fig.add_subplot(gs[1, 0]), fig.add_subplot(gs[1, 1])]
     panel_a(axes[0], runs)
     panel_b(axes[1])
     panel_c(axes[2], runs)
+    panel_d(axes[3], runs)
     out = os.path.join(PAPER, "fig_story.pdf")
     fig.savefig(out, bbox_inches="tight")
     print("wrote", out)
