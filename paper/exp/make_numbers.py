@@ -1063,7 +1063,7 @@ def run_table():
          "\\begin{longtable}{lllrrrrrr}",
          "\\caption{All logged runs of arms base, A, B, C, D, B$'$, S, A-full and B-ext (\\nTest{} test items per "
          "cell). Cell: the test set, prefixed by the training task when they differ; [cot] and [fewshot4] mark "
-         "prompting controls on the base model. Train tokens: whitespace tokens in the completions. Cap: test "
+         "prompting controls on the base model. SmolLM2: SmolLM2-1.7B-Instruct (S11). Train tokens: whitespace tokens in the completions. Cap: test "
          "generations that hit the generation cap (scored wrong; -- where not logged). Yes: share of test items "
          "answered Yes, from saved generations or recovered from per-item correctness; 0 or 100 marks a "
          "constant-output collapse.}\\label{tab:runs}\\\\",
@@ -1080,7 +1080,7 @@ def run_table():
         cell = r["task"].replace("_", "\\_").replace("->", "$\\to$")
         yr = yes_rate(r)
         L.append("%s & %s & %s & %d & %d & %s & %s & %s & %.1f \\\\" % (
-            C.short_model(r["model"]).replace("Qwen2.5-", "").replace("-Instruct", ""), cell, arm_tex[r["arm"]],
+            C.short_model(r["model"]).replace("Qwen2.5-", "").replace("-Instruct", "").replace("SmolLM2-1.7B", "SmolLM2"), cell, arm_tex[r["arm"]],
             int(r["n"]), int(r["seed"]), thousands(r.get("train_tokens") or 0),
             str(r["n_hit_cap"]) if r.get("n_hit_cap") is not None else "--",
             "%.0f" % (100 * yr) if yr is not None else "--", 100 * r["acc"]))

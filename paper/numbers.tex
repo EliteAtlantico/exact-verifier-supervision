@@ -3,8 +3,8 @@
 \newcommand{\SElevenResult}{on SmolLM2-1.7B-Instruct, traces beat answers on div7 by +15.0 and +22.5 points (seeds 0 and 1), significant in both, so the 20-point threshold fails in seed 0; the grounding control stays within 6.7 points of A}
 \newcommand{\SElevenVerdict}{failed}
 \newcommand{\STenResult}{arm S reaches 77.9\% and 65.8\% on div7 (seeds 0 and 1) and 64.6\% on valid}
-\newcommand{\STwelveResult}{the best of 7 answer-only configurations reaches 53.3\% on div7 (lr 5e-5, 30 epochs, seed 1), 3 of 4 configurations avoid a constant answer in both seeds, and the div3 control reaches --\%}
-\newcommand{\STwelveVerdict}{not complete}
+\newcommand{\STwelveResult}{the best of 8 answer-only configurations reaches 53.3\% on div7 (lr 5e-5, 30 epochs, seed 1), 4 of 4 configurations avoid a constant answer in both seeds, and the div3 control reaches 92.1\%}
+\newcommand{\STwelveVerdict}{passed}
 \newcommand{\SsevenCellA}{holds}
 \newcommand{\SsevenCellB}{holds}
 \newcommand{\SsevenCellC}{holds}
@@ -32,7 +32,7 @@
 \newcommand{\divelevenAsmall}{\TBD}
 \newcommand{\divelevenB}{99.4}
 \newcommand{\divelevenBASeedTxt}{three seeds}
-\newcommand{\divelevenBAci}{[+43.3, +55.3]}
+\newcommand{\divelevenBAci}{[+43.2, +55.1]}
 \newcommand{\divelevenBAdOne}{+50.0}
 \newcommand{\divelevenBAdZero}{+48.3}
 \newcommand{\divelevenBAdiff}{+49.3}
@@ -47,13 +47,13 @@
 \newcommand{\divelevenBasesZero}{55.0}
 \newcommand{\divelevenBlarge}{\TBD}
 \newcommand{\divelevenBnSeeds}{3}
-\newcommand{\divelevenBootABaseCi}{[-10.8, +1.1]}
+\newcommand{\divelevenBootABaseCi}{[-10.8, +1.3]}
 \newcommand{\divelevenBootABaseDiff}{-4.9}
 \newcommand{\divelevenBootABaseSeeds}{3}
-\newcommand{\divelevenBootBACi}{[+43.3, +55.3]}
+\newcommand{\divelevenBootBACi}{[+43.2, +55.1]}
 \newcommand{\divelevenBootBADiff}{+49.3}
 \newcommand{\divelevenBootBASeeds}{3}
-\newcommand{\divelevenBootBBaseCi}{[+38.1, +50.8]}
+\newcommand{\divelevenBootBBaseCi}{[+38.2, +50.8]}
 \newcommand{\divelevenBootBBaseDiff}{+44.4}
 \newcommand{\divelevenBootBBaseSeeds}{3}
 \newcommand{\divelevenBp}{\TBD}
@@ -74,7 +74,7 @@
 \newcommand{\divsevenABaseHolmSig}{2 of 3}
 \newcommand{\divsevenABaseHolmsOne}{0.018}
 \newcommand{\divsevenABaseHolmsTwo}{1.9\times 10^{-4}}
-\newcommand{\divsevenABaseHolmsZero}{0.19}
+\newcommand{\divsevenABaseHolmsZero}{0.24}
 \newcommand{\divsevenABasepsOne}{0.0046}
 \newcommand{\divsevenABasepsOneDisc}{32/60}
 \newcommand{\divsevenABasepsTwo}{6.5\times 10^{-5}}
@@ -123,7 +123,7 @@
 \newcommand{\divsevenAyessZero}{25.8}
 \newcommand{\divsevenB}{88.3}
 \newcommand{\divsevenBASeedTxt}{three seeds}
-\newcommand{\divsevenBAci}{[+30.8, +44.0]}
+\newcommand{\divsevenBAci}{[+31.2, +44.0]}
 \newcommand{\divsevenBAdiff}{+38.1}
 \newcommand{\divsevenBAnSeeds}{3}
 \newcommand{\divsevenBApList}{$p=$ $4.1\times 10^{-27}$, $2\times 10^{-18}$ and $6.8\times 10^{-13}$ for seeds 0--2}
@@ -168,13 +168,13 @@
 \newcommand{\divsevenBnTwoSeventysOne}{92.9}
 \newcommand{\divsevenBnTwoSeventysZero}{99.6}
 \newcommand{\divsevenBno}{94.4}
-\newcommand{\divsevenBootABaseCi}{[-19.2, -4.7]}
+\newcommand{\divsevenBootABaseCi}{[-19.2, -5.0]}
 \newcommand{\divsevenBootABaseDiff}{-12.2}
 \newcommand{\divsevenBootABaseSeeds}{3}
-\newcommand{\divsevenBootBACi}{[+30.8, +44.0]}
+\newcommand{\divsevenBootBACi}{[+31.2, +44.0]}
 \newcommand{\divsevenBootBADiff}{+38.1}
 \newcommand{\divsevenBootBASeeds}{3}
-\newcommand{\divsevenBootBBaseCi}{[+17.1, +34.2]}
+\newcommand{\divsevenBootBBaseCi}{[+17.1, +34.6]}
 \newcommand{\divsevenBootBBaseDiff}{+25.8}
 \newcommand{\divsevenBootBBaseSeeds}{3}
 \newcommand{\divsevenBootBBpCi}{[+34.6, +48.8]}
@@ -183,18 +183,18 @@
 \newcommand{\divsevenBootBCCi}{[+34.6, +47.9]}
 \newcommand{\divsevenBootBCDiff}{+41.2}
 \newcommand{\divsevenBootBCSeeds}{2}
-\newcommand{\divsevenBootBDCi}{[+34.6, +47.5]}
+\newcommand{\divsevenBootBDCi}{[+35.0, +47.5]}
 \newcommand{\divsevenBootBDDiff}{+41.0}
 \newcommand{\divsevenBootBDSeeds}{2}
-\newcommand{\divsevenBootBSCi}{[+8.3, +20.8]}
-\newcommand{\divsevenBootBSDiff}{+14.6}
-\newcommand{\divsevenBootBSSeeds}{1}
+\newcommand{\divsevenBootBSCi}{[+10.4, +28.7]}
+\newcommand{\divsevenBootBSDiff}{+19.4}
+\newcommand{\divsevenBootBSSeeds}{2}
 \newcommand{\divsevenBootDACi}{[-10.8, +8.3]}
 \newcommand{\divsevenBootDADiff}{-1.2}
 \newcommand{\divsevenBootDASeeds}{2}
-\newcommand{\divsevenBootSACi}{[+17.5, +33.8]}
-\newcommand{\divsevenBootSADiff}{+25.8}
-\newcommand{\divsevenBootSASeeds}{1}
+\newcommand{\divsevenBootSACi}{[+10.0, +30.8]}
+\newcommand{\divsevenBootSADiff}{+20.4}
+\newcommand{\divsevenBootSASeeds}{2}
 \newcommand{\divsevenBp}{49.6}
 \newcommand{\divsevenBpSeedTxt}{two seeds}
 \newcommand{\divsevenBpnSeeds}{2}
@@ -248,7 +248,7 @@
 \newcommand{\divsevenSixAsmall}{\TBD}
 \newcommand{\divsevenSixB}{93.1}
 \newcommand{\divsevenSixBASeedTxt}{two seeds}
-\newcommand{\divsevenSixBAci}{[+34.6, +52.5]}
+\newcommand{\divsevenSixBAci}{[+35.0, +52.9]}
 \newcommand{\divsevenSixBAdiff}{+43.8}
 \newcommand{\divsevenSixBAnSeeds}{2}
 \newcommand{\divsevenSixBApMaxCol}{$4.5\times 10^{-23}$}
@@ -260,13 +260,13 @@
 \newcommand{\divsevenSixBasesZero}{52.5}
 \newcommand{\divsevenSixBlarge}{\TBD}
 \newcommand{\divsevenSixBnSeeds}{2}
-\newcommand{\divsevenSixBootABaseCi}{[-15.0, +8.3]}
+\newcommand{\divsevenSixBootABaseCi}{[-14.6, +8.3]}
 \newcommand{\divsevenSixBootABaseDiff}{-3.1}
 \newcommand{\divsevenSixBootABaseSeeds}{2}
-\newcommand{\divsevenSixBootBACi}{[+34.6, +52.5]}
+\newcommand{\divsevenSixBootBACi}{[+35.0, +52.9]}
 \newcommand{\divsevenSixBootBADiff}{+43.8}
 \newcommand{\divsevenSixBootBASeeds}{2}
-\newcommand{\divsevenSixBootBBaseCi}{[+31.7, +48.8]}
+\newcommand{\divsevenSixBootBBaseCi}{[+32.1, +48.8]}
 \newcommand{\divsevenSixBootBBaseDiff}{+40.6}
 \newcommand{\divsevenSixBootBBaseSeeds}{2}
 \newcommand{\divsevenSixBp}{\TBD}
@@ -327,7 +327,7 @@
 \newcommand{\divthirteenAsmall}{\TBD}
 \newcommand{\divthirteenB}{53.9}
 \newcommand{\divthirteenBASeedTxt}{three seeds}
-\newcommand{\divthirteenBAci}{[-4.6, +12.4]}
+\newcommand{\divthirteenBAci}{[-4.6, +12.1]}
 \newcommand{\divthirteenBAdOne}{-1.2}
 \newcommand{\divthirteenBAdZero}{+5.0}
 \newcommand{\divthirteenBAdiff}{+3.5}
@@ -363,16 +363,16 @@
 \newcommand{\divthirteenBnThreeSixtysZero}{75.4}
 \newcommand{\divthirteenBnTwoSeventy}{\TBD}
 \newcommand{\divthirteenBnTwoSeventysZero}{\TBD}
-\newcommand{\divthirteenBootABaseCi}{[-6.4, +6.2]}
+\newcommand{\divthirteenBootABaseCi}{[-6.2, +6.2]}
 \newcommand{\divthirteenBootABaseDiff}{+0.0}
 \newcommand{\divthirteenBootABaseSeeds}{3}
-\newcommand{\divthirteenBootBACi}{[-4.6, +12.4]}
+\newcommand{\divthirteenBootBACi}{[-4.6, +12.1]}
 \newcommand{\divthirteenBootBADiff}{+3.5}
 \newcommand{\divthirteenBootBASeeds}{3}
 \newcommand{\divthirteenBootBBaseCi}{[-5.1, +12.6]}
 \newcommand{\divthirteenBootBBaseDiff}{+3.5}
 \newcommand{\divthirteenBootBBaseSeeds}{3}
-\newcommand{\divthirteenBootBCCi}{[+0.4, +18.3]}
+\newcommand{\divthirteenBootBCCi}{[+0.4, +18.8]}
 \newcommand{\divthirteenBootBCDiff}{+9.6}
 \newcommand{\divthirteenBootBCSeeds}{1}
 \newcommand{\divthirteenBp}{\TBD}
@@ -409,7 +409,7 @@
 \newcommand{\divthreeAsmall}{\TBD}
 \newcommand{\divthreeB}{100.0}
 \newcommand{\divthreeBASeedTxt}{three seeds}
-\newcommand{\divthreeBAci}{[+37.8, +54.4]}
+\newcommand{\divthreeBAci}{[+37.9, +54.3]}
 \newcommand{\divthreeBAdOne}{+37.5}
 \newcommand{\divthreeBAdZero}{+50.0}
 \newcommand{\divthreeBAdiff}{+46.0}
@@ -422,10 +422,10 @@
 \newcommand{\divthreeBasesZero}{78.3}
 \newcommand{\divthreeBlarge}{\TBD}
 \newcommand{\divthreeBnSeeds}{3}
-\newcommand{\divthreeBootABaseCi}{[-32.8, -14.6]}
+\newcommand{\divthreeBootABaseCi}{[-32.5, -14.4]}
 \newcommand{\divthreeBootABaseDiff}{-24.3}
 \newcommand{\divthreeBootABaseSeeds}{3}
-\newcommand{\divthreeBootBACi}{[+37.8, +54.4]}
+\newcommand{\divthreeBootBACi}{[+37.9, +54.3]}
 \newcommand{\divthreeBootBADiff}{+46.0}
 \newcommand{\divthreeBootBASeeds}{3}
 \newcommand{\divthreeBootBBaseCi}{[+16.7, +27.1]}
@@ -500,10 +500,10 @@
 \newcommand{\famPrimeBsZero}{62.5}
 \newcommand{\famValidAsZero}{99.6}
 \newcommand{\famValidBsZero}{80.4}
-\newcommand{\fitNOneFive}{17}
-\newcommand{\fitNThreeB}{13}
+\newcommand{\fitNOneFive}{21}
+\newcommand{\fitNThreeB}{17}
 \newcommand{\fitRsqOneFive}{0.41}
-\newcommand{\fitRsqThreeB}{0.34}
+\newcommand{\fitRsqThreeB}{0.38}
 \newcommand{\halfBdivelevenA}{\TBD}
 \newcommand{\halfBdivelevenB}{\TBD}
 \newcommand{\halfBdivelevenBase}{\TBD}
@@ -525,7 +525,7 @@
 \newcommand{\halfBdivsevenBSeedTxt}{one seed}
 \newcommand{\halfBdivsevenBase}{\TBD}
 \newcommand{\halfBdivsevenBnSeeds}{1}
-\newcommand{\halfBdivsevenBootBACi}{[+22.1, +35.0]}
+\newcommand{\halfBdivsevenBootBACi}{[+22.5, +35.4]}
 \newcommand{\halfBdivsevenBootBADiff}{+28.7}
 \newcommand{\halfBdivsevenBootBASeeds}{1}
 \newcommand{\halfBdivsevenBp}{\TBD}
@@ -573,7 +573,7 @@
 \newcommand{\halfBprimeBSeedTxt}{one seed}
 \newcommand{\halfBprimeBase}{\TBD}
 \newcommand{\halfBprimeBnSeeds}{1}
-\newcommand{\halfBprimeBootBACi}{[-19.2, -2.5]}
+\newcommand{\halfBprimeBootBACi}{[-18.8, -2.9]}
 \newcommand{\halfBprimeBootBADiff}{-10.8}
 \newcommand{\halfBprimeBootBASeeds}{1}
 \newcommand{\halfBprimeBorn}{\TBD}
@@ -648,7 +648,7 @@
 \newcommand{\pDivsevenTransfer}{0.906}
 \newcommand{\pDivsevennFiveForty}{\TBD}
 \newcommand{\pDivsevennFiveFortysZero}{\TBD}
-\newcommand{\pDivsevennNinety}{0.736}
+\newcommand{\pDivsevennNinety}{0.738}
 \newcommand{\pDivsevennNinetysZero}{0.736}
 \newcommand{\pDivsevennOneEighty}{0.955}
 \newcommand{\pDivsevennOneEightysZero}{0.955}
@@ -656,11 +656,11 @@
 \newcommand{\pDivsevennSixtysZero}{\TBD}
 \newcommand{\pDivsevennThreeSixty}{\TBD}
 \newcommand{\pDivsevennThreeSixtysZero}{\TBD}
-\newcommand{\pDivsevennTwoSeventy}{0.997}
+\newcommand{\pDivsevennTwoSeventy}{0.981}
 \newcommand{\pDivsevennTwoSeventysZero}{0.997}
 \newcommand{\pDivsevensZero}{0.955}
 \newcommand{\pDivthirteen}{0.593}
-\newcommand{\pDivthirteennFiveForty}{0.980}
+\newcommand{\pDivthirteennFiveForty}{0.973}
 \newcommand{\pDivthirteennFiveFortysZero}{0.980}
 \newcommand{\pDivthirteennNinety}{\TBD}
 \newcommand{\pDivthirteennNinetysZero}{\TBD}
@@ -668,7 +668,7 @@
 \newcommand{\pDivthirteennOneEightysZero}{0.566}
 \newcommand{\pDivthirteennSixty}{\TBD}
 \newcommand{\pDivthirteennSixtysZero}{\TBD}
-\newcommand{\pDivthirteennThreeSixty}{0.839}
+\newcommand{\pDivthirteennThreeSixty}{0.827}
 \newcommand{\pDivthirteennThreeSixtysZero}{0.839}
 \newcommand{\pDivthirteennTwoSeventy}{\TBD}
 \newcommand{\pDivthirteennTwoSeventysZero}{\TBD}
@@ -709,7 +709,7 @@
 \newcommand{\primeAtoksZero}{80.8}
 \newcommand{\primeB}{55.8}
 \newcommand{\primeBASeedTxt}{three seeds}
-\newcommand{\primeBAci}{[-34.9, -17.2]}
+\newcommand{\primeBAci}{[-35.0, -17.2]}
 \newcommand{\primeBAdiff}{-26.2}
 \newcommand{\primeBAnSeeds}{3}
 \newcommand{\primeBApList}{$p=$ $5.7\times 10^{-7}$, $1.7\times 10^{-7}$ and $8\times 10^{-11}$ for seeds 0--2}
@@ -753,13 +753,13 @@
 \newcommand{\primeBootABaseCi}{[+14.7, +30.4]}
 \newcommand{\primeBootABaseDiff}{+22.5}
 \newcommand{\primeBootABaseSeeds}{3}
-\newcommand{\primeBootBACi}{[-34.9, -17.2]}
+\newcommand{\primeBootBACi}{[-35.0, -17.2]}
 \newcommand{\primeBootBADiff}{-26.2}
 \newcommand{\primeBootBASeeds}{3}
-\newcommand{\primeBootBBaseCi}{[-11.2, +3.6]}
+\newcommand{\primeBootBBaseCi}{[-11.2, +3.8]}
 \newcommand{\primeBootBBaseDiff}{-3.8}
 \newcommand{\primeBootBBaseSeeds}{3}
-\newcommand{\primeBootBCCi}{[-2.5, +15.4]}
+\newcommand{\primeBootBCCi}{[-2.5, +15.8]}
 \newcommand{\primeBootBCDiff}{+5.6}
 \newcommand{\primeBootBCSeeds}{2}
 \newcommand{\primeBootBSCi}{[-17.1, -1.2]}
@@ -891,9 +891,9 @@
 \newcommand{\sevenBdivelevenBSeedTxt}{two seeds}
 \newcommand{\sevenBdivelevenBase}{\TBD}
 \newcommand{\sevenBdivelevenBnSeeds}{2}
-\newcommand{\sevenBdivelevenBootBACi}{[+36.7, +50.0]}
-\newcommand{\sevenBdivelevenBootBADiff}{+43.3}
-\newcommand{\sevenBdivelevenBootBASeeds}{1}
+\newcommand{\sevenBdivelevenBootBACi}{[+38.8, +52.5]}
+\newcommand{\sevenBdivelevenBootBADiff}{+45.8}
+\newcommand{\sevenBdivelevenBootBASeeds}{2}
 \newcommand{\sevenBdivelevenBp}{\TBD}
 \newcommand{\sevenBdivelevenBsOne}{100.0}
 \newcommand{\sevenBdivelevenBsZero}{98.8}
@@ -934,30 +934,30 @@
 \newcommand{\sevenBdivsevenBnThreeSixtysZero}{\TBD}
 \newcommand{\sevenBdivsevenBnTwoSeventy}{\TBD}
 \newcommand{\sevenBdivsevenBnTwoSeventysZero}{\TBD}
-\newcommand{\sevenBdivsevenBootABaseCi}{[-39.2, -23.5]}
+\newcommand{\sevenBdivsevenBootABaseCi}{[-39.0, -23.3]}
 \newcommand{\sevenBdivsevenBootABaseDiff}{-31.5}
 \newcommand{\sevenBdivsevenBootABaseSeeds}{2}
-\newcommand{\sevenBdivsevenBootBACi}{[+30.8, +44.2]}
+\newcommand{\sevenBdivsevenBootBACi}{[+30.8, +43.8]}
 \newcommand{\sevenBdivsevenBootBADiff}{+37.5}
 \newcommand{\sevenBdivsevenBootBASeeds}{2}
 \newcommand{\sevenBdivsevenBootBBaseCi}{[-0.8, +12.5]}
 \newcommand{\sevenBdivsevenBootBBaseDiff}{+6.0}
 \newcommand{\sevenBdivsevenBootBBaseSeeds}{2}
-\newcommand{\sevenBdivsevenBootBBpCi}{[+26.2, +40.4]}
-\newcommand{\sevenBdivsevenBootBBpDiff}{+33.3}
-\newcommand{\sevenBdivsevenBootBBpSeeds}{1}
-\newcommand{\sevenBdivsevenBootBDCi}{[+31.2, +46.2]}
-\newcommand{\sevenBdivsevenBootBDDiff}{+38.8}
-\newcommand{\sevenBdivsevenBootBDSeeds}{1}
-\newcommand{\sevenBdivsevenBootBSCi}{[-2.1, +10.8]}
-\newcommand{\sevenBdivsevenBootBSDiff}{+4.6}
-\newcommand{\sevenBdivsevenBootBSSeeds}{1}
-\newcommand{\sevenBdivsevenBootDACi}{[-9.6, +6.7]}
-\newcommand{\sevenBdivsevenBootDADiff}{-1.2}
-\newcommand{\sevenBdivsevenBootDASeeds}{1}
-\newcommand{\sevenBdivsevenBootSACi}{[+25.4, +40.4]}
-\newcommand{\sevenBdivsevenBootSADiff}{+32.9}
-\newcommand{\sevenBdivsevenBootSASeeds}{1}
+\newcommand{\sevenBdivsevenBootBBpCi}{[+28.7, +48.8]}
+\newcommand{\sevenBdivsevenBootBBpDiff}{+38.5}
+\newcommand{\sevenBdivsevenBootBBpSeeds}{2}
+\newcommand{\sevenBdivsevenBootBDCi}{[+32.9, +45.8]}
+\newcommand{\sevenBdivsevenBootBDDiff}{+39.4}
+\newcommand{\sevenBdivsevenBootBDSeeds}{2}
+\newcommand{\sevenBdivsevenBootBSCi}{[+0.0, +13.3]}
+\newcommand{\sevenBdivsevenBootBSDiff}{+6.9}
+\newcommand{\sevenBdivsevenBootBSSeeds}{2}
+\newcommand{\sevenBdivsevenBootDACi}{[-8.8, +5.2]}
+\newcommand{\sevenBdivsevenBootDADiff}{-1.9}
+\newcommand{\sevenBdivsevenBootDASeeds}{2}
+\newcommand{\sevenBdivsevenBootSACi}{[+22.3, +38.3]}
+\newcommand{\sevenBdivsevenBootSADiff}{+30.6}
+\newcommand{\sevenBdivsevenBootSASeeds}{2}
 \newcommand{\sevenBdivsevenBp}{50.0}
 \newcommand{\sevenBdivsevenBpSeedTxt}{two seeds}
 \newcommand{\sevenBdivsevenBpnSeeds}{2}
@@ -1016,13 +1016,13 @@
 \newcommand{\sevenBdivthirteenBnThreeSixtysZero}{\TBD}
 \newcommand{\sevenBdivthirteenBnTwoSeventy}{\TBD}
 \newcommand{\sevenBdivthirteenBnTwoSeventysZero}{\TBD}
-\newcommand{\sevenBdivthirteenBootABaseCi}{[-40.8, -25.4]}
+\newcommand{\sevenBdivthirteenBootABaseCi}{[-40.8, -25.8]}
 \newcommand{\sevenBdivthirteenBootABaseDiff}{-33.3}
 \newcommand{\sevenBdivthirteenBootABaseSeeds}{2}
-\newcommand{\sevenBdivthirteenBootBACi}{[+10.0, +23.8]}
+\newcommand{\sevenBdivthirteenBootBACi}{[+10.4, +23.3]}
 \newcommand{\sevenBdivthirteenBootBADiff}{+16.9}
 \newcommand{\sevenBdivthirteenBootBASeeds}{2}
-\newcommand{\sevenBdivthirteenBootBBaseCi}{[-24.2, -8.8]}
+\newcommand{\sevenBdivthirteenBootBBaseCi}{[-24.6, -8.8]}
 \newcommand{\sevenBdivthirteenBootBBaseDiff}{-16.5}
 \newcommand{\sevenBdivthirteenBootBBaseSeeds}{2}
 \newcommand{\sevenBdivthirteenBp}{\TBD}
@@ -1063,16 +1063,16 @@
 \newcommand{\sevenBprimeBootABaseCi}{[-25.0, +15.4]}
 \newcommand{\sevenBprimeBootABaseDiff}{-5.2}
 \newcommand{\sevenBprimeBootABaseSeeds}{2}
-\newcommand{\sevenBprimeBootBACi}{[-7.1, +42.9]}
+\newcommand{\sevenBprimeBootBACi}{[-7.1, +43.3]}
 \newcommand{\sevenBprimeBootBADiff}{+17.7}
 \newcommand{\sevenBprimeBootBASeeds}{2}
-\newcommand{\sevenBprimeBootBBaseCi}{[+3.5, +21.7]}
+\newcommand{\sevenBprimeBootBBaseCi}{[+3.8, +21.7]}
 \newcommand{\sevenBprimeBootBBaseDiff}{+12.5}
 \newcommand{\sevenBprimeBootBBaseSeeds}{2}
-\newcommand{\sevenBprimeBootBSCi}{[+10.8, +23.8]}
+\newcommand{\sevenBprimeBootBSCi}{[+10.8, +23.3]}
 \newcommand{\sevenBprimeBootBSDiff}{+17.1}
 \newcommand{\sevenBprimeBootBSSeeds}{1}
-\newcommand{\sevenBprimeBootSACi}{[+13.8, +27.5]}
+\newcommand{\sevenBprimeBootSACi}{[+13.8, +27.9]}
 \newcommand{\sevenBprimeBootSADiff}{+20.8}
 \newcommand{\sevenBprimeBootSASeeds}{1}
 \newcommand{\sevenBprimeBorn}{\TBD}
@@ -1112,15 +1112,15 @@
 \newcommand{\sevenBvalidBerrTemplate}{99}
 \newcommand{\sevenBvalidBerrYes}{100}
 \newcommand{\sevenBvalidBnSeeds}{2}
-\newcommand{\sevenBvalidBootABaseCi}{[+6.7, +14.6]}
+\newcommand{\sevenBvalidBootABaseCi}{[+6.7, +14.2]}
 \newcommand{\sevenBvalidBootABaseDiff}{+10.4}
-\newcommand{\sevenBvalidBootABaseSeeds}{1}
-\newcommand{\sevenBvalidBootBACi}{[-47.9, -35.4]}
-\newcommand{\sevenBvalidBootBADiff}{-41.7}
-\newcommand{\sevenBvalidBootBASeeds}{1}
-\newcommand{\sevenBvalidBootBBaseCi}{[-39.2, -23.3]}
-\newcommand{\sevenBvalidBootBBaseDiff}{-31.2}
-\newcommand{\sevenBvalidBootBBaseSeeds}{1}
+\newcommand{\sevenBvalidBootABaseSeeds}{2}
+\newcommand{\sevenBvalidBootBACi}{[-45.8, -1.2]}
+\newcommand{\sevenBvalidBootBADiff}{-22.1}
+\newcommand{\sevenBvalidBootBASeeds}{2}
+\newcommand{\sevenBvalidBootBBaseCi}{[-36.2, +10.4]}
+\newcommand{\sevenBvalidBootBBaseDiff}{-11.7}
+\newcommand{\sevenBvalidBootBBaseSeeds}{2}
 \newcommand{\sevenBvalidBp}{\TBD}
 \newcommand{\sevenBvalidBsOne}{97.5}
 \newcommand{\sevenBvalidBsZero}{58.3}
@@ -1146,8 +1146,8 @@
 \newcommand{\sweepAlrFiveEpThirtySZero}{50.8}
 \newcommand{\sweepAlrFiveEpThirtySZeroYes}{0.36}
 \newcommand{\sweepAlrFiveEpThirtyTok}{10{,}800}
-\newcommand{\sweepAlrTwoEpTenSOne}{--}
-\newcommand{\sweepAlrTwoEpTenSOneYes}{--}
+\newcommand{\sweepAlrTwoEpTenSOne}{48.8}
+\newcommand{\sweepAlrTwoEpTenSOneYes}{0.75}
 \newcommand{\sweepAlrTwoEpTenSZero}{49.6}
 \newcommand{\sweepAlrTwoEpTenSZeroYes}{0.39}
 \newcommand{\sweepAlrTwoEpTenTok}{3{,}600}
@@ -1158,8 +1158,8 @@
 \newcommand{\sweepAlrTwoEpThirtyTok}{10{,}800}
 \newcommand{\sweepAmax}{53.3}
 \newcommand{\sweepAmaxConfig}{lr 5e-5, 30 epochs, seed 1}
-\newcommand{\sweepAnonCollapse}{3}
-\newcommand{\sweepDivthreeA}{--}
+\newcommand{\sweepAnonCollapse}{4}
+\newcommand{\sweepDivthreeA}{92.1}
 \newcommand{\threeBbasedivsevenDirect}{100.0}
 \newcommand{\threeBbasedivsevenN}{240}
 \newcommand{\threeBbasedivsevenTokens}{95}
@@ -1223,25 +1223,25 @@
 \newcommand{\threeBdivsevenBootABaseCi}{[-48.8, -34.6]}
 \newcommand{\threeBdivsevenBootABaseDiff}{-41.9}
 \newcommand{\threeBdivsevenBootABaseSeeds}{2}
-\newcommand{\threeBdivsevenBootBACi}{[+9.6, +37.9]}
+\newcommand{\threeBdivsevenBootBACi}{[+10.0, +37.9]}
 \newcommand{\threeBdivsevenBootBADiff}{+22.9}
 \newcommand{\threeBdivsevenBootBASeeds}{2}
 \newcommand{\threeBdivsevenBootBBaseCi}{[-30.4, -8.3]}
 \newcommand{\threeBdivsevenBootBBaseDiff}{-19.0}
 \newcommand{\threeBdivsevenBootBBaseSeeds}{2}
-\newcommand{\threeBdivsevenBootBBpCi}{[+7.1, +27.9]}
-\newcommand{\threeBdivsevenBootBBpDiff}{+17.5}
-\newcommand{\threeBdivsevenBootBBpSeeds}{1}
-\newcommand{\threeBdivsevenBootBDCi}{[+7.9, +28.7]}
-\newcommand{\threeBdivsevenBootBDDiff}{+18.3}
-\newcommand{\threeBdivsevenBootBDSeeds}{1}
+\newcommand{\threeBdivsevenBootBBpCi}{[+10.8, +38.8]}
+\newcommand{\threeBdivsevenBootBBpDiff}{+25.6}
+\newcommand{\threeBdivsevenBootBBpSeeds}{2}
+\newcommand{\threeBdivsevenBootBDCi}{[+11.2, +37.9]}
+\newcommand{\threeBdivsevenBootBDDiff}{+25.2}
+\newcommand{\threeBdivsevenBootBDSeeds}{2}
 \newcommand{\threeBdivsevenBootBSCi}{[-33.3, -10.8]}
 \newcommand{\threeBdivsevenBootBSDiff}{-21.7}
 \newcommand{\threeBdivsevenBootBSSeeds}{2}
-\newcommand{\threeBdivsevenBootDACi}{[-17.1, +7.5]}
-\newcommand{\threeBdivsevenBootDADiff}{-4.6}
-\newcommand{\threeBdivsevenBootDASeeds}{1}
-\newcommand{\threeBdivsevenBootSACi}{[+38.3, +50.8]}
+\newcommand{\threeBdivsevenBootDACi}{[-12.5, +4.6]}
+\newcommand{\threeBdivsevenBootDADiff}{-2.3}
+\newcommand{\threeBdivsevenBootDASeeds}{2}
+\newcommand{\threeBdivsevenBootSACi}{[+38.3, +50.4]}
 \newcommand{\threeBdivsevenBootSADiff}{+44.6}
 \newcommand{\threeBdivsevenBootSASeeds}{2}
 \newcommand{\threeBdivsevenBp}{49.6}
@@ -1321,7 +1321,7 @@
 \newcommand{\threeBdivthirteenBootBACi}{[-4.6, +17.1]}
 \newcommand{\threeBdivthirteenBootBADiff}{+6.9}
 \newcommand{\threeBdivthirteenBootBASeeds}{2}
-\newcommand{\threeBdivthirteenBootBBaseCi}{[-43.8, -27.9]}
+\newcommand{\threeBdivthirteenBootBBaseCi}{[-43.8, -28.3]}
 \newcommand{\threeBdivthirteenBootBBaseDiff}{-36.0}
 \newcommand{\threeBdivthirteenBootBBaseSeeds}{2}
 \newcommand{\threeBdivthirteenBp}{\TBD}
@@ -1371,19 +1371,19 @@
 \newcommand{\threeBprimeBasesZero}{47.1}
 \newcommand{\threeBprimeBnSeeds}{2}
 \newcommand{\threeBprimeBnoFiveAgree}{100.0}
-\newcommand{\threeBprimeBootABaseCi}{[+26.7, +43.8]}
+\newcommand{\threeBprimeBootABaseCi}{[+26.2, +43.8]}
 \newcommand{\threeBprimeBootABaseDiff}{+35.2}
 \newcommand{\threeBprimeBootABaseSeeds}{2}
-\newcommand{\threeBprimeBootBACi}{[-6.2, +10.0]}
+\newcommand{\threeBprimeBootBACi}{[-6.7, +10.0]}
 \newcommand{\threeBprimeBootBADiff}{+2.7}
 \newcommand{\threeBprimeBootBASeeds}{2}
-\newcommand{\threeBprimeBootBBaseCi}{[+28.3, +48.3]}
+\newcommand{\threeBprimeBootBBaseCi}{[+28.3, +47.9]}
 \newcommand{\threeBprimeBootBBaseDiff}{+37.9}
 \newcommand{\threeBprimeBootBBaseSeeds}{2}
-\newcommand{\threeBprimeBootBSCi}{[+13.8, +27.9]}
+\newcommand{\threeBprimeBootBSCi}{[+13.8, +27.5]}
 \newcommand{\threeBprimeBootBSDiff}{+20.8}
 \newcommand{\threeBprimeBootBSSeeds}{1}
-\newcommand{\threeBprimeBootSACi}{[-21.3, -5.0]}
+\newcommand{\threeBprimeBootSACi}{[-21.7, -5.0]}
 \newcommand{\threeBprimeBootSADiff}{-13.3}
 \newcommand{\threeBprimeBootSASeeds}{1}
 \newcommand{\threeBprimeBorn}{\TBD}
@@ -1428,10 +1428,10 @@
 \newcommand{\threeBvalidBootABaseCi}{[+10.0, +18.8]}
 \newcommand{\threeBvalidBootABaseDiff}{+14.2}
 \newcommand{\threeBvalidBootABaseSeeds}{2}
-\newcommand{\threeBvalidBootBACi}{[-11.2, +0.0]}
+\newcommand{\threeBvalidBootBACi}{[-10.8, +0.0]}
 \newcommand{\threeBvalidBootBADiff}{-4.4}
 \newcommand{\threeBvalidBootBASeeds}{2}
-\newcommand{\threeBvalidBootBBaseCi}{[+1.2, +17.1]}
+\newcommand{\threeBvalidBootBBaseCi}{[+1.7, +17.1]}
 \newcommand{\threeBvalidBootBBaseDiff}{+9.8}
 \newcommand{\threeBvalidBootBBaseSeeds}{2}
 \newcommand{\threeBvalidBootBSCi}{[-5.8, +4.2]}
@@ -1480,7 +1480,7 @@
 \newcommand{\validAtoksZero}{100.0}
 \newcommand{\validB}{88.3}
 \newcommand{\validBASeedTxt}{three seeds}
-\newcommand{\validBAci}{[-20.6, +0.4]}
+\newcommand{\validBAci}{[-20.8, +0.4]}
 \newcommand{\validBAdiff}{-10.8}
 \newcommand{\validBAnSeeds}{3}
 \newcommand{\validBApList}{$p=$ $0.50$, $7.1\times 10^{-15}$ and $4.7\times 10^{-10}$ for seeds 0--2}
@@ -1506,18 +1506,24 @@
 \newcommand{\validBlargenSeeds}{1}
 \newcommand{\validBlargesZero}{100.0}
 \newcommand{\validBnSeeds}{3}
-\newcommand{\validBootABaseCi}{[+63.3, +75.0]}
+\newcommand{\validBootABaseCi}{[+63.3, +74.9]}
 \newcommand{\validBootABaseDiff}{+69.2}
 \newcommand{\validBootABaseSeeds}{3}
-\newcommand{\validBootBACi}{[-20.6, +0.4]}
+\newcommand{\validBootBACi}{[-20.8, +0.4]}
 \newcommand{\validBootBADiff}{-10.8}
 \newcommand{\validBootBASeeds}{3}
-\newcommand{\validBootBBaseCi}{[+47.1, +70.0]}
+\newcommand{\validBootBBaseCi}{[+47.4, +70.0]}
 \newcommand{\validBootBBaseDiff}{+58.3}
 \newcommand{\validBootBBaseSeeds}{3}
-\newcommand{\validBootBCCi}{[+23.8, +50.0]}
+\newcommand{\validBootBCCi}{[+23.3, +50.0]}
 \newcommand{\validBootBCDiff}{+37.5}
 \newcommand{\validBootBCSeeds}{2}
+\newcommand{\validBootBSCi}{[+29.6, +41.7]}
+\newcommand{\validBootBSDiff}{+35.4}
+\newcommand{\validBootBSSeeds}{1}
+\newcommand{\validBootSACi}{[-40.8, -28.3]}
+\newcommand{\validBootSADiff}{-34.6}
+\newcommand{\validBootSASeeds}{1}
 \newcommand{\validBp}{\TBD}
 \newcommand{\validBsOne}{80.0}
 \newcommand{\validBsTwo}{85.0}
@@ -1548,8 +1554,8 @@
 \newcommand{\validTokB}{10{,}099}
 \newcommand{\validTraceTok}{37.0}
 \newcommand{\verdictSEight}{passed}
-\newcommand{\verdictSEightSevenB}{not evaluable}
-\newcommand{\verdictSEightThreeB}{not evaluable}
+\newcommand{\verdictSEightSevenB}{passed}
+\newcommand{\verdictSEightThreeB}{passed}
 \newcommand{\verdictSFive}{failed}
 \newcommand{\verdictSFiveSevenB}{--}
 \newcommand{\verdictSFiveThreeB}{failed}
@@ -1566,6 +1572,6 @@
 \newcommand{\verdictSTen}{failed}
 \newcommand{\verdictSThree}{passed}
 \newcommand{\verdictSTwo}{passed}
-\newcommand{\verdictSTwoSevenB}{not evaluable}
+\newcommand{\verdictSTwoSevenB}{passed}
 \newcommand{\verdictSTwoThreeB}{failed}
 \newcommand{\winMargin}{10}
