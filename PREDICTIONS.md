@@ -43,21 +43,21 @@ alpha 16, 3 epochs, lr 2e-4, bf16, greedy decoding, n = 180 training examples, 2
 
 ## Decision log
 
-- 2026-09-25 21:09 Toronto — **S1 PASS.** div7 B@180 seed 1 = 90.0% vs A 50.8% (+39.2 pp, McNemar p = 2e-18);
+- 2026-09-25 21:09:47 Toronto (commit fcaa05d) — **S1 PASS.** div7 B@180 seed 1 = 90.0% vs A 50.8% (+39.2 pp, McNemar p = 2e-18);
   seed 2 = 82.5% vs A 47.9% (+34.6 pp, p = 6.8e-13). Runs in results/thinking_vs_data/runs_L1.jsonl, produced by
   the unchanged worker experiments/exp_thinking_ft_worker.py. The paper proceeds; the remaining tests run on
   experiments/exp_worker_v2.py.
-- 2026-09-25 21:27 Toronto — **S5 clarification, recorded before either S5 cell finished** (div7_6d B seed 0 was
+- 2026-09-25 21:26:10 Toronto (commit 27ba807; the div7_6d B seed-0 generation file was written at 21:27:30) — **S5 clarification, recorded before either S5 cell finished** (div7_6d B seed 0 was
   mid-training; the 4-digit-adapter transfer eval had not started). Primary S5 cell = arm B trained and tested on
   the 6-digit task (div7_6d), seeds 0 and 1, compared with p^6 where p = per-step accuracy of 4-digit div7 B
   generations (seed 0: p = 0.955, p^6 = 0.758). Secondary = the 4-digit B adapter evaluated on 6-digit inputs.
   Also reported, labelled post hoc: the fraction of fully correct 6-digit traces vs p^6, and answer accuracy vs
   p^6 + (1 - p^6) * g, where g is the answer-correct rate when the trace is wrong (4-digit: g = 0.561), since a
   wrong trace still yields the right yes/no answer about half the time.
-- 2026-09-25 21:40 Toronto — **S5 (primary) FAILED as preregistered**: 6-digit div7 B seed 0 = 96.2% vs p^6 = 75.8%
+- 2026-09-25 21:29:52 Toronto (commit 59e3989) — **S5 (primary) FAILED as preregistered**: 6-digit div7 B seed 0 = 96.2% vs p^6 = 75.8%
   (+20.4 pp > 10 pp tolerance). Its own per-step accuracy is 98.8% (vs 95.5% for the 4-digit model), so p is not
   a fixed property that transfers between training sets.
-- 2026-09-25 21:40 Toronto — **S7 (new hypothesis, preregistered before any of its cells ran):** per-step trace
+- 2026-09-25 21:29:52 Toronto (commit 59e3989; div11 B seed 0 started after 21:30:58) — **S7 (new hypothesis, preregistered before any of its cells ran):** per-step trace
   accuracy p is set by the number of supervised transitions per entry of the (remainder, digit) table,
   m = k * n / (10 * d) (k steps per trace, n training examples, 10d table entries). Observed so far: div7 n=180
   m=10.3 -> p=0.955; div7_6d n=180 m=15.4 -> p=0.988; div13 n=180 m=5.5 -> p=0.566. Predictions:
@@ -67,3 +67,6 @@ alpha 16, 3 epochs, lr 2e-4, bf16, greedy decoding, n = 180 training examples, 2
   (d) div11 B n=180 (m=6.5, not yet run): 0.566 < p < 0.955;
   (e) div3 B n=180 (m=24) and div2 B n=180 (m=36): p >= 0.97.
   S7 passes if at least 4 of (a)-(e) hold; every cell is reported either way.
+
+Note (21:35): the clock times in the entries above were first written as estimates; they have been replaced by the
+commit timestamps, which are the authoritative record.
