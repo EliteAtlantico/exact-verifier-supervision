@@ -47,3 +47,10 @@ alpha 16, 3 epochs, lr 2e-4, bf16, greedy decoding, n = 180 training examples, 2
   seed 2 = 82.5% vs A 47.9% (+34.6 pp, p = 6.8e-13). Runs in results/thinking_vs_data/runs_L1.jsonl, produced by
   the unchanged worker experiments/exp_thinking_ft_worker.py. The paper proceeds; the remaining tests run on
   experiments/exp_worker_v2.py.
+- 2026-09-25 21:27 Toronto — **S5 clarification, recorded before either S5 cell finished** (div7_6d B seed 0 was
+  mid-training; the 4-digit-adapter transfer eval had not started). Primary S5 cell = arm B trained and tested on
+  the 6-digit task (div7_6d), seeds 0 and 1, compared with p^6 where p = per-step accuracy of 4-digit div7 B
+  generations (seed 0: p = 0.955, p^6 = 0.758). Secondary = the 4-digit B adapter evaluated on 6-digit inputs.
+  Also reported, labelled post hoc: the fraction of fully correct 6-digit traces vs p^6, and answer accuracy vs
+  p^6 + (1 - p^6) * g, where g is the answer-correct rate when the trace is wrong (4-digit: g = 0.561), since a
+  wrong trace still yields the right yes/no answer about half the time.
