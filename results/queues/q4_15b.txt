@@ -1,0 +1,15 @@
+# fourth 5090 package, Qwen2.5-1.5B-Instruct: extra seeds for single-seed headline cells (dose curve, S7, S9, S3, C)
+div7 B 90 1
+div7 B 270 1
+div13 B 360 1
+div13 A 360 1
+div13 B 540 1
+div7 B 90 2
+div7 B 270 2
+div13 B 360 2
+div13 B 540 2
+div7 B 60 1
+div7 B 60 2
+div2 A 180 1
+div2 B 180 1
+div13 C 180 1

@@ -1,0 +1,7 @@
+# fourth 5090 package, Qwen2.5-3B-Instruct: seed 1 for the dose curve and controls
+div7 B 90 1
+div7 B 270 1
+div13 B 360 1
+div13 B 540 1
+div7 D 180 1
+div7 Bprime 180 1
