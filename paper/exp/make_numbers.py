@@ -640,12 +640,15 @@ def review_macros():
         if rows:
             put("m" + cap, "%.1f" % rows[0]["m"], "transitions.json")
             put("p" + cap, "%.3f" % mean(r["p"] for r in rows), "transitions.json p_cond")
+            rows0 = [r for r in rows if r.get("seed") == 0]
+            put("p" + cap + "sZero", "%.3f" % rows0[0]["p"] if rows0 else TBD, "transitions.json p_cond seed 0")
             put("trace" + cap, pct(mean(r["trace_correct"] for r in rows)), "transitions.json")
         else:
             k = 6 if task == "div7_6d" else 4
             d = int(re.sub(r"\D", "", task.split("_")[0]))
             put("m" + cap, "%.1f" % (k * MAIN_N / (10 * d)), "k n / (10 d)")
             put("p" + cap, TBD)
+            put("p" + cap + "sZero", TBD)
             put("trace" + cap, TBD)
     for task, n, mac in (("div13", 540, "mDivthirteenLarge"), ("div7", 270, "mDivsevenMid"), ("div7", 90, "mDivsevenSmall"),
                          ("div13", 360, "mDivthirteenMid")):
