@@ -70,7 +70,7 @@ alpha 16, 3 epochs, lr 2e-4, bf16, greedy decoding, n = 180 training examples, 2
 
 Note (21:35): the clock times in the entries above were first written as estimates; they have been replaced by the
 commit timestamps, which are the authoritative record.
-- (commit time below) **S8 and S9, preregistered before their cells ran** (div11 B seed 0 = 99.2% had finished;
+- 2026-09-25 21:38:05 Toronto (commit 1163562) **S8 and S9, preregistered before their cells ran** (div11 B seed 0 = 99.2% had finished;
   none of the cells below had started):
   S8 (grounding control): div7 arm D (a fluent, correct long-division trace of a DIFFERENT number with the same
   label) at n = 180, seeds 0 and 1: accuracy <= 60% in both seeds, i.e. within 10 pp of A, far below B.
