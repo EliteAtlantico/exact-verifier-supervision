@@ -162,7 +162,7 @@ def panel_c(ax, runs, model="Qwen2.5-1.5B-Instruct"):
 
 def main():
     runs = load_runs()
-    fig = plt.figure(figsize=(7.0, 4.9))
+    fig = plt.figure(figsize=(7.0, 4.55))
     gs = fig.add_gridspec(2, 2, width_ratios=[1.55, 1.0], height_ratios=[1.0, 0.95], hspace=1.05, wspace=0.32)
     axes = [fig.add_subplot(gs[0, 0]), fig.add_subplot(gs[0, 1]), fig.add_subplot(gs[1, :])]
     panel_a(axes[0], runs)
