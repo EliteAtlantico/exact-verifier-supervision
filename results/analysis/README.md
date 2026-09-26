@@ -5,9 +5,11 @@ Qwen2.5 LoRA runs graded by the exact gate; 240 test items per task (120 Yes / 1
 ## Key numbers
 
 - **div7 [Qwen2.5-1.5B-Instruct]**: A 50.3% vs best CV-selected probe 46.5% (A - probe +3.7 pp); best trivial rule digit_sum_div_3 52.5%; B - A +38.1 [+30.8, +43.9] pp (seeds 0,1,2).
-- **prime [Qwen2.5-1.5B-Instruct]**: A 82.3% vs best CV-selected probe 89.7% (A - probe -7.4 pp); best trivial rule no_factor_le_7 93.8%; B - A -24.6 [-33.3, -15.8] pp (seeds 0,1).
+- **prime [Qwen2.5-1.5B-Instruct]**: A 82.3% vs best CV-selected probe 89.7% (A - probe -7.4 pp); best trivial rule no_factor_le_7 93.8%; B - A -24.6 [-33.3, -15.6] pp (seeds 0,1).
 - **valid [Qwen2.5-1.5B-Instruct]**: A 99.6% vs best CV-selected probe 100.0% (A - probe -0.4 pp); best trivial rule majority 50.0%; B - A -9.6 [-23.3, +1.7] pp (seeds 0,1).
+- **div11 [Qwen2.5-1.5B-Instruct]**: A 50.8% vs best CV-selected probe 100.0% (A - probe -49.2 pp); best trivial rule last_digit_even 54.2%.
 - **div13 [Qwen2.5-1.5B-Instruct]**: A 49.6% vs best CV-selected probe 53.3% (A - probe -3.7 pp); best trivial rule digit_sum_div_13 53.3%; B - A +5.0 [-5.8, +15.8] pp (seeds 0).
+- **div7_6d [Qwen2.5-1.5B-Instruct]**: A 47.9% vs best CV-selected probe 48.1% (A - probe -0.1 pp); best trivial rule last_digit_0_or_5 53.3%; B - A +48.3 [+41.7, +54.6] pp (seeds 0).
 - **prime shortcut [Qwen2.5-1.5B-Instruct s0]**: A agrees with 'last digit in {1,3,7,9}' on 99.6% of items vs 82.1% with the truth (best-kappa shortcut last_digit_1379, kappa 0.99).
 - **prime shortcut [Qwen2.5-1.5B-Instruct s1]**: A agrees with 'last digit in {1,3,7,9}' on 100.0% of items vs 82.5% with the truth (best-kappa shortcut last_digit_1379, kappa 1.00).
 
@@ -17,7 +19,8 @@ Qwen2.5 LoRA runs graded by the exact gate; 240 test items per task (120 Yes / 1
 - **S2 [Qwen2.5-1.5B-Instruct]: PENDING** -- div3: 0 seed pair(s), pending; div11: 0 seed pair(s), pending; div13: 1 seed pair(s), pending
 - **S3 [Qwen2.5-1.5B-Instruct]: PENDING** -- no div2 A run yet
 - **S4: PENDING** -- no Qwen2.5-3B div7 A/B pair yet
-- **S5: FAIL (seed(s) [0] outside 10 pp; seed(s) [1] not yet run)** -- Qwen2.5-1.5B-Instruct: primary FAIL (seed(s) [0] outside 10 pp; seed(s) [1] not yet run), secondary PENDING; [primary] div7_6d Qwen2.5-1.5B-Instruct s0: p=0.955 (div7 B seed 0), p^6 75.8 vs answer acc 96.2 (+20.4 pp, OUTSIDE 10); post hoc: fully correct traces 92.9, p^6+(1-p^6)g 89.4 (g=0.561)
+- **S5: FAIL (seed(s) [0] outside 10 pp; seed(s) [1] not yet run)** -- Qwen2.5-1.5B-Instruct: primary FAIL (seed(s) [0] outside 10 pp; seed(s) [1] not yet run), secondary PENDING; [primary] div7_6d Qwen2.5-1.5B-Instruct s0: p=0.955 (fixed 0.955 (PREDICTIONS.md decision log: 4-digit div7 B seed 0)), p^6 75.9 vs answer acc 96.2 (+20.4 pp, OUTSIDE 10); post hoc: fully correct traces 92.9, p^6+(1-p^6)g 89.4 (g=0.561)
+- **S7: PENDING (0/5 hold, 5 pending)** -- (a) div13 n=540 s0: p>=0.95 & acc>=85%: pending [pending]; (b) div7 n=270 s0: p>=0.97: pending [pending]; (c) div7 n=90 s0: p<=0.80 & acc<=75%: pending [pending]; (d) div11 n=180: 0.566<p<0.955: pending [pending]; (e) div3 & div2 n=180: p>=0.97: pending [pending (div3, div2 missing)]
 - **S6 [Qwen2.5-1.5B-Instruct]: PENDING** -- needs prime A evaluated on prime_hard (prime->prime_hard)
 
 ## 1. Main cell n = 180: Qwen2.5-1.5B-Instruct
@@ -27,10 +30,11 @@ A = answer-only, B = trace then answer, C = scrambled trace. Accuracy pooled ove
 | task | base | A | B | C | B-A pp [95% CI] | McNemar B vs A per seed | best probe | best trivial rule | A's closest shortcut rule |
 |---|---|---|---|---|---|---|---|---|---|
 | div7 | 62.5 | 50.3 [47, 54] (s0,1,2) | 88.3 [86, 90] (s0,1,2) | 50.0 [46, 54] (s0,1) | +38.1 [+30.8, +43.9] | s0: +40.4, p=4e-27 (Holm 2e-26); s1: +39.2, p=2e-18 (Holm 6e-18); s2: +34.6, p=7e-13 (Holm 7e-13) | 46.5 (knn_a/knn_b; max on test 53.9) | 52.5 (digit_sum_div_3) | s0: contains_digit_7 70.4% (kappa 0.30 vs truth 0.04); s1: last_digit_0_or_5 33.8% (kappa 0.03 vs truth 0.02); s2: contains_digit_7 42.1% (kappa 0.07 vs truth -0.04) |
-| prime | 59.6 | 82.3 [79, 85] (s0,1) | 57.7 [53, 62] (s0,1) | 52.1 [48, 57] (s0,1) | -24.6 [-33.3, -15.8] | s0: -24.2, p=6e-07 (Holm 2e-06); s1: -25.0, p=2e-07 (Holm 2e-07) | 89.7 (logreg_b; max on test 89.7) | 93.8 (no_factor_le_7) | s0: last_digit_1379 99.6% (kappa 0.99 vs truth 0.64); s1: last_digit_1379 100.0% (kappa 1.00 vs truth 0.65) |
+| prime | 59.6 | 82.3 [79, 85] (s0,1) | 57.7 [53, 62] (s0,1) | 52.1 [48, 57] (s0,1) | -24.6 [-33.3, -15.6] | s0: -24.2, p=6e-07 (Holm 2e-06); s1: -25.0, p=2e-07 (Holm 2e-07) | 89.7 (logreg_b; max on test 89.7) | 93.8 (no_factor_le_7) | s0: last_digit_1379 99.6% (kappa 0.99 vs truth 0.64); s1: last_digit_1379 100.0% (kappa 1.00 vs truth 0.65) |
 | valid | 30.0 | 99.6 [98, 100] (s0,1) | 90.0 [87, 92] (s0,1) | 52.5 [48, 57] (s0,1) | -9.6 [-23.3, +1.7] | s0: +0.8, p=0.5 (Holm 0.8); s1: -20.0, p=7e-15 (Holm 1e-14) | 100.0 (mlp_b; max on test 100.0) | 50.0 (majority) | - |
+| div11 | - | 50.8 [45, 57] (s0) | - | - | - | - | 100.0 (mlp_b; max on test 100.0) | 54.2 (last_digit_even) | s0: contains_digit_7 69.6% (kappa 0.11 vs truth 0.02) |
 | div13 | - | 49.6 [43, 56] (s0) | 54.6 [48, 61] (s0) | - | +5.0 [-5.8, +15.8] | s0: +5.0, p=0.4 (Holm 0.8) | 53.3 (knn_b/logreg_a; max on test 53.3) | 53.3 (digit_sum_div_13) | s0: digit_sum_div_13 92.1% (kappa -0.01 vs truth -0.01) |
-| div7_6d | - | - | 96.2 [93, 98] (s0) | - | - | - | 48.1 (knn_a/knn_b; max on test 51.4) | 53.3 (last_digit_0_or_5) | - |
+| div7_6d | - | 47.9 [42, 54] (s0) | 96.2 [93, 98] (s0) | - | +48.3 [+41.7, +54.6] | s0: +48.3, p=1e-32 (Holm 5e-32) | 48.1 (knn_a/knn_b; max on test 51.4) | 53.3 (last_digit_0_or_5) | s0: last_digit_is_7 86.2% (kappa 0.08 vs truth -0.04) |
 
 Other paired comparisons (bootstrap 95% CI, pp): A-base div7 -12.2 [-19.2, -4.9]; A-base prime +22.7 [+15.0, +30.4]; A-base valid +69.6 [+63.7, +75.4]; B-C div7 +41.2 [+34.6, +47.9]; B-C prime +5.6 [-2.1, +15.8]; B-C valid +37.5 [+23.8, +50.0].
 
@@ -43,9 +47,9 @@ Other paired comparisons (bootstrap 95% CI, pp): A-base div7 -12.2 [-19.2, -4.9]
 | valid | 99.6 | 60.8 | 100.0 | 63.8 / 100.0 | 66.4 / 98.3 | 100.0 | 100.0 |
 | div2 | - | 100.0 | 100.0 | 100.0 / 100.0 | 94.2 / 98.6 | 100.0 | 100.0 |
 | div3 | - | 49.6 | 100.0 | 50.4 / 100.0 | 49.4 / 99.0 | 100.0 | 100.0 |
-| div11 | - | 51.2 | 99.9 | 49.4 / 100.0 | 49.7 / 82.2 | 100.0 | 100.0 |
+| div11 | 50.8 | 51.2 | 99.9 | 49.4 / 100.0 | 49.7 / 82.2 | 100.0 | 100.0 |
 | div13 | 49.6 | 51.0 | 48.5 | 48.9 / 49.3 | 51.1 / 52.6 | 53.3 | 47.5 |
-| div7_6d | - | 49.0 | 46.1 | 48.6 / 48.3 | 48.2 / 49.7 | 48.1 | 46.7 |
+| div7_6d | 47.9 | 49.0 | 46.1 | 48.6 / 48.3 | 48.2 / 49.7 | 48.1 | 46.7 |
 | prime_hard | - | 50.6 | 50.1 | 52.4 / 51.4 | 50.1 / 50.0 | 50.1 | 55.4 |
 
 Engineered number features = last digit even / in {0,5}, digit sum mod 3 and mod 9, alternating sum mod 11 (one-hot). For valid, 'one-hot' = bag of word tokens; 'engineered' adds character 1-3-grams and atom-abstracted word n-grams. prime_hard probes train on the prime pool.
@@ -77,6 +81,16 @@ p_cond = P(step correct | previous correct); p after 1 excludes the near-trivial
 | Qwen2.5-1.5B-Instruct | div7 | B | plain | 0 | 4 | 92.5 | 82.9 | 95.5 | 93.9 | 83.2 | 92.6 | 94.7 | 100.0 |
 | Qwen2.5-1.5B-Instruct | div7_6d | B | plain | 0 | 6 | 96.2 | 92.9 | 98.8 | 98.5 | 93.0 | 96.3 | 99.4 | 100.0 |
 | Qwen2.5-1.5B-Instruct | div13 | B | plain | 0 | 4 | 54.6 | 2.1 | 56.6 | 23.7 | 10.2 | 58.4 | 35.4 | 100.0 |
+
+### Transitions per (remainder, digit) table entry (S7): m = k_train * n / (10 d)
+
+| model | task | arm | n | seed | k | d | m | p | fully correct | accuracy |
+|---|---|---|---|---|---|---|---|---|---|---|
+| Qwen2.5-1.5B-Instruct | div13 | B | 180 | 0 | 4 | 13 | 5.5 | 56.6 | 2.1 | 54.6 |
+| Qwen2.5-1.5B-Instruct | div7 | B | 180 | 0 | 4 | 7 | 10.3 | 95.5 | 82.9 | 92.5 |
+| Qwen2.5-1.5B-Instruct | div7_6d | B | 180 | 0 | 6 | 7 | 15.4 | 98.8 | 92.9 | 96.2 |
+
+POST HOC fit [Qwen2.5-1.5B-Instruct] over 3 trained-and-tested B cells: logit(p) = -6.65 + 4.08 ln m (R^2 0.99 on the logit scale); p = 0.95 at m ~ 10.5. Not preregistered.
 
 ## 5. Tokenizer and training tokens (real Qwen2.5 tokenizer)
 

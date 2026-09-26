@@ -1,0 +1,90 @@
+{
+ "generated_by": "experiments/analysis_steps.py",
+ "definition": "m = k_train * n / (10 * d); p = P(step correct | previous step correct) (steps.json p_cond)",
+ "rows": [
+  {
+   "task": "div13",
+   "train_task": "div13",
+   "eval_task": "div13",
+   "arm": "B",
+   "prompt_mode": "plain",
+   "model": "Qwen2.5-1.5B-Instruct",
+   "n": 180,
+   "seed": 0,
+   "k_train": 4,
+   "k_test": 4,
+   "d": 13,
+   "m": 5.538461538461538,
+   "p": 0.5655296229802513,
+   "p_after_first_step": 0.23659305993690852,
+   "trace_correct": 0.020833333333333332,
+   "accuracy": 0.5458333333333333,
+   "fit_eligible": true
+  },
+  {
+   "task": "div7",
+   "train_task": "div7",
+   "eval_task": "div7",
+   "arm": "B",
+   "prompt_mode": "plain",
+   "model": "Qwen2.5-1.5B-Instruct",
+   "n": 180,
+   "seed": 0,
+   "k_train": 4,
+   "k_test": 4,
+   "d": 7,
+   "m": 10.285714285714286,
+   "p": 0.954945054945055,
+   "p_after_first_step": 0.9388059701492537,
+   "trace_correct": 0.8291666666666667,
+   "accuracy": 0.925,
+   "fit_eligible": true
+  },
+  {
+   "task": "div7_6d",
+   "train_task": "div7_6d",
+   "eval_task": "div7_6d",
+   "arm": "B",
+   "prompt_mode": "plain",
+   "model": "Qwen2.5-1.5B-Instruct",
+   "n": 180,
+   "seed": 0,
+   "k_train": 6,
+   "k_test": 6,
+   "d": 7,
+   "m": 15.428571428571429,
+   "p": 0.9879261363636364,
+   "p_after_first_step": 0.985445205479452,
+   "trace_correct": 0.9291666666666667,
+   "accuracy": 0.9625,
+   "fit_eligible": true
+  }
+ ],
+ "post_hoc_fits": {
+  "Qwen2.5-1.5B-Instruct": {
+   "n_points": 3,
+   "label": "POST HOC fit (not preregistered)",
+   "logistic_logit_p_vs_ln_m": {
+    "a": -6.6459443749024025,
+    "b": 4.080403204625823,
+    "r2_logit_scale": 0.9938865599809857,
+    "m_for_p_0.95": 10.489260064305244,
+    "fitted": {
+     "5.54": 0.5838383024512038,
+     "10.29": 0.9460623514283661,
+     "15.43": 0.9892169784469023
+    }
+   },
+   "power_1_minus_p_vs_m": {
+    "c": 172.38755218239743,
+    "exponent": -3.510919413870435,
+    "r2_log_scale": 0.9989749901553343,
+    "fitted": {
+     "5.54": 0.5768186450392516,
+     "10.29": 0.9518460077510891,
+     "15.43": 0.9884018137531959
+    }
+   }
+  }
+ }
+}

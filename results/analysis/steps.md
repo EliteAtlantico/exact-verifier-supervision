@@ -16,4 +16,4 @@ PRIMARY = B trained+tested on div7_6d (seeds 0,1) vs p^6, p from 4-digit div7 B 
 
 - Qwen2.5-1.5B-Instruct: primary FAIL (seed(s) [0] outside 10 pp; seed(s) [1] not yet run); secondary PENDING
 
-- [primary] div7_6d Qwen2.5-1.5B-Instruct n=180 s0: p=0.9549 (div7 B seed 0) -> p^6=75.8%, observed answer acc 96.2% (gens), diff +20.4 pp -> OUTSIDE 10 pp. Post hoc: fully correct 6-digit traces 92.9% vs p^6; guess model p^6 + (1 - p^6) g = 89.4%
+- [primary] div7_6d Qwen2.5-1.5B-Instruct n=180 s0: p=0.9550 (fixed 0.955 (PREDICTIONS.md decision log: 4-digit div7 B seed 0)) -> p^6=75.9%, observed answer acc 96.2% (gens), diff +20.4 pp -> OUTSIDE 10 pp. Post hoc: fully correct 6-digit traces 92.9% vs p^6; guess model p^6 + (1 - p^6) g = 89.4%. Same-seed p (secondary) 0.9549 -> p^6 75.8% (+20.4 pp)

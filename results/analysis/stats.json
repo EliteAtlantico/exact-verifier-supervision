@@ -5,12 +5,31 @@
   "results\\thinking_vs_data\\runs_L1.jsonl",
   "results\\v2\\runs_Qwen2.5-1.5B-Instruct.jsonl"
  ],
- "n_runs": 41,
+ "n_runs": 43,
  "problems": [
   "runs.jsonl:36 skipped valid/B_mv (no AI traces available)",
   "duplicate ('div7', 'B', 180, 0, 'Qwen/Qwen2.5-1.5B-Instruct'): keeping first (results/thinking_vs_data/runs.jsonl:30, acc 0.925), ignoring results/v2/runs_Qwen2.5-1.5B-Instruct.jsonl:1 (acc 0.925)"
  ],
  "per_run": [
+  {
+   "task": "div11",
+   "model": "Qwen/Qwen2.5-1.5B-Instruct",
+   "arm": "A",
+   "n": 180,
+   "seed": 0,
+   "k": 122,
+   "n_test": 240,
+   "acc": 0.5083333333333333,
+   "wilson95": [
+    0.4454533200161677,
+    0.5709507813181396
+   ],
+   "count_check": true,
+   "source": "results/v2/runs_Qwen2.5-1.5B-Instruct.jsonl",
+   "p_pred_yes": 0.09166666666666666,
+   "acc_on_yes": 0.1,
+   "acc_on_no": 0.9166666666666666
+  },
   {
    "task": "div13",
    "model": "Qwen/Qwen2.5-1.5B-Instruct",
@@ -276,6 +295,25 @@
    "p_pred_yes": 0.7166666666666667,
    "acc_on_yes": 0.8416666666666667,
    "acc_on_no": 0.4083333333333333
+  },
+  {
+   "task": "div7_6d",
+   "model": "Qwen/Qwen2.5-1.5B-Instruct",
+   "arm": "A",
+   "n": 180,
+   "seed": 0,
+   "k": 115,
+   "n_test": 240,
+   "acc": 0.4791666666666667,
+   "wilson95": [
+    0.4167912046504396,
+    0.542198542013792
+   ],
+   "count_check": true,
+   "source": "results/v2/runs_Qwen2.5-1.5B-Instruct.jsonl",
+   "p_pred_yes": 0.07083333333333333,
+   "acc_on_yes": 0.05,
+   "acc_on_no": 0.9083333333333333
   },
   {
    "task": "div7_6d",
@@ -793,6 +831,24 @@
  ],
  "pooled": [
   {
+   "task": "div11",
+   "model": "Qwen/Qwen2.5-1.5B-Instruct",
+   "arm": "A",
+   "n": 180,
+   "seeds": [
+    0
+   ],
+   "k": 122,
+   "N": 240,
+   "acc": 0.5083333333333333,
+   "wilson95": [
+    0.4454533200161677,
+    0.5709507813181396
+   ],
+   "seed_mean": 0.5083333333333333,
+   "seed_sd": null
+  },
+  {
    "task": "div13",
    "model": "Qwen/Qwen2.5-1.5B-Instruct",
    "arm": "A",
@@ -957,6 +1013,24 @@
     0.6838271652665939
    ],
    "seed_mean": 0.625,
+   "seed_sd": null
+  },
+  {
+   "task": "div7_6d",
+   "model": "Qwen/Qwen2.5-1.5B-Instruct",
+   "arm": "A",
+   "n": 180,
+   "seeds": [
+    0
+   ],
+   "k": 115,
+   "N": 240,
+   "acc": 0.4791666666666667,
+   "wilson95": [
+    0.4167912046504396,
+    0.542198542013792
+   ],
+   "seed_mean": 0.4791666666666667,
    "seed_sd": null
   },
   {
@@ -1835,7 +1909,7 @@
     "Qwen/Qwen2.5-1.5B-Instruct"
    ],
    "p_holm_tasks": 0.8298627979842247,
-   "holm_family_size": 4,
+   "holm_family_size": 5,
    "p_holm_tasks_x_seeds": 0.8298627979842247
   },
   {
@@ -1865,7 +1939,7 @@
     "Qwen/Qwen2.5-1.5B-Instruct"
    ],
    "p_holm_tasks": 1.625684553479461e-26,
-   "holm_family_size": 4,
+   "holm_family_size": 5,
    "p_holm_tasks_x_seeds": 3.251369106958922e-26
   },
   {
@@ -1930,6 +2004,36 @@
   },
   {
    "comparison": "B-A",
+   "task": "div7_6d",
+   "model": "Qwen/Qwen2.5-1.5B-Instruct",
+   "n": 180,
+   "seed": 0,
+   "acc_x": 0.9625,
+   "acc_y": 0.4791666666666667,
+   "diff": 0.48333333333333334,
+   "b_x_only": 118,
+   "c_y_only": 2,
+   "p_exact": 1.0925138536090406e-32,
+   "x_key": [
+    "div7_6d",
+    "B",
+    180,
+    0,
+    "Qwen/Qwen2.5-1.5B-Instruct"
+   ],
+   "y_key": [
+    "div7_6d",
+    "A",
+    180,
+    0,
+    "Qwen/Qwen2.5-1.5B-Instruct"
+   ],
+   "p_holm_tasks": 5.462569268045203e-32,
+   "holm_family_size": 5,
+   "p_holm_tasks_x_seeds": 9.832624682481365e-32
+  },
+  {
+   "comparison": "B-A",
    "task": "prime",
    "model": "Qwen/Qwen2.5-1.5B-Instruct",
    "n": 180,
@@ -1955,7 +2059,7 @@
     "Qwen/Qwen2.5-1.5B-Instruct"
    ],
    "p_holm_tasks": 1.7165936329790837e-06,
-   "holm_family_size": 4,
+   "holm_family_size": 5,
    "p_holm_tasks_x_seeds": 1.7165936329790837e-06
   },
   {
@@ -2015,7 +2119,7 @@
     "Qwen/Qwen2.5-1.5B-Instruct"
    ],
    "p_holm_tasks": 0.8298627979842247,
-   "holm_family_size": 4,
+   "holm_family_size": 5,
    "p_holm_tasks_x_seeds": 0.8298627979842247
   },
   {
@@ -2490,6 +2594,22 @@
   },
   {
    "comparison": "B-A",
+   "task": "div7_6d",
+   "model": "Qwen/Qwen2.5-1.5B-Instruct",
+   "n": 180,
+   "seeds": [
+    0
+   ],
+   "diff": 0.48333333333333334,
+   "ci95": [
+    0.4166666666666667,
+    0.5458333333333333
+   ],
+   "n_boot": 10000,
+   "excludes_zero": true
+  },
+  {
+   "comparison": "B-A",
    "task": "prime",
    "model": "Qwen/Qwen2.5-1.5B-Instruct",
    "n": 60,
@@ -2499,7 +2619,7 @@
    "diff": -0.025,
    "ci95": [
     -0.1375,
-    0.0875
+    0.08333333333333333
    ],
    "n_boot": 10000,
    "excludes_zero": false
@@ -2515,8 +2635,8 @@
    ],
    "diff": -0.24583333333333332,
    "ci95": [
-    -0.33333333333333337,
-    -0.15828125000000076
+    -0.3333333333333333,
+    -0.15625
    ],
    "n_boot": 10000,
    "excludes_zero": true
@@ -2548,7 +2668,7 @@
    "diff": -0.1,
    "ci95": [
     -0.14583333333333334,
-    -0.058333333333333334
+    -0.058229166666668185
    ],
    "n_boot": 10000,
    "excludes_zero": true

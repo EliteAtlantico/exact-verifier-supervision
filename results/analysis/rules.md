@@ -2,6 +2,18 @@
 
 Agreement = fraction of test items where the model's (recovered) answer equals the rule's answer. 'best shortcut' = the non-trivial, non-truth rule with the highest Cohen's kappa (agreement corrected for the Yes-rates, so an always-No model does not 'agree' with rare-Yes rules).
 
+## div11
+
+| arm | n | seed | model | src | acc | P(Yes) | always_No | always_Yes | last_digit_is_1 | last_digit_0_or_5 | last_digit_even | digit_sum_div_11 | digit_sum_div_3 | contains_digit_7 | true_label | best shortcut |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| A | 180 | 0 | Qwen2.5-1.5B-Instruct | gens | 50.8 | 0.09 | 90.8 | 9.2 | 85.4 | 72.9 | 44.2 | 84.6 | 66.7 | 69.6 | 50.8 | contains_digit_7 (69.6; kappa 0.11 vs truth 0.02) |
+
+Best agreement by ANY function of the last digit / digit sum (vs permutation-null mean, q95)
+
+| arm | n | seed | last digit | null mean / q95 | digit sum | null mean / q95 |
+|---|---|---|---|---|---|---|
+| A | 180 | 0 | 90.8 | 90.8 / 90.8 | 90.8 | 91.0 / 91.7 |
+
 ## div13
 
 | arm | n | seed | model | src | acc | P(Yes) | always_No | always_Yes | last_digit_is_3 | last_digit_0_or_5 | last_digit_even | digit_sum_div_13 | digit_sum_div_3 | contains_digit_7 | true_label | best shortcut |
@@ -54,12 +66,14 @@ Best agreement by ANY function of the last digit / digit sum (vs permutation-nul
 
 | arm | n | seed | model | src | acc | P(Yes) | always_No | always_Yes | last_digit_is_7 | last_digit_0_or_5 | last_digit_even | digit_sum_div_7 | digit_sum_div_3 | contains_digit_7 | true_label | best shortcut |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| A | 180 | 0 | Qwen2.5-1.5B-Instruct | gens | 47.9 | 0.07 | 92.9 | 7.1 | 86.2 | 74.6 | 52.1 | 78.8 | 64.2 | 55.0 | 47.9 | last_digit_is_7 (86.2; kappa 0.08 vs truth -0.04) |
 | B | 180 | 0 | Qwen2.5-1.5B-Instruct | gens | 96.2 | 0.48 | 52.1 | 47.9 | 48.8 | 53.8 | 53.8 | 52.9 | 50.0 | 50.8 | 96.2 | last_digit_even (53.8; kappa 0.07 vs truth 0.93) |
 
 Best agreement by ANY function of the last digit / digit sum (vs permutation-null mean, q95)
 
 | arm | n | seed | last digit | null mean / q95 | digit sum | null mean / q95 |
 |---|---|---|---|---|---|---|
+| A | 180 | 0 | 92.9 | 92.9 / 92.9 | 92.9 | 93.1 / 93.8 |
 | B | 180 | 0 | 56.7 | 57.9 / 61.3 | 63.7 | 64.2 / 67.5 |
 
 ## prime

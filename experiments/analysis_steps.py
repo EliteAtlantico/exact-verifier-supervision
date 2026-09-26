@@ -47,6 +47,8 @@ DIV_STEP = re.compile(r"r\s*=\s*\(\s*10\s*\*\s*(\d+)\s*\+\s*(\d+)\s*\)\s*mod\s*(
 PRIME_STEP = re.compile(r"(\d+)\s+mod\s+(\d+)\s*=\s*(\d+)")
 ANS_LINE = re.compile(r"Answer:\s*(Yes|No)", re.I)
 S5_TOL = 0.10
+S5_P_FIXED = 0.955        # decision log 2026-09-25 21:27 (27ba807): p of 4-digit div7 B seed 0
+S5_G_FIXED = 0.561        # same entry: g of 4-digit div7 B seed 0 (used only if those gens are absent)
 
 
 def true_divisions(n):
@@ -245,6 +247,9 @@ def main():
             if sc:
                 prime_cells.append({**meta, **sc})
     s5 = s5_check(div_cells, run_acc)
+    trans = transitions(div_cells, tasks)
+    C.ensure_out()
+    json.dump(trans, open(os.path.join(C.OUT, "transitions.json"), "w", encoding="utf-8"), indent=1)
     out = {"generated_by": "experiments/analysis_steps.py", "notes": notes, "div": div_cells, "prime": prime_cells,
            "S5": s5}
     C.ensure_out()
@@ -256,11 +261,69 @@ def main():
         print("  note:", n)
 
 
+def _ols(xs, ys):
+    n = len(xs)
+    mx, my = sum(xs) / n, sum(ys) / n
+    sxx = sum((x - mx) ** 2 for x in xs)
+    if sxx == 0:
+        return None
+    b = sum((x - mx) * (y - my) for x, y in zip(xs, ys)) / sxx
+    a = my - b * mx
+    sst = sum((y - my) ** 2 for y in ys)
+    sse = sum((y - a - b * x) ** 2 for x, y in zip(xs, ys))
+    return a, b, (1 - sse / sst) if sst else None
+
+
+def transitions(div_cells, tasks):
+    """S7 table: m = k * n / (10 * d) supervised transitions per (remainder, digit) table entry, with k = steps per
+    TRAINING trace (the training task's digit count), n = training examples, d = divisor. One row per B-family
+    generation file of a div task. Post-hoc fits over trained-and-tested plain B cells (distinct m needed):
+      logistic:  logit(p) = a + b * ln m        power:  ln(1 - p) = a + b * ln m   (p clipped to [0.005, 0.995])."""
+    rows = []
+    for c in div_cells:
+        if not c["arm"].startswith("B"):
+            continue
+        d = C.divisor_of_task(c["eval_task"])
+        tt = tasks.get(c["train_task"], {}).get("test") or []
+        k_train = len(str(C.number_of(tt[0]["prompt"]))) if tt else c["k"]
+        m = k_train * c["n"] / (10 * d) if c["n"] else None
+        rows.append({"task": c["task"], "train_task": c["train_task"], "eval_task": c["eval_task"], "arm": c["arm"],
+                     "prompt_mode": c["prompt_mode"], "model": c["model"], "n": c["n"], "seed": c["seed"],
+                     "k_train": k_train, "k_test": c["k"], "d": d, "m": m, "p": c["p_cond"],
+                     "p_after_first_step": c["p_cond_after_first_step"], "trace_correct": c["trace_correct_rate"],
+                     "accuracy": c["answer_acc"], "fit_eligible": bool(m) and c["arm"] == "B" and c["prompt_mode"] == "plain"
+                     and c["train_task"] == c["eval_task"]})
+    rows.sort(key=lambda r: (r["model"], r["m"] or 0))
+    fits = {}
+    for model in sorted({r["model"] for r in rows}):
+        pts = [(r["m"], min(0.995, max(0.005, r["p"]))) for r in rows if r["model"] == model and r["fit_eligible"]]
+        entry = {"n_points": len(pts), "label": "POST HOC fit (not preregistered)"}
+        if len({x for x, _ in pts}) >= 3:
+            lx = [math.log(x) for x, _ in pts]
+            lg = _ols(lx, [math.log(p / (1 - p)) for _, p in pts])
+            pw = _ols(lx, [math.log(1 - p) for _, p in pts])
+            if lg:
+                a, b, r2 = lg
+                entry["logistic_logit_p_vs_ln_m"] = {
+                    "a": a, "b": b, "r2_logit_scale": r2,
+                    "m_for_p_0.95": math.exp((math.log(0.95 / 0.05) - a) / b) if b else None,
+                    "fitted": {f"{x:.2f}": 1 / (1 + math.exp(-(a + b * math.log(x)))) for x, _ in pts}}
+            if pw:
+                a, b, r2 = pw
+                entry["power_1_minus_p_vs_m"] = {"c": math.exp(a), "exponent": b, "r2_log_scale": r2,
+                                                 "fitted": {f"{x:.2f}": 1 - math.exp(a) * x ** b for x, _ in pts}}
+        else:
+            entry["note"] = "fewer than 3 distinct m values; no fit"
+        fits[model] = entry
+    return {"generated_by": "experiments/analysis_steps.py", "definition": "m = k_train * n / (10 * d); p = P(step correct "
+            "| previous step correct) (steps.json p_cond)", "rows": rows, "post_hoc_fits": fits}
+
+
 def s5_check(div_cells, run_acc):
     """S5 per the PREDICTIONS.md decision-log entry of 2026-09-25 21:27 (commit 27ba807, before any S5 result):
-    PRIMARY = arm B trained AND tested on div7_6d, seeds 0 and 1: answer accuracy within 10 pp of p^6, where
-    p = per-step accuracy (p_cond) of the same model's 4-digit div7 B generations (same seed when present, else
-    item-weighted pooled over the available 4-digit seeds). SECONDARY = the 4-digit div7 B adapter evaluated on
+    PRIMARY = arm B trained AND tested on div7_6d, seeds 0 and 1: answer accuracy within 10 pp of p^6 with p FIXED
+    at 0.955 (the value the decision log names: 4-digit div7 B seed 0); the same-seed 4-digit p is reported as a
+    secondary comparison and does not decide S5. SECONDARY = the 4-digit div7 B adapter evaluated on
     div7_6d ('div7->div7_6d', evals file). POST HOC (labelled): fully-correct 6-digit trace fraction vs p^6, and
     answer accuracy vs p^6 + (1 - p^6) * g, g = answer-correct rate when the 4-digit trace is wrong."""
     four = defaultdict(dict)
@@ -276,24 +339,25 @@ def s5_check(div_cells, run_acc):
         label, model, seed, n = key
         role = "primary" if label == "div7_6d" else "secondary"
         fd = four.get(model, {})
-        if not fd:
-            cells.append({"task": label, "role": role, "model": model, "seed": seed, "n": n, "status": "PENDING",
-                          "why": "no 4-digit div7 B generations for this model"})
-            continue
-        src = [fd[seed]] if seed in fd else list(fd.values())
-        w = sum(c["n_items"] for c in src)
-        p = sum(c["p_cond"] * c["n_items"] for c in src) / w
-        p2 = sum((c["p_cond_after_first_step"] or 0) * c["n_items"] for c in src) / w
-        gs = [c for c in src if c["answer_acc_given_trace_wrong"] is not None]
-        g = (sum(c["answer_acc_given_trace_wrong"] * c["n_items"] for c in gs) / sum(c["n_items"] for c in gs)) if gs else None
-        p_src = f"div7 B seed {seed}" if seed in fd else f"div7 B pooled seeds {sorted(fd)}"
+        # PRIMARY p is the value named in the decision log (4-digit div7 B seed 0: 0.955); same-seed p is secondary
+        p = S5_P_FIXED
+        same = fd.get(seed)
+        g_src = fd.get(0) or same or (next(iter(fd.values())) if fd else None)
+        g = g_src["answer_acc_given_trace_wrong"] if g_src else S5_G_FIXED
+        p2 = g_src["p_cond_after_first_step"] if g_src else None
+        p_src = "fixed 0.955 (PREDICTIONS.md decision log: 4-digit div7 B seed 0)"
         obs = six_gens[key]["answer_acc"] if key in six_gens else six_runs[key]
         pred = p ** 6
         tc = six_gens[key]["trace_correct_rate"] if key in six_gens else None
+        same_seed = None
+        if same is not None:
+            ps = same["p_cond"]
+            same_seed = {"p": ps, "source": f"div7 B seed {seed} generations", "predicted_p6": ps ** 6,
+                         "diff_pp": 100 * (obs - ps ** 6), "within_10pp": abs(obs - ps ** 6) <= S5_TOL}
         cells.append({"task": label, "role": role, "primary": role == "primary", "model": model, "seed": seed, "n": n,
                       "p": p, "p_source": p_src, "predicted_p6": pred, "observed_acc": obs,
                       "obs_source": "gens" if key in six_gens else "run row", "diff_pp": 100 * (obs - pred),
-                      "within_10pp": abs(obs - pred) <= S5_TOL,
+                      "within_10pp": abs(obs - pred) <= S5_TOL, "same_seed_p_secondary": same_seed,
                       "post_hoc": {"label": "post hoc (decision log 2026-09-25 21:27)",
                                    "trace_correct_6digit": tc,
                                    "trace_correct_minus_p6_pp": None if tc is None else 100 * (tc - pred),
@@ -365,7 +429,10 @@ def write_md(o):
             L.append(f"- [{c['role']}] {c['task']} {c['model']} n={c['n']} s{c['seed']}: p={c['p']:.4f} ({c['p_source']}) -> "
                      f"p^6={100 * c['predicted_p6']:.1f}%, observed answer acc {100 * c['observed_acc']:.1f}% ({c['obs_source']}), "
                      f"diff {c['diff_pp']:+.1f} pp -> {'within' if c['within_10pp'] else 'OUTSIDE'} 10 pp. "
-                     f"Post hoc: fully correct 6-digit traces {tc} vs p^6; guess model p^6 + (1 - p^6) g = {gm}")
+                     f"Post hoc: fully correct 6-digit traces {tc} vs p^6; guess model p^6 + (1 - p^6) g = {gm}"
+                     + (f". Same-seed p (secondary) {c['same_seed_p_secondary']['p']:.4f} -> p^6 "
+                        f"{100 * c['same_seed_p_secondary']['predicted_p6']:.1f}% ({c['same_seed_p_secondary']['diff_pp']:+.1f} pp)"
+                        if c.get("same_seed_p_secondary") else ""))
         else:
             L.append(f"- [{c['role']}] {c['task']} {c['model']} s{c['seed']}: PENDING ({c['why']})")
     if o["notes"]:

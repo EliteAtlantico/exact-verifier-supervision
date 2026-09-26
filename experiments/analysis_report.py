@@ -6,8 +6,8 @@ usage:  python experiments/analysis_report.py               # refresh everything
 Refresh = run, each in its own process: analysis_stats.py, analysis_rules.py, analysis_steps.py (seconds; they
 re-scan every run/eval/gens file), then analysis_tokens.py and analysis_probe.py with --if-changed (skipped
 unless the datasets or their code changed; a full probe run is ~20 min). Then README.md is composed from
-stats.json, probe.json, rules.json, steps.json and tokens.json, including the preregistered decision rules
-S1-S6 (PREDICTIONS.md) evaluated from whatever runs exist (PENDING when the needed cells are missing), with
+stats.json, probe.json, rules.json, steps.json, transitions.json and tokens.json, including the preregistered
+decision rules S1-S7 (PREDICTIONS.md) evaluated from whatever runs exist (PENDING when the needed cells are missing), with
 one table per model.
 """
 from __future__ import annotations
@@ -54,7 +54,7 @@ def pct(x, d=1):
 
 
 # --------------------------------------------------------------------------- preregistered rules
-def prereg(st, ru, sp):
+def prereg(st, ru, sp, tn=None):
     """S1-S6 from PREDICTIONS.md. Returns {rule: {"status", "detail": [...]}}; per model where meaningful."""
     tests = st["mcnemar"] if st else []
     pooled = st["pooled"] if st else []
@@ -129,6 +129,39 @@ def prereg(st, ru, sp):
                      or ["primary = B trained+tested on div7_6d (seeds 0,1); needs 4-digit div7 B gens and div7_6d B runs"]}
     else:
         res["S5"] = {"status": "PENDING", "detail": ["steps.json missing"]}
+    # S7 (PREDICTIONS.md 59e3989): p vs transitions per table entry; passes if >= 4 of (a)-(e) hold
+    tr = [r for r in (tn or {}).get("rows", []) if r["arm"] == "B" and r["prompt_mode"] == "plain"
+          and r["train_task"] == r["eval_task"] and r["model"] == M15]
+
+    def cells_for(task, n, seed=None):
+        return [r for r in tr if r["task"] == task and r["n"] == n and (seed is None or r["seed"] == seed)]
+
+    def judge(rs, cond):
+        if not rs:
+            return None, "pending"
+        ok = all(cond(r) for r in rs)
+        return ok, ", ".join(f"s{r['seed']} m={r['m']:.1f} p={r['p']:.3f} acc={pct(r['accuracy'])}" for r in rs)
+    preds = [("(a) div13 n=540 s0: p>=0.95 & acc>=85%", cells_for("div13", 540, 0), lambda r: r["p"] >= 0.95 and r["accuracy"] >= 0.85),
+             ("(b) div7 n=270 s0: p>=0.97", cells_for("div7", 270, 0), lambda r: r["p"] >= 0.97),
+             ("(c) div7 n=90 s0: p<=0.80 & acc<=75%", cells_for("div7", 90, 0), lambda r: r["p"] <= 0.80 and r["accuracy"] <= 0.75),
+             ("(d) div11 n=180: 0.566<p<0.955", cells_for("div11", 180), lambda r: 0.566 < r["p"] < 0.955)]
+    e_rows = (cells_for("div3", 180), cells_for("div2", 180))
+    det, held, pend = [], 0, 0
+    for name, rs, cond in preds:
+        ok, txt = judge(rs, cond)
+        held += bool(ok)
+        pend += ok is None
+        det.append(f"{name}: {'HOLDS' if ok else ('pending' if ok is None else 'fails')} [{txt}]")
+    if all(e_rows):
+        ok = all(r["p"] >= 0.97 for rs in e_rows for r in rs)
+        txt = "; ".join(f"{r['task']} s{r['seed']} m={r['m']:.1f} p={r['p']:.3f}" for rs in e_rows for r in rs)
+    else:
+        ok, txt = None, "pending (" + ", ".join(t for t, rs in zip(("div3", "div2"), e_rows) if not rs) + " missing)"
+    held += bool(ok)
+    pend += ok is None
+    det.append(f"(e) div3 & div2 n=180: p>=0.97: {'HOLDS' if ok else ('pending' if ok is None else 'fails')} [{txt}]")
+    s7 = "PASS" if held >= 4 else ("FAIL" if held + pend < 4 else "PENDING")
+    res["S7"] = {"status": f"{s7} ({held}/5 hold, {pend} pending)", "detail": det}
     # S6 (per model): prime A adapter on prime_hard: acc < 60% and agreement with 'odd & no factor <= 7' > truth
     s6 = [x for x in (ru or {}).get("runs", []) if x["task"] == "prime->prime_hard" and x["arm"] == "A"]
     for m in sorted({C.short_model(x["model"]) for x in s6}) or [M15]:
@@ -164,7 +197,8 @@ def main():
     models = sorted({k[1] for k in pooled if k[2] != "base"}, key=lambda m: (m != M15, m))
 
     # ---------------------------------------------------------------- 0. prereg
-    pre = prereg(st, ru, sp)
+    tn = load("transitions.json")
+    pre = prereg(st, ru, sp, tn)
     L += ["## Preregistered decision rules (PREDICTIONS.md), evaluated from the runs that exist", ""]
     L += [f"- **{k}: {v['status']}** -- " + "; ".join(v["detail"]) for k, v in pre.items()]
     L.append("")
@@ -298,6 +332,24 @@ def main():
                 L.append(f"| {c['model']} | {c['task']} | {c['arm']} | {c['seed']} | {pct(c['answer_acc'])} | {c['n_errors']} | "
                          f"{c['n_truncated_and_wrong']} | {c['n_wrong_with_answer_line']} | " + " / ".join(
                              pct(v["acc"], 0) for v in c["by_true_trial_divisions"].values()) + " |")
+        L.append("")
+
+    # ---------------------------------------------------------------- 4b. transitions per table entry (S7)
+    if tn and tn.get("rows"):
+        L += ["### Transitions per (remainder, digit) table entry (S7): m = k_train * n / (10 d)", "",
+              "| model | task | arm | n | seed | k | d | m | p | fully correct | accuracy |", "|---|---|---|---|---|---|---|---|---|---|---|"]
+        for r in tn["rows"]:
+            mm = "-" if r["m"] is None else f"{r['m']:.1f}"
+            L.append(f"| {r['model']} | {r['task']} | {r['arm']} | {r['n']} | {r['seed']} | {r['k_test']} | {r['d']} | "
+                     f"{mm} | {pct(r['p'])} | {pct(r['trace_correct'])} | {pct(r['accuracy'])} |")
+        for m, f in tn["post_hoc_fits"].items():
+            lg = f.get("logistic_logit_p_vs_ln_m")
+            if lg:
+                L.append(f"\nPOST HOC fit [{m}] over {f['n_points']} trained-and-tested B cells: logit(p) = {lg['a']:.2f} + "
+                         f"{lg['b']:.2f} ln m (R^2 {lg['r2_logit_scale']:.2f} on the logit scale); p = 0.95 at m ~ "
+                         f"{lg['m_for_p_0.95']:.1f}. Not preregistered.")
+            else:
+                L.append(f"\nPOST HOC fit [{m}]: {f.get('note', 'n/a')}")
         L.append("")
 
     # ---------------------------------------------------------------- 5. tokens
