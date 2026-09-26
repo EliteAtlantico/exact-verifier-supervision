@@ -1,0 +1,5 @@
+run div7 B 180 1  ...
+  FAILED rc=3221225477
+
+STOP: free disk 256 MB < 800 MB
+exit=0

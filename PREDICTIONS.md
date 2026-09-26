@@ -40,3 +40,10 @@ base (zero-shot), A (answers), B (trace then answer), C (length-matched scramble
 div7 only), plus eval-only controls: zero-shot chain-of-thought prompt and 4-shot trace demonstrations on the base
 model. Model: Qwen2.5-1.5B-Instruct (laptop), Qwen2.5-3B-Instruct and others where the RTX 5090 allows. LoRA r = 8,
 alpha 16, 3 epochs, lr 2e-4, bf16, greedy decoding, n = 180 training examples, 240 problem-disjoint test items.
+
+## Decision log
+
+- 2026-09-25 21:09 Toronto — **S1 PASS.** div7 B@180 seed 1 = 90.0% vs A 50.8% (+39.2 pp, McNemar p = 2e-18);
+  seed 2 = 82.5% vs A 47.9% (+34.6 pp, p = 6.8e-13). Runs in results/thinking_vs_data/runs_L1.jsonl, produced by
+  the unchanged worker experiments/exp_thinking_ft_worker.py. The paper proceeds; the remaining tests run on
+  experiments/exp_worker_v2.py.

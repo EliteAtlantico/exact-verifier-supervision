@@ -1,0 +1,55 @@
+run div7 B 180 1  ...
+  FAILED rc=1
+Traceback (most recent call last):
+  File "C:\Users\alexa\exact-verifier-supervision\experiments\exp_thinking_ft_worker.py", line 34, in <module>
+    import torch  # noqa: E402
+    ^^^^^^^^^^^^
+  File "C:\Users\alexa\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\torch\__init__.py", line 2787, in <module>
+    from torch import (
+    ...<4 lines>...
+    )
+  File "C:\Users\alexa\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\torch\export\__init__.py", line 11, in <module>
+    from torch.fx.passes.infra.pass_base import PassResult
+  File "C:\Users\alexa\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\torch\fx\passes\infra\__init__.py", line 1, in <module>
+    from . import pass_manager
+  File "C:\Users\alexa\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\torch\fx\passes\infra\pass_manager.py", line 6, in <module>
+    from queue import Queue
+ImportError: cannot import name 'Queue' from 'queue' (consider renaming 'C:\\Users\\alexa\\exact-verifier-supervision\\experiments\\queue.py' since it has the same name as the standard library module named 'queue' and prevents importing that standard library module)
+
+run div7 B 180 2  ...
+  FAILED rc=1
+Traceback (most recent call last):
+  File "C:\Users\alexa\exact-verifier-supervision\experiments\exp_thinking_ft_worker.py", line 34, in <module>
+    import torch  # noqa: E402
+    ^^^^^^^^^^^^
+  File "C:\Users\alexa\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\torch\__init__.py", line 2787, in <module>
+    from torch import (
+    ...<4 lines>...
+    )
+  File "C:\Users\alexa\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\torch\export\__init__.py", line 11, in <module>
+    from torch.fx.passes.infra.pass_base import PassResult
+  File "C:\Users\alexa\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\torch\fx\passes\infra\__init__.py", line 1, in <module>
+    from . import pass_manager
+  File "C:\Users\alexa\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\torch\fx\passes\infra\pass_manager.py", line 6, in <module>
+    from queue import Queue
+ImportError: cannot import name 'Queue' from 'queue' (consider renaming 'C:\\Users\\alexa\\exact-verifier-supervision\\experiments\\queue.py' since it has the same name as the standard library module named 'queue' and prevents importing that standard library module)
+
+run div7 A 180 2  ...
+  FAILED rc=1
+Traceback (most recent call last):
+  File "C:\Users\alexa\exact-verifier-supervision\experiments\exp_thinking_ft_worker.py", line 34, in <module>
+    import torch  # noqa: E402
+    ^^^^^^^^^^^^
+  File "C:\Users\alexa\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\torch\__init__.py", line 2787, in <module>
+    from torch import (
+    ...<4 lines>...
+    )
+  File "C:\Users\alexa\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\torch\export\__init__.py", line 11, in <module>
+    from torch.fx.passes.infra.pass_base import PassResult
+  File "C:\Users\alexa\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\torch\fx\passes\infra\__init__.py", line 1, in <module>
+    from . import pass_manager
+  File "C:\Users\alexa\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\torch\fx\passes\infra\pass_manager.py", line 6, in <module>
+    from queue import Queue
+ImportError: cannot import name 'Queue' from 'queue' (consider renaming 'C:\\Users\\alexa\\exact-verifier-supervision\\experiments\\queue.py' since it has the same name as the standard library module named 'queue' and prevents importing that standard library module)
+
+exit=0

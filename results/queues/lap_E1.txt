@@ -1,0 +1,5 @@
+div7 base 0 0 --eval-only none --prompt-mode cot
+div7 B 180 0 --eval-only auto --eval-task div7_6d
+prime A 180 0 --eval-only auto --eval-task prime_hard
+div7 base 0 0 --eval-only none --prompt-mode fewshot4
+prime base 0 0 --eval-only none --prompt-mode cot

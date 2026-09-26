@@ -1,0 +1,3 @@
+{"task": "div7", "arm": "B", "n": 180, "seed": 1, "acc": 0.9, "n_test": 240, "bits": "ffdbf7fffbfdfeedfffcfffffffff7fffffedffbf7fffffe9ffebffff9fc", "train_tokens": 10800, "train_s": 115.8, "eval_s": 407.6, "wall_s": 547.9}
+{"task": "div7", "arm": "B", "n": 180, "seed": 2, "acc": 0.825, "n_test": 240, "bits": "fff4f27deafafbfffdf2ffffeefffffe6efedffef9dffffeb747bff6bdff", "train_tokens": 10800, "train_s": 174.9, "eval_s": 305.5, "wall_s": 503.4}
+{"task": "div7", "arm": "A", "n": 180, "seed": 2, "acc": 0.4792, "n_test": 240, "bits": "664c95e77ca73d1345de09247909fb40938cf1d6a6ade46c31f850204687", "train_tokens": 360, "train_s": 89.0, "eval_s": 7.9, "wall_s": 112.9}

@@ -1,0 +1,12 @@
+# laptop Qwen2.5-1.5B, worker v2, priority order (S2/S5 first)
+div7 B 180 0
+div13 A 180 0
+div13 B 180 0
+div7_6d B 180 0
+div7_6d A 180 0
+div11 A 180 0
+div11 B 180 0
+div3 A 180 0
+div3 B 180 0
+div7 Bprime 180 0
+prime A 180 0
