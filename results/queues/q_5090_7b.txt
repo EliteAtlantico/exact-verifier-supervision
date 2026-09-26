@@ -1,0 +1,3 @@
+# Qwen2.5-7B-Instruct (only when RUN_7B=1)
+div7 A 180 0
+div7 B 180 0

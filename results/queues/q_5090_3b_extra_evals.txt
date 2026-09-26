@@ -1,0 +1,12 @@
+# Optional (RUN_EXTRA=1, default): eval-only cells on adapters saved by q_5090_3b (adapters are gitignored
+# and only exist on the 5090 box, so these must run there). Run with experiments/run_queue2.py into
+# results/v2/evals_Qwen2.5-3B-Instruct.jsonl (NOT runs_*.jsonl -- different test sets).
+# S6 shortcut probe: prime adapters on hard primes / odd composites with no factor <= 7
+prime A 180 0 --eval-only auto --eval-task prime_hard
+prime A 180 1 --eval-only auto --eval-task prime_hard
+prime B 180 0 --eval-only auto --eval-task prime_hard
+prime B 180 1 --eval-only auto --eval-task prime_hard
+# S5 length transfer: 4-digit div7 adapters on 6-digit div7
+div7 B 180 0 --eval-only auto --eval-task div7_6d
+div7 B 180 1 --eval-only auto --eval-task div7_6d
+div7 A 180 0 --eval-only auto --eval-task div7_6d

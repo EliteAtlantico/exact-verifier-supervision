@@ -1,0 +1,18 @@
+# Qwen2.5-3B-Instruct on the RTX 5090 (scripts/run_5090.sh; --model/--eval-bs 32 come from --extra)
+# <task> <arm> <n> <seed>   -- S4 (div7 sign at 3B) first
+div7 A 180 0
+div7 B 180 0
+div7 A 180 1
+div7 B 180 1
+div13 A 180 0
+div13 B 180 0
+div13 A 180 1
+div13 B 180 1
+prime A 180 0
+prime B 180 0
+prime A 180 1
+prime B 180 1
+valid A 180 0
+valid B 180 0
+valid A 180 1
+valid B 180 1

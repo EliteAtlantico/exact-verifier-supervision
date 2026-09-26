@@ -1,0 +1,6 @@
+# Optional (RUN_EXTRA=1, default): zero-shot 3B baselines for the tables. Plain training-path base cells,
+# same schema as the old runs.jsonl base rows -> safe to append to runs_Qwen2.5-3B-Instruct.jsonl
+div7 base 0 0
+div13 base 0 0
+prime base 0 0
+valid base 0 0

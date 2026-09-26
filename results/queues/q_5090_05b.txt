@@ -1,0 +1,5 @@
+# Qwen2.5-0.5B-Instruct
+div7 A 180 0
+div7 B 180 0
+prime A 180 0
+prime B 180 0
