@@ -1000,6 +1000,9 @@ def late_macros():
         put(k[:-6] + "SeedTxt", words.get(int(OUT[k]), OUT[k] + " seeds"), "seed count")
     put("divsevenSelfTrace", pct(mean(r["acc"] for r in got)) if got else DASH, "arm S 1.5B div7")
     put("divsevenSelfSeeds", seed_list([s_ for s_, r in zip((0, 1), d7) if r]) if got else DASH, "seeds")
+    put("divsevenSelfsZero", pct(d7[0]["acc"]) if d7[0] else DASH, "arm S 1.5B div7 seed 0")
+    put("divsevenSelfsOne", pct(d7[1]["acc"]) if d7[1] else DASH, "arm S 1.5B div7 seed 1")
+    put("validSelfTrace", pct(va["acc"]) if va else DASH, "arm S 1.5B valid seed 0 (S10 predicted >= 90)")
     # (F6c) post hoc logistic fits of q on ln m
     for mdl, w in (("Qwen2.5-1.5B-Instruct", "OneFive"), ("Qwen2.5-3B-Instruct", "ThreeB")):
         f = (TRANS or {}).get("post_hoc_fits", {}).get(mdl, {}).get("logistic_logit_p_vs_ln_m")
