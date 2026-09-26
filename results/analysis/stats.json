@@ -2,13 +2,34 @@
  "generated_by": "experiments/analysis_stats.py",
  "run_files": [
   "results\\thinking_vs_data\\runs.jsonl",
-  "results\\thinking_vs_data\\runs_L1.jsonl"
+  "results\\thinking_vs_data\\runs_L1.jsonl",
+  "results\\v2\\runs_Qwen2.5-1.5B-Instruct.jsonl"
  ],
- "n_runs": 38,
+ "n_runs": 39,
  "problems": [
-  "runs.jsonl:36 skipped valid/B_mv (no AI traces available)"
+  "runs.jsonl:36 skipped valid/B_mv (no AI traces available)",
+  "duplicate ('div7', 'B', 180, 0, 'Qwen/Qwen2.5-1.5B-Instruct'): keeping first (results/thinking_vs_data/runs.jsonl:30, acc 0.925), ignoring results/v2/runs_Qwen2.5-1.5B-Instruct.jsonl:1 (acc 0.925)"
  ],
  "per_run": [
+  {
+   "task": "div13",
+   "model": "Qwen/Qwen2.5-1.5B-Instruct",
+   "arm": "A",
+   "n": 180,
+   "seed": 0,
+   "k": 119,
+   "n_test": 240,
+   "acc": 0.49583333333333335,
+   "wilson95": [
+    0.4331438092326537,
+    0.5586541401001927
+   ],
+   "count_check": true,
+   "source": "results/v2/runs_Qwen2.5-1.5B-Instruct.jsonl",
+   "p_pred_yes": 0.004166666666666667,
+   "acc_on_yes": 0.0,
+   "acc_on_no": 0.9916666666666667
+  },
   {
    "task": "div7",
    "model": "Qwen/Qwen2.5-1.5B-Instruct",
@@ -733,6 +754,24 @@
   }
  ],
  "pooled": [
+  {
+   "task": "div13",
+   "model": "Qwen/Qwen2.5-1.5B-Instruct",
+   "arm": "A",
+   "n": 180,
+   "seeds": [
+    0
+   ],
+   "k": 119,
+   "N": 240,
+   "acc": 0.49583333333333335,
+   "wilson95": [
+    0.4331438092326537,
+    0.5586541401001927
+   ],
+   "seed_mean": 0.49583333333333335,
+   "seed_sd": null
+  },
   {
    "task": "div7",
    "model": "Qwen/Qwen2.5-1.5B-Instruct",
@@ -2479,43 +2518,6 @@
    "excludes_zero": true
   }
  ],
- "prereg": {
-  "S1": {
-   "status": "PASS",
-   "detail": [
-    "seed 1: B=0.900 A=0.508 diff=+0.392 p=2e-18 -> pass",
-    "seed 2: B=0.825 A=0.479 diff=+0.346 p=6.8e-13 -> pass"
-   ]
-  },
-  "S2": {
-   "status": "PENDING",
-   "detail": [
-    "div3: 0 seed pair(s) -- pending",
-    "div11: 0 seed pair(s) -- pending",
-    "div13: 0 seed pair(s) -- pending"
-   ]
-  },
-  "S3": {
-   "status": "PENDING",
-   "detail": []
-  },
-  "S4": {
-   "status": "PENDING",
-   "detail": []
-  },
-  "S5": {
-   "status": "NOT COMPUTED HERE",
-   "detail": [
-    "needs per-step accuracy from 4-digit div7 generations"
-   ]
-  },
-  "S6": {
-   "status": "SEE rules.json",
-   "detail": [
-    "computed by analysis_rules.py on prime_hard gens"
-   ]
-  }
- },
  "notes": [
   "Predictions recovered from bits: wrong -> flipped label (an unparseable '?' answer is indistinguishable from a flip in the bitmap).",
   "Holm family = (comparison, n, model, seed) across tasks; p_holm_tasks_x_seeds also pools seeds into the family (more conservative).",

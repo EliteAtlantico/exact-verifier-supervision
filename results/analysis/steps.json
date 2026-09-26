@@ -1,0 +1,55 @@
+{
+ "generated_by": "experiments/analysis_steps.py",
+ "notes": [],
+ "div": [
+  {
+   "task": "div7",
+   "eval_task": "div7",
+   "train_task": "div7",
+   "arm": "B",
+   "n": 180,
+   "seed": 0,
+   "model": "Qwen2.5-1.5B-Instruct",
+   "prompt_mode": "plain",
+   "gens_path": "results/v2/gens/Qwen2.5-1.5B-Instruct/div7_B_180_0.jsonl",
+   "n_items": 240,
+   "k": 4,
+   "answer_acc": 0.925,
+   "parse_rate": 1.0,
+   "exact_k_steps_rate": 1.0,
+   "p_uncond": 0.9072916666666667,
+   "p_cond": 0.954945054945055,
+   "p_cond_by_position": [
+    1.0,
+    0.925,
+    0.9324324324324325,
+    0.9615384615384616
+   ],
+   "p_cond_after_first_step": 0.9388059701492537,
+   "p_uncond_by_position": [
+    1.0,
+    0.925,
+    0.8666666666666667,
+    0.8375
+   ],
+   "local_arith_acc": 0.946875,
+   "digit_copy_acc": 1.0,
+   "carry_consistency": 1.0,
+   "trace_correct_rate": 0.8291666666666667,
+   "answer_trace_consistency": 1.0,
+   "n_consistency_items": 240,
+   "answer_acc_given_trace_correct": 1.0,
+   "answer_acc_given_trace_wrong": 0.5609756097560976,
+   "predicted_acc_p_cond_pow_k": 0.8315981921170909,
+   "predicted_acc_prod_p_i": 0.8293269230769231,
+   "observed_minus_predicted_pp": 9.340180788290919,
+   "ground_truth_mismatches": 0
+  }
+ ],
+ "prime": [],
+ "S5": {
+  "status": "PENDING",
+  "tolerance_pp": 10.0,
+  "cells": []
+ }
+}

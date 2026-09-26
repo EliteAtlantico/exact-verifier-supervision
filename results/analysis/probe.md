@@ -4,7 +4,7 @@ Train = the worker's balanced n=180 draw per seed; test = 240 items. Mean test a
 
 ## prime (digits features)
 
-Fine-tuned at n=180: A|Qwen2.5-1.5B-Instruct: s0=82.1, s1=82.5; B|Qwen2.5-1.5B-Instruct: s0=57.9, s1=57.5; C|Qwen2.5-1.5B-Instruct: s0=50.0, s1=54.2
+(Fine-tuned accuracies for comparison: results/analysis/README.md, section 2.)
 
 | probe | seed 0 | seed 1 | seed 2 | mean |
 |---|---|---|---|---|
@@ -23,7 +23,7 @@ Rule baselines (test accuracy, %): always_No=50.0, odd=76.2, last_digit_1379=82.
 
 ## div7 (digits features)
 
-Fine-tuned at n=180: A|Qwen2.5-1.5B-Instruct: s0=52.1, s1=50.8; B|Qwen2.5-1.5B-Instruct: s0=92.5; C|Qwen2.5-1.5B-Instruct: s0=49.6, s1=50.4
+(Fine-tuned accuracies for comparison: results/analysis/README.md, section 2.)
 
 | probe | seed 0 | seed 1 | seed 2 | mean |
 |---|---|---|---|---|
@@ -42,7 +42,7 @@ Rule baselines (test accuracy, %): always_No=50.0, always_Yes=50.0, last_digit_i
 
 ## valid (text features)
 
-Fine-tuned at n=180: A|Qwen2.5-1.5B-Instruct: s0=99.2, s1=100.0; B|Qwen2.5-1.5B-Instruct: s0=100.0, s1=80.0; C|Qwen2.5-1.5B-Instruct: s0=54.2, s1=50.8
+(Fine-tuned accuracies for comparison: results/analysis/README.md, section 2.)
 
 | probe | seed 0 | seed 1 | seed 2 | mean |
 |---|---|---|---|---|
@@ -61,7 +61,7 @@ Rule baselines (test accuracy, %): majority=50.0
 
 ## div2 (digits features)
 
-Fine-tuned at n=180: -
+(Fine-tuned accuracies for comparison: results/analysis/README.md, section 2.)
 
 | probe | seed 0 | seed 1 | seed 2 | mean |
 |---|---|---|---|---|
@@ -80,7 +80,7 @@ Rule baselines (test accuracy, %): always_No=50.0, always_Yes=50.0, last_digit_i
 
 ## div3 (digits features)
 
-Fine-tuned at n=180: -
+(Fine-tuned accuracies for comparison: results/analysis/README.md, section 2.)
 
 | probe | seed 0 | seed 1 | seed 2 | mean |
 |---|---|---|---|---|
@@ -99,7 +99,7 @@ Rule baselines (test accuracy, %): always_No=50.0, always_Yes=50.0, last_digit_i
 
 ## div11 (digits features)
 
-Fine-tuned at n=180: -
+(Fine-tuned accuracies for comparison: results/analysis/README.md, section 2.)
 
 | probe | seed 0 | seed 1 | seed 2 | mean |
 |---|---|---|---|---|
@@ -118,7 +118,7 @@ Rule baselines (test accuracy, %): always_No=50.0, always_Yes=50.0, last_digit_i
 
 ## div13 (digits features)
 
-Fine-tuned at n=180: -
+(Fine-tuned accuracies for comparison: results/analysis/README.md, section 2.)
 
 | probe | seed 0 | seed 1 | seed 2 | mean |
 |---|---|---|---|---|
@@ -137,7 +137,7 @@ Rule baselines (test accuracy, %): always_No=50.0, always_Yes=50.0, last_digit_i
 
 ## div7_6d (digits features)
 
-Fine-tuned at n=180: -
+(Fine-tuned accuracies for comparison: results/analysis/README.md, section 2.)
 
 | probe | seed 0 | seed 1 | seed 2 | mean |
 |---|---|---|---|---|
@@ -156,7 +156,7 @@ Rule baselines (test accuracy, %): always_No=50.0, always_Yes=50.0, last_digit_i
 
 ## prime_hard (digits features; trained on prime pool)
 
-Fine-tuned at n=180: -
+(Fine-tuned accuracies for comparison: results/analysis/README.md, section 2.)
 
 | probe | seed 0 | seed 1 | seed 2 | mean |
 |---|---|---|---|---|

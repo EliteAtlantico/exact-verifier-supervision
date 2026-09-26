@@ -2,6 +2,18 @@
 
 Agreement = fraction of test items where the model's (recovered) answer equals the rule's answer. 'best shortcut' = the non-trivial, non-truth rule with the highest Cohen's kappa (agreement corrected for the Yes-rates, so an always-No model does not 'agree' with rare-Yes rules).
 
+## div13
+
+| arm | n | seed | model | src | acc | P(Yes) | always_No | always_Yes | last_digit_is_3 | last_digit_0_or_5 | last_digit_even | digit_sum_div_13 | digit_sum_div_3 | contains_digit_7 | true_label | best shortcut |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| A | 180 | 0 | Qwen2.5-1.5B-Instruct | gens | 49.6 | 0.00 | 99.6 | 0.4 | 87.1 | 82.5 | 48.8 | 92.1 | 67.1 | 62.1 | 49.6 | digit_sum_div_13 (92.1; kappa -0.01 vs truth -0.01) |
+
+Best agreement by ANY function of the last digit / digit sum (vs permutation-null mean, q95)
+
+| arm | n | seed | last digit | null mean / q95 | digit sum | null mean / q95 |
+|---|---|---|---|---|---|---|
+| A | 180 | 0 | 99.6 | 99.6 / 99.6 | 99.6 | 99.6 / 99.6 |
+
 ## div7
 
 | arm | n | seed | model | src | acc | P(Yes) | always_No | always_Yes | last_digit_is_7 | last_digit_0_or_5 | last_digit_even | digit_sum_div_7 | digit_sum_div_3 | contains_digit_7 | true_label | best shortcut |
@@ -9,10 +21,12 @@ Agreement = fraction of test items where the model's (recovered) answer equals t
 | A | 60 | 0 | Qwen2.5-1.5B-Instruct | bits | 50.0 | 0.88 | 11.7 | 88.3 | 22.5 | 26.2 | 47.9 | 22.5 | 30.8 | 43.3 | 50.0 | contains_digit_7 (43.3; kappa 0.07 vs truth 0.00) |
 | A | 180 | 0 | Qwen2.5-1.5B-Instruct | bits | 52.1 | 0.24 | 76.2 | 23.8 | 73.8 | 60.8 | 43.3 | 69.6 | 57.9 | 70.4 | 52.1 | contains_digit_7 (70.4; kappa 0.30 vs truth 0.04) |
 | A | 180 | 1 | Qwen2.5-1.5B-Instruct | bits | 50.8 | 0.82 | 18.3 | 81.7 | 26.7 | 33.8 | 48.8 | 26.7 | 36.7 | 40.8 | 50.8 | last_digit_0_or_5 (33.8; kappa 0.03 vs truth 0.02) |
+| A | 180 | 2 | Qwen2.5-1.5B-Instruct | bits | 47.9 | 0.94 | 6.2 | 93.8 | 17.9 | 24.2 | 52.5 | 16.2 | 32.1 | 42.1 | 47.9 | contains_digit_7 (42.1; kappa 0.07 vs truth -0.04) |
 | A | 540 | 0 | Qwen2.5-1.5B-Instruct | bits | 50.0 | 0.00 | 100.0 | 0.0 | 88.3 | 78.8 | 48.8 | 87.5 | 71.7 | 64.2 | 50.0 | contains_digit_7 (64.2; kappa 0.00 vs truth 0.00) |
 | B | 60 | 0 | Qwen2.5-1.5B-Instruct | bits | 50.0 | 0.73 | 26.7 | 73.3 | 30.0 | 28.7 | 49.6 | 34.2 | 37.5 | 34.2 | 50.0 | digit_sum_div_7 (34.2; kappa 0.02 vs truth 0.00) |
-| B | 180 | 0 | Qwen2.5-1.5B-Instruct | bits | 92.5 | 0.47 | 53.3 | 46.7 | 53.3 | 51.2 | 49.6 | 50.8 | 52.5 | 53.3 | 92.5 | contains_digit_7 (53.3; kappa 0.05 vs truth 0.85) |
+| B | 180 | 0 | Qwen2.5-1.5B-Instruct | gens | 92.5 | 0.47 | 53.3 | 46.7 | 53.3 | 51.2 | 49.6 | 50.8 | 52.5 | 53.3 | 92.5 | contains_digit_7 (53.3; kappa 0.05 vs truth 0.85) |
 | B | 180 | 1 | Qwen2.5-1.5B-Instruct | bits | 90.0 | 0.44 | 55.8 | 44.2 | 55.8 | 49.6 | 46.2 | 52.5 | 53.3 | 55.0 | 90.0 | contains_digit_7 (55.0; kappa 0.07 vs truth 0.80) |
+| B | 180 | 2 | Qwen2.5-1.5B-Instruct | bits | 82.5 | 0.41 | 59.2 | 40.8 | 59.2 | 54.6 | 47.9 | 55.8 | 51.7 | 56.7 | 82.5 | contains_digit_7 (56.7; kappa 0.09 vs truth 0.65) |
 | C | 180 | 0 | Qwen2.5-1.5B-Instruct | bits | 49.6 | 0.72 | 27.9 | 72.1 | 32.9 | 35.8 | 45.0 | 35.4 | 40.4 | 48.8 | 49.6 | contains_digit_7 (48.8; kappa 0.09 vs truth -0.01) |
 | C | 180 | 1 | Qwen2.5-1.5B-Instruct | bits | 50.4 | 0.30 | 69.6 | 30.4 | 69.6 | 56.7 | 45.8 | 65.4 | 58.8 | 60.4 | 50.4 | last_digit_is_7 (69.6; kappa 0.13 vs truth 0.01) |
 | base | 0 | 0 | Qwen2.5-1.5B-Instruct | bits | 62.5 | 0.72 | 28.3 | 71.7 | 36.7 | 30.4 | 46.2 | 30.8 | 39.2 | 45.8 | 62.5 | last_digit_is_7 (36.7; kappa 0.05 vs truth 0.25) |
@@ -24,10 +38,12 @@ Best agreement by ANY function of the last digit / digit sum (vs permutation-nul
 | A | 60 | 0 | 88.3 | 88.3 / 88.3 | 89.2 | 88.7 / 89.6 |
 | A | 180 | 0 | 76.2 | 76.3 / 76.2 | 77.9 | 77.3 / 78.8 |
 | A | 180 | 1 | 81.7 | 81.7 / 81.7 | 81.7 | 82.3 / 83.3 |
+| A | 180 | 2 | 93.8 | 93.8 / 93.8 | 94.2 | 93.9 / 94.6 |
 | A | 540 | 0 | 100.0 | 100.0 / 100.0 | 100.0 | 100.0 / 100.0 |
 | B | 60 | 0 | 78.8 | 73.4 / 73.3 | 76.2 | 74.6 / 76.2 |
 | B | 180 | 0 | 55.8 | 58.2 / 61.7 | 61.7 | 62.5 / 65.4 |
 | B | 180 | 1 | 58.3 | 59.0 / 62.1 | 59.6 | 63.3 / 66.2 |
+| B | 180 | 2 | 60.0 | 60.9 / 63.7 | 65.4 | 64.5 / 67.1 |
 | C | 180 | 0 | 72.1 | 72.1 / 72.5 | 75.0 | 73.5 / 75.0 |
 | C | 180 | 1 | 69.6 | 69.7 / 70.4 | 71.2 | 71.5 / 73.3 |
 | base | 0 | 0 | 71.7 | 71.8 / 72.5 | 72.1 | 73.2 / 75.0 |
@@ -116,4 +132,4 @@ Accuracy % by schema
 ## Notes
 
 - runs.jsonl:36 skipped valid/B_mv (no AI traces available)
-- no results\v2\gens directory (generation-level analyses skipped)
+- duplicate ('div7', 'B', 180, 0, 'Qwen/Qwen2.5-1.5B-Instruct'): keeping first (results/thinking_vs_data/runs.jsonl:30, acc 0.925), ignoring results/v2/runs_Qwen2.5-1.5B-Instruct.jsonl:1 (acc 0.925)

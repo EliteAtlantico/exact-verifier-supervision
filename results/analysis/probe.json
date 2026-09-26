@@ -346,20 +346,6 @@
     "train_lookup_digit_sum": 0.6472222222222223,
     "oracle_any_fn_of_last_digit": 0.8249999999999998,
     "oracle_any_fn_of_digit_sum": 0.7166666666666667
-   },
-   "finetuned_same_n": {
-    "A|Qwen2.5-1.5B-Instruct": {
-     "0": 0.8208333333333333,
-     "1": 0.825
-    },
-    "B|Qwen2.5-1.5B-Instruct": {
-     "0": 0.5791666666666667,
-     "1": 0.575
-    },
-    "C|Qwen2.5-1.5B-Instruct": {
-     "0": 0.5,
-     "1": 0.5416666666666666
-    }
    }
   },
   "div7": {
@@ -701,19 +687,6 @@
     "train_lookup_digit_sum": 0.5097222222222223,
     "oracle_any_fn_of_last_digit": 0.5666666666666667,
     "oracle_any_fn_of_digit_sum": 0.6
-   },
-   "finetuned_same_n": {
-    "A|Qwen2.5-1.5B-Instruct": {
-     "0": 0.5208333333333334,
-     "1": 0.5083333333333333
-    },
-    "B|Qwen2.5-1.5B-Instruct": {
-     "0": 0.925
-    },
-    "C|Qwen2.5-1.5B-Instruct": {
-     "0": 0.49583333333333335,
-     "1": 0.5041666666666667
-    }
    }
   },
   "valid": {
@@ -1012,20 +985,6 @@
    },
    "rules_summary": {
     "majority": 0.5
-   },
-   "finetuned_same_n": {
-    "A|Qwen2.5-1.5B-Instruct": {
-     "0": 0.9916666666666667,
-     "1": 1.0
-    },
-    "B|Qwen2.5-1.5B-Instruct": {
-     "0": 1.0,
-     "1": 0.8
-    },
-    "C|Qwen2.5-1.5B-Instruct": {
-     "0": 0.5416666666666666,
-     "1": 0.5083333333333333
-    }
    }
   },
   "div2": {
@@ -1376,8 +1335,7 @@
     "train_lookup_digit_sum": 0.5027777777777778,
     "oracle_any_fn_of_last_digit": 1.0,
     "oracle_any_fn_of_digit_sum": 0.6375
-   },
-   "finetuned_same_n": {}
+   }
   },
   "div3": {
    "task": "div3",
@@ -1723,8 +1681,7 @@
     "train_lookup_digit_sum": 0.9680555555555556,
     "oracle_any_fn_of_last_digit": 0.55,
     "oracle_any_fn_of_digit_sum": 1.0
-   },
-   "finetuned_same_n": {}
+   }
   },
   "div11": {
    "task": "div11",
@@ -2077,8 +2034,7 @@
     "train_lookup_digit_sum": 0.5583333333333332,
     "oracle_any_fn_of_last_digit": 0.6,
     "oracle_any_fn_of_digit_sum": 0.6375
-   },
-   "finetuned_same_n": {}
+   }
   },
   "div13": {
    "task": "div13",
@@ -2419,8 +2375,7 @@
     "train_lookup_digit_sum": 0.5027777777777778,
     "oracle_any_fn_of_last_digit": 0.5875,
     "oracle_any_fn_of_digit_sum": 0.6333333333333333
-   },
-   "finetuned_same_n": {}
+   }
   },
   "div7_6d": {
    "task": "div7_6d",
@@ -2764,8 +2719,7 @@
     "train_lookup_digit_sum": 0.5027777777777778,
     "oracle_any_fn_of_last_digit": 0.5708333333333333,
     "oracle_any_fn_of_digit_sum": 0.6416666666666667
-   },
-   "finetuned_same_n": {}
+   }
   },
   "prime_hard": {
    "task": "prime_hard",
@@ -3112,8 +3066,8 @@
     "train_lookup_digit_sum": 0.4888888888888889,
     "oracle_any_fn_of_last_digit": 0.525,
     "oracle_any_fn_of_digit_sum": 0.6041666666666666
-   },
-   "finetuned_same_n": {}
+   }
   }
- }
+ },
+ "inputs_hash": "7ca74fbee2d9c6ff16813e55857bf21a7c1d6fae4cd1e22e0b03ada397f8fa9f"
 }

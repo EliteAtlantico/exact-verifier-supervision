@@ -102,6 +102,8 @@ def load_tasks():
                 cur = tasks[t]
                 if [x["id"] for x in td["test"]] != [x["id"] for x in cur["test"]]:
                     cur["notes"].append(f"{src} has a DIFFERENT test set for {t}; kept {cur['source']}")
+                if td.get("step_truth") and not cur.get("step_truth"):
+                    cur["step_truth"] = td["step_truth"]
                 for arm, pool in (td.get("pools") or {}).items():
                     if arm not in cur["pools"]:
                         cur["pools"][arm] = pool
@@ -109,7 +111,8 @@ def load_tasks():
                 continue
             meta = td.get("meta") or {}
             tasks[t] = {"test": td["test"], "pools": dict(td.get("pools") or {}), "source": src, "meta": meta,
-                        "notes": [], "train_task": meta.get("train_task") if meta.get("test_only") else None}
+                        "notes": [], "train_task": meta.get("train_task") if meta.get("test_only") else None,
+                        "step_truth": td.get("step_truth") or {}}
     return tasks
 
 
@@ -302,3 +305,58 @@ def prime_stratum(n: int) -> str:
     if has_factor_le(n, 7):
         return "odd_composite_factor_le7"
     return "hard_composite_no_factor_le7"
+
+
+# --------------------------------------------------------------------------- generation rows
+def gen_text(row):
+    """Generated text of a gens row (exp_worker_v2 writes 'gen'; 'text' accepted too)."""
+    for k in ("gen", "text", "output", "completion", "generation"):
+        if isinstance(row.get(k), str):
+            return row[k]
+    return ""
+
+
+def gen_pred(row):
+    """Predicted answer of a gens row ('pred' or 'predicted'; else re-extracted from the text)."""
+    for k in ("pred", "predicted"):
+        if row.get(k) in ("Yes", "No", "?"):
+            return row[k]
+    return extract(gen_text(row))
+
+
+def rems_of(n: int, d: int):
+    """Ground-truth running remainders of the digit-by-digit (10*r + digit) mod d procedure."""
+    r, out = 0, []
+    for c in str(n):
+        r = (10 * r + int(c)) % d
+        out.append(r)
+    return out
+
+
+# --------------------------------------------------------------------------- input fingerprint (caching)
+def inputs_hash(script_path, funcs=()):
+    """sha256 over the dataset files, the calling script and the source of the helper functions it relies on.
+    Used by analysis_probe.py / analysis_tokens.py --if-changed to skip recomputation when nothing changed."""
+    import hashlib
+    import inspect
+    h = hashlib.sha256()
+    files = [os.path.join(TVD, "datasets.json")] + sorted(glob.glob(os.path.join(V2, "*.json")))
+    for f in files + [script_path]:
+        if os.path.exists(f):
+            h.update(os.path.basename(f).encode())
+            with open(f, "rb") as fh:
+                for chunk in iter(lambda: fh.read(1 << 20), b""):
+                    h.update(chunk)
+    for fn in funcs:
+        h.update(inspect.getsource(fn).encode())
+    return h.hexdigest()
+
+
+def cached_and_unchanged(out_name, digest):
+    p = os.path.join(OUT, out_name)
+    if "--if-changed" not in sys.argv or not os.path.exists(p):
+        return False
+    try:
+        return json.load(open(p, encoding="utf-8")).get("inputs_hash") == digest
+    except Exception:
+        return False

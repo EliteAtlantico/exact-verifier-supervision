@@ -1,6 +1,6 @@
 """analysis_tokens.py -- real-tokenizer checks (CPU only, own process, no numpy import).
 
-usage:  python experiments/analysis_tokens.py
+usage:  python experiments/analysis_tokens.py [--if-changed]
 writes: results/analysis/tokens.json
 
 1. Does Qwen2.5-1.5B-Instruct's tokenizer split 4-digit (and 6-digit) numbers into single digits, in the
@@ -28,7 +28,6 @@ os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")
 import analysis_common as C  # noqa: E402
 
 C.fix_sys_path()
-from transformers import AutoTokenizer  # noqa: E402
 
 N = 180
 SEEDS = (0, 1, 2)
@@ -36,9 +35,14 @@ EPOCHS = 3
 
 
 def main():
+    digest = C.inputs_hash(os.path.abspath(__file__), (C.balanced_sample, C.extract, C.load_tasks))
+    if C.cached_and_unchanged("tokens.json", digest):
+        print("tokens: inputs unchanged -> keeping results/analysis/tokens.json")
+        return
+    from transformers import AutoTokenizer          # imported only when there is work to do
     tok = AutoTokenizer.from_pretrained(C.DEFAULT_MODEL)
     out = {"generated_by": "experiments/analysis_tokens.py", "model": C.DEFAULT_MODEL,
-           "tokenizer_class": type(tok).__name__, "digit_check": {}, "train_tokens": {}}
+           "tokenizer_class": type(tok).__name__, "digit_check": {}, "train_tokens": {}, "inputs_hash": digest}
 
     # ------------------------------------------------------------ 1. digit tokenization
     samples = [1000, 1617, 2740, 7055, 9929, 9999, 123456, 997003]

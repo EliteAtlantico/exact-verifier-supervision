@@ -1,6 +1,7 @@
 """analysis_probe.py -- surface-learnability probes from the SAME 180 balanced training examples.
 
-usage:  python experiments/analysis_probe.py [--seeds 0,1,2] [--n 180] [--no-full] [--tasks prime,div7]
+usage:  python experiments/analysis_probe.py [--seeds 0,1,2] [--n 180] [--no-full] [--tasks prime,div7] [--if-changed]
+        (--if-changed: exit immediately if datasets + probe code are unchanged since the last full run)
         (--no-full skips the full-pool reference; --tasks restricts the tasks)
 writes: results/analysis/probe.json (+ probe.md)
 
@@ -268,11 +269,16 @@ def probe_task(task, td, seeds, n, tasks):
 def main():
     global SKIP_FULL
     SKIP_FULL = "--no-full" in sys.argv
+    digest = C.inputs_hash(os.path.abspath(__file__), (C.balanced_sample, C.extract, C.number_of, C.load_tasks,
+                                                       C.prime_rules, C.divk_rules, C.has_factor_le, C.digit_sum))
+    if C.cached_and_unchanged("probe.json", digest) and "--tasks" not in sys.argv:
+        print("probe: inputs unchanged -> keeping results/analysis/probe.json")
+        return
     seeds = [int(x) for x in sys.argv[sys.argv.index("--seeds") + 1].split(",")] if "--seeds" in sys.argv else [0, 1, 2]
     n = int(sys.argv[sys.argv.index("--n") + 1]) if "--n" in sys.argv else 180
     tasks = C.load_tasks()
-    runs, _ = C.load_runs()
-    out = {"generated_by": "experiments/analysis_probe.py", "seeds": seeds, "n_train": n, "tasks": {}}
+    out = {"generated_by": "experiments/analysis_probe.py", "seeds": seeds, "n_train": n, "tasks": {},
+           "inputs_hash": None if ("--tasks" in sys.argv or SKIP_FULL or seeds != [0, 1, 2] or n != 180) else digest}
     only = sys.argv[sys.argv.index("--tasks") + 1].split(",") if "--tasks" in sys.argv else None
     prev = os.path.join(C.OUT, "probe.json")
     if only and os.path.exists(prev):                  # partial run: update those tasks, keep the others
@@ -288,13 +294,6 @@ def main():
         r = probe_task(t, td, seeds, n, tasks)
         if r is None:
             continue
-        # attach the fine-tuned arms at the same n for the A-vs-probe comparison (same train and test task)
-        ft = defaultdict(dict)
-        label = C.cell_label(r["train_task"], t, "A")
-        for run in runs:
-            if run["task"] == label and run["n"] == n and run["arm"] in ("A", "B", "C", "Bprime"):
-                ft[f"{run['arm']}|{C.short_model(run['model'])}"][str(run["seed"])] = run["k"] / run["n_test"]
-        r["finetuned_same_n"] = ft
         out["tasks"][t] = r
     C.ensure_out()
     json.dump(out, open(os.path.join(C.OUT, "probe.json"), "w", encoding="utf-8"), indent=1)
@@ -308,9 +307,7 @@ def write_md(o):
          "Mean test accuracy over seeds, %.", ""]
     for t, r in o["tasks"].items():
         L += [f"## {t} ({r['featurization']} features" + (f"; trained on {r['train_task']} pool" if r["train_task"] != t else "") + ")", ""]
-        ft = "; ".join(f"{k}: " + ", ".join(f"s{s}={100 * v:.1f}" for s, v in sorted(d.items()))
-                       for k, d in sorted(r["finetuned_same_n"].items()))
-        L.append(f"Fine-tuned at n={o['n_train']}: {ft or '-'}")
+        L.append("(Fine-tuned accuracies for comparison: results/analysis/README.md, section 2.)")
         L += ["", "| probe | " + " | ".join(f"seed {s}" for s in r["per_seed"]) + " | mean |",
               "|---|" + "---|" * (len(r["per_seed"]) + 1)]
         for nm, m in r["summary"].items():

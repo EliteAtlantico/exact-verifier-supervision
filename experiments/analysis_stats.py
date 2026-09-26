@@ -18,7 +18,7 @@ Torch-free, re-runnable: re-scans runs.jsonl, runs_*.jsonl and results/v2/runs_*
   conservative Holm across tasks x seeds (comparison, n, model) is also reported.
 * Paired hierarchical bootstrap of the difference (resample seeds with replacement, and test items with
   replacement shared across seeds), 95% percentile CI.
-* Preregistered decision rules S1-S4 (PREDICTIONS.md) evaluated where the runs exist, else PENDING.
+(The preregistered decision rules S1-S6 are evaluated in analysis_report.py from this file, rules.json and steps.json.)
 """
 from __future__ import annotations
 
@@ -38,7 +38,6 @@ Z = 1.959963984540054
 COMPARISONS = [("B-A", "B", "A", None), ("B-C", "B", "C", None), ("A-base", "A", "base", None),
                ("B-Bprime", "B", "Bprime", None), ("B-base[cot]", "B", "base", "cot"),
                ("B-base[fewshot4]", "B", "base", "fewshot4")]
-MAIN_N = 180
 
 
 def wilson(k, n, z=Z):
@@ -179,12 +178,9 @@ def main():
                       "seeds": sorted(tr["seed"] for tr in trs), "diff": point, "ci95": [lo, hi],
                       "n_boot": n_boot, "excludes_zero": bool(lo > 0 or hi < 0)})
 
-    # ---------------------------------------------------------------- prereg S1-S4
-    prereg = prereg_checks(by_key, tests)
-
     out = {"generated_by": "experiments/analysis_stats.py", "run_files": [os.path.relpath(f, C.ROOT)
            for f in C.run_files()], "n_runs": len(runs), "problems": problems,
-           "per_run": per_run, "pooled": pooled, "mcnemar": tests, "bootstrap": boots, "prereg": prereg,
+           "per_run": per_run, "pooled": pooled, "mcnemar": tests, "bootstrap": boots,
            "notes": ["Predictions recovered from bits: wrong -> flipped label (an unparseable '?' answer "
                      "is indistinguishable from a flip in the bitmap).",
                      "Holm family = (comparison, n, model, seed) across tasks; p_holm_tasks_x_seeds also "
@@ -196,58 +192,6 @@ def main():
     print(f"stats: {len(runs)} runs, {len(tests)} McNemar tests, {len(boots)} bootstrap cells -> {os.path.relpath(C.OUT, C.ROOT)}")
     for p in problems:
         print("  note:", p)
-
-
-def prereg_checks(by_key, tests):
-    m15 = C.DEFAULT_MODEL
-    res = {}
-
-    def get(t, a, n, s, m=m15):
-        return by_key.get((t, a, n, s, m))
-
-    def mc(t, s, m=m15, n=MAIN_N):
-        return next((x for x in tests if x["comparison"] == "B-A" and x["task"] == t and x["seed"] == s
-                     and x["model"] == m and x["n"] == n), None)
-
-    # S1
-    detail, ok, pending = [], True, False
-    for s in (1, 2):
-        b, a, tr = get("div7", "B", 180, s), get("div7", "A", 180, s), mc("div7", s)
-        if b is None or a is None or tr is None:
-            pending = True
-            detail.append(f"seed {s}: missing ({'B' if b is None else ''}{'A' if a is None else ''})")
-            continue
-        cond = b["acc"] >= 0.80 and tr["diff"] >= 0.20 and tr["p_exact"] < 0.01
-        ok &= cond
-        detail.append(f"seed {s}: B={b['acc']:.3f} A={a['acc']:.3f} diff={tr['diff']:+.3f} p={tr['p_exact']:.2g} "
-                      f"-> {'pass' if cond else 'FAIL'}")
-    res["S1"] = {"status": "PENDING" if pending and ok else ("PASS" if ok else "FAIL"), "detail": detail}
-    # S2
-    det, wins, decided = [], 0, 0
-    for t in ("div3", "div11", "div13"):
-        trs = [x for x in tests if x["comparison"] == "B-A" and x["task"] == t and x["model"] == m15
-               and x["n"] == MAIN_N]
-        if len(trs) < 2:
-            det.append(f"{t}: {len(trs)} seed pair(s) -- pending")
-            continue
-        decided += 1
-        w = all(x["diff"] >= 0.15 for x in trs)
-        wins += w
-        det.append(f"{t}: diffs {[round(x['diff'], 3) for x in trs]} -> {'win' if w else 'no'}")
-    st = "PASS" if wins >= 2 else ("FAIL" if wins + (3 - decided) < 2 else "PENDING")
-    res["S2"] = {"status": st, "detail": det}
-    # S3
-    a2 = [r for k, r in by_key.items() if k[0] == "div2" and k[1] == "A" and k[2] == MAIN_N and k[4] == m15]
-    res["S3"] = {"status": "PENDING" if not a2 else ("PASS" if all(r["acc"] >= 0.95 for r in a2) else "FAIL"),
-                 "detail": [f"seed {r['seed']}: A={r['acc']:.3f}" for r in a2]}
-    # S4
-    trs = [x for x in tests if x["comparison"] == "B-A" and x["task"] == "div7" and "3B" in x["model"]]
-    res["S4"] = {"status": "PENDING" if not trs else ("PASS" if all(x["diff"] > 0 for x in trs) else "FAIL"),
-                 "detail": [f"{C.short_model(x['model'])} n={x['n']} seed {x['seed']}: diff={x['diff']:+.3f} "
-                            f"p={x['p_exact']:.2g}" for x in trs]}
-    res["S5"] = {"status": "NOT COMPUTED HERE", "detail": ["needs per-step accuracy from 4-digit div7 generations"]}
-    res["S6"] = {"status": "SEE rules.json", "detail": ["computed by analysis_rules.py on prime_hard gens"]}
-    return res
 
 
 def write_md(o):
@@ -284,9 +228,6 @@ def write_md(o):
         L.append(f"| {b['comparison']} | {b['task']} | {C.short_model(b['model'])} | {b['n']} | "
                  f"{','.join(map(str, b['seeds']))} | {100 * b['diff']:+.1f} [{100 * b['ci95'][0]:+.1f}, "
                  f"{100 * b['ci95'][1]:+.1f}] |")
-    L += ["", "## Preregistered decision rules (PREDICTIONS.md)", ""]
-    for k, v in o["prereg"].items():
-        L.append(f"- **{k}: {v['status']}** -- " + "; ".join(v["detail"]))
     if o["problems"]:
         L += ["", "## Data notes", ""] + [f"- {p}" for p in o["problems"]]
     L += ["", "## Method notes", ""] + [f"- {n}" for n in o["notes"]]

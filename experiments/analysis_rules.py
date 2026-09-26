@@ -149,7 +149,7 @@ def main():
         g = gens.get(gkey)
         extra = {}
         if g and [row.get("id") for row in g["rows"]] == [t["id"] for t in test]:
-            preds = [row["pred"] for row in g["rows"]]
+            preds = [C.gen_pred(row) for row in g["rows"]]
             src = "observed_generations"
             used_gens.add(gkey)
             gbits = [int(row.get("correct", p == gd)) for row, p, gd in zip(g["rows"], preds, golds)]
@@ -176,7 +176,7 @@ def main():
         if not rows:
             continue
         items = [by_id[row["id"]] for row in rows]
-        preds, golds = [row.get("pred", "?") for row in rows], [t["label"] for t in items]
+        preds, golds = [C.gen_pred(row) for row in rows], [t["label"] for t in items]
         nums = None if g["eval_task"].startswith("valid") else [C.number_of(t["prompt"]) for t in items]
         a = analyze(g["eval_task"], nums, preds, golds, ids=[t["id"] for t in items])
         results.append({"task": label, "eval_task": g["eval_task"], "arm": arm, "n": n, "seed": seed, "model": model,
