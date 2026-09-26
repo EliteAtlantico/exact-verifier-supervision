@@ -107,3 +107,5 @@ commit timestamps, which are the authoritative record.
   traces fully correct, and at 3B it parses 97.7% of kept traces, 96.4% of which are correct. So the sentence "kept traces
   whose steps are mostly wrong" is withdrawn. S10's accuracy clause failed either way; its trace clause holds under the
   preregistered parser and fails under the re-audit. Both are reported.
+- 2026-09-26 (time = this commit) **S10, remaining 1.5B cells.** valid S seed 0 = 64.6%, so the clause "on valid, S >= 90%"
+  also fails. prime S seed 0 = 67.1% (no prediction). div7 S seed 1 is running and will be reported.
