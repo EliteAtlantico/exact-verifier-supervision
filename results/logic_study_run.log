@@ -1,0 +1,6 @@
+reality-gated LOGIC fine-tuning study (isolated workers)
+
+[valid  ] base=0.667 gate=0.994±0.010 shuffled=0.500 | gate-base=+0.327 gate-shuf=+0.494 (669s)
+[consist] base=0.500 gate=0.998±0.006 shuffled=0.485 | gate-base=+0.498 gate-shuf=+0.513 (1328s)
+
+wrote C:\Users\alexa\axiomatic-universe-may27clean\results\LOGIC_FINETUNE.md  (1328 s total)
