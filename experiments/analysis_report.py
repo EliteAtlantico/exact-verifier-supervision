@@ -180,36 +180,95 @@ def prereg(st, ru, sp, tn=None):
                        f" -> {'pass' if c else 'FAIL'}")
         res[f"S6 [{m}]"] = {"status": "PENDING" if not xs else ("PASS" if ok else "FAIL"),
                             "detail": (det or ["needs prime A evaluated on prime_hard (prime->prime_hard)"]) + [SETTLED["S6"]]}
-    # S8 (PREDICTIONS.md 1163562, grounding control): div7 arm D n=180, seeds 0 and 1: acc <= 60% and within 10 pp of A
-    det, ok, pend = [], True, False
-    for sd in (0, 1):
-        dacc, aacc = acc.get(("div7", M15, "D", MAIN_N, sd)), acc.get(("div7", M15, "A", MAIN_N, sd))
-        if dacc is None or aacc is None:
-            pend = True
-            det.append(f"s{sd}: pending (" + ", ".join(a for a, v in (("D", dacc), ("A", aacc)) if v is None) + " missing)")
-            continue
-        c = dacc <= 0.60 and abs(dacc - aacc) <= 0.10
-        ok &= c
-        bd = next((x for x in tests if x["comparison"] == "B-D" and x["task"] == "div7" and x["seed"] == sd
-                   and C.short_model(x["model"]) == M15 and x["n"] == MAIN_N), None)
-        det.append(f"s{sd}: D {pct(dacc)} A {pct(aacc)} (D-A {100 * (dacc - aacc):+.1f} pp)"
-                   + (f", B-D {100 * bd['diff']:+.1f} pp p={bd['p_exact']:.1g}" if bd else "") + f" -> {'pass' if c else 'FAIL'}")
-    res["S8"] = {"status": "FAIL" if not ok else ("PENDING" if pend else "PASS"), "detail": det}
-    # S9 (PREDICTIONS.md 1163562, dose at fixed step difficulty): div13 B n=360 s0 >= 80% and div13 A n=360 s0 <= 60%
-    b9, a9 = acc.get(("div13", M15, "B", 360, 0)), acc.get(("div13", M15, "A", 360, 0))
-    det, ok, pend = [], True, False
-    for name, v, cond in (("B", b9, lambda x: x >= 0.80), ("A", a9, lambda x: x <= 0.60)):
-        if v is None:
-            pend = True
-            det.append(f"div13 {name} n=360 s0: pending")
+    # S8 (PREDICTIONS.md 1163562, grounding control): div7 arm D n=180, seeds 0 and 1: acc <= 60% and within 10 pp of A.
+    # S9 (same entry, dose at fixed step difficulty): div13 B n=360 s0 >= 80% and div13 A n=360 s0 <= 60%.
+    # Primary = the 1.5B laptop model (PREDICTIONS.md arms section); other models are reported as SECONDARY rows.
+    for m in [M15] + [x for x in models if x != M15]:
+        tag = "" if m == M15 else f" [{m}, secondary]"
+        det, ok, pend, seen = [], True, False, False
+        for sd in (0, 1):
+            dacc, aacc = acc.get(("div7", m, "D", MAIN_N, sd)), acc.get(("div7", m, "A", MAIN_N, sd))
+            if dacc is None or aacc is None:
+                pend = True
+                det.append(f"s{sd}: pending (" + ", ".join(x for x, v in (("D", dacc), ("A", aacc)) if v is None) + " missing)")
+                continue
+            seen = True
+            c = dacc <= 0.60 and abs(dacc - aacc) <= 0.10
+            ok &= c
+            bd = next((x for x in tests if x["comparison"] == "B-D" and x["task"] == "div7" and x["seed"] == sd
+                       and C.short_model(x["model"]) == m and x["n"] == MAIN_N), None)
+            det.append(f"s{sd}: D {pct(dacc)} A {pct(aacc)} (D-A {100 * (dacc - aacc):+.1f} pp)"
+                       + (f", B-D {100 * bd['diff']:+.1f} pp p={bd['p_exact']:.1g}" if bd else "") + f" -> {'pass' if c else 'FAIL'}")
+        bp = [(sd, acc.get(("div7", m, "Bprime", MAIN_N, sd))) for sd in (0, 1, 2)]
+        bp = [(sd, v) for sd, v in bp if v is not None]
+        if bp:
+            det.append("context: Bprime (answer then trace) " + ", ".join(f"s{sd} {pct(v)}" for sd, v in bp))
+        if m == M15 or seen:
+            res["S8" + tag] = {"status": ("FAIL" if not ok else ("PENDING" if pend else "PASS")) +
+                               (" (secondary; not the preregistered model)" if tag else ""), "detail": det}
+        b9, a9 = acc.get(("div13", m, "B", 360, 0)), acc.get(("div13", m, "A", 360, 0))
+        det, ok, pend = [], True, False
+        for name, v, cond in (("B", b9, lambda x: x >= 0.80), ("A", a9, lambda x: x <= 0.60)):
+            if v is None:
+                pend = True
+                det.append(f"div13 {name} n=360 s0: pending")
+            else:
+                ok &= cond(v)
+                det.append(f"div13 {name} n=360 s0: {pct(v)} -> {'pass' if cond(v) else 'FAIL'}")
+        t9 = next((r for r in (tn or {}).get("rows", []) if r["task"] == "div13" and r["n"] == 360 and r["seed"] == 0
+                   and r["arm"] == "B" and r["model"] == m), None)
+        if t9:
+            det.append(f"(context: m={t9['m']:.1f}, p={t9['p']:.3f}, fully correct {pct(t9['trace_correct'])})")
+        if m == M15 or b9 is not None or a9 is not None:
+            res["S9" + tag] = {"status": ("FAIL" if not ok else ("PENDING" if pend else "PASS")) +
+                               (" (secondary; not the preregistered model)" if tag else ""), "detail": det}
+    # S10 (PREDICTIONS.md 8c0cfff): arm S = self-generated traces filtered by the exact verifier on the answer.
+    # div7 S <= 65% in seeds 0 and 1; < 50% of kept div7 traces with all remainders correct; valid S >= 90%;
+    # prime S reported without prediction. Primary = 1.5B (laptop model); other models = secondary observations.
+    star = {(c["model"], c["task"], c["n"], c["seed"]): c for c in (sp or {}).get("star", [])}
+    for m in [M15] + [x for x in models if x != M15]:
+        tag = "" if m == M15 else f" [{m}, secondary observation]"
+        det, ok, pend, seen = [], True, False, False
+        for sd in (0, 1):
+            v = acc.get(("div7", m, "S", MAIN_N, sd))
+            ss = star.get((m, "div7", MAIN_N, sd))
+            if v is None:
+                pend = True
+                det.append(f"div7 S s{sd}: pending")
+            else:
+                seen = True
+                c = v <= 0.65
+                ok &= c
+                det.append(f"div7 S s{sd}: {pct(v)} (<= 65%? {'yes' if c else 'NO'})")
+            if ss is not None and ss.get("kept_trace_correct_frac") is not None:
+                seen = True
+                c = ss["kept_trace_correct_frac"] < 0.50
+                ok &= c
+                det.append(f"div7 S s{sd} kept traces: keep rate {pct(ss['keep_rate'])}, items kept {ss['n_kept']}/{ss['n_items']}, "
+                           f"all audited claims correct {pct(ss['kept_trace_correct_frac'])} (< 50%? {'yes' if c else 'NO'}; "
+                           f">= 1 audited claim in {pct(ss['kept_trace_parsed_frac'])})")
+            elif v is not None:
+                pend = True
+                det.append(f"div7 S s{sd} kept-trace audit: star_samples file missing")
+        vs = sorted((k[4], x) for k, x in acc.items() if k[0] == "valid" and k[1] == m and k[2] == "S" and k[3] == MAIN_N)
+        if vs:
+            seen = True
+            c = all(x >= 0.90 for _, x in vs)
+            ok &= c
+            det.append("valid S " + ", ".join(f"s{sd} {pct(x)}" for sd, x in vs) + f" (>= 90%? {'yes' if c else 'NO'})"
+                       + "".join(f"; keep rate {pct(star[(m, 'valid', MAIN_N, sd)]['keep_rate'])}" for sd, _ in vs
+                                 if (m, "valid", MAIN_N, sd) in star))
         else:
-            ok &= cond(v)
-            det.append(f"div13 {name} n=360 s0: {pct(v)} -> {'pass' if cond(v) else 'FAIL'}")
-    t9 = next((r for r in (tn or {}).get("rows", []) if r["task"] == "div13" and r["n"] == 360 and r["seed"] == 0
-               and r["arm"] == "B"), None)
-    if t9:
-        det.append(f"(context: m={t9['m']:.1f}, p={t9['p']:.3f}, fully correct {pct(t9['trace_correct'])})")
-    res["S9"] = {"status": "FAIL" if not ok else ("PENDING" if pend else "PASS"), "detail": det}
+            pend = True
+            det.append("valid S: pending")
+        ps = sorted((k[4], x) for k, x in acc.items() if k[0] == "prime" and k[1] == m and k[2] == "S" and k[3] == MAIN_N)
+        if ps:
+            det.append("prime S (no prediction) " + ", ".join(f"s{sd} {pct(x)}" for sd, x in ps))
+        if m == M15 or seen:
+            st_ = "FAIL" if not ok else ("PENDING" if pend else "PASS")
+            if tag:
+                st_ = f"{'consistent' if ok else 'inconsistent'} with the prediction so far" + (" (incomplete)" if pend else "")
+            res["S10" + tag] = {"status": st_, "detail": det}
     return res
 
 
@@ -236,7 +295,7 @@ def main():
     tn = load("transitions.json")
     pre = prereg(st, ru, sp, tn)
     L += ["## Preregistered decision rules (PREDICTIONS.md), evaluated from the runs that exist", ""]
-    order = sorted(pre, key=lambda k: (int(k[1:].split()[0]), k))
+    order = sorted(pre, key=lambda k: (int(k[1:].split()[0]), "secondary" in k, k))
     L += [f"- **{k}: {pre[k]['status']}** -- " + "; ".join(pre[k]["detail"]) for k in order]
     L.append("")
 
@@ -404,6 +463,42 @@ def main():
                          f"{pct((pcl.get('primes') or {}).get('acc'))} | {pct((pcl.get('composites') or {}).get('acc'))} | "
                          f"{c['n_errors']} | {c['n_truncated_and_wrong']} | {c['n_wrong_with_answer_line']} | " + " / ".join(
                              pct(v["acc"], 0) for v in c["by_true_trial_divisions"].values()) + " |")
+        L.append("")
+
+    # ---------------------------------------------------------------- 4c. valid templates and arm S samples
+    if sp and sp.get("valid"):
+        L += ["### valid: which template does the trace assert?", "",
+              "A trace 'asserts contradiction' when it claims the premises plus the negated conclusion are unsatisfiable "
+              "(=> Yes); 'asserts countermodel' when it claims a satisfying assignment (=> No). Claimed contradictory sets "
+              "are re-checked by truth table; a claimed contradiction that is satisfiable is a false claim.", "",
+              "| model | task | arm | seed | acc | gold Yes: contradiction / countermodel | gold No: contradiction / countermodel | "
+              "gold No: claimed contradictions checked / actually satisfiable | countermodel opener then contradiction |",
+              "|---|---|---|---|---|---|---|---|---|"]
+        for c in sp["valid"]:
+            if c["arm"] not in ("B", "Bprime", "S", "D"):
+                continue
+            y, nn = c["by_gold"].get("Yes", {}), c["by_gold"].get("No", {})
+            L.append(f"| {c['model']} | {c['task']} | {c['arm']} | {c['seed']} | {pct(c['answer_acc'])} | "
+                     f"{y.get('asserts_contradiction', 0)}/{y.get('n', 0)} / {y.get('asserts_countermodel', 0)}/{y.get('n', 0)} | "
+                     f"{nn.get('asserts_contradiction', 0)}/{nn.get('n', 0)} / {nn.get('asserts_countermodel', 0)}/{nn.get('n', 0)} | "
+                     f"{nn.get('claims_checked', 0)} / {nn.get('claims_actually_satisfiable', 0)} | "
+                     f"{c['hybrid_opener_then_contradiction']} |")
+            if c["model"].endswith("7B-Instruct") and c["arm"] == "B":
+                KEY.append(f"- **valid B [{c['model']} s{c['seed']}]**: {pct(c['answer_acc'])}%; on gold-No items "
+                           f"{nn.get('asserts_contradiction', 0)}/{nn.get('n', 0)} traces assert a contradiction (=> Yes) and "
+                           f"{nn.get('asserts_countermodel', 0)}/{nn.get('n', 0)} a countermodel; "
+                           f"{c['hybrid_opener_then_contradiction']} open with the countermodel template and then assert a "
+                           f"contradiction; all {nn.get('claims_actually_satisfiable', 0)} of {nn.get('claims_checked', 0)} "
+                           "parseable claimed contradictions on gold-No items are satisfiable.")
+        L.append("")
+    if sp and sp.get("star"):
+        L += ["### Arm S: self-generated, answer-verified traces (star_samples)", "",
+              "| model | task | n | seed | K | keep rate (samples) | items kept | kept Yes/No | kept traces with all audited "
+              "remainder/quotient claims correct | kept traces with >= 1 audited claim |", "|---|---|---|---|---|---|---|---|---|---|"]
+        for c in sp["star"]:
+            L.append(f"| {c['model']} | {c['task']} | {c['n']} | {c['seed']} | {c['K']} | {pct(c['keep_rate'])} | "
+                     f"{c['n_kept']}/{c['n_items']} | {c['n_kept_yes']}/{c['n_kept_no']} | {pct(c['kept_trace_correct_frac'])} | "
+                     f"{pct(c['kept_trace_parsed_frac'])} |")
         L.append("")
 
     # ---------------------------------------------------------------- 4b. transitions per table entry (S7)

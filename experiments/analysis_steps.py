@@ -38,6 +38,7 @@ prime-family tasks (prime, prime_hard; arms whose text has "n mod p = x" steps):
 """
 from __future__ import annotations
 
+import glob
 import json
 import math
 import os
@@ -260,13 +261,211 @@ def score_prime(rows, test_by_id):
             "by_true_trial_divisions": bins}
 
 
+# --------------------------------------------------------------------------- valid: claimed-contradiction audit
+_TOK = re.compile(r"\s*(->|[A-Z]|[()~|&])")
+
+
+def _parse_formula(txt):
+    """Tiny parser for the trace formulas: ~, &, |, -> (right-assoc), parentheses, single-letter atoms.
+    Returns (eval_fn, atoms) or None."""
+    toks, pos = [], 0
+    txt = txt.strip()
+    while pos < len(txt):
+        m = _TOK.match(txt, pos)
+        if not m:
+            return None
+        toks.append(m.group(1))
+        pos = m.end()
+    i = 0
+
+    def peek():
+        return toks[i] if i < len(toks) else None
+
+    def eat():
+        nonlocal i
+        i += 1
+        return toks[i - 1]
+
+    def imp():
+        left = orr()
+        if peek() == "->":
+            eat()
+            right = imp()
+            return lambda v, a=left, b=right: (not a(v)) or b(v)
+        return left
+
+    def orr():
+        left = andd()
+        while peek() == "|":
+            eat()
+            right = andd()
+            left = (lambda v, a=left, b=right: a(v) or b(v))
+        return left
+
+    def andd():
+        left = un()
+        while peek() == "&":
+            eat()
+            right = un()
+            left = (lambda v, a=left, b=right: a(v) and b(v))
+        return left
+
+    def un():
+        t = peek()
+        if t == "~":
+            eat()
+            x = un()
+            return lambda v, a=x: not a(v)
+        if t == "(":
+            eat()
+            x = imp()
+            if eat() != ")":
+                raise ValueError
+            return x
+        if t and t.isalpha():
+            eat()
+            return lambda v, name=t: v[name]
+        raise ValueError
+    try:
+        f = imp()
+        if i != len(toks):
+            return None
+    except (ValueError, IndexError):
+        return None
+    return f, sorted({t for t in toks if t.isalpha()})
+
+
+def _split_top(set_txt):
+    parts, depth, cur = [], 0, ""
+    for ch in set_txt:
+        if ch == "(":
+            depth += 1
+        elif ch == ")":
+            depth -= 1
+        if ch == "," and depth == 0:
+            parts.append(cur)
+            cur = ""
+        else:
+            cur += ch
+    if cur.strip():
+        parts.append(cur)
+    return parts
+
+
+def claimed_set_is_unsat(text):
+    """True/False if the trace's claimed contradictory set {..} parses (unsat or not); None if unparseable."""
+    m = re.search(r"contradiction:?\s*\{([^}]*)\}", text)
+    if not m:
+        return None
+    fs = [_parse_formula(x) for x in _split_top(m.group(1))]
+    if not fs or any(f is None for f in fs):
+        return None
+    atoms = sorted({a for _, at in fs for a in at})
+    if len(atoms) > 10:
+        return None
+    from itertools import product
+    for vals in product([False, True], repeat=len(atoms)):
+        v = dict(zip(atoms, vals))
+        if all(f(v) for f, _ in fs):
+            return False
+    return True
+
+
+UNSAT_RE = re.compile(r"contradiction|cannot all hold|is impossible|conclusion follows", re.I)
+SAT_RE = re.compile(r"satisfiable|countermodel", re.I)
+
+
+def score_valid(rows, test_by_id):
+    """Which template does each generation assert (contradiction = 'valid', countermodel = 'invalid'), by gold label."""
+    by_gold = {"Yes": defaultdict(int), "No": defaultdict(int)}
+    schema_err = defaultdict(lambda: [0, 0])
+    claim_checked = claim_false = 0
+    hybrid = 0
+    n = ok = 0
+    for row in rows:
+        item = test_by_id.get(row.get("id"))
+        if item is None:
+            continue
+        txt = C.gen_text(row)
+        pred = C.gen_pred(row)
+        good = pred == item["label"]
+        n += 1
+        ok += good
+        u, sat = bool(UNSAT_RE.search(txt)), bool(SAT_RE.search(txt))
+        kind = "asserts_contradiction" if u and not sat else ("asserts_countermodel" if sat and not u else
+                                                              ("both" if u and sat else "neither"))
+        g = by_gold.setdefault(item["label"], defaultdict(int))
+        g[kind] += 1
+        g["n"] += 1
+        g["correct"] += good
+        if re.search(r"conclusion false\.\s*That is(?! satisfiable)", txt) and u:
+            hybrid += 1                     # countermodel-template opener that then asserts a contradiction
+        sm = re.match(r"valid-\d+-(.+)$", item["id"])
+        if sm:
+            schema_err[sm.group(1)][0] += 1
+            schema_err[sm.group(1)][1] += not good
+        if u:
+            r = claimed_set_is_unsat(txt)
+            if r is not None:
+                claim_checked += 1
+                claim_false += not r
+                g["claims_checked"] += 1
+                g["claims_actually_satisfiable"] += not r
+    if not n:
+        return None
+    return {"n_items": n, "answer_acc": ok / n,
+            "by_gold": {k: {**v, "frac_asserts_contradiction": v["asserts_contradiction"] / v["n"] if v["n"] else None,
+                            "frac_asserts_countermodel": v["asserts_countermodel"] / v["n"] if v["n"] else None,
+                            "acc": v["correct"] / v["n"] if v["n"] else None} for k, v in by_gold.items() if v.get("n")},
+            "hybrid_opener_then_contradiction": hybrid,
+            "claimed_contradictions_checked": claim_checked, "claimed_contradictions_actually_satisfiable": claim_false,
+            "errors_by_schema": {k: {"n": v[0], "errors": v[1]} for k, v in sorted(schema_err.items()) if v[1]}}
+
+
+# --------------------------------------------------------------------------- STaR samples (arm S)
+def star_summary():
+    root = os.path.join(C.V2, "star_samples")
+    out = []
+    if not os.path.isdir(root):
+        return out
+    for model in sorted(os.listdir(root)):
+        for f in sorted(glob.glob(os.path.join(root, model, "*.jsonl"))):
+            name = os.path.splitext(os.path.basename(f))[0]
+            m = re.match(r"(.+)_S_(\d+)_(\d+)$", name)
+            if not m:
+                continue
+            rows = [json.loads(l) for l in open(f, encoding="utf-8") if l.strip()]
+            if not rows:
+                continue
+            K = max(len(r.get("samples") or []) for r in rows)
+            n_pass = sum(bool(x.get("pass")) for r in rows for x in r.get("samples") or [])
+            n_samp = sum(len(r.get("samples") or []) for r in rows)
+            kept = [r for r in rows if r.get("kept_index") is not None]
+            aud = [r["audit"] for r in kept if r.get("audit")]
+            parsed = [a for a in aud if a.get("n_claims", 0) > 0]
+            trunc_rej = sum(bool(x.get("hit_cap")) and not x.get("pass") for r in rows for x in r.get("samples") or [])
+            out.append({"model": model, "task": m.group(1), "n": int(m.group(2)), "seed": int(m.group(3)),
+                        "samples_path": os.path.relpath(f, C.ROOT).replace("\\", "/"), "n_items": len(rows), "K": K,
+                        "keep_rate": n_pass / n_samp if n_samp else None, "item_keep_rate": len(kept) / len(rows),
+                        "n_kept": len(kept), "n_kept_yes": sum(r["gold"] == "Yes" for r in kept),
+                        "n_kept_no": sum(r["gold"] == "No" for r in kept), "n_trunc_rejected": trunc_rej,
+                        "kept_trace_correct_frac": (sum(bool(a.get("all_ok")) and a.get("n_claims", 0) > 0 for a in aud)
+                                                    / len(kept)) if aud else None,
+                        "kept_trace_parsed_frac": (len(parsed) / len(kept)) if aud else None,
+                        "all_claims_correct_among_parsed": (sum(bool(a.get("all_ok")) for a in parsed) / len(parsed))
+                        if parsed else None,
+                        "definition": "kept_trace_correct_frac = kept traces with >= 1 audited remainder/quotient claim, all "
+                                      "exactly correct (exp_worker_star.audit_trace), over ALL kept traces"})
+    return out
+
+
 # --------------------------------------------------------------------------- main
 def main():
     tasks = C.load_tasks()
     gens, notes = C.load_gens(tasks)
     runs, _ = C.load_runs()
     run_acc = {(r["task"], r["arm"], r["n"], r["seed"], C.short_model(r["model"])): r["k"] / r["n_test"] for r in runs}
-    div_cells, prime_cells = [], []
+    div_cells, prime_cells, valid_cells = [], [], []
     for key, g in sorted(gens.items()):
         label, arm, n, seed, model = key
         et = g["eval_task"]
@@ -284,6 +483,13 @@ def main():
             sc = score_div(g["rows"], test_by_id, d, (tasks[et].get("step_truth") or {}))
             if sc:
                 div_cells.append({**meta, **sc})
+        elif et.startswith("valid"):
+            if arm in ("A", "A_tok") or not any(UNSAT_RE.search(C.gen_text(r)) or SAT_RE.search(C.gen_text(r))
+                                                 for r in g["rows"]):
+                continue
+            sc = score_valid(g["rows"], test_by_id)
+            if sc:
+                valid_cells.append({**meta, **sc})
         elif et.startswith("prime"):
             if not any(PRIME_STEP.search(C.gen_text(r)) for r in g["rows"]) and not arm.startswith("B"):
                 continue
@@ -295,6 +501,7 @@ def main():
     C.ensure_out()
     json.dump(trans, open(os.path.join(C.OUT, "transitions.json"), "w", encoding="utf-8"), indent=1)
     out = {"generated_by": "experiments/analysis_steps.py", "notes": notes, "div": div_cells, "prime": prime_cells,
+           "valid": valid_cells, "star": star_summary(),
            "S5": s5}
     C.ensure_out()
     json.dump(out, open(os.path.join(C.OUT, "steps.json"), "w", encoding="utf-8"), indent=1)
@@ -381,8 +588,8 @@ def s5_check(div_cells, run_acc):
     answer accuracy vs p^6 + (1 - p^6) * g, g = answer-correct rate when the 4-digit trace is wrong."""
     four = defaultdict(dict)
     for c in div_cells:
-        if c["task"] == "div7" and c["arm"] == "B" and c["prompt_mode"] == "plain":
-            four[c["model"]][c["seed"]] = c
+        if c["task"] == "div7" and c["arm"] == "B" and c["prompt_mode"] == "plain" and c["n"] == 180:
+            four[c["model"]][c["seed"]] = c       # the 4-digit reference is the n = 180 cell (not the S7 n = 90/270 cells)
     six_gens = {(c["task"], c["model"], c["seed"], c["n"]): c for c in div_cells
                 if c["eval_task"] == "div7_6d" and c["arm"] == "B" and c["prompt_mode"] == "plain"}
     six_runs = {(k[0], k[4], k[3], k[2]): v for k, v in run_acc.items()
@@ -393,12 +600,20 @@ def s5_check(div_cells, run_acc):
         role = "primary" if label == "div7_6d" else "secondary"
         fd = four.get(model, {})
         # PRIMARY p is the value named in the decision log (4-digit div7 B seed 0: 0.955); same-seed p is secondary
-        p = S5_P_FIXED
         same = fd.get(seed)
+        if model == C.short_model(C.DEFAULT_MODEL):
+            p = S5_P_FIXED
+        elif 0 in fd:                                   # other models: their OWN 4-digit div7 B seed-0 p (0.955 is a 1.5B value)
+            p = fd[0]["p_cond"]
+        else:
+            cells.append({"task": label, "role": role, "model": model, "seed": seed, "n": n, "status": "PENDING",
+                          "why": "no 4-digit div7 B seed-0 generations for this model"})
+            continue
         g_src = fd.get(0) or same or (next(iter(fd.values())) if fd else None)
         g = g_src["answer_acc_given_trace_wrong"] if g_src else S5_G_FIXED
         p2 = g_src["p_cond_after_first_step"] if g_src else None
-        p_src = "fixed 0.955 (PREDICTIONS.md decision log: 4-digit div7 B seed 0)"
+        p_src = ("fixed 0.955 = decision-log value (4-digit div7 B seed 0)" if model == C.short_model(C.DEFAULT_MODEL)
+                 else f"this model's 4-digit div7 B seed 0 (secondary model)")
         obs = six_gens[key]["answer_acc"] if key in six_gens else six_runs[key]
         pred = p ** 6
         tc = six_gens[key]["trace_correct_rate"] if key in six_gens else None
@@ -472,6 +687,29 @@ def write_md(o):
                      f"{c['n_truncated_no_answer_line']} | {c['n_truncated_and_wrong']} | {c['n_hit_cap']} | {c['n_wrong_with_answer_line']} | {f(c['step_arith_acc'])} | "
                      f"{f(c['divisor_sequence_faithful_rate'])} | " + " / ".join(
                          f"{f(v['acc'])} (n={v['n']})" for v in b.values()) + " |")
+    if o.get("valid"):
+        L += ["", "## valid: which template does the trace assert?", "",
+              "| task | model | arm | seed | acc | gold Yes: asserts contradiction / countermodel | gold No: asserts contradiction / "
+              "countermodel | claimed contradictions checked / actually satisfiable | errors by schema |",
+              "|---|---|---|---|---|---|---|---|---|"]
+        for c in o["valid"]:
+            y, nn = c["by_gold"].get("Yes", {}), c["by_gold"].get("No", {})
+            es = ", ".join(f"{k} {v['errors']}/{v['n']}" for k, v in c["errors_by_schema"].items())
+            L.append(f"| {c['task']} | {c['model']} | {c['arm']} | {c['seed']} | {100 * c['answer_acc']:.1f} | "
+                     f"{y.get('asserts_contradiction', 0)}/{y.get('n', 0)} / {y.get('asserts_countermodel', 0)}/{y.get('n', 0)} | "
+                     f"{nn.get('asserts_contradiction', 0)}/{nn.get('n', 0)} / {nn.get('asserts_countermodel', 0)}/{nn.get('n', 0)} | "
+                     f"{c['claimed_contradictions_checked']} / {c['claimed_contradictions_actually_satisfiable']} | "
+                     f"{es or '-'} |")
+    if o.get("star"):
+        L += ["", "## Arm S (self-generated, answer-verified traces): STaR samples", "",
+              "| model | task | n | seed | K | keep rate (samples) | items kept | kept Yes/No | truncated rejected | "
+              "kept traces with all audited claims correct | kept traces with >= 1 audited claim |",
+              "|---|---|---|---|---|---|---|---|---|---|---|"]
+        f = lambda v: "-" if v is None else f"{100 * v:.1f}"   # noqa: E731
+        for c in o["star"]:
+            L.append(f"| {c['model']} | {c['task']} | {c['n']} | {c['seed']} | {c['K']} | {f(c['keep_rate'])} | "
+                     f"{c['n_kept']}/{c['n_items']} | {c['n_kept_yes']}/{c['n_kept_no']} | {c['n_trunc_rejected']} | "
+                     f"{f(c['kept_trace_correct_frac'])} | {f(c['kept_trace_parsed_frac'])} |")
     L += ["", f"## S5 (primary, {C.short_model(C.DEFAULT_MODEL)}): {o['S5']['status']}", "", o["S5"]["rule"], ""]
     for m, v in o["S5"].get("status_by_model", {}).items():
         L.append(f"- {m}: primary {v['primary']}; secondary {v['secondary']}")

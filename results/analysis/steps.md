@@ -7,28 +7,85 @@ p_cond = P(step correct | previous step correct), pooled over positions; p after
 | task | model | arm | mode | n | seed | k | answer acc | trace correct | p_cond | p after 1 | p_uncond | p_cond^k | prod p_i | guess model | local arith | local^k | digit copy | answer-trace consistency | acc given trace wrong | Yes-rate | first-error position (wrong traces) | final remainder of wrong traces |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | div11 | Qwen2.5-1.5B-Instruct | B | plain | 180 | 0 | 4 | 99.2 | 95.8 | 98.9 | 98.6 | 97.9 | 95.9 | 95.8 | 99.2 | 98.6 | 94.7 | 99.4 | 100.0 | 80.0 | 50.0 | {'2': 2, '3': 6, '4': 2} | {'0': 1, '1': 1, '2': 1, '3': 2, '6': 1, '8': 1, '9': 2, '10': 1} |
+| div11 | Qwen2.5-3B-Instruct | B | plain | 180 | 0 | 4 | 99.6 | 99.6 | 99.9 | 99.9 | 99.8 | 99.6 | 99.6 | 99.6 | 99.9 | 99.6 | 100.0 | 100.0 | 0.0 | 49.6 | {'3': 1} | {'1': 1} |
+| div11 | Qwen2.5-1.5B-Instruct | B | plain | 180 | 1 | 4 | 99.2 | 97.5 | 99.4 | 99.2 | 99.3 | 97.5 | 97.5 | 99.6 | 99.4 | 97.5 | 100.0 | 99.6 | 83.3 | 49.2 | {'3': 1, '4': 5} | {'1': 1, '2': 1, '9': 2, '10': 2} |
+| div11 | Qwen2.5-3B-Instruct | B | plain | 180 | 1 | 4 | 100.0 | 100.0 | 100.0 | 100.0 | 100.0 | 100.0 | 100.0 | - | 100.0 | 100.0 | 100.0 | 100.0 | - | 50.0 | {} | {} |
 | div13 | Qwen2.5-1.5B-Instruct | B | plain | 180 | 0 | 4 | 54.6 | 2.1 | 56.6 | 23.7 | 43.4 | 10.2 | 2.2 | 58.4 | 35.4 | 1.6 | 99.8 | 100.0 | 53.6 | 76.2 | {'2': 188, '3': 41, '4': 6} | {'0': 179, '2': 12, '4': 3, '5': 10, '6': 12, '7': 7, '8': 9, '9': 3} |
+| div13 | Qwen2.5-3B-Instruct | B | plain | 180 | 0 | 4 | 52.9 | 5.8 | 61.1 | 35.2 | 45.9 | 14.0 | 5.7 | 57.0 | 46.9 | 4.8 | 99.8 | 100.0 | 50.0 | 69.6 | {'2': 156, '3': 56, '4': 11, 'short': 3} | {'0': 154, '1': 4, '2': 2, '3': 6, '4': 3, '5': 6, '6': 6, '7': 4, '8': 2, '9': 3, '10': 6, '11': 13, '12': 14, 'none': 3} |
+| div13 | Qwen2.5-7B-Instruct | B | plain | 180 | 0 | 4 | 61.3 | 23.8 | 73.6 | 59.7 | 54.4 | 29.3 | 23.9 | 64.9 | 70.5 | 24.7 | 99.9 | 95.8 | 50.3 | 26.2 | {'2': 110, '3': 47, '4': 26} | {'0': 19, '1': 9, '2': 17, '3': 10, '4': 10, '5': 14, '6': 12, '7': 18, '8': 18, '9': 35, '10': 2, '11': 11, '12': 8} |
+| div13 | Qwen2.5-1.5B-Instruct | B | plain | 180 | 1 | 4 | 49.2 | 3.3 | 60.8 | 35.7 | 42.4 | 13.7 | 3.4 | 54.6 | 45.7 | 4.4 | 100.0 | 100.0 | 47.4 | 18.3 | {'2': 146, '3': 66, '4': 20} | {'0': 39, '1': 7, '2': 20, '3': 1, '4': 8, '5': 33, '6': 29, '7': 35, '8': 25, '9': 11, '10': 7, '11': 4, '12': 9, '15': 2, '16': 2} |
+| div13 | Qwen2.5-3B-Instruct | B | plain | 180 | 1 | 4 | 59.2 | 11.2 | 65.9 | 45.2 | 49.0 | 18.8 | 10.8 | 62.7 | 53.8 | 8.3 | 100.0 | 100.0 | 54.0 | 42.5 | {'2': 134, '3': 63, '4': 16} | {'0': 83, '1': 10, '2': 7, '3': 10, '4': 11, '5': 10, '6': 20, '7': 24, '8': 17, '9': 7, '10': 3, '11': 6, '12': 5} |
+| div13 | Qwen2.5-1.5B-Instruct | B | plain | 360 | 0 | 4 | 75.4 | 45.4 | 83.9 | 77.3 | 73.2 | 49.6 | 44.9 | 77.3 | 80.1 | 41.2 | 99.8 | 100.0 | 55.0 | 27.1 | {'2': 41, '3': 54, '4': 36} | {'0': 8, '1': 1, '2': 16, '3': 10, '4': 18, '5': 15, '6': 7, '7': 11, '8': 13, '9': 5, '10': 2, '11': 14, '12': 11} |
+| div13 | Qwen2.5-3B-Instruct | B | plain | 360 | 0 | 4 | 83.3 | 72.1 | 92.4 | 89.5 | 84.3 | 72.7 | 72.1 | 83.7 | 92.1 | 71.9 | 100.0 | 100.0 | 40.3 | 33.3 | {'2': 29, '3': 26, '4': 12} | {'1': 4, '2': 1, '3': 3, '4': 3, '5': 5, '6': 10, '7': 3, '8': 7, '9': 12, '10': 2, '11': 2, '12': 15} |
 | div13 | Qwen2.5-1.5B-Instruct | B | plain | 540 | 0 | 4 | 94.6 | 92.1 | 98.0 | 97.3 | 96.2 | 92.2 | 92.1 | 94.7 | 97.8 | 91.5 | 100.0 | 100.0 | 31.6 | 46.2 | {'2': 3, '3': 11, '4': 5} | {'0': 2, '3': 4, '5': 1, '6': 3, '7': 4, '8': 1, '9': 2, '11': 1, '12': 1} |
+| div2 | Qwen2.5-1.5B-Instruct | B | plain | 180 | 0 | 4 | 100.0 | 97.1 | 99.3 | 99.0 | 99.3 | 97.1 | 97.1 | 100.0 | 99.3 | 97.1 | 99.3 | 100.0 | 100.0 | 50.0 | {'2': 4, '3': 3} | {'0': 4, '1': 3} |
 | div3 | Qwen2.5-1.5B-Instruct | B | plain | 180 | 0 | 4 | 100.0 | 100.0 | 100.0 | 100.0 | 100.0 | 100.0 | 100.0 | - | 100.0 | 100.0 | 100.0 | 100.0 | - | 50.0 | {} | {} |
+| div3 | Qwen2.5-3B-Instruct | B | plain | 180 | 0 | 4 | 100.0 | 100.0 | 100.0 | 100.0 | 100.0 | 100.0 | 100.0 | - | 100.0 | 100.0 | 100.0 | 100.0 | - | 50.0 | {} | {} |
+| div3 | Qwen2.5-1.5B-Instruct | B | plain | 180 | 1 | 4 | 100.0 | 100.0 | 100.0 | 100.0 | 100.0 | 100.0 | 100.0 | - | 100.0 | 100.0 | 100.0 | 100.0 | - | 50.0 | {} | {} |
+| div3 | Qwen2.5-3B-Instruct | B | plain | 180 | 1 | 4 | 100.0 | 100.0 | 100.0 | 100.0 | 100.0 | 100.0 | 100.0 | - | 100.0 | 100.0 | 100.0 | 100.0 | - | 50.0 | {} | {} |
 | div7 | Qwen2.5-1.5B-Instruct | B | plain | 90 | 0 | 4 | 62.1 | 21.7 | 73.6 | 60.2 | 59.2 | 29.3 | 22.0 | 65.8 | 63.9 | 16.6 | 99.9 | 100.0 | 51.6 | 52.1 | {'2': 95, '3': 60, '4': 33} | {'0': 87, '1': 17, '2': 24, '3': 17, '4': 10, '5': 19, '6': 14} |
+| div7 | Qwen2.5-0.5B-Instruct | B | plain | 180 | 0 | 4 | 79.2 | 59.2 | 88.5 | 84.1 | 78.4 | 61.2 | 59.2 | 80.2 | 87.3 | 58.1 | 99.9 | 100.0 | 49.0 | 34.2 | {'2': 31, '3': 47, '4': 19, 'short': 1} | {'0': 7, '1': 6, '2': 23, '3': 12, '4': 11, '5': 22, '6': 16, 'none': 1} |
 | div7 | Qwen2.5-1.5B-Instruct | B | plain | 180 | 0 | 4 | 92.5 | 82.9 | 95.5 | 93.9 | 90.7 | 83.2 | 82.9 | 92.6 | 94.7 | 80.4 | 100.0 | 100.0 | 56.1 | 46.7 | {'2': 18, '3': 15, '4': 8} | {'0': 6, '1': 5, '2': 10, '3': 5, '4': 6, '5': 1, '6': 8} |
+| div7 | Qwen2.5-3B-Instruct | B | plain | 180 | 0 | 4 | 68.3 | 42.9 | 82.5 | 74.8 | 67.8 | 46.3 | 42.9 | 70.2 | 81.8 | 44.7 | 99.9 | 100.0 | 44.5 | 26.7 | {'2': 67, '3': 43, '4': 27} | {'0': 11, '1': 16, '2': 28, '3': 20, '4': 12, '5': 32, '6': 17, '8': 1} |
+| div7 | Qwen2.5-7B-Instruct | B | plain | 180 | 0 | 4 | 86.7 | 74.6 | 93.3 | 90.9 | 86.5 | 75.9 | 75.4 | 87.4 | 93.5 | 76.6 | 99.6 | 100.0 | 47.5 | 43.3 | {'2': 24, '3': 26, '4': 9, 'extra_steps': 2} | {'0': 10, '1': 7, '2': 9, '3': 12, '4': 7, '5': 7, '6': 8, '8': 1} |
+| div7 | Qwen2.5-3B-Instruct | B | plain | 180 | 1 | 4 | 82.1 | 67.9 | 91.4 | 88.2 | 85.2 | 69.7 | 67.9 | 83.1 | 91.6 | 70.3 | 99.9 | 100.0 | 44.2 | 41.2 | {'2': 18, '3': 31, '4': 28} | {'0': 13, '1': 3, '2': 17, '3': 11, '4': 14, '5': 8, '6': 11} |
 | div7 | Qwen2.5-1.5B-Instruct | B | plain | 270 | 0 | 4 | 99.6 | 98.8 | 99.7 | 99.6 | 99.2 | 98.7 | 98.8 | 99.6 | 99.7 | 98.8 | 100.0 | 100.0 | 66.7 | 49.6 | {'2': 2, '3': 1} | {'5': 2, '6': 1} |
 | div7 | Qwen2.5-1.5B-Instruct | Bprime | plain | 180 | 0 | 4 | 48.3 | 54.2 | 86.4 | 80.8 | 74.2 | 55.8 | 54.0 | 72.7 | 84.3 | 50.4 | 99.6 | 64.6 | 38.2 | 47.5 | {'2': 55, '3': 36, '4': 19} | {'0': 18, '1': 8, '2': 21, '3': 29, '4': 12, '5': 13, '6': 9} |
+| div7 | Qwen2.5-3B-Instruct | Bprime | plain | 180 | 0 | 4 | 50.8 | 37.5 | 81.7 | 73.9 | 72.5 | 44.5 | 38.6 | 65.9 | 75.7 | 32.9 | 97.8 | 76.7 | 38.7 | 95.8 | {'2': 47, '3': 61, '4': 40, 'extra_steps': 2} | {'0': 115, '1': 3, '2': 8, '3': 5, '4': 5, '5': 4, '6': 10} |
+| div7 | Qwen2.5-1.5B-Instruct | Bprime | plain | 180 | 1 | 4 | 50.8 | 40.4 | 81.8 | 73.9 | 68.3 | 44.8 | 40.2 | 68.7 | 80.4 | 41.8 | 100.0 | 80.4 | 43.4 | 10.8 | {'2': 63, '3': 45, '4': 35} | {'0': 24, '1': 11, '2': 24, '3': 36, '4': 18, '5': 13, '6': 17} |
+| div7 | Qwen2.5-1.5B-Instruct | D | plain | 180 | 0 | 4 | 50.0 | 0.0 | 6.1 | 6.8 | 12.2 | 0.0 | 0.0 | 50.0 | 5.6 | 0.0 | 0.0 | 15.4 | 50.0 | 100.0 | {'1': 226, '2': 13, '3': 1} | {'0': 37, '1': 29, '2': 37, '3': 33, '4': 20, '5': 48, '6': 36} |
+| div7 | Qwen2.5-3B-Instruct | D | plain | 180 | 0 | 4 | 50.0 | 0.0 | 6.3 | 9.0 | 12.4 | 0.0 | 0.0 | 50.0 | 7.4 | 0.0 | 0.0 | 21.2 | 50.0 | 100.0 | {'1': 227, '2': 12, '3': 1} | {'0': 51, '1': 39, '2': 19, '3': 27, '4': 53, '5': 38, '6': 13} |
+| div7 | Qwen2.5-1.5B-Instruct | D | plain | 180 | 1 | 4 | 50.4 | 0.0 | 7.6 | 23.0 | 15.0 | 0.0 | 0.0 | 50.4 | 8.6 | 0.0 | 0.0 | 64.6 | 50.4 | 0.4 | {'1': 235, '2': 3, '3': 2} | {'0': 84, '1': 17, '2': 43, '3': 6, '4': 45, '5': 18, '6': 27} |
 | div7->div7_6d | Qwen2.5-1.5B-Instruct | B | plain | 180 | 0 | 6 | 77.1 | 48.3 | 90.6 | 88.3 | 76.2 | 55.4 | 53.0 | 80.2 | 88.3 | 47.3 | 95.7 | 100.0 | 55.6 | 32.1 | {'2': 25, '3': 24, '4': 20, '5': 21, '6': 21, 'extra_steps': 12, 'short': 1} | {'0': 10, '1': 13, '2': 27, '3': 18, '4': 17, '5': 16, '6': 23} |
+| div7->div7_6d | Qwen2.5-3B-Instruct | B | plain | 180 | 0 | 6 | 54.2 | 8.8 | 72.3 | 62.0 | 47.3 | 14.3 | 6.6 | 57.0 | 64.9 | 7.4 | 87.1 | 100.0 | 49.8 | 21.7 | {'2': 71, '3': 68, '4': 42, '5': 22, '6': 7, 'short': 9} | {'0': 37, '1': 26, '2': 45, '3': 28, '4': 28, '5': 36, '6': 18, '8': 1} |
+| div7->div7_6d | Qwen2.5-3B-Instruct | B | plain | 180 | 1 | 6 | 65.0 | 35.0 | 85.3 | 81.2 | 67.4 | 38.4 | 33.4 | 66.8 | 81.8 | 30.0 | 92.2 | 100.0 | 46.2 | 33.3 | {'2': 23, '3': 50, '4': 35, '5': 33, '6': 14, 'short': 1} | {'0': 35, '1': 14, '2': 37, '3': 27, '4': 19, '5': 18, '6': 6} |
 | div7[fewshot4] | Qwen2.5-1.5B-Instruct | base | fewshot4 | 0 | 0 | 4 | 47.9 | 1.7 | 52.4 | 22.3 | 36.6 | 7.6 | 1.7 | 51.0 | 41.6 | 3.0 | 95.8 | 99.6 | 47.0 | 37.1 | {'1': 25, '2': 177, '3': 28, '4': 6} | {'0': 84, '1': 14, '2': 27, '3': 9, '4': 32, '5': 26, '6': 44} |
 | div7_6d | Qwen2.5-1.5B-Instruct | B | plain | 180 | 0 | 6 | 96.2 | 92.9 | 98.8 | 98.5 | 96.7 | 93.0 | 92.9 | 96.3 | 98.3 | 90.0 | 98.9 | 100.0 | 47.1 | 47.9 | {'2': 3, '3': 2, '4': 6, '5': 3, '6': 3} | {'0': 3, '1': 4, '2': 3, '3': 1, '4': 3, '5': 2, '6': 1} |
+| div7_6d | Qwen2.5-3B-Instruct | B | plain | 180 | 0 | 6 | 82.5 | 69.2 | 94.2 | 92.8 | 83.1 | 69.7 | 69.3 | 82.8 | 94.0 | 69.1 | 99.7 | 100.0 | 43.2 | 35.0 | {'2': 19, '3': 20, '4': 14, '5': 15, '6': 6} | {'0': 6, '1': 16, '2': 11, '3': 12, '4': 10, '5': 5, '6': 14} |
+| div7_6d | Qwen2.5-1.5B-Instruct | B | plain | 180 | 1 | 6 | 90.0 | 77.1 | 95.7 | 94.8 | 87.3 | 76.9 | 76.7 | 89.9 | 94.9 | 73.2 | 98.5 | 100.0 | 56.4 | 43.3 | {'2': 20, '3': 9, '4': 7, '5': 11, '6': 8} | {'0': 6, '1': 9, '2': 7, '3': 7, '4': 13, '5': 7, '6': 6} |
 
 ## prime tasks
 
 | task | model | arm | n | seed | acc | errors | truncated (no Answer line) | truncated & wrong | cap hits | wrong with Answer line | step arith | divisor seq faithful | acc by true #divisions (1 / 2-3 / 4-8 / 9-16 / 17+) |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| prime | Qwen2.5-0.5B-Instruct | B | 180 | 0 | 57.5 | 102 | 0 | 0 | 0 | 102 | 37.8 | 96.7 | 100.0 (n=63) / 94.1 (n=34) / 88.2 (n=17) / 25.5 (n=47) / 20.3 (n=79) |
+| prime | Qwen2.5-3B-Instruct | B | 180 | 0 | 90.4 | 23 | 0 | 0 | 0 | 23 | 21.2 | 88.8 | 100.0 (n=63) / 100.0 (n=34) / 0.0 (n=17) / 89.4 (n=47) / 98.7 (n=79) |
+| prime | Qwen2.5-7B-Instruct | B | 180 | 0 | 89.2 | 26 | 1 | 1 | 1 | 25 | 21.4 | 73.3 | 100.0 (n=63) / 94.1 (n=34) / 0.0 (n=17) / 87.2 (n=47) / 98.7 (n=79) |
+| prime | Qwen2.5-3B-Instruct | B | 180 | 1 | 79.6 | 49 | 0 | 0 | 0 | 49 | 25.7 | 89.2 | 100.0 (n=63) / 100.0 (n=34) / 41.2 (n=17) / 72.3 (n=47) / 67.1 (n=79) |
+| prime | Qwen2.5-1.5B-Instruct | B | 180 | 2 | 52.1 | 115 | 13 | 13 | 13 | 102 | 23.5 | 77.9 | 100.0 (n=63) / 67.6 (n=34) / 64.7 (n=17) / 21.3 (n=47) / 22.8 (n=79) |
+| prime->prime_hard | Qwen2.5-3B-Instruct | B | 180 | 0 | 50.4 | 119 | 0 | 0 | 0 | 119 | 16.6 | 49.6 | - (n=0) / - (n=0) / 1.6 (n=62) / 44.0 (n=84) / 88.3 (n=94) |
+| prime->prime_hard | Qwen2.5-3B-Instruct | B | 180 | 1 | 53.8 | 111 | 0 | 0 | 0 | 111 | 20.2 | 61.7 | - (n=0) / - (n=0) / 35.5 (n=62) / 57.1 (n=84) / 62.8 (n=94) |
 | prime[fewshot4] | Qwen2.5-1.5B-Instruct | base | 0 | 0 | 39.2 | 146 | 104 | 104 | 104 | 42 | 11.9 | 40.6 | 68.3 (n=63) / 79.4 (n=34) / 41.2 (n=17) / 10.6 (n=47) / 15.2 (n=79) |
 
-## S5 (primary, Qwen2.5-1.5B-Instruct): FAIL (seed(s) [0] outside 10 pp; seed(s) [1] not yet run)
+## valid: which template does the trace assert?
+
+| task | model | arm | seed | acc | gold Yes: asserts contradiction / countermodel | gold No: asserts contradiction / countermodel | claimed contradictions checked / actually satisfiable | errors by schema |
+|---|---|---|---|---|---|---|---|---|
+| valid | Qwen2.5-3B-Instruct | B | 0 | 91.2 | 120/120 / 0/120 | 3/120 / 117/120 | 123 / 4 | converse_error 1/15, deny_antecedent 2/19, fake_chain 18/30 |
+| valid | Qwen2.5-7B-Instruct | B | 0 | 58.3 | 120/120 / 0/120 | 99/120 / 13/120 | 141 / 40 | affirm_consequent 10/11, affirm_disjunct 19/20, converse_error 13/15, deny_antecedent 19/19, fake_chain 20/30, illicit_conj 19/25 |
+| valid | Qwen2.5-3B-Instruct | B | 1 | 100.0 | 120/120 / 0/120 | 0/120 / 120/120 | 120 / 0 | - |
+| valid | Qwen2.5-3B-Instruct | S | 0 | 92.1 | 1/120 / 0/120 | 15/120 / 0/120 | 0 / 0 | affirm_consequent 2/11, affirm_disjunct 13/20, deny_antecedent 3/19, modus_tollens 1/20 |
+| valid | Qwen2.5-3B-Instruct | base | 0 | 85.8 | 2/120 / 0/120 | 0/120 / 0/120 | 0 / 0 | affirm_consequent 8/11, affirm_disjunct 11/20, constr_dilemma 9/25, disj_syllogism 1/27, modus_tollens 5/20 |
+| valid[cot] | Qwen2.5-1.5B-Instruct | base | 0 | 66.7 | 9/120 / 0/120 | 17/120 / 0/120 | 0 / 0 | affirm_consequent 5/11, affirm_disjunct 11/20, constr_dilemma 9/25, contraposition 5/18, converse_error 12/15, deny_antecedent 14/19, disj_syllogism 13/27, fake_chain 6/30, hyp_syllogism 1/21, modus_tollens 4/20 |
+| valid[fewshot4] | Qwen2.5-1.5B-Instruct | base | 0 | 68.8 | 76/120 / 0/120 | 80/120 / 0/120 | 133 / 76 | affirm_consequent 1/11, affirm_disjunct 2/20, constr_dilemma 9/25, contraposition 18/18, converse_error 9/15, deny_antecedent 2/19, hyp_syllogism 18/21, modus_ponens 6/9, modus_tollens 10/20 |
+
+## Arm S (self-generated, answer-verified traces): STaR samples
+
+| model | task | n | seed | K | keep rate (samples) | items kept | kept Yes/No | truncated rejected | kept traces with all audited claims correct | kept traces with >= 1 audited claim |
+|---|---|---|---|---|---|---|---|---|---|---|
+| Qwen2.5-3B-Instruct | div7 | 180 | 0 | 4 | 79.2 | 173/180 | 90/83 | 98 | 13.9 | 15.0 |
+| Qwen2.5-3B-Instruct | valid | 180 | 0 | 4 | 81.0 | 178/180 | 90/88 | 64 | - | - |
+
+## S5 (primary, Qwen2.5-1.5B-Instruct): FAIL (seed(s) [0, 1] outside 10 pp)
 
 PRIMARY = B trained+tested on div7_6d (seeds 0,1) vs p^6, p from 4-digit div7 B gens; SECONDARY = 4-digit B adapter on div7_6d (PREDICTIONS.md decision log, 27ba807)
 
-- Qwen2.5-1.5B-Instruct: primary FAIL (seed(s) [0] outside 10 pp; seed(s) [1] not yet run); secondary PASS
+- Qwen2.5-1.5B-Instruct: primary FAIL (seed(s) [0, 1] outside 10 pp); secondary PASS
+- Qwen2.5-3B-Instruct: primary FAIL (seed(s) [0] outside 10 pp; seed(s) [1] not yet run); secondary FAIL (seed(s) [0, 1] outside 10 pp)
 
-- [secondary] div7->div7_6d Qwen2.5-1.5B-Instruct n=180 s0: p=0.9550 (fixed 0.955 (PREDICTIONS.md decision log: 4-digit div7 B seed 0)) -> p^6=75.9%, observed answer acc 77.1% (gens), diff +1.2 pp -> within 10 pp. Post hoc: fully correct 6-digit traces 48.3% vs p^6; guess model p^6 + (1 - p^6) g = 92.0%. Same-seed p (secondary) 0.9969 -> p^6 98.1% (-21.0 pp)
-- [primary] div7_6d Qwen2.5-1.5B-Instruct n=180 s0: p=0.9550 (fixed 0.955 (PREDICTIONS.md decision log: 4-digit div7 B seed 0)) -> p^6=75.9%, observed answer acc 96.2% (gens), diff +20.4 pp -> OUTSIDE 10 pp. Post hoc: fully correct 6-digit traces 92.9% vs p^6; guess model p^6 + (1 - p^6) g = 92.0%. Same-seed p (secondary) 0.9969 -> p^6 98.1% (-1.9 pp)
+- [secondary] div7->div7_6d Qwen2.5-1.5B-Instruct n=180 s0: p=0.9550 (fixed 0.955 = decision-log value (4-digit div7 B seed 0)) -> p^6=75.9%, observed answer acc 77.1% (gens), diff +1.2 pp -> within 10 pp. Post hoc: fully correct 6-digit traces 48.3% vs p^6; guess model p^6 + (1 - p^6) g = 89.4%. Same-seed p (secondary) 0.9549 -> p^6 75.8% (+1.2 pp)
+- [secondary] div7->div7_6d Qwen2.5-3B-Instruct n=180 s0: p=0.8250 (this model's 4-digit div7 B seed 0 (secondary model)) -> p^6=31.5%, observed answer acc 54.2% (gens), diff +22.6 pp -> OUTSIDE 10 pp. Post hoc: fully correct 6-digit traces 8.8% vs p^6; guess model p^6 + (1 - p^6) g = 62.0%. Same-seed p (secondary) 0.8250 -> p^6 31.5% (+22.6 pp)
+- [secondary] div7->div7_6d Qwen2.5-3B-Instruct n=180 s1: p=0.8250 (this model's 4-digit div7 B seed 0 (secondary model)) -> p^6=31.5%, observed answer acc 65.0% (gens), diff +33.5 pp -> OUTSIDE 10 pp. Post hoc: fully correct 6-digit traces 35.0% vs p^6; guess model p^6 + (1 - p^6) g = 62.0%. Same-seed p (secondary) 0.9138 -> p^6 58.2% (+6.8 pp)
+- [primary] div7_6d Qwen2.5-1.5B-Instruct n=180 s0: p=0.9550 (fixed 0.955 = decision-log value (4-digit div7 B seed 0)) -> p^6=75.9%, observed answer acc 96.2% (gens), diff +20.4 pp -> OUTSIDE 10 pp. Post hoc: fully correct 6-digit traces 92.9% vs p^6; guess model p^6 + (1 - p^6) g = 89.4%. Same-seed p (secondary) 0.9549 -> p^6 75.8% (+20.4 pp)
+- [primary] div7_6d Qwen2.5-1.5B-Instruct n=180 s1: p=0.9550 (fixed 0.955 = decision-log value (4-digit div7 B seed 0)) -> p^6=75.9%, observed answer acc 90.0% (gens), diff +14.1 pp -> OUTSIDE 10 pp. Post hoc: fully correct 6-digit traces 77.1% vs p^6; guess model p^6 + (1 - p^6) g = 89.4%
+- [primary] div7_6d Qwen2.5-3B-Instruct n=180 s0: p=0.8250 (this model's 4-digit div7 B seed 0 (secondary model)) -> p^6=31.5%, observed answer acc 82.5% (gens), diff +51.0 pp -> OUTSIDE 10 pp. Post hoc: fully correct 6-digit traces 69.2% vs p^6; guess model p^6 + (1 - p^6) g = 62.0%. Same-seed p (secondary) 0.8250 -> p^6 31.5% (+51.0 pp)
