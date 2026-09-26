@@ -125,3 +125,15 @@ commit timestamps, which are the authoritative record.
   factor of 3. Per epoch, A's 180 completions have 360 whitespace tokens and B's 10,800 (train_tokens in the run rows),
   so A gets 3,600 tokens over 10 epochs and 10,800 over 30 epochs: A at 30 epochs matches B's tokens per epoch, not
   B's 3-epoch total (32,400).
+- 2026-09-26 (time = this commit) **S11 (second model family) FAILED as preregistered on its primary clause.** The RTX
+  5090 machine could not download Llama-3.2-3B (gated), so the script ran the preregistered fallback,
+  HuggingFaceTB/SmolLM2-1.7B-Instruct. (a) div7 B - A = +15.0 pp in seed 0 (B 60.0, A 45.0; McNemar 75 vs 39,
+  p = 9.6e-4) and +22.5 pp in seed 1 (B 69.6, A 47.1; 86 vs 32, p = 6.9e-7): the >= 20 pp threshold fails in seed 0.
+  (b) holds: D 51.7 is within 10 pp of A (45.0). Reported without prediction: base div7 49.6; prime A 68.3 vs B 62.5;
+  valid A 99.6 vs B 80.4, the same direction as Qwen2.5-1.5B on every task. The effect replicates in sign and
+  significance in both seeds but is smaller at n = 180 in this model family.
+- 2026-09-26 (time = this commit) **S12 PASSED as preregistered.** 1.5B div7 arm A, n = 180, all 8 cells at chance:
+  lr 2e-5 / 10 ep 49.6, 48.8; lr 2e-5 / 30 ep 50.8, 50.8; lr 5e-5 / 10 ep 49.2, 50.8; lr 5e-5 / 30 ep 50.8, 53.3
+  (seeds 0, 1; best 53.3 < 65). All 4 configurations avoid a constant answer in both seeds (Yes-rates 0.36-0.75).
+  Positive control div3 A (lr 5e-5, 10 ep) = 92.1 >= 90. With up to 10,800 supervised answer tokens (30 epochs) and no
+  collapse, answer-only supervision still does not learn div7 at this n. Rows: results/v2/sweep/.

@@ -739,6 +739,10 @@ def review_macros():
                 put(tp + arm + "n" + w, pct(acc_mean(task, arm, n)), "dose")
                 r0 = run(task, arm, n, 0)
                 put(tp + arm + "n" + w + "sZero", pct(r0["acc"]) if r0 else TBD, "dose, seed 0 (preregistered cell)")
+                for s_, sw_ in ((1, "sOne"), (2, "sTwo")):
+                    rs_ = run(task, arm, n, s_)
+                    if rs_:
+                        put(tp + arm + "n" + w + sw_, pct(rs_["acc"]), "dose, seed %d" % s_)
             rows0 = [r for r in trans_rows() if r["task"] == task and r["n"] == n and r.get("seed") == 0]
             put("p" + cap + "n" + w + "sZero", "%.3f" % rows0[0]["p"] if rows0 else TBD, "transitions.json seed 0")
             rows = [r for r in trans_rows() if r["task"] == task and r["n"] == n]
@@ -940,6 +944,10 @@ def late_macros():
                     put(mpre + tp + arm + "n" + w, pct(acc_mean(task, arm, n, model)), "dose")
                     r0 = run(task, arm, n, 0, model)
                     put(mpre + tp + arm + "n" + w + "sZero", pct(r0["acc"]) if r0 else TBD, "dose seed 0")
+                    for s_, sw_ in ((1, "sOne"), (2, "sTwo")):
+                        rs_ = run(task, arm, n, s_, model)
+                        if rs_:
+                            put(mpre + tp + arm + "n" + w + sw_, pct(rs_["acc"]), "dose seed %d" % s_)
     for mpre, model in (("threeB", M3), ("sevenB", M7)):
         s0, z = run("div7", "S", MAIN_N, 0, model), run("div7", "base", 0, 0, model)
         if s0 and z:
@@ -1055,7 +1063,7 @@ def run_table():
          "\\begin{longtable}{lllrrrrrr}",
          "\\caption{All logged runs of arms base, A, B, C, D, B$'$, S, A-full and B-ext (\\nTest{} test items per "
          "cell). Cell: the test set, prefixed by the training task when they differ; [cot] and [fewshot4] mark "
-         "prompting controls on the base model. Train tokens: whitespace tokens in the completions. Cap: test "
+         "prompting controls on the base model. SmolLM2: SmolLM2-1.7B-Instruct (S11). Train tokens: whitespace tokens in the completions. Cap: test "
          "generations that hit the generation cap (scored wrong; -- where not logged). Yes: share of test items "
          "answered Yes, from saved generations or recovered from per-item correctness; 0 or 100 marks a "
          "constant-output collapse.}\\label{tab:runs}\\\\",
@@ -1072,7 +1080,7 @@ def run_table():
         cell = r["task"].replace("_", "\\_").replace("->", "$\\to$")
         yr = yes_rate(r)
         L.append("%s & %s & %s & %d & %d & %s & %s & %s & %.1f \\\\" % (
-            C.short_model(r["model"]).replace("Qwen2.5-", "").replace("-Instruct", ""), cell, arm_tex[r["arm"]],
+            C.short_model(r["model"]).replace("Qwen2.5-", "").replace("-Instruct", "").replace("SmolLM2-1.7B", "SmolLM2"), cell, arm_tex[r["arm"]],
             int(r["n"]), int(r["seed"]), thousands(r.get("train_tokens") or 0),
             str(r["n_hit_cap"]) if r.get("n_hit_cap") is not None else "--",
             "%.0f" % (100 * yr) if yr is not None else "--", 100 * r["acc"]))
@@ -1167,6 +1175,36 @@ def sweep_macros():
     b_rows = gen_rows("div7_base_0_0__cot")
     put("divsevenBaseCotMedTok", "%d" % median(r["n_gen_tokens"] for r in b_rows) if b_rows else DASH,
         "median generated tokens, base under the CoT prompt")
+    # S11: second model family (fallback SmolLM2-1.7B-Instruct when Llama-3.2-3B was not downloadable)
+    fam_f = os.path.join(ROOT, "results", "v2", "second_family_model.txt")
+    fam = open(fam_f, encoding="utf-8").read().strip() if os.path.exists(fam_f) else None
+    put("secondFamilyModel", fam.split("/")[-1] if fam else DASH, "results/v2/second_family_model.txt")
+    fr = lambda t, a, s_: run(t, a, (0 if a == "base" else MAIN_N), s_, fam) if fam else None
+    for t, tp in (("div7", "Divseven"), ("prime", "Prime"), ("valid", "Valid")):
+        for a in ("A", "B", "D", "base"):
+            for s_, sw_ in ((0, "sZero"), (1, "sOne")):
+                r = fr(t, a, s_)
+                if r:
+                    put("fam" + tp + ("Base" if a == "base" else a) + sw_, pct(r["acc"]), "S11 " + fam)
+    d = {s_: (fr("div7", "B", s_), fr("div7", "A", s_)) for s_ in (0, 1)}
+    diffs = {s_: 100 * (b["acc"] - a["acc"]) for s_, (b, a) in d.items() if a and b}
+    for s_, sw_ in ((0, "sZero"), (1, "sOne")):
+        if s_ in diffs:
+            b, a = d[s_]
+            put("famDivsevenBAdiff" + sw_, "%+.1f" % diffs[s_], "S11 B - A, pp")
+            put("famDivsevenBAp" + sw_, pval(mcnemar(b["bits_list"], a["bits_list"])[2]), "S11 McNemar B vs A")
+    dd, a0 = fr("div7", "D", 0), fr("div7", "A", 0)
+    if len(diffs) == 2 and dd and a0:
+        ok_a = all(v >= 20 for v in diffs.values())
+        ok_b = abs(dd["acc"] - a0["acc"]) <= 0.10
+        put("SElevenVerdict", "passed" if (ok_a and ok_b) else "failed", "S11 rule: B - A >= 20 pp both seeds and |D - A| <= 10 pp")
+        put("SElevenResult", "on %s, traces beat answers on div7 by %+.1f and %+.1f points (seeds 0 and 1), "
+            "significant in both, so the %d-point threshold %s; the grounding control stays within %.1f points of A"
+            % (fam.split("/")[-1], diffs[0], diffs[1], 20, "holds" if ok_a else "fails in seed 0" if diffs[0] < 20 else "fails in seed 1",
+               100 * abs(dd["acc"] - a0["acc"])), "S11 summary")
+    else:
+        put("SElevenVerdict", "not complete", "S11 incomplete")
+        put("SElevenResult", "the second-family cells had not finished by submission", "S11 incomplete")
 
 
 # ------------------------------------------------------------------------------------------ main
