@@ -739,6 +739,10 @@ def review_macros():
                 put(tp + arm + "n" + w, pct(acc_mean(task, arm, n)), "dose")
                 r0 = run(task, arm, n, 0)
                 put(tp + arm + "n" + w + "sZero", pct(r0["acc"]) if r0 else TBD, "dose, seed 0 (preregistered cell)")
+                for s_, sw_ in ((1, "sOne"), (2, "sTwo")):
+                    rs_ = run(task, arm, n, s_)
+                    if rs_:
+                        put(tp + arm + "n" + w + sw_, pct(rs_["acc"]), "dose, seed %d" % s_)
             rows0 = [r for r in trans_rows() if r["task"] == task and r["n"] == n and r.get("seed") == 0]
             put("p" + cap + "n" + w + "sZero", "%.3f" % rows0[0]["p"] if rows0 else TBD, "transitions.json seed 0")
             rows = [r for r in trans_rows() if r["task"] == task and r["n"] == n]
@@ -940,6 +944,10 @@ def late_macros():
                     put(mpre + tp + arm + "n" + w, pct(acc_mean(task, arm, n, model)), "dose")
                     r0 = run(task, arm, n, 0, model)
                     put(mpre + tp + arm + "n" + w + "sZero", pct(r0["acc"]) if r0 else TBD, "dose seed 0")
+                    for s_, sw_ in ((1, "sOne"), (2, "sTwo")):
+                        rs_ = run(task, arm, n, s_, model)
+                        if rs_:
+                            put(mpre + tp + arm + "n" + w + sw_, pct(rs_["acc"]), "dose seed %d" % s_)
     for mpre, model in (("threeB", M3), ("sevenB", M7)):
         s0, z = run("div7", "S", MAIN_N, 0, model), run("div7", "base", 0, 0, model)
         if s0 and z:
