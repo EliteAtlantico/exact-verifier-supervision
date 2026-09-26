@@ -83,3 +83,10 @@ commit timestamps, which are the authoritative record.
   unlock the task: div7 S accuracy <= 65% in seeds 0 and 1, and fewer than half of the kept div7 traces have all
   remainders correct. On valid, where answers are surface-learnable, S >= 90%. Prime S is reported without a
   prediction.
+- 2026-09-26 (time = this commit) **S10 (primary) FAILED as preregistered on its accuracy clause.** 1.5B div7 arm S seed 0 =
+  77.9% (> 65%), so the rule "div7 S <= 65% in seeds 0 and 1" cannot hold whatever seed 1 gives. The trace clause holds:
+  36.5% of the 159 kept div7 traces have every remainder correct (< half). For reference, the 1.5B base model with the
+  chain-of-thought prompt scores 67.1% and arm A about 50%. Secondary cells point the same way: 3B div7 S 97.5% / 96.2%
+  (seeds 0/1; 13.9% / 14.5% of kept traces fully correct), 7B div7 S 82.1% (26.7%). Outcome-only filtering kept traces
+  whose steps are mostly wrong and still lifted answer accuracy above arm A at every size. Seed 1, prime S and valid S
+  at 1.5B are still running and will be reported.
