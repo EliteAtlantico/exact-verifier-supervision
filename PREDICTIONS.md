@@ -120,3 +120,8 @@ commit timestamps, which are the authoritative record.
   no A configuration reaches div7 >= 65% in either seed, AND at least one configuration does not collapse (Yes-rate in
   [0.2, 0.8]), AND div3 A >= 90%. If any configuration reaches >= 65% on div7, the claim that answer-only supervision
   cannot learn div7 at this n is withdrawn and the paper says so. Every cell is reported.
+- 2026-09-26 (time = this commit) **Correction to the S12 entry (wording only; the decision rule is unchanged).** The
+  parenthesis "(10-30 epochs give A 3,600-10,800 supervised answer tokens, about B's budget at 3 epochs)" is off by a
+  factor of 3. Per epoch, A's 180 completions have 360 whitespace tokens and B's 10,800 (train_tokens in the run rows),
+  so A gets 3,600 tokens over 10 epochs and 10,800 over 30 epochs: A at 30 epochs matches B's tokens per epoch, not
+  B's 3-epoch total (32,400).
