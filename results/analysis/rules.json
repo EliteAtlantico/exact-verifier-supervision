@@ -2,7 +2,8 @@
  "generated_by": "experiments/analysis_rules.py",
  "notes": [
   "runs.jsonl:36 skipped valid/B_mv (no AI traces available)",
-  "duplicate ('div7', 'B', 180, 0, 'Qwen/Qwen2.5-1.5B-Instruct'): keeping first (results/thinking_vs_data/runs.jsonl:30, acc 0.925), ignoring results/v2/runs_Qwen2.5-1.5B-Instruct.jsonl:1 (acc 0.925)"
+  "duplicate ('div7', 'B', 180, 0, 'Qwen/Qwen2.5-1.5B-Instruct'): keeping first (results/thinking_vs_data/runs.jsonl:30, acc 0.925), ignoring results/v2/runs_Qwen2.5-1.5B-Instruct.jsonl:1 (acc 0.925)",
+  "duplicate ('prime', 'A', 180, 0, 'Qwen/Qwen2.5-1.5B-Instruct'): keeping first (results/thinking_vs_data/runs.jsonl:2, acc 0.8208), ignoring results/v2/runs_Qwen2.5-1.5B-Instruct.jsonl:11 (acc 0.8208)"
  ],
  "runs": [
   {
@@ -290,6 +291,77 @@
    "true_label_kappa": 0.09166666666666656
   },
   {
+   "task": "div13",
+   "eval_task": "div13",
+   "arm": "B",
+   "n": 540,
+   "seed": 0,
+   "model": "Qwen/Qwen2.5-1.5B-Instruct",
+   "pred_source": "observed_generations",
+   "gens_path": "results/v2/gens/Qwen2.5-1.5B-Instruct/div13_B_540_0.jsonl",
+   "gens_match_bits": true,
+   "n_hit_cap": 0,
+   "mean_gen_tokens": 118.7125,
+   "n_items": 240,
+   "acc": 0.9458333333333333,
+   "p_pred_yes": 0.4625,
+   "n_unparsed": 0,
+   "agreement": {
+    "always_No": 0.5375,
+    "always_Yes": 0.4625,
+    "last_digit_is_3": 0.4875,
+    "last_digit_0_or_5": 0.5166666666666667,
+    "last_digit_even": 0.5125,
+    "digit_sum_div_13": 0.5458333333333333,
+    "digit_sum_div_3": 0.5291666666666667,
+    "contains_digit_7": 0.5125,
+    "true_label": 0.9458333333333333
+   },
+   "kappa": {
+    "always_No": 0.0,
+    "always_Yes": 0.0,
+    "last_digit_is_3": -0.086092715231788,
+    "last_digit_0_or_5": -0.016874863028709018,
+    "last_digit_even": 0.026217228464419363,
+    "digit_sum_div_13": 0.029817534490431605,
+    "digit_sum_div_3": 0.03294822421908421,
+    "contains_digit_7": 0.006369426751592221,
+    "true_label": 0.8916666666666666
+   },
+   "best_fn_of_last_digit": {
+    "agreement": 0.6083333333333333,
+    "perm_null_mean": 0.5830541666666667,
+    "perm_null_q95": 0.6125,
+    "excess_over_null": 0.02527916666666663,
+    "beyond_null_q95": false
+   },
+   "best_fn_of_digit_sum": {
+    "agreement": 0.6333333333333333,
+    "perm_null_mean": 0.6300833333333333,
+    "perm_null_q95": 0.6625,
+    "excess_over_null": 0.003249999999999975,
+    "beyond_null_q95": false
+   },
+   "p_pred_yes_by_last_digit": {
+    "0": 0.4,
+    "1": 0.5384615384615384,
+    "2": 0.48148148148148145,
+    "3": 0.3,
+    "4": 0.28,
+    "5": 0.47619047619047616,
+    "6": 0.56,
+    "7": 0.38461538461538464,
+    "8": 0.64,
+    "9": 0.6071428571428571
+   },
+   "best_rule": "true_label",
+   "best_rule_agreement": 0.9458333333333333,
+   "best_shortcut_rule": "digit_sum_div_3",
+   "best_shortcut_agreement": 0.5291666666666667,
+   "best_shortcut_kappa": 0.03294822421908421,
+   "true_label_kappa": 0.8916666666666666
+  },
+  {
    "task": "div3",
    "eval_task": "div3",
    "arm": "A",
@@ -357,6 +429,75 @@
    "best_shortcut_agreement": 0.9291666666666667,
    "best_shortcut_kappa": 0.0,
    "true_label_kappa": 0.0
+  },
+  {
+   "task": "div3",
+   "eval_task": "div3",
+   "arm": "B",
+   "n": 180,
+   "seed": 0,
+   "model": "Qwen/Qwen2.5-1.5B-Instruct",
+   "pred_source": "observed_generations",
+   "gens_path": "results/v2/gens/Qwen2.5-1.5B-Instruct/div3_B_180_0.jsonl",
+   "gens_match_bits": true,
+   "n_hit_cap": 0,
+   "mean_gen_tokens": 111.5,
+   "n_items": 240,
+   "acc": 1.0,
+   "p_pred_yes": 0.5,
+   "n_unparsed": 0,
+   "agreement": {
+    "always_No": 0.5,
+    "always_Yes": 0.5,
+    "last_digit_is_3": 0.4875,
+    "last_digit_0_or_5": 0.49583333333333335,
+    "last_digit_even": 0.4791666666666667,
+    "digit_sum_div_3": 1.0,
+    "contains_digit_7": 0.55,
+    "true_label": 1.0
+   },
+   "kappa": {
+    "always_No": 0.0,
+    "always_Yes": 0.0,
+    "last_digit_is_3": -0.025000000000000022,
+    "last_digit_0_or_5": -0.008333333333333304,
+    "last_digit_even": -0.04166666666666663,
+    "digit_sum_div_3": 1.0,
+    "contains_digit_7": 0.10000000000000009,
+    "true_label": 1.0
+   },
+   "best_fn_of_last_digit": {
+    "agreement": 0.55,
+    "perm_null_mean": 0.5764708333333333,
+    "perm_null_q95": 0.6083333333333333,
+    "excess_over_null": -0.02647083333333322,
+    "beyond_null_q95": false
+   },
+   "best_fn_of_digit_sum": {
+    "agreement": 1.0,
+    "perm_null_mean": 0.6291458333333334,
+    "perm_null_q95": 0.6625,
+    "excess_over_null": 0.3708541666666666,
+    "beyond_null_q95": true
+   },
+   "p_pred_yes_by_last_digit": {
+    "0": 0.46875,
+    "1": 0.5454545454545454,
+    "2": 0.55,
+    "3": 0.4117647058823529,
+    "4": 0.48148148148148145,
+    "5": 0.5238095238095238,
+    "6": 0.53125,
+    "7": 0.5384615384615384,
+    "8": 0.35,
+    "9": 0.5652173913043478
+   },
+   "best_rule": "digit_sum_div_3",
+   "best_rule_agreement": 1.0,
+   "best_shortcut_rule": "digit_sum_div_3",
+   "best_shortcut_agreement": 1.0,
+   "best_shortcut_kappa": 1.0,
+   "true_label_kappa": 1.0
   },
   {
    "task": "div7",
@@ -764,6 +905,77 @@
    "task": "div7",
    "eval_task": "div7",
    "arm": "B",
+   "n": 90,
+   "seed": 0,
+   "model": "Qwen/Qwen2.5-1.5B-Instruct",
+   "pred_source": "observed_generations",
+   "gens_path": "results/v2/gens/Qwen2.5-1.5B-Instruct/div7_B_90_0.jsonl",
+   "gens_match_bits": true,
+   "n_hit_cap": 0,
+   "mean_gen_tokens": 111.42083333333333,
+   "n_items": 240,
+   "acc": 0.6208333333333333,
+   "p_pred_yes": 0.5208333333333334,
+   "n_unparsed": 0,
+   "agreement": {
+    "always_No": 0.4791666666666667,
+    "always_Yes": 0.5208333333333334,
+    "last_digit_is_7": 0.4125,
+    "last_digit_0_or_5": 0.4166666666666667,
+    "last_digit_even": 0.5166666666666667,
+    "digit_sum_div_7": 0.4875,
+    "digit_sum_div_3": 0.5291666666666667,
+    "contains_digit_7": 0.37916666666666665,
+    "true_label": 0.6208333333333333
+   },
+   "kappa": {
+    "always_No": 1.0658141036401502e-16,
+    "always_Yes": 0.0,
+    "last_digit_is_7": -0.13862718707940774,
+    "last_digit_0_or_5": -0.13936927772126145,
+    "last_digit_even": 0.03232533889468212,
+    "digit_sum_div_7": 0.006060606060606039,
+    "digit_sum_div_3": 0.07503410641200542,
+    "contains_digit_7": -0.2271791352093342,
+    "true_label": 0.2416666666666667
+   },
+   "best_fn_of_last_digit": {
+    "agreement": 0.675,
+    "perm_null_mean": 0.5786916666666667,
+    "perm_null_q95": 0.6125,
+    "excess_over_null": 0.09630833333333333,
+    "beyond_null_q95": true
+   },
+   "best_fn_of_digit_sum": {
+    "agreement": 0.6416666666666667,
+    "perm_null_mean": 0.6230916666666667,
+    "perm_null_q95": 0.6541666666666667,
+    "excess_over_null": 0.018575000000000008,
+    "beyond_null_q95": false
+   },
+   "p_pred_yes_by_last_digit": {
+    "0": 0.18181818181818182,
+    "1": 0.5,
+    "2": 0.75,
+    "3": 0.6666666666666666,
+    "4": 0.8571428571428571,
+    "5": 0.6666666666666666,
+    "6": 0.5,
+    "7": 0.21428571428571427,
+    "8": 0.56,
+    "9": 0.5333333333333333
+   },
+   "best_rule": "true_label",
+   "best_rule_agreement": 0.6208333333333333,
+   "best_shortcut_rule": "digit_sum_div_3",
+   "best_shortcut_agreement": 0.5291666666666667,
+   "best_shortcut_kappa": 0.07503410641200542,
+   "true_label_kappa": 0.2416666666666667
+  },
+  {
+   "task": "div7",
+   "eval_task": "div7",
+   "arm": "B",
    "n": 180,
    "seed": 0,
    "model": "Qwen/Qwen2.5-1.5B-Instruct",
@@ -968,6 +1180,148 @@
   {
    "task": "div7",
    "eval_task": "div7",
+   "arm": "B",
+   "n": 270,
+   "seed": 0,
+   "model": "Qwen/Qwen2.5-1.5B-Instruct",
+   "pred_source": "observed_generations",
+   "gens_path": "results/v2/gens/Qwen2.5-1.5B-Instruct/div7_B_270_0.jsonl",
+   "gens_match_bits": true,
+   "n_hit_cap": 0,
+   "mean_gen_tokens": 111.52083333333333,
+   "n_items": 240,
+   "acc": 0.9958333333333333,
+   "p_pred_yes": 0.49583333333333335,
+   "n_unparsed": 0,
+   "agreement": {
+    "always_No": 0.5041666666666667,
+    "always_Yes": 0.49583333333333335,
+    "last_digit_is_7": 0.5041666666666667,
+    "last_digit_0_or_5": 0.475,
+    "last_digit_even": 0.48333333333333334,
+    "digit_sum_div_7": 0.4791666666666667,
+    "digit_sum_div_3": 0.5208333333333334,
+    "contains_digit_7": 0.5041666666666667,
+    "true_label": 0.9958333333333333
+   },
+   "kappa": {
+    "always_No": 0.0,
+    "always_Yes": 0.0,
+    "last_digit_is_7": 0.0019569471624266968,
+    "last_digit_0_or_5": -0.05505547414695429,
+    "last_digit_even": -0.033118100395750846,
+    "digit_sum_div_7": -0.04821802935010488,
+    "digit_sum_div_3": 0.038193476442709956,
+    "contains_digit_7": 0.005986356675483826,
+    "true_label": 0.9916666666666667
+   },
+   "best_fn_of_last_digit": {
+    "agreement": 0.5625,
+    "perm_null_mean": 0.5765041666666667,
+    "perm_null_q95": 0.6083333333333333,
+    "excess_over_null": -0.014004166666666706,
+    "beyond_null_q95": false
+   },
+   "best_fn_of_digit_sum": {
+    "agreement": 0.6041666666666666,
+    "perm_null_mean": 0.6231041666666667,
+    "perm_null_q95": 0.6541666666666667,
+    "excess_over_null": -0.01893750000000005,
+    "beyond_null_q95": false
+   },
+   "p_pred_yes_by_last_digit": {
+    "0": 0.3939393939393939,
+    "1": 0.5769230769230769,
+    "2": 0.625,
+    "3": 0.5333333333333333,
+    "4": 0.38095238095238093,
+    "5": 0.5,
+    "6": 0.55,
+    "7": 0.5,
+    "8": 0.48,
+    "9": 0.4
+   },
+   "best_rule": "true_label",
+   "best_rule_agreement": 0.9958333333333333,
+   "best_shortcut_rule": "digit_sum_div_3",
+   "best_shortcut_agreement": 0.5208333333333334,
+   "best_shortcut_kappa": 0.038193476442709956,
+   "true_label_kappa": 0.9916666666666667
+  },
+  {
+   "task": "div7",
+   "eval_task": "div7",
+   "arm": "Bprime",
+   "n": 180,
+   "seed": 0,
+   "model": "Qwen/Qwen2.5-1.5B-Instruct",
+   "pred_source": "observed_generations",
+   "gens_path": "results/v2/gens/Qwen2.5-1.5B-Instruct/div7_Bprime_180_0.jsonl",
+   "gens_match_bits": true,
+   "n_hit_cap": 0,
+   "mean_gen_tokens": 113.3,
+   "n_items": 240,
+   "acc": 0.48333333333333334,
+   "p_pred_yes": 0.475,
+   "n_unparsed": 0,
+   "agreement": {
+    "always_No": 0.525,
+    "always_Yes": 0.475,
+    "last_digit_is_7": 0.5583333333333333,
+    "last_digit_0_or_5": 0.49583333333333335,
+    "last_digit_even": 0.49583333333333335,
+    "digit_sum_div_7": 0.5166666666666667,
+    "digit_sum_div_3": 0.5416666666666666,
+    "contains_digit_7": 0.6166666666666667,
+    "true_label": 0.48333333333333334
+   },
+   "kappa": {
+    "always_No": 0.0,
+    "always_Yes": 0.0,
+    "last_digit_is_7": 0.0814558058925477,
+    "last_digit_0_or_5": -0.038181038181038206,
+    "last_digit_even": -0.007074490220557634,
+    "digit_sum_div_7": -0.004329004329004314,
+    "digit_sum_div_3": 0.06303236797274263,
+    "contains_digit_7": 0.22231614539306854,
+    "true_label": -0.033333333333333326
+   },
+   "best_fn_of_last_digit": {
+    "agreement": 0.6125,
+    "perm_null_mean": 0.5781083333333333,
+    "perm_null_q95": 0.6083333333333333,
+    "excess_over_null": 0.03439166666666671,
+    "beyond_null_q95": true
+   },
+   "best_fn_of_digit_sum": {
+    "agreement": 0.65,
+    "perm_null_mean": 0.6244916666666667,
+    "perm_null_q95": 0.6583333333333333,
+    "excess_over_null": 0.025508333333333355,
+    "beyond_null_q95": false
+   },
+   "p_pred_yes_by_last_digit": {
+    "0": 0.36363636363636365,
+    "1": 0.46153846153846156,
+    "2": 0.375,
+    "3": 0.4,
+    "4": 0.42857142857142855,
+    "5": 0.5555555555555556,
+    "6": 0.65,
+    "7": 0.6428571428571429,
+    "8": 0.6,
+    "9": 0.26666666666666666
+   },
+   "best_rule": "contains_digit_7",
+   "best_rule_agreement": 0.6166666666666667,
+   "best_shortcut_rule": "contains_digit_7",
+   "best_shortcut_agreement": 0.6166666666666667,
+   "best_shortcut_kappa": 0.22231614539306854,
+   "true_label_kappa": -0.033333333333333326
+  },
+  {
+   "task": "div7",
+   "eval_task": "div7",
    "arm": "C",
    "n": 180,
    "seed": 0,
@@ -1165,6 +1519,219 @@
    "best_shortcut_agreement": 0.36666666666666664,
    "best_shortcut_kappa": 0.049207673060884013,
    "true_label_kappa": 0.25
+  },
+  {
+   "task": "div7->div7_6d",
+   "eval_task": "div7_6d",
+   "arm": "B",
+   "n": 180,
+   "seed": 0,
+   "model": "Qwen/Qwen2.5-1.5B-Instruct",
+   "pred_source": "observed_generations",
+   "gens_path": "results/v2/gens/Qwen2.5-1.5B-Instruct/div7_B_180_0__on-div7_6d__reeval.jsonl",
+   "gens_match_bits": true,
+   "n_hit_cap": 0,
+   "mean_gen_tokens": 153.84583333333333,
+   "n_items": 240,
+   "acc": 0.7708333333333334,
+   "p_pred_yes": 0.32083333333333336,
+   "n_unparsed": 0,
+   "agreement": {
+    "always_No": 0.6791666666666667,
+    "always_Yes": 0.32083333333333336,
+    "last_digit_is_7": 0.6291666666666667,
+    "last_digit_0_or_5": 0.6375,
+    "last_digit_even": 0.5291666666666667,
+    "digit_sum_div_7": 0.6458333333333334,
+    "digit_sum_div_3": 0.5333333333333333,
+    "contains_digit_7": 0.4666666666666667,
+    "true_label": 0.7708333333333334
+   },
+   "kappa": {
+    "always_No": 0.0,
+    "always_Yes": 0.0,
+    "last_digit_is_7": -0.04849793834675082,
+    "last_digit_0_or_5": 0.06935282581565341,
+    "last_digit_even": 0.029348604151753548,
+    "digit_sum_div_7": 0.05450500556173547,
+    "digit_sum_div_3": -0.08570966960174485,
+    "contains_digit_7": -0.11668484187568169,
+    "true_label": 0.5416666666666667
+   },
+   "best_fn_of_last_digit": {
+    "agreement": 0.6791666666666667,
+    "perm_null_mean": 0.6812708333333334,
+    "perm_null_q95": 0.6958333333333333,
+    "excess_over_null": -0.0021041666666666847,
+    "beyond_null_q95": false
+   },
+   "best_fn_of_digit_sum": {
+    "agreement": 0.7166666666666667,
+    "perm_null_mean": 0.7099791666666666,
+    "perm_null_q95": 0.7333333333333333,
+    "excess_over_null": 0.006687500000000068,
+    "beyond_null_q95": false
+   },
+   "p_pred_yes_by_last_digit": {
+    "0": 0.4166666666666667,
+    "1": 0.5,
+    "2": 0.22727272727272727,
+    "3": 0.2777777777777778,
+    "4": 0.25,
+    "5": 0.36363636363636365,
+    "6": 0.4,
+    "7": 0.22727272727272727,
+    "8": 0.3684210526315789,
+    "9": 0.19230769230769232
+   },
+   "best_rule": "true_label",
+   "best_rule_agreement": 0.7708333333333334,
+   "best_shortcut_rule": "last_digit_0_or_5",
+   "best_shortcut_agreement": 0.6375,
+   "best_shortcut_kappa": 0.06935282581565341,
+   "true_label_kappa": 0.5416666666666667
+  },
+  {
+   "task": "div7[cot]",
+   "eval_task": "div7",
+   "arm": "base",
+   "n": 0,
+   "seed": 0,
+   "model": "Qwen/Qwen2.5-1.5B-Instruct",
+   "pred_source": "observed_generations",
+   "gens_path": "results/v2/gens/Qwen2.5-1.5B-Instruct/div7_base_0_0__cot.jsonl",
+   "gens_match_bits": true,
+   "n_hit_cap": 0,
+   "mean_gen_tokens": 65.84166666666667,
+   "n_items": 240,
+   "acc": 0.6708333333333333,
+   "p_pred_yes": 0.6958333333333333,
+   "n_unparsed": 0,
+   "agreement": {
+    "always_No": 0.30416666666666664,
+    "always_Yes": 0.6958333333333333,
+    "last_digit_is_7": 0.37083333333333335,
+    "last_digit_0_or_5": 0.3333333333333333,
+    "last_digit_even": 0.48333333333333334,
+    "digit_sum_div_7": 0.32916666666666666,
+    "digit_sum_div_3": 0.42083333333333334,
+    "contains_digit_7": 0.4708333333333333,
+    "true_label": 0.6708333333333333
+   },
+   "kappa": {
+    "always_No": -7.97765047634843e-17,
+    "always_Yes": 0.0,
+    "last_digit_is_7": 0.03225806451612904,
+    "last_digit_0_or_5": -0.08825029756844086,
+    "last_digit_even": -0.04355144119503468,
+    "digit_sum_div_7": -0.03703703703703708,
+    "digit_sum_div_3": 0.009736404654476376,
+    "contains_digit_7": 0.04738092261532693,
+    "true_label": 0.34166666666666656
+   },
+   "best_fn_of_last_digit": {
+    "agreement": 0.6958333333333333,
+    "perm_null_mean": 0.6973458333333333,
+    "perm_null_q95": 0.7083333333333334,
+    "excess_over_null": -0.0015125000000000277,
+    "beyond_null_q95": false
+   },
+   "best_fn_of_digit_sum": {
+    "agreement": 0.7,
+    "perm_null_mean": 0.7141583333333333,
+    "perm_null_q95": 0.7333333333333333,
+    "excess_over_null": -0.014158333333333384,
+    "beyond_null_q95": false
+   },
+   "p_pred_yes_by_last_digit": {
+    "0": 0.5454545454545454,
+    "1": 0.7307692307692307,
+    "2": 0.8333333333333334,
+    "3": 0.7,
+    "4": 0.8095238095238095,
+    "5": 0.6111111111111112,
+    "6": 0.7,
+    "7": 0.7857142857142857,
+    "8": 0.56,
+    "9": 0.7333333333333333
+   },
+   "best_rule": "true_label",
+   "best_rule_agreement": 0.6708333333333333,
+   "best_shortcut_rule": "contains_digit_7",
+   "best_shortcut_agreement": 0.4708333333333333,
+   "best_shortcut_kappa": 0.04738092261532693,
+   "true_label_kappa": 0.34166666666666656
+  },
+  {
+   "task": "div7[fewshot4]",
+   "eval_task": "div7",
+   "arm": "base",
+   "n": 0,
+   "seed": 0,
+   "model": "Qwen/Qwen2.5-1.5B-Instruct",
+   "pred_source": "observed_generations",
+   "gens_path": "results/v2/gens/Qwen2.5-1.5B-Instruct/div7_base_0_0__fewshot4.jsonl",
+   "gens_match_bits": true,
+   "n_hit_cap": 0,
+   "mean_gen_tokens": 112.0375,
+   "n_items": 240,
+   "acc": 0.4791666666666667,
+   "p_pred_yes": 0.37083333333333335,
+   "n_unparsed": 0,
+   "agreement": {
+    "always_No": 0.6291666666666667,
+    "always_Yes": 0.37083333333333335,
+    "last_digit_is_7": 0.7458333333333333,
+    "last_digit_0_or_5": 0.625,
+    "last_digit_even": 0.5166666666666667,
+    "digit_sum_div_7": 0.5791666666666667,
+    "digit_sum_div_3": 0.5458333333333333,
+    "contains_digit_7": 0.5875,
+    "true_label": 0.4791666666666667
+   },
+   "kappa": {
+    "always_No": 0.0,
+    "always_Yes": 0.0,
+    "last_digit_is_7": 0.36612400415656404,
+    "last_digit_0_or_5": 0.11915830682652322,
+    "last_digit_even": 0.039536327882426,
+    "digit_sum_div_7": -0.04392764857881135,
+    "digit_sum_div_3": -0.022833906787613455,
+    "contains_digit_7": 0.10984564663569624,
+    "true_label": -0.04166666666666663
+   },
+   "best_fn_of_last_digit": {
+    "agreement": 0.7958333333333333,
+    "perm_null_mean": 0.6365083333333333,
+    "perm_null_q95": 0.6541666666666667,
+    "excess_over_null": 0.15932499999999994,
+    "beyond_null_q95": true
+   },
+   "best_fn_of_digit_sum": {
+    "agreement": 0.6791666666666667,
+    "perm_null_mean": 0.6660208333333334,
+    "perm_null_q95": 0.6875,
+    "excess_over_null": 0.013145833333333301,
+    "beyond_null_q95": false
+   },
+   "p_pred_yes_by_last_digit": {
+    "0": 0.6666666666666666,
+    "1": 0.07692307692307693,
+    "2": 0.125,
+    "3": 0.0,
+    "4": 0.14285714285714285,
+    "5": 0.16666666666666666,
+    "6": 0.5,
+    "7": 1.0,
+    "8": 0.4,
+    "9": 0.5333333333333333
+   },
+   "best_rule": "last_digit_is_7",
+   "best_rule_agreement": 0.7458333333333333,
+   "best_shortcut_rule": "last_digit_is_7",
+   "best_shortcut_agreement": 0.7458333333333333,
+   "best_shortcut_kappa": 0.36612400415656404,
+   "true_label_kappa": -0.04166666666666663
   },
   {
    "task": "div7_6d",
@@ -1397,7 +1964,11 @@
    "n": 180,
    "seed": 0,
    "model": "Qwen/Qwen2.5-1.5B-Instruct",
-   "pred_source": "recovered_from_bits",
+   "pred_source": "observed_generations",
+   "gens_path": "results/v2/gens/Qwen2.5-1.5B-Instruct/prime_A_180_0.jsonl",
+   "gens_match_bits": true,
+   "n_hit_cap": 0,
+   "mean_gen_tokens": 3.0,
    "n_items": 240,
    "acc": 0.8208333333333333,
    "p_pred_yes": 0.6708333333333333,
@@ -2457,6 +3028,254 @@
    "true_label_kappa": 0.19166666666666665
   },
   {
+   "task": "prime->prime_hard",
+   "eval_task": "prime_hard",
+   "arm": "A",
+   "n": 180,
+   "seed": 0,
+   "model": "Qwen/Qwen2.5-1.5B-Instruct",
+   "pred_source": "observed_generations",
+   "gens_path": "results/v2/gens/Qwen2.5-1.5B-Instruct/prime_A_180_0__on-prime_hard__reeval.jsonl",
+   "gens_match_bits": true,
+   "n_hit_cap": 0,
+   "mean_gen_tokens": 3.0,
+   "n_items": 240,
+   "acc": 0.49583333333333335,
+   "p_pred_yes": 0.9875,
+   "n_unparsed": 0,
+   "agreement": {
+    "always_No": 0.0125,
+    "always_Yes": 0.9875,
+    "odd": 0.9875,
+    "last_digit_1379": 0.9875,
+    "no_factor_le_3": 0.9875,
+    "no_factor_le_5": 0.9875,
+    "no_factor_le_7": 0.9875,
+    "no_factor_le_11": 0.925,
+    "no_factor_le_13": 0.8541666666666666,
+    "no_factor_le_17": 0.7916666666666666,
+    "no_factor_le_19": 0.7375,
+    "no_factor_le_23": 0.6875,
+    "no_factor_le_29": 0.6458333333333334,
+    "no_factor_le_31": 0.6208333333333333,
+    "true_label": 0.49583333333333335
+   },
+   "kappa": {
+    "always_No": 4.567373202571846e-17,
+    "always_Yes": 0.0,
+    "odd": 0.0,
+    "last_digit_1379": 0.0,
+    "no_factor_le_3": 0.0,
+    "no_factor_le_5": 0.0,
+    "no_factor_le_7": 0.0,
+    "no_factor_le_11": -0.02127659574467963,
+    "no_factor_le_13": 0.03181189488243483,
+    "no_factor_le_17": 0.015263417035942648,
+    "no_factor_le_19": 0.0070921985815605515,
+    "no_factor_le_23": 0.0019960079840322473,
+    "no_factor_le_29": -0.0011778563015313976,
+    "no_factor_le_31": -0.0027548209366389615,
+    "true_label": -0.008333333333333304
+   },
+   "strata": {
+    "hard_composite_no_factor_le7": {
+     "n": 120,
+     "acc": 0.008333333333333333,
+     "p_pred_yes": 0.9916666666666667
+    },
+    "prime": {
+     "n": 120,
+     "acc": 0.9833333333333333,
+     "p_pred_yes": 0.9833333333333333
+    }
+   },
+   "S6_hard_negatives": {
+    "n_hard": 120,
+    "agree_rule_no_factor_le7": 0.9916666666666667,
+    "agree_true_label": 0.008333333333333333,
+    "rule_beats_truth": true,
+    "acc_below_60": true
+   },
+   "best_rule": "odd",
+   "best_rule_agreement": 0.9875,
+   "best_shortcut_rule": "no_factor_le_13",
+   "best_shortcut_agreement": 0.8541666666666666,
+   "best_shortcut_kappa": 0.03181189488243483,
+   "true_label_kappa": -0.008333333333333304
+  },
+  {
+   "task": "prime[cot]",
+   "eval_task": "prime",
+   "arm": "base",
+   "n": 0,
+   "seed": 0,
+   "model": "Qwen/Qwen2.5-1.5B-Instruct",
+   "pred_source": "observed_generations",
+   "gens_path": "results/v2/gens/Qwen2.5-1.5B-Instruct/prime_base_0_0__cot.jsonl",
+   "gens_match_bits": true,
+   "n_hit_cap": 8,
+   "mean_gen_tokens": 200.48333333333332,
+   "n_items": 240,
+   "acc": 0.6291666666666667,
+   "p_pred_yes": 0.2791666666666667,
+   "n_unparsed": 8,
+   "agreement": {
+    "always_No": 0.6875,
+    "always_Yes": 0.2791666666666667,
+    "odd": 0.5416666666666666,
+    "last_digit_1379": 0.5958333333333333,
+    "no_factor_le_3": 0.6083333333333333,
+    "no_factor_le_5": 0.6375,
+    "no_factor_le_7": 0.6416666666666667,
+    "no_factor_le_11": 0.6375,
+    "no_factor_le_13": 0.6458333333333334,
+    "no_factor_le_17": 0.6458333333333334,
+    "no_factor_le_19": 0.6375,
+    "no_factor_le_23": 0.6375,
+    "no_factor_le_29": 0.6375,
+    "no_factor_le_31": 0.6375,
+    "true_label": 0.6291666666666667
+   },
+   "kappa": {
+    "always_No": -0.11940298507462684,
+    "always_Yes": 0.0,
+    "odd": 0.24229378336490437,
+    "last_digit_1379": 0.2998917358354385,
+    "no_factor_le_3": 0.29920477137176926,
+    "no_factor_le_5": 0.3315833279979511,
+    "no_factor_le_7": 0.3208292201382034,
+    "no_factor_le_11": 0.3056664006384676,
+    "no_factor_le_13": 0.3168117883456129,
+    "no_factor_le_17": 0.3119266055045872,
+    "no_factor_le_19": 0.2906644924582144,
+    "no_factor_le_23": 0.2906644924582144,
+    "no_factor_le_29": 0.2906644924582144,
+    "no_factor_le_31": 0.2855187517109225,
+    "true_label": 0.2583333333333333
+   },
+   "strata": {
+    "even_composite": {
+     "n": 63,
+     "acc": 1.0,
+     "p_pred_yes": 0.0
+    },
+    "hard_composite_no_factor_le7": {
+     "n": 15,
+     "acc": 0.4,
+     "p_pred_yes": 0.6
+    },
+    "odd_composite_factor_le7": {
+     "n": 42,
+     "acc": 0.7619047619047619,
+     "p_pred_yes": 0.19047619047619047
+    },
+    "prime": {
+     "n": 120,
+     "acc": 0.4166666666666667,
+     "p_pred_yes": 0.4166666666666667
+    }
+   },
+   "S6_hard_negatives": {
+    "n_hard": 15,
+    "agree_rule_no_factor_le7": 0.6,
+    "agree_true_label": 0.4,
+    "rule_beats_truth": true,
+    "acc_below_60": true
+   },
+   "best_rule": "no_factor_le_13",
+   "best_rule_agreement": 0.6458333333333334,
+   "best_shortcut_rule": "no_factor_le_5",
+   "best_shortcut_agreement": 0.6375,
+   "best_shortcut_kappa": 0.3315833279979511,
+   "true_label_kappa": 0.2583333333333333
+  },
+  {
+   "task": "prime[fewshot4]",
+   "eval_task": "prime",
+   "arm": "base",
+   "n": 0,
+   "seed": 0,
+   "model": "Qwen/Qwen2.5-1.5B-Instruct",
+   "pred_source": "observed_generations",
+   "gens_path": "results/v2/gens/Qwen2.5-1.5B-Instruct/prime_base_0_0__fewshot4.jsonl",
+   "gens_match_bits": true,
+   "n_hit_cap": 104,
+   "mean_gen_tokens": 284.22083333333336,
+   "n_items": 240,
+   "acc": 0.39166666666666666,
+   "p_pred_yes": 0.0875,
+   "n_unparsed": 104,
+   "agreement": {
+    "always_No": 0.4791666666666667,
+    "always_Yes": 0.0875,
+    "odd": 0.26666666666666666,
+    "last_digit_1379": 0.32916666666666666,
+    "no_factor_le_3": 0.32916666666666666,
+    "no_factor_le_5": 0.36666666666666664,
+    "no_factor_le_7": 0.37083333333333335,
+    "no_factor_le_11": 0.37916666666666665,
+    "no_factor_le_13": 0.38333333333333336,
+    "no_factor_le_17": 0.38333333333333336,
+    "no_factor_le_19": 0.3875,
+    "no_factor_le_23": 0.3875,
+    "no_factor_le_29": 0.3875,
+    "no_factor_le_31": 0.39166666666666666,
+    "true_label": 0.39166666666666666
+   },
+   "kappa": {
+    "always_No": -4.952380952380951,
+    "always_Yes": 0.0,
+    "odd": -0.05373447088759162,
+    "last_digit_1379": -0.041060459101196205,
+    "no_factor_le_3": -0.09972677595628418,
+    "no_factor_le_5": -0.09372189242669543,
+    "no_factor_le_7": -0.14069877242681772,
+    "no_factor_le_11": -0.14703618167821403,
+    "no_factor_le_13": -0.15399610136452238,
+    "no_factor_le_17": -0.16903633491311218,
+    "no_factor_le_19": -0.17647058823529407,
+    "no_factor_le_23": -0.17647058823529407,
+    "no_factor_le_29": -0.17647058823529407,
+    "no_factor_le_31": -0.18410381184103802,
+    "true_label": -0.21666666666666667
+   },
+   "strata": {
+    "even_composite": {
+     "n": 63,
+     "acc": 0.6825396825396826,
+     "p_pred_yes": 0.0
+    },
+    "hard_composite_no_factor_le7": {
+     "n": 15,
+     "acc": 0.3333333333333333,
+     "p_pred_yes": 0.0
+    },
+    "odd_composite_factor_le7": {
+     "n": 42,
+     "acc": 0.7142857142857143,
+     "p_pred_yes": 0.11904761904761904
+    },
+    "prime": {
+     "n": 120,
+     "acc": 0.13333333333333333,
+     "p_pred_yes": 0.13333333333333333
+    }
+   },
+   "S6_hard_negatives": {
+    "n_hard": 15,
+    "agree_rule_no_factor_le7": 0.0,
+    "agree_true_label": 0.3333333333333333,
+    "rule_beats_truth": false,
+    "acc_below_60": true
+   },
+   "best_rule": "no_factor_le_31",
+   "best_rule_agreement": 0.39166666666666666,
+   "best_shortcut_rule": "last_digit_1379",
+   "best_shortcut_agreement": 0.32916666666666666,
+   "best_shortcut_kappa": -0.041060459101196205,
+   "true_label_kappa": -0.21666666666666667
+  },
+  {
    "task": "valid",
    "eval_task": "valid",
    "arm": "A",
@@ -3283,6 +4102,152 @@
    },
    "best_rule": "true_label",
    "best_rule_agreement": 0.3
+  },
+  {
+   "task": "valid[cot]",
+   "eval_task": "valid",
+   "arm": "base",
+   "n": 0,
+   "seed": 0,
+   "model": "Qwen/Qwen2.5-1.5B-Instruct",
+   "pred_source": "observed_generations",
+   "gens_path": "results/v2/gens/Qwen2.5-1.5B-Instruct/valid_base_0_0__cot.jsonl",
+   "gens_match_bits": true,
+   "n_hit_cap": 5,
+   "mean_gen_tokens": 243.85833333333332,
+   "n_items": 240,
+   "acc": 0.6666666666666666,
+   "p_pred_yes": 0.5625,
+   "n_unparsed": 3,
+   "agreement": {
+    "true_label": 0.6666666666666666,
+    "always_Yes": 0.5625
+   },
+   "acc_by_schema": {
+    "affirm_consequent": {
+     "n": 11,
+     "acc": 0.5454545454545454
+    },
+    "affirm_disjunct": {
+     "n": 20,
+     "acc": 0.45
+    },
+    "constr_dilemma": {
+     "n": 25,
+     "acc": 0.64
+    },
+    "contraposition": {
+     "n": 18,
+     "acc": 0.7222222222222222
+    },
+    "converse_error": {
+     "n": 15,
+     "acc": 0.2
+    },
+    "deny_antecedent": {
+     "n": 19,
+     "acc": 0.2631578947368421
+    },
+    "disj_syllogism": {
+     "n": 27,
+     "acc": 0.5185185185185185
+    },
+    "fake_chain": {
+     "n": 30,
+     "acc": 0.8
+    },
+    "hyp_syllogism": {
+     "n": 21,
+     "acc": 0.9523809523809523
+    },
+    "illicit_conj": {
+     "n": 25,
+     "acc": 1.0
+    },
+    "modus_ponens": {
+     "n": 9,
+     "acc": 1.0
+    },
+    "modus_tollens": {
+     "n": 20,
+     "acc": 0.8
+    }
+   },
+   "best_rule": "true_label",
+   "best_rule_agreement": 0.6666666666666666
+  },
+  {
+   "task": "valid[fewshot4]",
+   "eval_task": "valid",
+   "arm": "base",
+   "n": 0,
+   "seed": 0,
+   "model": "Qwen/Qwen2.5-1.5B-Instruct",
+   "pred_source": "observed_generations",
+   "gens_path": "results/v2/gens/Qwen2.5-1.5B-Instruct/valid_base_0_0__fewshot4.jsonl",
+   "gens_match_bits": true,
+   "n_hit_cap": 0,
+   "mean_gen_tokens": 72.9125,
+   "n_items": 240,
+   "acc": 0.6875,
+   "p_pred_yes": 0.3,
+   "n_unparsed": 12,
+   "agreement": {
+    "true_label": 0.6875,
+    "always_Yes": 0.3
+   },
+   "acc_by_schema": {
+    "affirm_consequent": {
+     "n": 11,
+     "acc": 0.9090909090909091
+    },
+    "affirm_disjunct": {
+     "n": 20,
+     "acc": 0.9
+    },
+    "constr_dilemma": {
+     "n": 25,
+     "acc": 0.64
+    },
+    "contraposition": {
+     "n": 18,
+     "acc": 0.0
+    },
+    "converse_error": {
+     "n": 15,
+     "acc": 0.4
+    },
+    "deny_antecedent": {
+     "n": 19,
+     "acc": 0.8947368421052632
+    },
+    "disj_syllogism": {
+     "n": 27,
+     "acc": 1.0
+    },
+    "fake_chain": {
+     "n": 30,
+     "acc": 1.0
+    },
+    "hyp_syllogism": {
+     "n": 21,
+     "acc": 0.14285714285714285
+    },
+    "illicit_conj": {
+     "n": 25,
+     "acc": 1.0
+    },
+    "modus_ponens": {
+     "n": 9,
+     "acc": 0.3333333333333333
+    },
+    "modus_tollens": {
+     "n": 20,
+     "acc": 0.5
+    }
+   },
+   "best_rule": "true_label",
+   "best_rule_agreement": 0.6875
   }
  ],
  "S6": [
@@ -3303,7 +4268,7 @@
    "n": 180,
    "seed": 0,
    "model": "Qwen/Qwen2.5-1.5B-Instruct",
-   "pred_source": "recovered_from_bits",
+   "pred_source": "observed_generations",
    "n_hard": 15,
    "agree_rule_no_factor_le7": 1.0,
    "agree_true_label": 0.0,
@@ -3331,6 +4296,18 @@
    "n_hard": 15,
    "agree_rule_no_factor_le7": 0.9333333333333333,
    "agree_true_label": 0.06666666666666667,
+   "rule_beats_truth": true,
+   "acc_below_60": true
+  },
+  {
+   "task": "prime->prime_hard",
+   "n": 180,
+   "seed": 0,
+   "model": "Qwen/Qwen2.5-1.5B-Instruct",
+   "pred_source": "observed_generations",
+   "n_hard": 120,
+   "agree_rule_no_factor_le7": 0.9916666666666667,
+   "agree_true_label": 0.008333333333333333,
    "rule_beats_truth": true,
    "acc_below_60": true
   }

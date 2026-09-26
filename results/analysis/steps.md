@@ -8,13 +8,27 @@ p_cond = P(step correct | previous step correct), pooled over positions; p after
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | div11 | Qwen2.5-1.5B-Instruct | B | plain | 180 | 0 | 4 | 99.2 | 95.8 | 98.9 | 98.6 | 97.9 | 95.9 | 95.8 | 99.2 | 98.6 | 94.7 | 99.4 | 100.0 | 80.0 | 50.0 | {'2': 2, '3': 6, '4': 2} | {'0': 1, '1': 1, '2': 1, '3': 2, '6': 1, '8': 1, '9': 2, '10': 1} |
 | div13 | Qwen2.5-1.5B-Instruct | B | plain | 180 | 0 | 4 | 54.6 | 2.1 | 56.6 | 23.7 | 43.4 | 10.2 | 2.2 | 58.4 | 35.4 | 1.6 | 99.8 | 100.0 | 53.6 | 76.2 | {'2': 188, '3': 41, '4': 6} | {'0': 179, '2': 12, '4': 3, '5': 10, '6': 12, '7': 7, '8': 9, '9': 3} |
+| div13 | Qwen2.5-1.5B-Instruct | B | plain | 540 | 0 | 4 | 94.6 | 92.1 | 98.0 | 97.3 | 96.2 | 92.2 | 92.1 | 94.7 | 97.8 | 91.5 | 100.0 | 100.0 | 31.6 | 46.2 | {'2': 3, '3': 11, '4': 5} | {'0': 2, '3': 4, '5': 1, '6': 3, '7': 4, '8': 1, '9': 2, '11': 1, '12': 1} |
+| div3 | Qwen2.5-1.5B-Instruct | B | plain | 180 | 0 | 4 | 100.0 | 100.0 | 100.0 | 100.0 | 100.0 | 100.0 | 100.0 | - | 100.0 | 100.0 | 100.0 | 100.0 | - | 50.0 | {} | {} |
+| div7 | Qwen2.5-1.5B-Instruct | B | plain | 90 | 0 | 4 | 62.1 | 21.7 | 73.6 | 60.2 | 59.2 | 29.3 | 22.0 | 65.8 | 63.9 | 16.6 | 99.9 | 100.0 | 51.6 | 52.1 | {'2': 95, '3': 60, '4': 33} | {'0': 87, '1': 17, '2': 24, '3': 17, '4': 10, '5': 19, '6': 14} |
 | div7 | Qwen2.5-1.5B-Instruct | B | plain | 180 | 0 | 4 | 92.5 | 82.9 | 95.5 | 93.9 | 90.7 | 83.2 | 82.9 | 92.6 | 94.7 | 80.4 | 100.0 | 100.0 | 56.1 | 46.7 | {'2': 18, '3': 15, '4': 8} | {'0': 6, '1': 5, '2': 10, '3': 5, '4': 6, '5': 1, '6': 8} |
+| div7 | Qwen2.5-1.5B-Instruct | B | plain | 270 | 0 | 4 | 99.6 | 98.8 | 99.7 | 99.6 | 99.2 | 98.7 | 98.8 | 99.6 | 99.7 | 98.8 | 100.0 | 100.0 | 66.7 | 49.6 | {'2': 2, '3': 1} | {'5': 2, '6': 1} |
+| div7 | Qwen2.5-1.5B-Instruct | Bprime | plain | 180 | 0 | 4 | 48.3 | 54.2 | 86.4 | 80.8 | 74.2 | 55.8 | 54.0 | 72.7 | 84.3 | 50.4 | 99.6 | 64.6 | 38.2 | 47.5 | {'2': 55, '3': 36, '4': 19} | {'0': 18, '1': 8, '2': 21, '3': 29, '4': 12, '5': 13, '6': 9} |
+| div7->div7_6d | Qwen2.5-1.5B-Instruct | B | plain | 180 | 0 | 6 | 77.1 | 48.3 | 90.6 | 88.3 | 76.2 | 55.4 | 53.0 | 80.2 | 88.3 | 47.3 | 95.7 | 100.0 | 55.6 | 32.1 | {'2': 25, '3': 24, '4': 20, '5': 21, '6': 21, 'extra_steps': 12, 'short': 1} | {'0': 10, '1': 13, '2': 27, '3': 18, '4': 17, '5': 16, '6': 23} |
+| div7[fewshot4] | Qwen2.5-1.5B-Instruct | base | fewshot4 | 0 | 0 | 4 | 47.9 | 1.7 | 52.4 | 22.3 | 36.6 | 7.6 | 1.7 | 51.0 | 41.6 | 3.0 | 95.8 | 99.6 | 47.0 | 37.1 | {'1': 25, '2': 177, '3': 28, '4': 6} | {'0': 84, '1': 14, '2': 27, '3': 9, '4': 32, '5': 26, '6': 44} |
 | div7_6d | Qwen2.5-1.5B-Instruct | B | plain | 180 | 0 | 6 | 96.2 | 92.9 | 98.8 | 98.5 | 96.7 | 93.0 | 92.9 | 96.3 | 98.3 | 90.0 | 98.9 | 100.0 | 47.1 | 47.9 | {'2': 3, '3': 2, '4': 6, '5': 3, '6': 3} | {'0': 3, '1': 4, '2': 3, '3': 1, '4': 3, '5': 2, '6': 1} |
+
+## prime tasks
+
+| task | model | arm | n | seed | acc | errors | truncated (no Answer line) | truncated & wrong | cap hits | wrong with Answer line | step arith | divisor seq faithful | acc by true #divisions (1 / 2-3 / 4-8 / 9-16 / 17+) |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| prime[fewshot4] | Qwen2.5-1.5B-Instruct | base | 0 | 0 | 39.2 | 146 | 104 | 104 | 104 | 42 | 11.9 | 40.6 | 68.3 (n=63) / 79.4 (n=34) / 41.2 (n=17) / 10.6 (n=47) / 15.2 (n=79) |
 
 ## S5 (primary, Qwen2.5-1.5B-Instruct): FAIL (seed(s) [0] outside 10 pp; seed(s) [1] not yet run)
 
 PRIMARY = B trained+tested on div7_6d (seeds 0,1) vs p^6, p from 4-digit div7 B gens; SECONDARY = 4-digit B adapter on div7_6d (PREDICTIONS.md decision log, 27ba807)
 
-- Qwen2.5-1.5B-Instruct: primary FAIL (seed(s) [0] outside 10 pp; seed(s) [1] not yet run); secondary PENDING
+- Qwen2.5-1.5B-Instruct: primary FAIL (seed(s) [0] outside 10 pp; seed(s) [1] not yet run); secondary PASS
 
-- [primary] div7_6d Qwen2.5-1.5B-Instruct n=180 s0: p=0.9550 (fixed 0.955 (PREDICTIONS.md decision log: 4-digit div7 B seed 0)) -> p^6=75.9%, observed answer acc 96.2% (gens), diff +20.4 pp -> OUTSIDE 10 pp. Post hoc: fully correct 6-digit traces 92.9% vs p^6; guess model p^6 + (1 - p^6) g = 89.4%. Same-seed p (secondary) 0.9549 -> p^6 75.8% (+20.4 pp)
+- [secondary] div7->div7_6d Qwen2.5-1.5B-Instruct n=180 s0: p=0.9550 (fixed 0.955 (PREDICTIONS.md decision log: 4-digit div7 B seed 0)) -> p^6=75.9%, observed answer acc 77.1% (gens), diff +1.2 pp -> within 10 pp. Post hoc: fully correct 6-digit traces 48.3% vs p^6; guess model p^6 + (1 - p^6) g = 92.0%. Same-seed p (secondary) 0.9969 -> p^6 98.1% (-21.0 pp)
+- [primary] div7_6d Qwen2.5-1.5B-Instruct n=180 s0: p=0.9550 (fixed 0.955 (PREDICTIONS.md decision log: 4-digit div7 B seed 0)) -> p^6=75.9%, observed answer acc 96.2% (gens), diff +20.4 pp -> OUTSIDE 10 pp. Post hoc: fully correct 6-digit traces 92.9% vs p^6; guess model p^6 + (1 - p^6) g = 92.0%. Same-seed p (secondary) 0.9969 -> p^6 98.1% (-1.9 pp)

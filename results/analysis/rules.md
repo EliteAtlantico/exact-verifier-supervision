@@ -22,6 +22,7 @@ Best agreement by ANY function of the last digit / digit sum (vs permutation-nul
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | A | 180 | 0 | Qwen2.5-1.5B-Instruct | gens | 49.6 | 0.00 | 99.6 | 0.4 | 87.1 | 82.5 | 48.8 | 92.1 | 67.1 | 62.1 | 49.6 | digit_sum_div_13 (92.1; kappa -0.01 vs truth -0.01) |
 | B | 180 | 0 | Qwen2.5-1.5B-Instruct | gens | 54.6 | 0.76 | 23.8 | 76.2 | 29.6 | 24.2 | 36.2 | 29.6 | 39.6 | 48.8 | 54.6 | contains_digit_7 (48.8; kappa 0.09 vs truth 0.09) |
+| B | 540 | 0 | Qwen2.5-1.5B-Instruct | gens | 94.6 | 0.46 | 53.8 | 46.2 | 48.8 | 51.7 | 51.2 | 54.6 | 52.9 | 51.2 | 94.6 | digit_sum_div_3 (52.9; kappa 0.03 vs truth 0.89) |
 
 Best agreement by ANY function of the last digit / digit sum (vs permutation-null mean, q95)
 
@@ -29,18 +30,21 @@ Best agreement by ANY function of the last digit / digit sum (vs permutation-nul
 |---|---|---|---|---|---|---|
 | A | 180 | 0 | 99.6 | 99.6 / 99.6 | 99.6 | 99.6 / 99.6 |
 | B | 180 | 0 | 84.6 | 76.3 / 76.2 | 77.1 | 77.2 / 78.3 |
+| B | 540 | 0 | 60.8 | 58.3 / 61.3 | 63.3 | 63.0 / 66.2 |
 
 ## div3
 
 | arm | n | seed | model | src | acc | P(Yes) | always_No | always_Yes | last_digit_is_3 | last_digit_0_or_5 | last_digit_even | digit_sum_div_3 | contains_digit_7 | true_label | best shortcut |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | A | 180 | 0 | Qwen2.5-1.5B-Instruct | gens | 50.0 | 0.00 | 100.0 | 0.0 | 92.9 | 77.9 | 45.4 | 50.0 | 63.3 | 50.0 | last_digit_is_3 (92.9; kappa 0.00 vs truth 0.00) |
+| B | 180 | 0 | Qwen2.5-1.5B-Instruct | gens | 100.0 | 0.50 | 50.0 | 50.0 | 48.8 | 49.6 | 47.9 | 100.0 | 55.0 | 100.0 | digit_sum_div_3 (100.0; kappa 1.00 vs truth 1.00) |
 
 Best agreement by ANY function of the last digit / digit sum (vs permutation-null mean, q95)
 
 | arm | n | seed | last digit | null mean / q95 | digit sum | null mean / q95 |
 |---|---|---|---|---|---|---|
 | A | 180 | 0 | 100.0 | 100.0 / 100.0 | 100.0 | 100.0 / 100.0 |
+| B | 180 | 0 | 55.0 | 57.6 / 60.8 | 100.0 | 62.9 / 66.2 |
 
 ## div7
 
@@ -52,9 +56,12 @@ Best agreement by ANY function of the last digit / digit sum (vs permutation-nul
 | A | 180 | 2 | Qwen2.5-1.5B-Instruct | bits | 47.9 | 0.94 | 6.2 | 93.8 | 17.9 | 24.2 | 52.5 | 16.2 | 32.1 | 42.1 | 47.9 | contains_digit_7 (42.1; kappa 0.07 vs truth -0.04) |
 | A | 540 | 0 | Qwen2.5-1.5B-Instruct | bits | 50.0 | 0.00 | 100.0 | 0.0 | 88.3 | 78.8 | 48.8 | 87.5 | 71.7 | 64.2 | 50.0 | contains_digit_7 (64.2; kappa 0.00 vs truth 0.00) |
 | B | 60 | 0 | Qwen2.5-1.5B-Instruct | bits | 50.0 | 0.73 | 26.7 | 73.3 | 30.0 | 28.7 | 49.6 | 34.2 | 37.5 | 34.2 | 50.0 | digit_sum_div_7 (34.2; kappa 0.02 vs truth 0.00) |
+| B | 90 | 0 | Qwen2.5-1.5B-Instruct | gens | 62.1 | 0.52 | 47.9 | 52.1 | 41.2 | 41.7 | 51.7 | 48.8 | 52.9 | 37.9 | 62.1 | digit_sum_div_3 (52.9; kappa 0.08 vs truth 0.24) |
 | B | 180 | 0 | Qwen2.5-1.5B-Instruct | gens | 92.5 | 0.47 | 53.3 | 46.7 | 53.3 | 51.2 | 49.6 | 50.8 | 52.5 | 53.3 | 92.5 | contains_digit_7 (53.3; kappa 0.05 vs truth 0.85) |
 | B | 180 | 1 | Qwen2.5-1.5B-Instruct | bits | 90.0 | 0.44 | 55.8 | 44.2 | 55.8 | 49.6 | 46.2 | 52.5 | 53.3 | 55.0 | 90.0 | contains_digit_7 (55.0; kappa 0.07 vs truth 0.80) |
 | B | 180 | 2 | Qwen2.5-1.5B-Instruct | bits | 82.5 | 0.41 | 59.2 | 40.8 | 59.2 | 54.6 | 47.9 | 55.8 | 51.7 | 56.7 | 82.5 | contains_digit_7 (56.7; kappa 0.09 vs truth 0.65) |
+| B | 270 | 0 | Qwen2.5-1.5B-Instruct | gens | 99.6 | 0.50 | 50.4 | 49.6 | 50.4 | 47.5 | 48.3 | 47.9 | 52.1 | 50.4 | 99.6 | digit_sum_div_3 (52.1; kappa 0.04 vs truth 0.99) |
+| Bprime | 180 | 0 | Qwen2.5-1.5B-Instruct | gens | 48.3 | 0.47 | 52.5 | 47.5 | 55.8 | 49.6 | 49.6 | 51.7 | 54.2 | 61.7 | 48.3 | contains_digit_7 (61.7; kappa 0.22 vs truth -0.03) |
 | C | 180 | 0 | Qwen2.5-1.5B-Instruct | bits | 49.6 | 0.72 | 27.9 | 72.1 | 32.9 | 35.8 | 45.0 | 35.4 | 40.4 | 48.8 | 49.6 | contains_digit_7 (48.8; kappa 0.09 vs truth -0.01) |
 | C | 180 | 1 | Qwen2.5-1.5B-Instruct | bits | 50.4 | 0.30 | 69.6 | 30.4 | 69.6 | 56.7 | 45.8 | 65.4 | 58.8 | 60.4 | 50.4 | last_digit_is_7 (69.6; kappa 0.13 vs truth 0.01) |
 | base | 0 | 0 | Qwen2.5-1.5B-Instruct | bits | 62.5 | 0.72 | 28.3 | 71.7 | 36.7 | 30.4 | 46.2 | 30.8 | 39.2 | 45.8 | 62.5 | last_digit_is_7 (36.7; kappa 0.05 vs truth 0.25) |
@@ -69,12 +76,51 @@ Best agreement by ANY function of the last digit / digit sum (vs permutation-nul
 | A | 180 | 2 | 93.8 | 93.8 / 93.8 | 94.2 | 93.9 / 94.6 |
 | A | 540 | 0 | 100.0 | 100.0 / 100.0 | 100.0 | 100.0 / 100.0 |
 | B | 60 | 0 | 78.8 | 73.4 / 73.3 | 76.2 | 74.6 / 76.2 |
+| B | 90 | 0 | 67.5 | 57.9 / 61.3 | 64.2 | 62.3 / 65.4 |
 | B | 180 | 0 | 55.8 | 58.2 / 61.7 | 61.7 | 62.5 / 65.4 |
 | B | 180 | 1 | 58.3 | 59.0 / 62.1 | 59.6 | 63.3 / 66.2 |
 | B | 180 | 2 | 60.0 | 60.9 / 63.7 | 65.4 | 64.5 / 67.1 |
+| B | 270 | 0 | 56.2 | 57.7 / 60.8 | 60.4 | 62.3 / 65.4 |
+| Bprime | 180 | 0 | 61.3 | 57.8 / 60.8 | 65.0 | 62.4 / 65.8 |
 | C | 180 | 0 | 72.1 | 72.1 / 72.5 | 75.0 | 73.5 / 75.0 |
 | C | 180 | 1 | 69.6 | 69.7 / 70.4 | 71.2 | 71.5 / 73.3 |
 | base | 0 | 0 | 71.7 | 71.8 / 72.5 | 72.1 | 73.2 / 75.0 |
+
+## div7->div7_6d
+
+| arm | n | seed | model | src | acc | P(Yes) | always_No | always_Yes | last_digit_is_7 | last_digit_0_or_5 | last_digit_even | digit_sum_div_7 | digit_sum_div_3 | contains_digit_7 | true_label | best shortcut |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| B | 180 | 0 | Qwen2.5-1.5B-Instruct | gens | 77.1 | 0.32 | 67.9 | 32.1 | 62.9 | 63.7 | 52.9 | 64.6 | 53.3 | 46.7 | 77.1 | last_digit_0_or_5 (63.7; kappa 0.07 vs truth 0.54) |
+
+Best agreement by ANY function of the last digit / digit sum (vs permutation-null mean, q95)
+
+| arm | n | seed | last digit | null mean / q95 | digit sum | null mean / q95 |
+|---|---|---|---|---|---|---|
+| B | 180 | 0 | 67.9 | 68.1 / 69.6 | 71.7 | 71.0 / 73.3 |
+
+## div7[cot]
+
+| arm | n | seed | model | src | acc | P(Yes) | always_No | always_Yes | last_digit_is_7 | last_digit_0_or_5 | last_digit_even | digit_sum_div_7 | digit_sum_div_3 | contains_digit_7 | true_label | best shortcut |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| base | 0 | 0 | Qwen2.5-1.5B-Instruct | gens | 67.1 | 0.70 | 30.4 | 69.6 | 37.1 | 33.3 | 48.3 | 32.9 | 42.1 | 47.1 | 67.1 | contains_digit_7 (47.1; kappa 0.05 vs truth 0.34) |
+
+Best agreement by ANY function of the last digit / digit sum (vs permutation-null mean, q95)
+
+| arm | n | seed | last digit | null mean / q95 | digit sum | null mean / q95 |
+|---|---|---|---|---|---|---|
+| base | 0 | 0 | 69.6 | 69.7 / 70.8 | 70.0 | 71.4 / 73.3 |
+
+## div7[fewshot4]
+
+| arm | n | seed | model | src | acc | P(Yes) | always_No | always_Yes | last_digit_is_7 | last_digit_0_or_5 | last_digit_even | digit_sum_div_7 | digit_sum_div_3 | contains_digit_7 | true_label | best shortcut |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| base | 0 | 0 | Qwen2.5-1.5B-Instruct | gens | 47.9 | 0.37 | 62.9 | 37.1 | 74.6 | 62.5 | 51.7 | 57.9 | 54.6 | 58.8 | 47.9 | last_digit_is_7 (74.6; kappa 0.37 vs truth -0.04) |
+
+Best agreement by ANY function of the last digit / digit sum (vs permutation-null mean, q95)
+
+| arm | n | seed | last digit | null mean / q95 | digit sum | null mean / q95 |
+|---|---|---|---|---|---|---|
+| base | 0 | 0 | 79.6 | 63.7 / 65.4 | 67.9 | 66.6 / 68.8 |
 
 ## div7_6d
 
@@ -95,7 +141,7 @@ Best agreement by ANY function of the last digit / digit sum (vs permutation-nul
 | arm | n | seed | model | src | acc | P(Yes) | always_No | always_Yes | odd | last_digit_1379 | no_factor_le_3 | no_factor_le_5 | no_factor_le_7 | no_factor_le_11 | no_factor_le_13 | no_factor_le_17 | no_factor_le_19 | no_factor_le_23 | no_factor_le_29 | no_factor_le_31 | true_label | best shortcut |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | A | 60 | 0 | Qwen2.5-1.5B-Instruct | bits | 59.6 | 0.90 | 9.6 | 90.4 | 80.8 | 77.1 | 71.2 | 69.2 | 65.8 | 64.6 | 63.7 | 62.9 | 62.1 | 62.1 | 62.1 | 61.3 | 59.6 | odd (80.8; kappa 0.38 vs truth 0.19) |
-| A | 180 | 0 | Qwen2.5-1.5B-Instruct | bits | 82.1 | 0.67 | 32.9 | 67.1 | 93.3 | 99.6 | 87.9 | 91.7 | 88.3 | 87.1 | 86.2 | 85.4 | 84.6 | 84.6 | 84.6 | 83.8 | 82.1 | last_digit_1379 (99.6; kappa 0.99 vs truth 0.64) |
+| A | 180 | 0 | Qwen2.5-1.5B-Instruct | gens | 82.1 | 0.67 | 32.9 | 67.1 | 93.3 | 99.6 | 87.9 | 91.7 | 88.3 | 87.1 | 86.2 | 85.4 | 84.6 | 84.6 | 84.6 | 83.8 | 82.1 | last_digit_1379 (99.6; kappa 0.99 vs truth 0.64) |
 | A | 180 | 1 | Qwen2.5-1.5B-Instruct | bits | 82.5 | 0.68 | 32.5 | 67.5 | 93.8 | 100.0 | 88.3 | 92.1 | 88.8 | 87.5 | 86.7 | 85.8 | 85.0 | 85.0 | 85.0 | 84.2 | 82.5 | last_digit_1379 (100.0; kappa 1.00 vs truth 0.65) |
 | A | 540 | 0 | Qwen2.5-1.5B-Instruct | bits | 75.0 | 0.75 | 25.0 | 75.0 | 85.4 | 91.7 | 80.0 | 83.8 | 80.4 | 79.2 | 78.3 | 77.5 | 76.7 | 76.7 | 76.7 | 75.8 | 75.0 | last_digit_1379 (91.7; kappa 0.80 vs truth 0.50) |
 | B | 60 | 0 | Qwen2.5-1.5B-Instruct | bits | 57.1 | 0.12 | 87.9 | 12.1 | 38.3 | 44.6 | 47.9 | 51.7 | 53.3 | 53.8 | 54.6 | 55.4 | 55.4 | 55.4 | 55.4 | 56.2 | 57.1 | no_factor_le_5 (51.7; kappa 0.16 vs truth 0.14) |
@@ -127,6 +173,42 @@ Per stratum: accuracy % / P(pred prime)
 | C | 180 | 0 | 2 / 0.98 | 0 / 1.00 | 0 / 1.00 | 99 / 0.99 |
 | C | 180 | 1 | 98 / 0.02 | 80 / 0.20 | 86 / 0.14 | 17 / 0.17 |
 | base | 0 | 0 | 100 / 0.00 | 40 / 0.60 | 69 / 0.31 | 38 / 0.38 |
+
+## prime->prime_hard
+
+| arm | n | seed | model | src | acc | P(Yes) | always_No | always_Yes | odd | last_digit_1379 | no_factor_le_3 | no_factor_le_5 | no_factor_le_7 | no_factor_le_11 | no_factor_le_13 | no_factor_le_17 | no_factor_le_19 | no_factor_le_23 | no_factor_le_29 | no_factor_le_31 | true_label | best shortcut |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| A | 180 | 0 | Qwen2.5-1.5B-Instruct | gens | 49.6 | 0.99 | 1.2 | 98.8 | 98.8 | 98.8 | 98.8 | 98.8 | 98.8 | 92.5 | 85.4 | 79.2 | 73.8 | 68.8 | 64.6 | 62.1 | 49.6 | no_factor_le_13 (85.4; kappa 0.03 vs truth -0.01) |
+
+Per stratum: accuracy % / P(pred prime)
+
+| arm | n | seed | hard_composite_no_factor_le7 (n=120) | prime (n=120) |
+|---|---|---|---|---|
+| A | 180 | 0 | 1 / 0.99 | 98 / 0.98 |
+
+## prime[cot]
+
+| arm | n | seed | model | src | acc | P(Yes) | always_No | always_Yes | odd | last_digit_1379 | no_factor_le_3 | no_factor_le_5 | no_factor_le_7 | no_factor_le_11 | no_factor_le_13 | no_factor_le_17 | no_factor_le_19 | no_factor_le_23 | no_factor_le_29 | no_factor_le_31 | true_label | best shortcut |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| base | 0 | 0 | Qwen2.5-1.5B-Instruct | gens | 62.9 | 0.28 | 68.8 | 27.9 | 54.2 | 59.6 | 60.8 | 63.7 | 64.2 | 63.7 | 64.6 | 64.6 | 63.7 | 63.7 | 63.7 | 63.7 | 62.9 | no_factor_le_5 (63.7; kappa 0.33 vs truth 0.26) |
+
+Per stratum: accuracy % / P(pred prime)
+
+| arm | n | seed | even_composite (n=63) | hard_composite_no_factor_le7 (n=15) | odd_composite_factor_le7 (n=42) | prime (n=120) |
+|---|---|---|---|---|---|---|
+| base | 0 | 0 | 100 / 0.00 | 40 / 0.60 | 76 / 0.19 | 42 / 0.42 |
+
+## prime[fewshot4]
+
+| arm | n | seed | model | src | acc | P(Yes) | always_No | always_Yes | odd | last_digit_1379 | no_factor_le_3 | no_factor_le_5 | no_factor_le_7 | no_factor_le_11 | no_factor_le_13 | no_factor_le_17 | no_factor_le_19 | no_factor_le_23 | no_factor_le_29 | no_factor_le_31 | true_label | best shortcut |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| base | 0 | 0 | Qwen2.5-1.5B-Instruct | gens | 39.2 | 0.09 | 47.9 | 8.8 | 26.7 | 32.9 | 32.9 | 36.7 | 37.1 | 37.9 | 38.3 | 38.3 | 38.8 | 38.8 | 38.8 | 39.2 | 39.2 | last_digit_1379 (32.9; kappa -0.04 vs truth -0.22) |
+
+Per stratum: accuracy % / P(pred prime)
+
+| arm | n | seed | even_composite (n=63) | hard_composite_no_factor_le7 (n=15) | odd_composite_factor_le7 (n=42) | prime (n=120) |
+|---|---|---|---|---|---|---|
+| base | 0 | 0 | 68 / 0.00 | 33 / 0.00 | 71 / 0.12 | 13 / 0.13 |
 
 ## valid
 
@@ -162,16 +244,42 @@ Accuracy % by schema
 | C | 180 | 1 | 100 | 100 | 0 | 0 | 100 | 100 | 4 | 100 | 0 | 100 | 11 | 0 |
 | base | 0 | 0 | 36 | 35 | 0 | 0 | 7 | 21 | 44 | 57 | 10 | 72 | 56 | 10 |
 
+## valid[cot]
+
+| arm | n | seed | model | src | acc | P(Yes) | true_label | always_Yes | best shortcut |
+|---|---|---|---|---|---|---|---|---|---|
+| base | 0 | 0 | Qwen2.5-1.5B-Instruct | gens | 66.7 | 0.56 | 66.7 | 56.2 | - |
+
+Accuracy % by schema
+
+| arm | n | seed | affirm_consequent | affirm_disjunct | constr_dilemma | contraposition | converse_error | deny_antecedent | disj_syllogism | fake_chain | hyp_syllogism | illicit_conj | modus_ponens | modus_tollens |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| base | 0 | 0 | 55 | 45 | 64 | 72 | 20 | 26 | 52 | 80 | 95 | 100 | 100 | 80 |
+
+## valid[fewshot4]
+
+| arm | n | seed | model | src | acc | P(Yes) | true_label | always_Yes | best shortcut |
+|---|---|---|---|---|---|---|---|---|---|
+| base | 0 | 0 | Qwen2.5-1.5B-Instruct | gens | 68.8 | 0.30 | 68.8 | 30.0 | - |
+
+Accuracy % by schema
+
+| arm | n | seed | affirm_consequent | affirm_disjunct | constr_dilemma | contraposition | converse_error | deny_antecedent | disj_syllogism | fake_chain | hyp_syllogism | illicit_conj | modus_ponens | modus_tollens |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| base | 0 | 0 | 91 | 90 | 64 | 0 | 40 | 89 | 100 | 100 | 14 | 100 | 33 | 50 |
+
 ## S6 check (hard negatives = odd composites with no factor <= 7)
 
 | task | n | seed | src | #hard | agree 'no factor<=7' | agree truth (=acc) | rule > truth | acc < 60% |
 |---|---|---|---|---|---|---|---|---|
 | prime | 60 | 0 | recovered_from_bits | 15 | 100.0 | 0.0 | True | True |
-| prime | 180 | 0 | recovered_from_bits | 15 | 100.0 | 0.0 | True | True |
+| prime | 180 | 0 | observed_generations | 15 | 100.0 | 0.0 | True | True |
 | prime | 180 | 1 | recovered_from_bits | 15 | 100.0 | 0.0 | True | True |
 | prime | 540 | 0 | recovered_from_bits | 15 | 93.3 | 6.7 | True | True |
+| prime->prime_hard | 180 | 0 | observed_generations | 120 | 99.2 | 0.8 | True | True |
 
 ## Notes
 
 - runs.jsonl:36 skipped valid/B_mv (no AI traces available)
 - duplicate ('div7', 'B', 180, 0, 'Qwen/Qwen2.5-1.5B-Instruct'): keeping first (results/thinking_vs_data/runs.jsonl:30, acc 0.925), ignoring results/v2/runs_Qwen2.5-1.5B-Instruct.jsonl:1 (acc 0.925)
+- duplicate ('prime', 'A', 180, 0, 'Qwen/Qwen2.5-1.5B-Instruct'): keeping first (results/thinking_vs_data/runs.jsonl:2, acc 0.8208), ignoring results/v2/runs_Qwen2.5-1.5B-Instruct.jsonl:11 (acc 0.8208)
