@@ -38,6 +38,8 @@ model & cell & arm & $n$ & seed & train tokens & accuracy (\%) \\
 1.5B & div7 & B & 180 & 2 & 10{,}800 & 82.5 \\
 1.5B & div7 & C & 180 & 0 & 10{,}784 & 49.6 \\
 1.5B & div7 & C & 180 & 1 & 10{,}824 & 50.4 \\
+1.5B & div7 & B$'$ & 180 & 0 & 10{,}800 & 48.3 \\
+1.5B & div7[cot] & base & 0 & 0 & 0 & 67.1 \\
 \midrule
 1.5B & valid & base & 0 & 0 & 0 & 30.0 \\
 1.5B & valid & A & 60 & 0 & 120 & 97.5 \\
@@ -52,6 +54,15 @@ model & cell & arm & $n$ & seed & train tokens & accuracy (\%) \\
 1.5B & valid & C & 180 & 1 & 7{,}090 & 50.8 \\
 1.5B & valid & A-full & 1600 & 0 & 3{,}200 & 100.0 \\
 \midrule
+1.5B & div3 & A & 180 & 0 & 360 & 50.0 \\
+1.5B & div3 & B & 180 & 0 & 10{,}800 & 100.0 \\
+\midrule
+1.5B & div11 & A & 180 & 0 & 360 & 50.8 \\
+1.5B & div11 & B & 180 & 0 & 10{,}800 & 99.2 \\
+\midrule
 1.5B & div13 & A & 180 & 0 & 360 & 49.6 \\
 1.5B & div13 & B & 180 & 0 & 10{,}800 & 54.6 \\
+\midrule
+1.5B & div7\_6d & A & 180 & 0 & 360 & 47.9 \\
+1.5B & div7\_6d & B & 180 & 0 & 14{,}040 & 96.2 \\
 \end{longtable}

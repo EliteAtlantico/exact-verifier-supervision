@@ -1,9 +1,9 @@
 """make_figures.py -- paper/fig_map.pdf and paper/fig_arms.pdf from the same files as make_numbers.py.
 
-fig_map : one point per task (Qwen2.5-1.5B, n = 180): x = fair surface-probe accuracy (CV-selected probe;
-          one-hot features only on div2/div3/div11, where the engineered features encode the answer),
-          y = predicted error-free-trace rate p^k from arm-B generations (filled marker) or, where no
-          generations exist yet, observed B accuracy (hollow marker); colour and shape = winning arm.
+fig_map : (a) arm B on every divisibility cell with saved generations (Qwen2.5-1.5B): answer accuracy and
+          per-step accuracy p against m = k n / (10 d) (results/analysis/transitions.json); hollow = observed
+          before S7 was registered, filled = cells predicted in advance by S7 or S9. (b) arm A accuracy against
+          the fair surface probe (CV-selected; one-hot features only on div2/div3/div11).
 fig_arms: accuracy by arm per task, pooled over seeds with a 95% Wilson interval, per-seed dots; one row
           of panels per model that has runs. Missing cells are simply absent.
 usage: python paper/exp/make_figures.py
@@ -106,35 +106,57 @@ def predicted_trace(task, model=MN.M15):
 
 
 def fig_map():
-    fig, ax = plt.subplots(figsize=(3.4, 2.9))
-    used = set()
-    for task in TASK_ORDER:
-        w = winner(task)
-        x = MN.fair_probe(task)
-        if w is None or x is None:
-            continue
-        y = predicted_trace(task)
-        filled = y is not None
-        if y is None:
-            y = MN.acc_mean(task, "B", N)
-        col, mk, _ = WIN_STYLE[w]
-        used.add(w)
-        ax.scatter([100 * x], [100 * y], s=46, marker=mk, facecolor=col if filled else "white",
-                   edgecolor=col, linewidth=1.4, zorder=3)
-        ax.annotate(TASK_LABEL.get(task, task), (100 * x, 100 * y), xytext=(5, 4), textcoords="offset points",
-                    fontsize=7.5, color=INK)
-    ax.axvline(50, color=MUTED, lw=0.8, ls=(0, (3, 3)), zorder=1)
+    """(a) arm B on div tasks: accuracy and per-step p against m = k n / (10 d) (transitions.json, analysis_steps.py),
+    hollow = observed before S7 was registered, filled = predicted in advance (S7 / S9 cells);
+    (b) arm A accuracy against the fair surface probe."""
+    fig, (ax, bx) = plt.subplots(1, 2, figsize=(5.6, 2.55), gridspec_kw={"width_ratios": [1.25, 1]})
+    rows = MN.trans_rows()
+    for r in rows:
+        key = (r["task"], r["n"])
+        pre = key in MN.PRE_S7_CELLS
+        pred = key in MN.S7_CELLS or key in MN.S9_CELLS
+        for val, col, mk in ((r["accuracy"], ARM_COLOR["B"], "o"), (r["p"], ARM_COLOR["Bprime"], "s")):
+            ax.scatter([r["m"]], [100 * val], s=30, marker=mk, facecolor=col if pred else "white",
+                       edgecolor=col if (pre or pred) else "#b9b8b2", linewidth=1.3, zorder=3)
+        lab = TASK_LABEL.get(r["task"], r["task"]) + ("" if r["n"] == N else " n=%d" % r["n"])
+        ax.annotate(lab, (r["m"], 100 * min(r["accuracy"], r["p"])), xytext=(4, -9), textcoords="offset points",
+                    fontsize=6.5, color=INK)
     ax.axhline(50, color=MUTED, lw=0.8, ls=(0, (3, 3)), zorder=1)
-    ax.set_xlim(40, 104)
-    ax.set_ylim(30, 104)
-    ax.set_xlabel("surface probe accuracy (%)")
-    ax.set_ylabel("predicted trace accuracy $p^k$ (%)")
+    ax.set_xscale("log")
+    ax.set_xticks([2, 5, 10, 20, 40])
+    ax.set_xticklabels(["2", "5", "10", "20", "40"])
+    ax.set_xlim(2, 45)
+    ax.set_ylim(40, 103)
+    ax.set_xlabel("transitions per table entry $m = kn/(10d)$")
+    ax.set_ylabel("%")
+    ax.set_title("(a) arm B, divisibility tasks", fontsize=8, loc="left")
     ax.grid(color=GRID, lw=0.6, zorder=0)
-    handles = [Line2D([], [], marker=WIN_STYLE[w][1], ls="", color=WIN_STYLE[w][0], markersize=6,
-                      label=WIN_STYLE[w][2]) for w in ("A", "B", "both", "neither", "mixed") if w in used]
-    handles.append(Line2D([], [], marker="o", ls="", markerfacecolor="white", markeredgecolor=MUTED,
-                          markersize=6, label="hollow: observed B (no $p$ yet)"))
-    ax.legend(handles=handles, fontsize=6.5, frameon=False, loc="lower right")
+    handles = [Line2D([], [], marker="o", ls="", color=ARM_COLOR["B"], markersize=5, label="B accuracy"),
+               Line2D([], [], marker="s", ls="", color=ARM_COLOR["Bprime"], markersize=5, label="per-step $p$"),
+               Line2D([], [], marker="o", ls="", markerfacecolor="white", markeredgecolor=MUTED, markersize=5,
+                      label="observed before S7"),
+               Line2D([], [], marker="o", ls="", color=MUTED, markersize=5, label="predicted in advance")]
+    ax.legend(handles=handles, fontsize=6, frameon=False, loc="lower right")
+    for task in TASK_ORDER:
+        x = MN.fair_probe(task)
+        a = MN.acc_mean(task, "A", N)
+        if x is None or a is None:
+            continue
+        bx.scatter([100 * x], [100 * a], s=30, color=ARM_COLOR["A"], edgecolor="white", lw=0.8, zorder=3)
+        if not task.startswith("div"):
+            bx.annotate(TASK_LABEL.get(task, task), (100 * x, 100 * a), xytext=(4, 3), textcoords="offset points",
+                        fontsize=6.5, color=INK)
+    divs = [t for t in TASK_ORDER if t.startswith("div") and MN.fair_probe(t) is not None and MN.acc_mean(t, "A", N)]
+    if divs:
+        bx.annotate("divisibility tasks (%d)" % len(divs), (52, 50), xytext=(58, 43), fontsize=6.5, color=INK,
+                    arrowprops=dict(arrowstyle="-", color=MUTED, lw=0.6))
+    bx.plot([40, 102], [40, 102], color=MUTED, lw=0.8, ls=(0, (3, 3)), zorder=1)
+    bx.set_xlim(40, 104)
+    bx.set_ylim(40, 104)
+    bx.set_xlabel("surface probe accuracy (%)")
+    bx.set_ylabel("arm A accuracy (%)")
+    bx.set_title("(b) arm A vs. surface probe", fontsize=8, loc="left")
+    bx.grid(color=GRID, lw=0.6, zorder=0)
     fig.tight_layout()
     fig.savefig(os.path.join(PAPER, "fig_map.pdf"))
     plt.close(fig)

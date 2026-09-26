@@ -70,7 +70,20 @@ def pval(p):
     if p >= 0.001:
         return "%s" % float("%.2g" % p)
     e = math.floor(math.log10(p))
-    return "%.0f\\times 10^{%d}" % (p / 10 ** e, e)
+    return "%s\\times 10^{%d}" % ("%.2g" % (p / 10 ** e), e)
+
+
+def pval_ub(p):
+    """Upper bound for 'p <= ...': mantissa rounded UP to an integer."""
+    if p is None:
+        return TBD
+    if p >= 0.001:
+        return pval(p)
+    e = math.floor(math.log10(p))
+    mant = math.ceil(p / 10 ** e - 1e-12)
+    if mant >= 10:
+        mant, e = 1, e + 1
+    return "%d\\times 10^{%d}" % (mant, e)
 
 
 def mcnemar(x, y):
@@ -94,8 +107,8 @@ def load_json(name):
 TASKS = C.load_tasks()
 RUNS, PROBLEMS = C.load_runs()
 GENS, GEN_NOTES = C.load_gens(TASKS)
-STATS, PROBE, RULES, TOKENS, STEPS = (load_json(f) for f in ("stats.json", "probe.json", "rules.json",
-                                                             "tokens.json", "steps.json"))
+STATS, PROBE, RULES, TOKENS, STEPS, TRANS = (load_json(f) for f in ("stats.json", "probe.json", "rules.json",
+                                                                    "tokens.json", "steps.json", "transitions.json"))
 IDX = {r["key"]: r for r in RUNS}
 
 
@@ -159,6 +172,20 @@ def setup_macros():
     put("alphaLevel", re.search(r"alpha = (\d+\.\d+)", pred).group(1), "PREDICTIONS.md")
     put("winMargin", re.search(r'"win" is a difference of >= (\d+) pp', pred).group(1), "PREDICTIONS.md")
     put("neitherMargin", re.search(r"majority class \+ (\d+) pp", pred).group(1), "PREDICTIONS.md")
+    m = re.search(r"Committed (\d{4}-\d{2}-\d{2}) (\d{2}:\d{2}:\d{2}) \w+ \(commit (\w+)\)", pred)
+    if m:
+        put("preregDate", m.group(1), "PREDICTIONS.md")
+        put("preregTime", m.group(2), "PREDICTIONS.md")
+        put("preregCommit", m.group(3), "PREDICTIONS.md")
+    log = re.findall(r"^- (\d{4}-\d{2}-\d{2}) (\d{2}:\d{2}:\d{2}) \w+ \(commit (\w+)[^)]*\)\s*\W*\s*\*\*([^*]+)\*\*",
+                     pred, re.M)
+    for date, time_, commit, head in log:
+        key = ("sOne" if head.startswith("S1") else "sFiveClar" if "clarification" in head else
+               "sFiveFail" if head.startswith("S5") else "sSeven" if head.startswith("S7") else
+               "sEightNine" if head.startswith("S8") else None)
+        if key and key + "Time" not in OUT:
+            put(key + "Time", time_, "PREDICTIONS.md decision log")
+            put(key + "Commit", commit, "PREDICTIONS.md decision log")
     tvd = open(os.path.join(ROOT, "results", "THINKING_VS_DATA.md"), encoding="utf-8").read()
     tot = re.findall(r"_Total runs: (\d+); wall (\d+) min\._", tvd)[-1]
     put("nPriorRuns", tot[0], "THINKING_VS_DATA.md")
@@ -207,7 +234,9 @@ def structure_macros():
     for t, mac in (("prime", "primeTraceTok"), ("div7", "divsevenTraceTok"), ("valid", "validTraceTok")):
         put(mac, "%.1f" % TASKS[t]["meta"].get("mean_trace_ws_tokens", float("nan")) if TASKS[t]["meta"]
             else TBD, "datasets meta")
-    st = TASKS["div7"].get("step_truth") if "step_truth" in TASKS["div7"] else None
+    for t, tp in PREFIX.items():
+        if t in TASKS and TASKS[t]["meta"].get("mean_trace_ws_tokens") is not None:
+            put(tp + "TraceTok", "%.1f" % TASKS[t]["meta"]["mean_trace_ws_tokens"], "datasets meta")
     k4 = len(TASKS["div7"]["test"][0]["id"].split("-")[1])
     k6 = len(TASKS["div7_6d"]["test"][0]["id"].split("-")[1]) if "div7_6d" in TASKS else 6
     put("divsevenSteps", str(k4), "digits")
@@ -337,10 +366,13 @@ def mcnemar_macros():
         mc("div7", ("B", MAIN_N), ("C", MAIN_N), s, s, "divsevenBCps" + w)
         mc("div7", ("A", MAIN_N), ("base", 0), s, 0, "divsevenABaseps" + w)
     ps = [p for p in ps if p is not None]
-    put("divsevenBApMax", pval(max(ps)) if ps else TBD, "max over seeds")
+    put("divsevenBApMax", pval_ub(max(ps)) if ps else TBD, "max over seeds")
     pc = [mcnemar(run("div7", "B", MAIN_N, s_)["bits_list"], run("div7", "C", MAIN_N, s_)["bits_list"])[2]
           for s_ in seeds("div7", "C", MAIN_N) if run("div7", "B", MAIN_N, s_)]
-    put("divsevenBCpMax", pval(max(pc)) if pc else TBD, "max over seeds")
+    put("divsevenBCpMax", pval_ub(max(pc)) if pc else TBD, "max over seeds")
+    # B vs A at n = 540 on prime (one seed)
+    b5, a5 = run("prime", "B", LARGE_N, 0), run("prime", "A", LARGE_N, 0)
+    put("primeBAplarge", pval(mcnemar(b5["bits_list"], a5["bits_list"])[2]) if (a5 and b5) else TBD, "McNemar")
 
 
 # ------------------------------------------------------------------------------------------ probes/rules/tokens
@@ -552,10 +584,11 @@ def word(status):
 def prereg_macros(p_step):
     """Verdicts S1-S6 exactly as experiments/analysis_report.prereg() evaluates them (one implementation)."""
     import analysis_report as AR
-    res = AR.prereg(STATS, RULES, STEPS)
+    res = AR.prereg(STATS, RULES, STEPS, TRANS)
     m15 = C.short_model(M15)
     for rule, mac in (("S1", "verdictSOne"), (f"S2 [{m15}]", "verdictSTwo"), (f"S3 [{m15}]", "verdictSThree"),
-                      ("S4", "verdictSFour"), ("S5", "verdictSFive"), (f"S6 [{m15}]", "verdictSSix")):
+                      ("S4", "verdictSFour"), ("S5", "verdictSFive"), (f"S6 [{m15}]", "verdictSSix"),
+                      ("S7", "verdictSSeven")):
         r = res.get(rule, {})
         put(mac, word(r.get("status")), "; ".join(r.get("detail", [])))
     # S6 cell values: the prime adapters on prime_hard (every item odd with no prime factor <= 7, so the
@@ -574,6 +607,127 @@ def prereg_macros(p_step):
     for task, tp in (("prime", "prime"), ("div7", "divseven"), ("valid", "valid")):
         put(tp + "Cot", pct(acc_mean(f"{task}[cot]", "base", 0)), "cot eval")
         put(tp + "Few", pct(acc_mean(f"{task}[fewshot4]", "base", 0)), "fewshot4 eval")
+
+
+# ------------------------------------------------------------------------------------------ review additions
+CAP = {"div7": "Divseven", "div7_6d": "DivsevenSix", "div13": "Divthirteen", "div11": "Diveleven", "div3": "Divthree",
+       "div2": "Divtwo"}
+S7_CELLS = {("div13", 540), ("div7", 270), ("div7", 90), ("div11", 180), ("div3", 180), ("div2", 180)}
+S9_CELLS = {("div13", 360)}
+PRE_S7_CELLS = {("div7", 180), ("div7_6d", 180), ("div13", 180)}     # observed before S7 was registered
+
+
+def trans_rows(model=M15):
+    return [r for r in (TRANS or {}).get("rows", []) if r["arm"] == "B" and r["prompt_mode"] == "plain"
+            and r["model"] == C.short_model(model) and r["train_task"] == r["eval_task"]]
+
+
+def review_macros():
+    # transitions per table entry m and per-step accuracy p (n = 180, pooled over seeds with generations)
+    for task, cap in CAP.items():
+        rows = [r for r in trans_rows() if r["task"] == task and r["n"] == MAIN_N]
+        if rows:
+            put("m" + cap, "%.1f" % rows[0]["m"], "transitions.json")
+            put("p" + cap, "%.3f" % mean(r["p"] for r in rows), "transitions.json p_cond")
+            put("trace" + cap, pct(mean(r["trace_correct"] for r in rows)), "transitions.json")
+        else:
+            k = 6 if task == "div7_6d" else 4
+            d = int(re.sub(r"\D", "", task.split("_")[0]))
+            put("m" + cap, "%.1f" % (k * MAIN_N / (10 * d)), "k n / (10 d)")
+            put("p" + cap, TBD)
+            put("trace" + cap, TBD)
+    for task, n, mac in (("div13", 540, "mDivthirteenLarge"), ("div7", 270, "mDivsevenMid"), ("div7", 90, "mDivsevenSmall"),
+                         ("div13", 360, "mDivthirteenMid")):
+        put(mac, "%.1f" % (4 * n / (10 * int(task[3:]))), "k n / (10 d)")
+    # S7 (d): div11 B n = 180, predicted 0.566 < p < 0.955
+    rows = [r for r in trans_rows() if r["task"] == "div11" and r["n"] == MAIN_N]
+    if rows:
+        p = mean(r["p"] for r in rows)
+        put("verdictSSevenD", "held" if 0.566 < p < 0.955 else "failed", "p=%.3f" % p)
+    else:
+        put("verdictSSevenD", TBD)
+    # div13 diagnostics from the saved seed-0 generations
+    g = gens_rows("div13", "B", MAIN_N, 0)
+    if g:
+        n_items = len(g)
+        ok = first2 = wrong = wrong_zero = yes = 0
+        for x in g:
+            n = int(x["id"].split("-")[1])
+            true, r = [], 0
+            for ch in str(n):
+                r = (10 * r + int(ch)) % 13
+                true.append(r)
+            st = [int(o) for *_x, o in DIV_STEP.findall((x.get("gen") or "").split("Answer:")[0])]
+            first = next((t for t in range(len(true)) if t >= len(st) or st[t] != true[t]), None)
+            if first is None and len(st) == len(true):
+                ok += 1
+            else:
+                wrong += 1
+                wrong_zero += bool(st) and st[min(len(st), len(true)) - 1] == 0
+                first2 += first == 1
+            yes += x.get("pred") == "Yes"
+        put("divthirteenNitems", str(n_items), "gens")
+        put("divthirteenTraceOK", pct(ok / n_items), "gens")
+        put("divthirteenFirstErrTwo", str(first2), "gens")
+        put("divthirteenWrongN", str(wrong), "gens")
+        put("divthirteenWrongZero", str(wrong_zero), "gens")
+        put("divthirteenPredYes", "%.0f" % (100 * yes / n_items), "gens")
+    else:
+        for mac in ("divthirteenNitems", "divthirteenTraceOK", "divthirteenFirstErrTwo", "divthirteenWrongN",
+                    "divthirteenWrongZero", "divthirteenPredYes"):
+            put(mac, TBD)
+    b, a = run("div13", "B", MAIN_N, 0), run("div13", "A", MAIN_N, 0)
+    put("divthirteenBApsZero", pval(mcnemar(b["bits_list"], a["bits_list"])[2]) if (a and b) else TBD, "McNemar")
+    b, a = run("div11", "B", MAIN_N, 0), run("div11", "A", MAIN_N, 0)
+    put("divelevenBApsZero", pval(mcnemar(b["bits_list"], a["bits_list"])[2]) if (a and b) else TBD, "McNemar")
+    b, a = run("div7_6d", "B", MAIN_N, 0), run("div7_6d", "A", MAIN_N, 0)
+    put("divsevenSixBApsZero", pval(mcnemar(b["bits_list"], a["bits_list"])[2]) if (a and b) else TBD, "McNemar")
+    # prime: scrambled C seed 1 per-class counts; A on composites ending in 1/3/7/9 with a factor 3 or 7
+    te = TASKS["prime"]["test"]
+    c1 = run("prime", "C", MAIN_N, 1)
+    if c1:
+        put("primeCsOnePrimes", str(sum(bb for bb, t in zip(c1["bits_list"], te) if t["label"] == "Yes")), "bits")
+        put("primeCsOneComps", str(sum(bb for bb, t in zip(c1["bits_list"], te) if t["label"] == "No")), "bits")
+    idx = [i for i, e in enumerate(te) if e["label"] == "No" and int(e["id"].split("-")[1]) % 10 in (1, 3, 7, 9)
+           and any(int(e["id"].split("-")[1]) % q == 0 for q in (3, 7))]
+    put("primeCompThreeSevenN", str(len(idx)), "prime test")
+    put("primeCompThreeSevenA", " and ".join(str(sum(run("prime", "A", MAIN_N, s_)["bits_list"][i] for i in idx))
+                                             for s_ in seeds("prime", "A", MAIN_N)), "bits")
+    # bootstrap CI of B - A and seed SD (stats.json)
+    for task, tp in PREFIX.items():
+        bs = [x for x in (STATS or {}).get("bootstrap", []) if x["comparison"] == "B-A" and x["task"] == task
+              and x["n"] == MAIN_N and x["model"] == M15]
+        if bs:
+            put(tp + "BAdiff", "%+.1f" % (100 * bs[0]["diff"]), "stats.json bootstrap")
+            put(tp + "BAci", "[%+.1f, %+.1f]" % tuple(100 * v for v in bs[0]["ci95"]), "stats.json bootstrap")
+        else:
+            put(tp + "BAdiff", TBD)
+            put(tp + "BAci", "")
+        for arm in ("A", "B", "C"):
+            po = [x for x in (STATS or {}).get("pooled", []) if x["task"] == task and x["arm"] == arm and
+                  x["n"] == MAIN_N and x["model"] == M15]
+            sd = po[0]["seed_sd"] if po else None
+            put(tp + arm + "sd", ("$\\pm$%.1f" % (100 * sd)) if sd is not None else "", "stats.json seed_sd")
+    # post hoc S5 forms (steps.json S5 post_hoc) and S8 / S9 / arm S cells
+    ph = [c.get("post_hoc", {}) for c in (STEPS or {}).get("S5", {}).get("cells", []) if c.get("primary")]
+    put("divsevenSixPredGuess", pct(ph[0]["predicted_answer_acc_with_guessing"]) if ph and ph[0] else TBD, "post hoc")
+    put("divsevenSixTraceOK", pct(ph[0]["trace_correct_6digit"]) if ph and ph[0] else TBD, "post hoc")
+    put("stepLocalPowFour", pct(float(OUT["stepLocalAcc"]) ** 4) if OUT.get("stepLocalAcc", TBD) != TBD else TBD,
+        "local^4")
+    d_ = [run("div7", "D", MAIN_N, s_) for s_ in seeds("div7", "D", MAIN_N)]
+    put("divsevenD", pct(mean(r["acc"] for r in d_)) if d_ else TBD, "arm D")
+    put("verdictSEight", TBD if len(d_) < 2 and all(r["acc"] <= 0.60 for r in d_) else
+        ("failed" if any(r["acc"] > 0.60 for r in d_) else "passed"), "S8")
+    b9, a9 = run("div13", "B", 360, 0), run("div13", "A", 360, 0)
+    put("divthirteenBmid", pct(b9["acc"]) if b9 else TBD, "S9")
+    put("divthirteenAmid", pct(a9["acc"]) if a9 else TBD, "S9")
+    s9 = TBD if not (a9 and b9) else ("passed" if (b9["acc"] >= 0.80 and a9["acc"] <= 0.60) else "failed")
+    if b9 and b9["acc"] < 0.80:
+        s9 = "failed"
+    put("verdictSNine", s9, "S9")
+    for task, tp in (("div7", "divseven"), ("prime", "prime")):
+        sr = [run(task, "S", MAIN_N, s_) for s_ in seeds(task, "S", MAIN_N)]
+        put(tp + "SelfTrace", pct(mean(r["acc"] for r in sr)) if sr else TBD, "arm S")
 
 
 # ------------------------------------------------------------------------------------------ run table
@@ -622,6 +776,7 @@ def main():
     earlier_study_macros()
     p = step_macros()
     prereg_macros(p)
+    review_macros()
     n_rows = run_table()
     with open(os.path.join(PAPER, "numbers.tex"), "w", encoding="utf-8") as f:
         f.write("% generated by paper/exp/make_numbers.py -- do not edit; re-run the script\n")
