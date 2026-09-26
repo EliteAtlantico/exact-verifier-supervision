@@ -1,0 +1,66 @@
+=== run_5090_sixth.sh start 2026-09-26T05:25:10-04:00 commit=9139e69
+run div7 A 180 0 --prompt-mode cot [Qwen/Qwen2.5-3B-Instruct] ...
+  acc 0.5333  (43s)
+run div13 A 180 0 --prompt-mode cot [Qwen/Qwen2.5-3B-Instruct] ...
+  acc 0.5000  (46s)
+run div7 A 180 0 --prompt-mode cot [Qwen/Qwen2.5-7B-Instruct] ...
+  acc 0.5500  (42s)
+run div13 A 180 0 --prompt-mode cot [Qwen/Qwen2.5-7B-Instruct] ...
+  acc 0.4625  (44s)
+=== run_5090_fifth.sh start 2026-09-26T05:28:06-04:00 commit=600e79d
+From https://github.com/Libritor/exact-verifier-supervision
+ * branch            main       -> FETCH_HEAD
+Rebasing (1/11)Auto-merging paper/exp/make_figures.py
+CONFLICT (content): Merge conflict in paper/exp/make_figures.py
+Auto-merging paper/exp/make_numbers.py
+CONFLICT (content): Merge conflict in paper/exp/make_numbers.py
+Auto-merging paper/exp/numbers.json
+CONFLICT (content): Merge conflict in paper/exp/numbers.json
+warning: Cannot merge binary files: paper/fig_arms.pdf (HEAD vs. f61e21a (Paper: dose-response narrative (S7 3/5 held, S9 failed, S8 passed, B' and prompting controls), new Figure 1))
+Auto-merging paper/fig_arms.pdf
+CONFLICT (content): Merge conflict in paper/fig_arms.pdf
+warning: Cannot merge binary files: paper/fig_map.pdf (HEAD vs. f61e21a (Paper: dose-response narrative (S7 3/5 held, S9 failed, S8 passed, B' and prompting controls), new Figure 1))
+Auto-merging paper/fig_map.pdf
+CONFLICT (content): Merge conflict in paper/fig_map.pdf
+warning: Cannot merge binary files: paper/main.pdf (HEAD vs. f61e21a (Paper: dose-response narrative (S7 3/5 held, S9 failed, S8 passed, B' and prompting controls), new Figure 1))
+Auto-merging paper/main.pdf
+CONFLICT (content): Merge conflict in paper/main.pdf
+Auto-merging paper/main.tex
+CONFLICT (content): Merge conflict in paper/main.tex
+Auto-merging paper/numbers.tex
+CONFLICT (content): Merge conflict in paper/numbers.tex
+Auto-merging paper/tab_runs.tex
+CONFLICT (content): Merge conflict in paper/tab_runs.tex
+error: could not apply f61e21a... Paper: dose-response narrative (S7 3/5 held, S9 failed, S8 passed, B' and prompting controls), new Figure 1
+hint: Resolve all conflicts manually, mark them as resolved with
+hint: "git add/rm <conflicted_files>", then run "git rebase --continue".
+hint: You can instead skip this commit: run "git rebase --skip".
+hint: To abort and get back to the state before "git rebase", run "git rebase --abort".
+hint: Disable this message with "git config set advice.mergeConflict false"
+Could not apply f61e21a... # Paper: dose-response narrative (S7 3/5 held, S9 failed, S8 passed, B' and prompting controls), new Figure 1
+second family model: HuggingFaceTB/SmolLM2-1.7B-Instruct
+skip div7 A 180 0 (done)
+skip div7 B 180 0 (done)
+skip div7 D 180 0 (done)
+skip div7 A 180 1 (done)
+skip div7 B 180 1 (done)
+skip div7 base 0 0 (done)
+skip prime A 180 0 (done)
+skip prime B 180 0 (done)
+skip valid A 180 0 (done)
+skip valid B 180 0 (done)
+error: Committing is not possible because you have unmerged files.
+hint: Fix them up in the work tree, and then use 'git add/rm <file>'
+hint: as appropriate to mark resolution and make a commit.
+fatal: Exiting because of an unresolved conflict.
+U	paper/exp/make_figures.py
+U	paper/exp/make_numbers.py
+U	paper/exp/numbers.json
+U	paper/fig_arms.pdf
+U	paper/fig_map.pdf
+U	paper/main.pdf
+U	paper/main.tex
+U	paper/numbers.tex
+U	paper/tab_runs.tex
+=== run_5090_fifth.sh done 2026-09-26T05:29:28-04:00
+=== run_5090_sixth.sh done 2026-09-26T05:29:28-04:00
