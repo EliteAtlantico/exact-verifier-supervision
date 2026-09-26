@@ -1,8 +1,8 @@
 # OpenReview fields for the ICLR 2027 upload (edit the title/abstract on the form to match main.tex before 07:59 Toronto)
 
-**Title.** Perfect Labels for Free? Exact Answers Teach Shortcuts and Erase Computation; Exact Traces Teach Steps Seen Often Enough
+**Title.** Perfect Labels for Free? Exact Answers Teach Shortcuts and Suppress Computation; Exact Traces Teach Steps Seen Often Enough
 
-**TL;DR.** With labels from exact verifiers, answer-only fine-tuning learns surface shortcuts and erases computation the base model already performs, while procedure traces teach the steps once each step type is supervised often enough; timestamped predictions, controls and exact audits, with every failed prediction reported.
+**TL;DR.** With labels from exact verifiers, answer-only fine-tuning learns surface shortcuts and suppresses computation the base model already performs, while procedure traces teach the steps once each step type is supervised often enough; timestamped predictions, controls and exact audits, with every failed prediction reported.
 
 **Abstract.** (keep identical to the abstract in main.tex; regenerate after the final build)
 
