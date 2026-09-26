@@ -1153,6 +1153,20 @@ def sweep_macros():
     put("divthirteenAcot", pct(a13["acc"]) if a13 else DASH, "A seed-0 adapter, CoT-prompt eval, div13")
     ap_ = run("prime[cot]", "A", MAIN_N, 0)
     put("primeAcot", pct(ap_["acc"]) if ap_ else DASH, "A seed-0 adapter, CoT-prompt eval, prime")
+    # does the A model reason under the CoT prompt? generated-token counts from the saved gens
+    gdir = os.path.join(ROOT, "results", "v2", "gens", C.short_model(M15))
+
+    def gen_rows(name):
+        f = os.path.join(gdir, name + ".jsonl")
+        return [json.loads(l) for l in open(f, encoding="utf-8") if l.strip()] if os.path.exists(f) else []
+    a_rows = gen_rows("div7_A_180_0__cot") + gen_rows("div7_A_180_1__cot")
+    put("divsevenAcotMaxTok", str(max(r["n_gen_tokens"] for r in a_rows)) if a_rows else DASH,
+        "max generated tokens, A under the CoT prompt, landed seeds")
+    put("divsevenAcotYes", "%.2f" % (sum(1 for r in a_rows if r.get("pred") == "Yes") / len(a_rows)) if a_rows else DASH,
+        "Yes-rate of A under the CoT prompt, landed seeds pooled")
+    b_rows = gen_rows("div7_base_0_0__cot")
+    put("divsevenBaseCotMedTok", "%d" % median(r["n_gen_tokens"] for r in b_rows) if b_rows else DASH,
+        "median generated tokens, base under the CoT prompt")
 
 
 # ------------------------------------------------------------------------------------------ main
