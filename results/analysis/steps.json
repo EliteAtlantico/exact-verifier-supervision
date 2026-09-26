@@ -3348,6 +3348,64 @@
    "task": "valid",
    "eval_task": "valid",
    "train_task": "valid",
+   "arm": "B",
+   "n": 180,
+   "seed": 2,
+   "model": "Qwen2.5-1.5B-Instruct",
+   "prompt_mode": "plain",
+   "gens_path": "results/v2/gens/Qwen2.5-1.5B-Instruct/valid_B_180_2.jsonl",
+   "n_items": 240,
+   "answer_acc": 0.85,
+   "by_gold": {
+    "Yes": {
+     "asserts_contradiction": 86,
+     "n": 120,
+     "correct": 86,
+     "claims_checked": 85,
+     "claims_actually_satisfiable": 17,
+     "asserts_countermodel": 34,
+     "frac_asserts_contradiction": 0.7166666666666667,
+     "frac_asserts_countermodel": 0.2833333333333333,
+     "acc": 0.7166666666666667
+    },
+    "No": {
+     "asserts_countermodel": 118,
+     "n": 120,
+     "correct": 118,
+     "asserts_contradiction": 2,
+     "claims_checked": 2,
+     "claims_actually_satisfiable": 0,
+     "frac_asserts_contradiction": 0.016666666666666666,
+     "frac_asserts_countermodel": 0.9833333333333333,
+     "acc": 0.9833333333333333
+    }
+   },
+   "hybrid_opener_then_contradiction": 0,
+   "claimed_contradictions_checked": 87,
+   "claimed_contradictions_actually_satisfiable": 17,
+   "errors_by_schema": {
+    "affirm_consequent": {
+     "n": 11,
+     "errors": 2
+    },
+    "hyp_syllogism": {
+     "n": 21,
+     "errors": 21
+    },
+    "modus_ponens": {
+     "n": 9,
+     "errors": 9
+    },
+    "modus_tollens": {
+     "n": 20,
+     "errors": 4
+    }
+   }
+  },
+  {
+   "task": "valid",
+   "eval_task": "valid",
+   "train_task": "valid",
    "arm": "S",
    "n": 180,
    "seed": 0,

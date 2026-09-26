@@ -64,6 +64,7 @@ p_cond = P(step correct | previous step correct), pooled over positions; p after
 | valid | Qwen2.5-3B-Instruct | B | 0 | 91.2 | 120/120 / 0/120 | 3/120 / 117/120 | 123 / 4 | converse_error 1/15, deny_antecedent 2/19, fake_chain 18/30 |
 | valid | Qwen2.5-7B-Instruct | B | 0 | 58.3 | 120/120 / 0/120 | 99/120 / 13/120 | 141 / 40 | affirm_consequent 10/11, affirm_disjunct 19/20, converse_error 13/15, deny_antecedent 19/19, fake_chain 20/30, illicit_conj 19/25 |
 | valid | Qwen2.5-3B-Instruct | B | 1 | 100.0 | 120/120 / 0/120 | 0/120 / 120/120 | 120 / 0 | - |
+| valid | Qwen2.5-1.5B-Instruct | B | 2 | 85.0 | 86/120 / 34/120 | 2/120 / 118/120 | 87 / 17 | affirm_consequent 2/11, hyp_syllogism 21/21, modus_ponens 9/9, modus_tollens 4/20 |
 | valid | Qwen2.5-3B-Instruct | S | 0 | 92.1 | 1/120 / 0/120 | 15/120 / 0/120 | 0 / 0 | affirm_consequent 2/11, affirm_disjunct 13/20, deny_antecedent 3/19, modus_tollens 1/20 |
 | valid | Qwen2.5-3B-Instruct | base | 0 | 85.8 | 2/120 / 0/120 | 0/120 / 0/120 | 0 / 0 | affirm_consequent 8/11, affirm_disjunct 11/20, constr_dilemma 9/25, disj_syllogism 1/27, modus_tollens 5/20 |
 | valid[cot] | Qwen2.5-1.5B-Instruct | base | 0 | 66.7 | 9/120 / 0/120 | 17/120 / 0/120 | 0 / 0 | affirm_consequent 5/11, affirm_disjunct 11/20, constr_dilemma 9/25, contraposition 5/18, converse_error 12/15, deny_antecedent 14/19, disj_syllogism 13/27, fake_chain 6/30, hyp_syllogism 1/21, modus_tollens 4/20 |

@@ -9414,6 +9414,79 @@
    "task": "valid",
    "eval_task": "valid",
    "arm": "B",
+   "n": 180,
+   "seed": 2,
+   "model": "Qwen/Qwen2.5-1.5B-Instruct",
+   "pred_source": "observed_generations",
+   "gens_path": "results/v2/gens/Qwen2.5-1.5B-Instruct/valid_B_180_2.jsonl",
+   "gens_match_bits": true,
+   "n_hit_cap": 0,
+   "mean_gen_tokens": 53.9875,
+   "n_items": 240,
+   "acc": 0.85,
+   "p_pred_yes": 0.36666666666666664,
+   "n_unparsed": 0,
+   "agreement": {
+    "true_label": 0.85,
+    "always_Yes": 0.36666666666666664
+   },
+   "acc_by_schema": {
+    "affirm_consequent": {
+     "n": 11,
+     "acc": 0.8181818181818182
+    },
+    "affirm_disjunct": {
+     "n": 20,
+     "acc": 1.0
+    },
+    "constr_dilemma": {
+     "n": 25,
+     "acc": 1.0
+    },
+    "contraposition": {
+     "n": 18,
+     "acc": 1.0
+    },
+    "converse_error": {
+     "n": 15,
+     "acc": 1.0
+    },
+    "deny_antecedent": {
+     "n": 19,
+     "acc": 1.0
+    },
+    "disj_syllogism": {
+     "n": 27,
+     "acc": 1.0
+    },
+    "fake_chain": {
+     "n": 30,
+     "acc": 1.0
+    },
+    "hyp_syllogism": {
+     "n": 21,
+     "acc": 0.0
+    },
+    "illicit_conj": {
+     "n": 25,
+     "acc": 1.0
+    },
+    "modus_ponens": {
+     "n": 9,
+     "acc": 0.0
+    },
+    "modus_tollens": {
+     "n": 20,
+     "acc": 0.8
+    }
+   },
+   "best_rule": "true_label",
+   "best_rule_agreement": 0.85
+  },
+  {
+   "task": "valid",
+   "eval_task": "valid",
+   "arm": "B",
    "n": 540,
    "seed": 0,
    "model": "Qwen/Qwen2.5-1.5B-Instruct",
