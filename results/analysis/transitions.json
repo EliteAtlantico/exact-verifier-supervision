@@ -111,6 +111,33 @@
    "fit_eligible": true
   },
   {
+   "task": "div13",
+   "train_task": "div13",
+   "eval_task": "div13",
+   "arm": "B",
+   "prompt_mode": "plain",
+   "model": "Qwen2.5-1.5B-Instruct",
+   "n": 180,
+   "seed": 2,
+   "k_train": 4,
+   "k_test": 4,
+   "d": 13,
+   "m": 5.538461538461538,
+   "p": 0.6067796610169491,
+   "table_entries": 130,
+   "ten_mod_d": 10,
+   "ten_mod_d_signed": -3,
+   "trivial_entry_fraction": 0.07692307692307693,
+   "max_intermediate": 129,
+   "local_arith": 0.478125,
+   "local_arith_pow_k": 0.05225956735610963,
+   "yes_rate": 0.4875,
+   "p_after_first_step": 0.33714285714285713,
+   "trace_correct": 0.05416666666666667,
+   "accuracy": 0.5791666666666667,
+   "fit_eligible": true
+  },
+  {
    "task": "div11",
    "train_task": "div11",
    "eval_task": "div11",
@@ -867,6 +894,60 @@
    "fit_eligible": true
   },
   {
+   "task": "div13",
+   "train_task": "div13",
+   "eval_task": "div13",
+   "arm": "B",
+   "prompt_mode": "plain",
+   "model": "Qwen2.5-7B-Instruct",
+   "n": 180,
+   "seed": 1,
+   "k_train": 4,
+   "k_test": 4,
+   "d": 13,
+   "m": 5.538461538461538,
+   "p": 0.7573221757322176,
+   "table_entries": 130,
+   "ten_mod_d": 10,
+   "ten_mod_d_signed": -3,
+   "trivial_entry_fraction": 0.07692307692307693,
+   "max_intermediate": 129,
+   "local_arith": 0.71875,
+   "local_arith_pow_k": 0.2668771743774414,
+   "yes_rate": 0.35,
+   "p_after_first_step": 0.6352201257861635,
+   "trace_correct": 0.2791666666666667,
+   "accuracy": 0.6583333333333333,
+   "fit_eligible": true
+  },
+  {
+   "task": "div11",
+   "train_task": "div11",
+   "eval_task": "div11",
+   "arm": "B",
+   "prompt_mode": "plain",
+   "model": "Qwen2.5-7B-Instruct",
+   "n": 180,
+   "seed": 0,
+   "k_train": 4,
+   "k_test": 4,
+   "d": 11,
+   "m": 6.545454545454546,
+   "p": 0.9968652037617555,
+   "table_entries": 110,
+   "ten_mod_d": 10,
+   "ten_mod_d_signed": -1,
+   "trivial_entry_fraction": 0.09090909090909091,
+   "max_intermediate": 109,
+   "local_arith": 0.996875,
+   "local_arith_pow_k": 0.9875584717750547,
+   "yes_rate": 0.4875,
+   "p_after_first_step": 0.99581589958159,
+   "trace_correct": 0.9875,
+   "accuracy": 0.9875,
+   "fit_eligible": true
+  },
+  {
    "task": "div7",
    "train_task": "div7",
    "eval_task": "div7",
@@ -892,6 +973,60 @@
    "trace_correct": 0.7458333333333333,
    "accuracy": 0.8666666666666667,
    "fit_eligible": true
+  },
+  {
+   "task": "div7",
+   "train_task": "div7",
+   "eval_task": "div7",
+   "arm": "B",
+   "prompt_mode": "plain",
+   "model": "Qwen2.5-7B-Instruct",
+   "n": 180,
+   "seed": 1,
+   "k_train": 4,
+   "k_test": 4,
+   "d": 7,
+   "m": 10.285714285714286,
+   "p": 0.9487179487179487,
+   "table_entries": 70,
+   "ten_mod_d": 3,
+   "ten_mod_d_signed": 3,
+   "trivial_entry_fraction": 0.14285714285714285,
+   "max_intermediate": 69,
+   "local_arith": 0.925,
+   "local_arith_pow_k": 0.7320941406250001,
+   "yes_rate": 0.4625,
+   "p_after_first_step": 0.9421613394216134,
+   "trace_correct": 0.8083333333333333,
+   "accuracy": 0.9041666666666667,
+   "fit_eligible": true
+  },
+  {
+   "task": "div7",
+   "train_task": "div7",
+   "eval_task": "div7",
+   "arm": "Bprime",
+   "prompt_mode": "plain",
+   "model": "Qwen2.5-7B-Instruct",
+   "n": 180,
+   "seed": 0,
+   "k_train": 4,
+   "k_test": 4,
+   "d": 7,
+   "m": 10.285714285714286,
+   "p": 0.9172259507829977,
+   "table_entries": 70,
+   "ten_mod_d": 3,
+   "ten_mod_d_signed": 3,
+   "trivial_entry_fraction": 0.14285714285714285,
+   "max_intermediate": 69,
+   "local_arith": 0.91875,
+   "local_arith_pow_k": 0.7125074478149412,
+   "yes_rate": 0.15833333333333333,
+   "p_after_first_step": 0.8868501529051988,
+   "trace_correct": 0.6791666666666667,
+   "accuracy": 0.5333333333333333,
+   "fit_eligible": false
   }
  ],
  "post_hoc_fits": {
@@ -901,39 +1036,39 @@
    "note": "fewer than 3 distinct m values; no fit"
   },
   "Qwen2.5-1.5B-Instruct": {
-   "n_points": 14,
+   "n_points": 15,
    "label": "POST HOC fit (not preregistered)",
    "logistic_logit_p_vs_ln_m": {
-    "a": -1.5090512967789858,
-    "b": 2.0095208526519004,
-    "r2_logit_scale": 0.452511553542119,
-    "m_for_p_0.95": 9.17236449755459,
+    "a": -2.057504112552753,
+    "b": 2.195303990361483,
+    "r2_logit_scale": 0.5029197220697099,
+    "m_for_p_0.95": 9.761772695454397,
     "fitted": {
-     "5.14": 0.8559137723088178,
-     "5.54": 0.8733245812379781,
-     "6.55": 0.9060539266475988,
-     "10.29": 0.9598691430442688,
-     "11.08": 0.9652287069972623,
-     "15.43": 0.9818263553556688,
-     "16.62": 0.9843014450877103,
-     "24.00": 0.9924401408947504,
-     "36.00": 0.9966388481428917
+     "5.14": 0.8231075566493758,
+     "5.54": 0.8455653626761884,
+     "6.55": 0.8876510471943151,
+     "10.29": 0.955178648553519,
+     "11.08": 0.9616502679108059,
+     "15.43": 0.9810966707168216,
+     "16.62": 0.9838891846416714,
+     "24.00": 0.9927486520953525,
+     "36.00": 0.9970097671701148
     }
    },
    "power_1_minus_p_vs_m": {
-    "c": 2.4224116337757913,
-    "exponent": -1.8058633634272743,
-    "r2_log_scale": 0.44437099758706977,
+    "c": 3.861972735249921,
+    "exponent": -1.9638568201832558,
+    "r2_log_scale": 0.4947699016106629,
     "fitted": {
-     "5.14": 0.8741335845874368,
-     "5.54": 0.8898996439547683,
-     "6.55": 0.9185723068079525,
-     "10.29": 0.9640009679507944,
-     "11.08": 0.9685102159070017,
-     "15.43": 0.9826901194817962,
-     "16.62": 0.9848583595400904,
-     "24.00": 0.9922057374962122,
-     "36.00": 0.9962521838786201
+     "5.14": 0.8450807190267717,
+     "5.54": 0.8660633714507868,
+     "6.55": 0.9035237886633962,
+     "10.29": 0.9602876431303906,
+     "11.08": 0.9656663834388837,
+     "15.43": 0.9820895027855779,
+     "16.62": 0.9845153450398836,
+     "24.00": 0.992479063133024,
+     "36.00": 0.9966080150002655
     }
    }
   },
@@ -969,9 +1104,29 @@
    }
   },
   "Qwen2.5-7B-Instruct": {
-   "n_points": 2,
+   "n_points": 5,
    "label": "POST HOC fit (not preregistered)",
-   "note": "fewer than 3 distinct m values; no fit"
+   "logistic_logit_p_vs_ln_m": {
+    "a": -0.7284745264028789,
+    "b": 1.6718980639906258,
+    "r2_logit_scale": 0.09325276101745894,
+    "m_for_p_0.95": 8.99665227098549,
+    "fitted": {
+     "5.54": 0.8941018028120434,
+     "6.55": 0.9177860128239833,
+     "10.29": 0.9596242276452964
+    }
+   },
+   "power_1_minus_p_vs_m": {
+    "c": 0.9693316418252023,
+    "exponent": -1.3620587714203698,
+    "r2_log_scale": 0.07170605243652961,
+    "fitted": {
+     "5.54": 0.9058256383045984,
+     "6.55": 0.9249908208749127,
+     "10.29": 0.9594725228573973
+    }
+   }
   }
  }
 }
