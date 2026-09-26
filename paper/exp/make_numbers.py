@@ -1081,6 +1081,80 @@ def run_table():
     return len(rows)
 
 
+# ------------------------------------------------------------------------------------------ S12 + CoT evals
+def sweep_macros():
+    """S12 answer-only lr/epoch sweep (results/v2/sweep/, deliberately outside the main run files) and the
+    1.5B CoT-prompt evaluations of answer-only models (evals_*.jsonl, labelled '<task>[cot]')."""
+    sw_dir = os.path.join(ROOT, "results", "v2", "sweep")
+    test7 = TASKS["div7"]["test"]
+
+    def rows_of(fname):
+        f = os.path.join(sw_dir, fname)
+        return [json.loads(l) for l in open(f, encoding="utf-8") if l.strip()] if os.path.exists(f) else []
+
+    cells, configs = [], []
+    for lr_s, lw in (("2e-5", "Two"), ("5e-5", "Five")):
+        for ep, ew in ((10, "Ten"), (30, "Thirty")):
+            rows = rows_of("sweepA_div7_lr%s_ep%d.jsonl" % (lr_s, ep))
+            yes_by_seed, tok = {}, None
+            for s_, sw_ in ((0, "SZero"), (1, "SOne")):
+                r = next((x for x in rows if int(x["seed"]) == s_ and x.get("acc") is not None), None)
+                name = "sweepAlr%sEp%s%s" % (lw, ew, sw_)
+                if r:
+                    bits = C.decode_bits(r["bits"], int(r.get("n_test") or 240))
+                    pr = C.recover_preds(bits, test7)
+                    yes = sum(1 for p_ in pr if p_ == "Yes") / len(pr)
+                    yes_by_seed[s_] = yes
+                    put(name, pct(r["acc"]), "S12 sweep " + r.get("gens_path", ""))
+                    put(name + "Yes", "%.2f" % yes, "S12 Yes-rate (recovered from bits and labels)")
+                    cells.append((r["acc"], "lr %s, %d epochs, seed %d" % (lr_s, ep, s_)))
+                    tok = int(r.get("train_tokens") or 0) * int(r.get("epochs") or ep)
+                else:
+                    put(name, DASH, "S12 cell not landed")
+                    put(name + "Yes", DASH, "S12 cell not landed")
+            put("sweepAlr%sEp%sTok" % (lw, ew), thousands(tok) if tok else DASH,
+                "supervised whitespace tokens summed over epochs (train_tokens x epochs)")
+            configs.append(yes_by_seed)
+    n_cells = len(cells)
+    if cells:
+        best = max(cells)
+        put("sweepAmax", pct(best[0]), "best div7 A accuracy in the sweep")
+        put("sweepAmaxConfig", best[1], "config of the best cell")
+    else:
+        put("sweepAmax", DASH, "S12 not landed")
+        put("sweepAmaxConfig", DASH, "S12 not landed")
+    non_collapse = sum(1 for y in configs if len(y) == 2 and all(0.2 <= v <= 0.8 for v in y.values()))
+    put("sweepAnonCollapse", str(non_collapse) if n_cells else DASH, "configs with Yes-rate in [0.2, 0.8] in both seeds")
+    d3 = next((x for x in rows_of("sweepA_div3_lr5e-5_ep10.jsonl") if x.get("acc") is not None), None)
+    put("sweepDivthreeA", pct(d3["acc"]) if d3 else DASH, "S12 positive control div3 A lr 5e-5, 10 epochs")
+    if cells and max(c[0] for c in cells) >= 0.65:
+        verdict = "failed"
+    elif n_cells == 8 and d3:
+        verdict = "passed" if (non_collapse >= 1 and d3["acc"] >= 0.90) else "failed"
+    else:
+        verdict = "not complete"
+    put("STwelveVerdict", verdict, "S12 rule: no div7 A >= 65%, >= 1 non-collapsing config, div3 A >= 90%")
+    if n_cells:
+        put("STwelveResult", "the best of %d answer-only configurations reaches %s\\%% on div7 (%s), %d of 4 "
+            "configurations avoid a constant answer in both seeds, and the div3 control reaches %s\\%%"
+            % (n_cells, pct(max(cells)[0]), max(cells)[1], non_collapse, pct(d3["acc"]) if d3 else DASH),
+            "S12 summary")
+    else:
+        put("STwelveResult", "the answer-only sweep had not finished by submission", "S12 not landed")
+    # 1.5B CoT-prompt evaluations of answer-only models
+    a0, a1 = run("div7[cot]", "A", MAIN_N, 0), run("div7[cot]", "A", MAIN_N, 1)
+    put("divsevenAcotsZero", pct(a0["acc"]) if a0 else DASH, "A retrained, CoT-prompt eval, seed 0")
+    put("divsevenAcotsOne", pct(a1["acc"]) if a1 else DASH, "A retrained, CoT-prompt eval, seed 1")
+    got = [r["acc"] for r in (a0, a1) if r]
+    put("divsevenAcot", pct(mean(got)) if got else DASH, "mean over landed seeds")
+    b13 = run("div13[cot]", "base", 0, 0)
+    put("divthirteenBaseCot", pct(b13["acc"]) if b13 else DASH, "1.5B base, CoT prompt, div13")
+    a13 = run("div13[cot]", "A", MAIN_N, 0)
+    put("divthirteenAcot", pct(a13["acc"]) if a13 else DASH, "A seed-0 adapter, CoT-prompt eval, div13")
+    ap_ = run("prime[cot]", "A", MAIN_N, 0)
+    put("primeAcot", pct(ap_["acc"]) if ap_ else DASH, "A seed-0 adapter, CoT-prompt eval, prime")
+
+
 # ------------------------------------------------------------------------------------------ main
 def main():
     setup_macros()
@@ -1095,6 +1169,7 @@ def main():
     review_macros()
     scale_macros()
     late_macros()
+    sweep_macros()
     n_rows = run_table()
     with open(os.path.join(PAPER, "numbers.tex"), "w", encoding="utf-8") as f:
         f.write("% generated by paper/exp/make_numbers.py -- do not edit; re-run the script\n")
