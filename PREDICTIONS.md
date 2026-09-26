@@ -90,3 +90,13 @@ commit timestamps, which are the authoritative record.
   (seeds 0/1; 13.9% / 14.5% of kept traces fully correct), 7B div7 S 82.1% (26.7%). Outcome-only filtering kept traces
   whose steps are mostly wrong and still lifted answer accuracy above arm A at every size. Seed 1, prime S and valid S
   at 1.5B are still running and will be reported.
+- 2026-09-26 (time = this commit) **Wording note (no change to any rule or verdict).** The seed-0 div7 B@180 value reported as
+  "reproduced by a re-run" (92.5%) came from a deterministic re-execution of the same cell with the same seed and code;
+  the paper now calls it that. The per-step accuracy written p in this file is written q in the paper, to keep it apart
+  from McNemar p-values.
+- 2026-09-26 (time = this commit) **S11 (second model family), preregistered before any of its cells ran.** Model:
+  meta-llama/Llama-3.2-3B-Instruct if the RTX 5090 machine can download it, otherwise HuggingFaceTB/SmolLM2-1.7B-Instruct;
+  the script records which one ran (results/v2/second_family_model.txt) before its first cell. Same data, prompts, LoRA
+  and n = 180 as the Qwen cells (queue results/queues/q5_family.txt). Predictions: (a, primary) div7 B - A >= 20 pp in
+  seeds 0 and 1; (b) div7 D (correct trace of a different number) within 10 pp of A in seed 0. S11 passes if (a) and
+  (b) hold. prime and valid A/B and div7 base are reported without a prediction.
