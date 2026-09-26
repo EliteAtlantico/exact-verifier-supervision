@@ -1,0 +1,6 @@
+# arm S (STaR / rejection-sampling FT: base model samples K=4 cot completions per train problem, exact gate
+# keeps correct ones, LoRA on the first kept one). Qwen2.5-1.5B, worker exp_worker_star.py.
+div7 S 180 0
+prime S 180 0
+valid S 180 0
+div7 S 180 1
