@@ -1,0 +1,3 @@
+# arm S (self-generated, verifier-filtered traces) at 3B
+div7 S 180 0
+valid S 180 0

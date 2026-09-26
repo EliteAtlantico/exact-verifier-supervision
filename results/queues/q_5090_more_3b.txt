@@ -1,0 +1,15 @@
+# Qwen2.5-3B-Instruct, second 5090 package (scripts/run_5090_more.sh). S2 family + controls at 3B.
+div3 A 180 0
+div3 B 180 0
+div11 A 180 0
+div11 B 180 0
+div7_6d A 180 0
+div7_6d B 180 0
+div7 D 180 0
+div7 Bprime 180 0
+div13 B 360 0
+div13 A 360 0
+div3 A 180 1
+div3 B 180 1
+div11 A 180 1
+div11 B 180 1

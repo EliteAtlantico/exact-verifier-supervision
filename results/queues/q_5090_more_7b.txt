@@ -1,0 +1,9 @@
+# Qwen2.5-7B-Instruct (only with RUN_7B=1)
+div7 A 180 0
+div7 B 180 0
+div13 A 180 0
+div13 B 180 0
+prime A 180 0
+prime B 180 0
+valid A 180 0
+valid B 180 0
