@@ -1,7 +1,16 @@
-# S7 cells (preregistered 21:40)
+# S7 cells (preregistered 21:29:52, commit 59e3989)
 div13 B 540 0
 div7 B 270 0
 div7 B 90 0
+# S9 and S8 (preregistered, see PREDICTIONS.md)
+div13 B 360 0
+div13 A 360 0
+div7 D 180 0
+div7 D 180 1
+# S5 seed 1, answer-then-trace seed 1, first prime generations
+div7_6d B 180 1
+div7 Bprime 180 1
+prime B 180 2
 div2 A 180 0
 div2 B 180 0
 div13 A 180 1
@@ -11,8 +20,6 @@ div11 B 180 1
 div3 A 180 1
 div3 B 180 1
 div7_6d A 180 1
-div7_6d B 180 1
-div7 Bprime 180 1
 div13 C 180 0
 div2 base 0 0
 div3 base 0 0

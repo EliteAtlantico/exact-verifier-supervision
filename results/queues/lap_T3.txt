@@ -1,5 +1,4 @@
 prime A 180 2
-prime B 180 2
 valid A 180 2
 valid B 180 2
 div13 A 180 2
