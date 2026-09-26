@@ -1,0 +1,335 @@
+=== run_5090_fifth.sh start 2026-09-26T03:53:27-04:00 commit=d12ddcb
+From https://github.com/Libritor/exact-verifier-supervision
+ * branch            main       -> FETCH_HEAD
+Rebasing (1/9)Auto-merging paper/exp/make_figures.py
+CONFLICT (content): Merge conflict in paper/exp/make_figures.py
+Auto-merging paper/exp/make_numbers.py
+CONFLICT (content): Merge conflict in paper/exp/make_numbers.py
+Auto-merging paper/exp/numbers.json
+CONFLICT (content): Merge conflict in paper/exp/numbers.json
+warning: Cannot merge binary files: paper/fig_arms.pdf (HEAD vs. f61e21a (Paper: dose-response narrative (S7 3/5 held, S9 failed, S8 passed, B' and prompting controls), new Figure 1))
+Auto-merging paper/fig_arms.pdf
+CONFLICT (content): Merge conflict in paper/fig_arms.pdf
+warning: Cannot merge binary files: paper/fig_map.pdf (HEAD vs. f61e21a (Paper: dose-response narrative (S7 3/5 held, S9 failed, S8 passed, B' and prompting controls), new Figure 1))
+Auto-merging paper/fig_map.pdf
+CONFLICT (content): Merge conflict in paper/fig_map.pdf
+warning: Cannot merge binary files: paper/main.pdf (HEAD vs. f61e21a (Paper: dose-response narrative (S7 3/5 held, S9 failed, S8 passed, B' and prompting controls), new Figure 1))
+Auto-merging paper/main.pdf
+CONFLICT (content): Merge conflict in paper/main.pdf
+Auto-merging paper/main.tex
+CONFLICT (content): Merge conflict in paper/main.tex
+Auto-merging paper/numbers.tex
+CONFLICT (content): Merge conflict in paper/numbers.tex
+Auto-merging paper/tab_runs.tex
+CONFLICT (content): Merge conflict in paper/tab_runs.tex
+error: could not apply f61e21a... Paper: dose-response narrative (S7 3/5 held, S9 failed, S8 passed, B' and prompting controls), new Figure 1
+hint: Resolve all conflicts manually, mark them as resolved with
+hint: "git add/rm <conflicted_files>", then run "git rebase --continue".
+hint: You can instead skip this commit: run "git rebase --skip".
+hint: To abort and get back to the state before "git rebase", run "git rebase --abort".
+hint: Disable this message with "git config set advice.mergeConflict false"
+Could not apply f61e21a... # Paper: dose-response narrative (S7 3/5 held, S9 failed, S8 passed, B' and prompting controls), new Figure 1
+second family model: HuggingFaceTB/SmolLM2-1.7B-Instruct
+run div7 A 180 0 [HuggingFaceTB/SmolLM2-1.7B-Instruct] ...
+  FAILED rc=1
+t, kwargs = cls.get_config_dict(pretrained_model_name_or_path, **kwargs)
+                          ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kc/Projects/exact-verifier-supervision/.venv_5090/lib/python3.14/site-packages/transformers/configuration_utils.py", line 687, in get_config_dict
+    config_dict, kwargs = cls._get_config_dict(pretrained_model_name_or_path, **kwargs)
+                          ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kc/Projects/exact-verifier-supervision/.venv_5090/lib/python3.14/site-packages/transformers/configuration_utils.py", line 742, in _get_config_dict
+    resolved_config_file = cached_file(
+        pretrained_model_name_or_path,
+    ...<9 lines>...
+        _commit_hash=commit_hash,
+    )
+  File "/home/kc/Projects/exact-verifier-supervision/.venv_5090/lib/python3.14/site-packages/transformers/utils/hub.py", line 293, in cached_file
+    file = cached_files(path_or_repo_id=path_or_repo_id, filenames=[filename], **kwargs)
+  File "/home/kc/Projects/exact-verifier-supervision/.venv_5090/lib/python3.14/site-packages/transformers/utils/hub.py", line 513, in cached_files
+    raise OSError(
+    ...<3 lines>...
+    ) from e
+OSError: We couldn't connect to 'https://huggingface.co' to load the files, and couldn't find them in the cached files.
+Check your internet connection or see how to run the library in offline mode at 'https://huggingface.co/docs/transformers/installation#offline-mode'.
+
+run div7 B 180 0 [HuggingFaceTB/SmolLM2-1.7B-Instruct] ...
+  FAILED rc=1
+t, kwargs = cls.get_config_dict(pretrained_model_name_or_path, **kwargs)
+                          ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kc/Projects/exact-verifier-supervision/.venv_5090/lib/python3.14/site-packages/transformers/configuration_utils.py", line 687, in get_config_dict
+    config_dict, kwargs = cls._get_config_dict(pretrained_model_name_or_path, **kwargs)
+                          ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kc/Projects/exact-verifier-supervision/.venv_5090/lib/python3.14/site-packages/transformers/configuration_utils.py", line 742, in _get_config_dict
+    resolved_config_file = cached_file(
+        pretrained_model_name_or_path,
+    ...<9 lines>...
+        _commit_hash=commit_hash,
+    )
+  File "/home/kc/Projects/exact-verifier-supervision/.venv_5090/lib/python3.14/site-packages/transformers/utils/hub.py", line 293, in cached_file
+    file = cached_files(path_or_repo_id=path_or_repo_id, filenames=[filename], **kwargs)
+  File "/home/kc/Projects/exact-verifier-supervision/.venv_5090/lib/python3.14/site-packages/transformers/utils/hub.py", line 513, in cached_files
+    raise OSError(
+    ...<3 lines>...
+    ) from e
+OSError: We couldn't connect to 'https://huggingface.co' to load the files, and couldn't find them in the cached files.
+Check your internet connection or see how to run the library in offline mode at 'https://huggingface.co/docs/transformers/installation#offline-mode'.
+
+run div7 D 180 0 [HuggingFaceTB/SmolLM2-1.7B-Instruct] ...
+  FAILED rc=1
+t, kwargs = cls.get_config_dict(pretrained_model_name_or_path, **kwargs)
+                          ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kc/Projects/exact-verifier-supervision/.venv_5090/lib/python3.14/site-packages/transformers/configuration_utils.py", line 687, in get_config_dict
+    config_dict, kwargs = cls._get_config_dict(pretrained_model_name_or_path, **kwargs)
+                          ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kc/Projects/exact-verifier-supervision/.venv_5090/lib/python3.14/site-packages/transformers/configuration_utils.py", line 742, in _get_config_dict
+    resolved_config_file = cached_file(
+        pretrained_model_name_or_path,
+    ...<9 lines>...
+        _commit_hash=commit_hash,
+    )
+  File "/home/kc/Projects/exact-verifier-supervision/.venv_5090/lib/python3.14/site-packages/transformers/utils/hub.py", line 293, in cached_file
+    file = cached_files(path_or_repo_id=path_or_repo_id, filenames=[filename], **kwargs)
+  File "/home/kc/Projects/exact-verifier-supervision/.venv_5090/lib/python3.14/site-packages/transformers/utils/hub.py", line 513, in cached_files
+    raise OSError(
+    ...<3 lines>...
+    ) from e
+OSError: We couldn't connect to 'https://huggingface.co' to load the files, and couldn't find them in the cached files.
+Check your internet connection or see how to run the library in offline mode at 'https://huggingface.co/docs/transformers/installation#offline-mode'.
+
+run div7 A 180 1 [HuggingFaceTB/SmolLM2-1.7B-Instruct] ...
+  FAILED rc=1
+t, kwargs = cls.get_config_dict(pretrained_model_name_or_path, **kwargs)
+                          ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kc/Projects/exact-verifier-supervision/.venv_5090/lib/python3.14/site-packages/transformers/configuration_utils.py", line 687, in get_config_dict
+    config_dict, kwargs = cls._get_config_dict(pretrained_model_name_or_path, **kwargs)
+                          ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kc/Projects/exact-verifier-supervision/.venv_5090/lib/python3.14/site-packages/transformers/configuration_utils.py", line 742, in _get_config_dict
+    resolved_config_file = cached_file(
+        pretrained_model_name_or_path,
+    ...<9 lines>...
+        _commit_hash=commit_hash,
+    )
+  File "/home/kc/Projects/exact-verifier-supervision/.venv_5090/lib/python3.14/site-packages/transformers/utils/hub.py", line 293, in cached_file
+    file = cached_files(path_or_repo_id=path_or_repo_id, filenames=[filename], **kwargs)
+  File "/home/kc/Projects/exact-verifier-supervision/.venv_5090/lib/python3.14/site-packages/transformers/utils/hub.py", line 513, in cached_files
+    raise OSError(
+    ...<3 lines>...
+    ) from e
+OSError: We couldn't connect to 'https://huggingface.co' to load the files, and couldn't find them in the cached files.
+Check your internet connection or see how to run the library in offline mode at 'https://huggingface.co/docs/transformers/installation#offline-mode'.
+
+run div7 B 180 1 [HuggingFaceTB/SmolLM2-1.7B-Instruct] ...
+  FAILED rc=1
+t, kwargs = cls.get_config_dict(pretrained_model_name_or_path, **kwargs)
+                          ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kc/Projects/exact-verifier-supervision/.venv_5090/lib/python3.14/site-packages/transformers/configuration_utils.py", line 687, in get_config_dict
+    config_dict, kwargs = cls._get_config_dict(pretrained_model_name_or_path, **kwargs)
+                          ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kc/Projects/exact-verifier-supervision/.venv_5090/lib/python3.14/site-packages/transformers/configuration_utils.py", line 742, in _get_config_dict
+    resolved_config_file = cached_file(
+        pretrained_model_name_or_path,
+    ...<9 lines>...
+        _commit_hash=commit_hash,
+    )
+  File "/home/kc/Projects/exact-verifier-supervision/.venv_5090/lib/python3.14/site-packages/transformers/utils/hub.py", line 293, in cached_file
+    file = cached_files(path_or_repo_id=path_or_repo_id, filenames=[filename], **kwargs)
+  File "/home/kc/Projects/exact-verifier-supervision/.venv_5090/lib/python3.14/site-packages/transformers/utils/hub.py", line 513, in cached_files
+    raise OSError(
+    ...<3 lines>...
+    ) from e
+OSError: We couldn't connect to 'https://huggingface.co' to load the files, and couldn't find them in the cached files.
+Check your internet connection or see how to run the library in offline mode at 'https://huggingface.co/docs/transformers/installation#offline-mode'.
+
+run div7 base 0 0 [HuggingFaceTB/SmolLM2-1.7B-Instruct] ...
+  FAILED rc=1
+t, kwargs = cls.get_config_dict(pretrained_model_name_or_path, **kwargs)
+                          ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kc/Projects/exact-verifier-supervision/.venv_5090/lib/python3.14/site-packages/transformers/configuration_utils.py", line 687, in get_config_dict
+    config_dict, kwargs = cls._get_config_dict(pretrained_model_name_or_path, **kwargs)
+                          ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kc/Projects/exact-verifier-supervision/.venv_5090/lib/python3.14/site-packages/transformers/configuration_utils.py", line 742, in _get_config_dict
+    resolved_config_file = cached_file(
+        pretrained_model_name_or_path,
+    ...<9 lines>...
+        _commit_hash=commit_hash,
+    )
+  File "/home/kc/Projects/exact-verifier-supervision/.venv_5090/lib/python3.14/site-packages/transformers/utils/hub.py", line 293, in cached_file
+    file = cached_files(path_or_repo_id=path_or_repo_id, filenames=[filename], **kwargs)
+  File "/home/kc/Projects/exact-verifier-supervision/.venv_5090/lib/python3.14/site-packages/transformers/utils/hub.py", line 513, in cached_files
+    raise OSError(
+    ...<3 lines>...
+    ) from e
+OSError: We couldn't connect to 'https://huggingface.co' to load the files, and couldn't find them in the cached files.
+Check your internet connection or see how to run the library in offline mode at 'https://huggingface.co/docs/transformers/installation#offline-mode'.
+
+run prime A 180 0 [HuggingFaceTB/SmolLM2-1.7B-Instruct] ...
+  FAILED rc=1
+t, kwargs = cls.get_config_dict(pretrained_model_name_or_path, **kwargs)
+                          ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kc/Projects/exact-verifier-supervision/.venv_5090/lib/python3.14/site-packages/transformers/configuration_utils.py", line 687, in get_config_dict
+    config_dict, kwargs = cls._get_config_dict(pretrained_model_name_or_path, **kwargs)
+                          ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kc/Projects/exact-verifier-supervision/.venv_5090/lib/python3.14/site-packages/transformers/configuration_utils.py", line 742, in _get_config_dict
+    resolved_config_file = cached_file(
+        pretrained_model_name_or_path,
+    ...<9 lines>...
+        _commit_hash=commit_hash,
+    )
+  File "/home/kc/Projects/exact-verifier-supervision/.venv_5090/lib/python3.14/site-packages/transformers/utils/hub.py", line 293, in cached_file
+    file = cached_files(path_or_repo_id=path_or_repo_id, filenames=[filename], **kwargs)
+  File "/home/kc/Projects/exact-verifier-supervision/.venv_5090/lib/python3.14/site-packages/transformers/utils/hub.py", line 513, in cached_files
+    raise OSError(
+    ...<3 lines>...
+    ) from e
+OSError: We couldn't connect to 'https://huggingface.co' to load the files, and couldn't find them in the cached files.
+Check your internet connection or see how to run the library in offline mode at 'https://huggingface.co/docs/transformers/installation#offline-mode'.
+
+run prime B 180 0 [HuggingFaceTB/SmolLM2-1.7B-Instruct] ...
+  FAILED rc=1
+t, kwargs = cls.get_config_dict(pretrained_model_name_or_path, **kwargs)
+                          ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kc/Projects/exact-verifier-supervision/.venv_5090/lib/python3.14/site-packages/transformers/configuration_utils.py", line 687, in get_config_dict
+    config_dict, kwargs = cls._get_config_dict(pretrained_model_name_or_path, **kwargs)
+                          ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kc/Projects/exact-verifier-supervision/.venv_5090/lib/python3.14/site-packages/transformers/configuration_utils.py", line 742, in _get_config_dict
+    resolved_config_file = cached_file(
+        pretrained_model_name_or_path,
+    ...<9 lines>...
+        _commit_hash=commit_hash,
+    )
+  File "/home/kc/Projects/exact-verifier-supervision/.venv_5090/lib/python3.14/site-packages/transformers/utils/hub.py", line 293, in cached_file
+    file = cached_files(path_or_repo_id=path_or_repo_id, filenames=[filename], **kwargs)
+  File "/home/kc/Projects/exact-verifier-supervision/.venv_5090/lib/python3.14/site-packages/transformers/utils/hub.py", line 513, in cached_files
+    raise OSError(
+    ...<3 lines>...
+    ) from e
+OSError: We couldn't connect to 'https://huggingface.co' to load the files, and couldn't find them in the cached files.
+Check your internet connection or see how to run the library in offline mode at 'https://huggingface.co/docs/transformers/installation#offline-mode'.
+
+run valid A 180 0 [HuggingFaceTB/SmolLM2-1.7B-Instruct] ...
+  FAILED rc=1
+t, kwargs = cls.get_config_dict(pretrained_model_name_or_path, **kwargs)
+                          ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kc/Projects/exact-verifier-supervision/.venv_5090/lib/python3.14/site-packages/transformers/configuration_utils.py", line 687, in get_config_dict
+    config_dict, kwargs = cls._get_config_dict(pretrained_model_name_or_path, **kwargs)
+                          ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kc/Projects/exact-verifier-supervision/.venv_5090/lib/python3.14/site-packages/transformers/configuration_utils.py", line 742, in _get_config_dict
+    resolved_config_file = cached_file(
+        pretrained_model_name_or_path,
+    ...<9 lines>...
+        _commit_hash=commit_hash,
+    )
+  File "/home/kc/Projects/exact-verifier-supervision/.venv_5090/lib/python3.14/site-packages/transformers/utils/hub.py", line 293, in cached_file
+    file = cached_files(path_or_repo_id=path_or_repo_id, filenames=[filename], **kwargs)
+  File "/home/kc/Projects/exact-verifier-supervision/.venv_5090/lib/python3.14/site-packages/transformers/utils/hub.py", line 513, in cached_files
+    raise OSError(
+    ...<3 lines>...
+    ) from e
+OSError: We couldn't connect to 'https://huggingface.co' to load the files, and couldn't find them in the cached files.
+Check your internet connection or see how to run the library in offline mode at 'https://huggingface.co/docs/transformers/installation#offline-mode'.
+
+run valid B 180 0 [HuggingFaceTB/SmolLM2-1.7B-Instruct] ...
+  FAILED rc=1
+t, kwargs = cls.get_config_dict(pretrained_model_name_or_path, **kwargs)
+                          ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kc/Projects/exact-verifier-supervision/.venv_5090/lib/python3.14/site-packages/transformers/configuration_utils.py", line 687, in get_config_dict
+    config_dict, kwargs = cls._get_config_dict(pretrained_model_name_or_path, **kwargs)
+                          ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kc/Projects/exact-verifier-supervision/.venv_5090/lib/python3.14/site-packages/transformers/configuration_utils.py", line 742, in _get_config_dict
+    resolved_config_file = cached_file(
+        pretrained_model_name_or_path,
+    ...<9 lines>...
+        _commit_hash=commit_hash,
+    )
+  File "/home/kc/Projects/exact-verifier-supervision/.venv_5090/lib/python3.14/site-packages/transformers/utils/hub.py", line 293, in cached_file
+    file = cached_files(path_or_repo_id=path_or_repo_id, filenames=[filename], **kwargs)
+  File "/home/kc/Projects/exact-verifier-supervision/.venv_5090/lib/python3.14/site-packages/transformers/utils/hub.py", line 513, in cached_files
+    raise OSError(
+    ...<3 lines>...
+    ) from e
+OSError: We couldn't connect to 'https://huggingface.co' to load the files, and couldn't find them in the cached files.
+Check your internet connection or see how to run the library in offline mode at 'https://huggingface.co/docs/transformers/installation#offline-mode'.
+
+error: Committing is not possible because you have unmerged files.
+hint: Fix them up in the work tree, and then use 'git add/rm <file>'
+hint: as appropriate to mark resolution and make a commit.
+fatal: Exiting because of an unresolved conflict.
+U	paper/exp/make_figures.py
+U	paper/exp/make_numbers.py
+U	paper/exp/numbers.json
+U	paper/fig_arms.pdf
+U	paper/fig_map.pdf
+U	paper/main.pdf
+U	paper/main.tex
+U	paper/numbers.tex
+U	paper/tab_runs.tex
+=== run_5090_fifth.sh done 2026-09-26T03:55:05-04:00
+=== run_5090_fifth.sh start 2026-09-26T04:13:32-04:00 commit=d12ddcb
+From https://github.com/Libritor/exact-verifier-supervision
+ * branch            main       -> FETCH_HEAD
+warning: skipped previously applied commit d12ddcb
+hint: use --reapply-cherry-picks to include skipped commits
+hint: Disable this message with "git config set advice.skippedCherryPicks false"
+Rebasing (1/8)Auto-merging paper/exp/make_figures.py
+CONFLICT (content): Merge conflict in paper/exp/make_figures.py
+Auto-merging paper/exp/make_numbers.py
+CONFLICT (content): Merge conflict in paper/exp/make_numbers.py
+Auto-merging paper/exp/numbers.json
+CONFLICT (content): Merge conflict in paper/exp/numbers.json
+warning: Cannot merge binary files: paper/fig_arms.pdf (HEAD vs. f61e21a (Paper: dose-response narrative (S7 3/5 held, S9 failed, S8 passed, B' and prompting controls), new Figure 1))
+Auto-merging paper/fig_arms.pdf
+CONFLICT (content): Merge conflict in paper/fig_arms.pdf
+warning: Cannot merge binary files: paper/fig_map.pdf (HEAD vs. f61e21a (Paper: dose-response narrative (S7 3/5 held, S9 failed, S8 passed, B' and prompting controls), new Figure 1))
+Auto-merging paper/fig_map.pdf
+CONFLICT (content): Merge conflict in paper/fig_map.pdf
+warning: Cannot merge binary files: paper/main.pdf (HEAD vs. f61e21a (Paper: dose-response narrative (S7 3/5 held, S9 failed, S8 passed, B' and prompting controls), new Figure 1))
+Auto-merging paper/main.pdf
+CONFLICT (content): Merge conflict in paper/main.pdf
+Auto-merging paper/main.tex
+CONFLICT (content): Merge conflict in paper/main.tex
+Auto-merging paper/numbers.tex
+CONFLICT (content): Merge conflict in paper/numbers.tex
+Auto-merging paper/tab_runs.tex
+CONFLICT (content): Merge conflict in paper/tab_runs.tex
+error: could not apply f61e21a... Paper: dose-response narrative (S7 3/5 held, S9 failed, S8 passed, B' and prompting controls), new Figure 1
+hint: Resolve all conflicts manually, mark them as resolved with
+hint: "git add/rm <conflicted_files>", then run "git rebase --continue".
+hint: You can instead skip this commit: run "git rebase --skip".
+hint: To abort and get back to the state before "git rebase", run "git rebase --abort".
+hint: Disable this message with "git config set advice.mergeConflict false"
+Could not apply f61e21a... # Paper: dose-response narrative (S7 3/5 held, S9 failed, S8 passed, B' and prompting controls), new Figure 1
+second family model: HuggingFaceTB/SmolLM2-1.7B-Instruct
+run div7 A 180 0 [HuggingFaceTB/SmolLM2-1.7B-Instruct] ...
+  acc 0.4500  (22s)
+run div7 B 180 0 [HuggingFaceTB/SmolLM2-1.7B-Instruct] ...
+  acc 0.6000  (30s)
+run div7 D 180 0 [HuggingFaceTB/SmolLM2-1.7B-Instruct] ...
+  acc 0.5167  (31s)
+run div7 A 180 1 [HuggingFaceTB/SmolLM2-1.7B-Instruct] ...
+  acc 0.4708  (21s)
+run div7 B 180 1 [HuggingFaceTB/SmolLM2-1.7B-Instruct] ...
+  acc 0.6958  (30s)
+run div7 base 0 0 [HuggingFaceTB/SmolLM2-1.7B-Instruct] ...
+  acc 0.4958  (3s)
+run prime A 180 0 [HuggingFaceTB/SmolLM2-1.7B-Instruct] ...
+  acc 0.6833  (21s)
+run prime B 180 0 [HuggingFaceTB/SmolLM2-1.7B-Instruct] ...
+  acc 0.6250  (53s)
+run valid A 180 0 [HuggingFaceTB/SmolLM2-1.7B-Instruct] ...
+  acc 0.9958  (22s)
+run valid B 180 0 [HuggingFaceTB/SmolLM2-1.7B-Instruct] ...
+  acc 0.8042  (28s)
+error: Committing is not possible because you have unmerged files.
+hint: Fix them up in the work tree, and then use 'git add/rm <file>'
+hint: as appropriate to mark resolution and make a commit.
+fatal: Exiting because of an unresolved conflict.
+U	paper/exp/make_figures.py
+U	paper/exp/make_numbers.py
+U	paper/exp/numbers.json
+U	paper/fig_arms.pdf
+U	paper/fig_map.pdf
+U	paper/main.pdf
+U	paper/main.tex
+U	paper/numbers.tex
+U	paper/tab_runs.tex
+=== run_5090_fifth.sh done 2026-09-26T04:19:15-04:00
