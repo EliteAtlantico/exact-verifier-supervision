@@ -1,0 +1,3 @@
+# cloud/5090: answer-only (A) models evaluated with the CoT prompt (erasure vs format), run per model
+div7 A 180 0 --prompt-mode cot
+div13 A 180 0 --prompt-mode cot

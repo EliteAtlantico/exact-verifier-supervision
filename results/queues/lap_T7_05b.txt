@@ -1,0 +1,17 @@
+# laptop Qwen2.5-0.5B (model-size axis, local copy of Khalil's 0.5B cells plus more)
+div7 A 180 0
+div7 B 180 0
+div7 A 180 1
+div7 B 180 1
+div13 A 180 0
+div13 B 180 0
+prime A 180 0
+prime B 180 0
+prime A 180 1
+prime B 180 1
+valid A 180 0
+valid B 180 0
+div3 A 180 0
+div3 B 180 0
+div2 A 180 0
+div2 B 180 0

@@ -1,0 +1,7 @@
+# laptop stage 5: does an answer-only (A) model still compute when prompted for a chain of thought?
+# A is trained as usual (answer-only targets); only the EVALUATION uses the CoT prompt. Rows go to evals_*.jsonl.
+div7 A 180 0 --prompt-mode cot
+div7 A 180 1 --prompt-mode cot
+div13 base 0 0 --eval-only none --prompt-mode cot
+div13 A 180 0 --eval-only auto --prompt-mode cot
+prime A 180 0 --eval-only auto --prompt-mode cot
