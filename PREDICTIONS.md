@@ -109,3 +109,5 @@ commit timestamps, which are the authoritative record.
   preregistered parser and fails under the re-audit. Both are reported.
 - 2026-09-26 (time = this commit) **S10, remaining 1.5B cells.** valid S seed 0 = 64.6%, so the clause "on valid, S >= 90%"
   also fails. prime S seed 0 = 67.1% (no prediction). div7 S seed 1 is running and will be reported.
+- 2026-09-26 (time = this commit) **S10, last primary cell.** 1.5B div7 S seed 1 = 65.8% (limit <= 65%). With seed 0 at
+  77.9%, the accuracy clause fails in both seeds. S10 is reported as failed.
