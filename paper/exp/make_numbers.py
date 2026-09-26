@@ -640,12 +640,15 @@ def review_macros():
         if rows:
             put("m" + cap, "%.1f" % rows[0]["m"], "transitions.json")
             put("p" + cap, "%.3f" % mean(r["p"] for r in rows), "transitions.json p_cond")
+            rows0 = [r for r in rows if r.get("seed") == 0]
+            put("p" + cap + "sZero", "%.3f" % rows0[0]["p"] if rows0 else TBD, "transitions.json p_cond seed 0")
             put("trace" + cap, pct(mean(r["trace_correct"] for r in rows)), "transitions.json")
         else:
             k = 6 if task == "div7_6d" else 4
             d = int(re.sub(r"\D", "", task.split("_")[0]))
             put("m" + cap, "%.1f" % (k * MAIN_N / (10 * d)), "k n / (10 d)")
             put("p" + cap, TBD)
+            put("p" + cap + "sZero", TBD)
             put("trace" + cap, TBD)
     for task, n, mac in (("div13", 540, "mDivthirteenLarge"), ("div7", 270, "mDivsevenMid"), ("div7", 90, "mDivsevenSmall"),
                          ("div13", 360, "mDivthirteenMid")):
@@ -734,6 +737,10 @@ def review_macros():
         for n, w in W.items():
             for arm in ("A", "B"):
                 put(tp + arm + "n" + w, pct(acc_mean(task, arm, n)), "dose")
+                r0 = run(task, arm, n, 0)
+                put(tp + arm + "n" + w + "sZero", pct(r0["acc"]) if r0 else TBD, "dose, seed 0 (preregistered cell)")
+            rows0 = [r for r in trans_rows() if r["task"] == task and r["n"] == n and r.get("seed") == 0]
+            put("p" + cap + "n" + w + "sZero", "%.3f" % rows0[0]["p"] if rows0 else TBD, "transitions.json seed 0")
             rows = [r for r in trans_rows() if r["task"] == task and r["n"] == n]
             put("p" + cap + "n" + w, "%.3f" % mean(r["p"] for r in rows) if rows else TBD, "transitions.json")
             put("m" + cap + "n" + w, "%.1f" % (4 * n / (10 * int(task[3:]))), "k n / (10 d)")
@@ -779,6 +786,20 @@ def scale_macros():
         cells = steps_cells("div7", model=model, eval_task="div7")
         put(mpre + "pDivseven", "%.3f" % pooled(cells, "p_cond") if cells else TBD, "steps.json")
         put(mpre + "divsevenFullTrace", pct(pooled(cells, "trace_correct_rate")) if cells else TBD, "steps.json")
+    # 3B dose cell (div13 at n = 360) and the 7B valid trace-arm failure pattern
+    for arm in ("A", "B"):
+        put("threeBdivthirteen" + arm + "nThreeSixty", pct(acc_mean("div13", arm, 360, MODELS["threeB"])), "3B n=360")
+    g = gens_rows("valid", "B", MAIN_N, 0, MODELS["sevenB"])
+    if g:
+        err = [x for x in g if not x.get("correct")]
+        yes = [x for x in err if x.get("pred") == "Yes"]
+        tmpl = [x for x in yes if any(w in (x.get("gen") or "") for w in ("contradiction", "impossible", "no model"))]
+        put("sevenBvalidBerrN", str(len(err)), "gens")
+        put("sevenBvalidBerrYes", str(len(yes)), "gens")
+        put("sevenBvalidBerrTemplate", str(len(tmpl)), "gens")
+    else:
+        for mac in ("sevenBvalidBerrN", "sevenBvalidBerrYes", "sevenBvalidBerrTemplate"):
+            put(mac, TBD)
     # what the 3B base model does on div7 / div13 (saved generations)
     for task, tp in (("div7", "divseven"), ("div13", "divthirteen")):
         g = gens_rows(task, "base", 0, 0, MODELS["threeB"])
@@ -811,9 +832,216 @@ def scale_macros():
             put(tp + "BAd" + SEEDW[s_], "%+.1f" % (100 * (b["acc"] - a["acc"])) if (a and b) else TBD, "runs")
 
 
+# ------------------------------------------------------------------------------------------ review round 2
+DASH = "--"
+# cells that queued runs (results/queues/lap_S.txt, lap_T4_05b.txt, q3_star_*.txt) may still fill: when absent at
+# build time they render as a dash (not run by submission), never as [TBD]
+QUEUED = {"halfB" + tp + arm for tp in ("divseven", "divthirteen", "prime", "valid", "divthree", "divtwo")
+          for arm in ("A", "B")}
+
+
+def seed_list(ss):
+    ss = sorted(ss)
+    if not ss:
+        return ""
+    if len(ss) == 1:
+        return "seed %d" % ss[0]
+    if ss == list(range(ss[0], ss[-1] + 1)) and len(ss) > 2:
+        return "seeds %d--%d" % (ss[0], ss[-1])
+    return "seeds " + ", ".join(str(s) for s in ss[:-1]) + " and " + str(ss[-1])
+
+
+def late_macros():
+    M3, M7 = MODELS["threeB"], MODELS["sevenB"]
+    for mac in QUEUED:
+        if OUT.get(mac, TBD) == TBD:
+            put(mac, DASH, "queued, not landed")
+    # (F1g) Table 2 max-p column: largest per-seed McNemar p (B vs A) over seeds; parentheses when A > B pooled
+    for task, tp in PREFIX.items():
+        ps, dif = [], []
+        for s_ in seeds(task, "B", MAIN_N):
+            b, a = run(task, "B", MAIN_N, s_), run(task, "A", MAIN_N, s_)
+            if a and b:
+                ps.append(mcnemar(b["bits_list"], a["bits_list"])[2])
+                dif.append(b["acc"] - a["acc"])
+        if ps:
+            v = "$%s$" % pval(max(ps))
+            put(tp + "BApMaxCol", ("(%s)" % v) if mean(dif) < 0 else v, "max McNemar p over seeds %d" % len(ps))
+            put(tp + "BAnSeeds", str(len(ps)), "paired seeds")
+        else:
+            put(tp + "BApMaxCol", DASH, "no paired seeds")
+    # (F1b) S7 cell status from the analysis' own S7 evaluation
+    import analysis_report as AR
+    res = AR.prereg(STATS, RULES, STEPS, TRANS)
+    det = res.get("S7", {}).get("status", "") + " " + " ".join(res.get("S7", {}).get("detail", []))
+    for c, w in zip("abcde", ("A", "B", "C", "D", "E")):
+        mm = re.search(r"\(" + c + r"\)[^\[]*?(HOLDS|holds|fails|FAILS|pending|PENDING)", det)
+        put("SsevenCell" + w, ("holds" if mm.group(1).lower() == "holds" else "fails") if mm and
+            not mm.group(1).lower().startswith("pend") else "not scored", det[:200])
+    # (F7a) items-by-seeds bootstrap contrasts for every model (stats.json): <model><task>Boot<cmp>{Diff,Ci,Seeds}
+    CMPN = {"B-A": "BA", "A-base": "ABase", "B-base": "BBase", "B-D": "BD", "B-Bprime": "BBp", "B-C": "BC",
+            "S-A": "SA", "B-S": "BS", "D-A": "DA"}
+    mp = {v: k for k, v in MODELS.items()}
+    for x in (STATS or {}).get("bootstrap", []):
+        if x["n"] != MAIN_N or x["comparison"] not in CMPN or x["model"] not in mp or x["task"] not in PREFIX:
+            continue
+        nm = mp[x["model"]] + PREFIX[x["task"]] + "Boot" + CMPN[x["comparison"]]
+        put(nm + "Diff", "%+.1f" % (100 * x["diff"]), "stats.json bootstrap")
+        put(nm + "Ci", "[%+.1f, %+.1f]" % tuple(100 * v for v in x["ci95"]), "stats.json bootstrap")
+        put(nm + "Seeds", str(len(x["seeds"])), "stats.json bootstrap seeds")
+    # (F6d) secondary-model verdicts, as the analysis evaluates them
+    for mdl, w in (("Qwen2.5-3B-Instruct", "ThreeB"), ("Qwen2.5-7B-Instruct", "SevenB")):
+        for rule in ("S2", "S6", "S8", "S9"):
+            k = next((x for x in res if x.startswith(rule + " [" + mdl)), None)
+            st = (res[k].get("status") or "").upper() if k else ""
+            put("verdict" + {"S2": "STwo", "S6": "SSix", "S8": "SEight", "S9": "SNine"}[rule] + w, "passed" if st.startswith("PASS") else "failed"
+                if st.startswith("FAIL") else "not evaluable" if k else DASH, k or "")
+        sb = (STEPS or {}).get("S5", {}).get("status_by_model", {}).get(mdl, {})
+        put("verdictSFive" + w, "failed" if str(sb.get("primary", "")).upper().startswith("FAIL") else
+            "passed" if str(sb.get("primary", "")).upper().startswith("PASS") else DASH, str(sb))
+    # (F1d / F5e) prime shortcut counts over every A seed
+    te = TASKS["prime"]["test"]
+    sA = seeds("prime", "A", MAIN_N)
+    idx = [i for i, e in enumerate(te) if e["label"] == "No" and int(e["id"].split("-")[1]) % 10 in (1, 3, 7, 9)]
+    put("primeCompLastDigitN", str(len(idx)), "prime test composites ending 1/3/7/9")
+    put("primeCompLastDigitA", ", ".join(str(sum(run("prime", "A", MAIN_N, s_)["bits_list"][i] for i in idx))
+                                         for s_ in sA), "bits")
+    idx37 = [i for i in idx if any(int(te[i]["id"].split("-")[1]) % q == 0 for q in (3, 7))]
+    counts = [sum(run("prime", "A", MAIN_N, s_)["bits_list"][i] for i in idx37) for s_ in sA]
+    put("primeCompThreeSevenA", ", ".join(map(str, counts[:-1])) + (" and " if len(counts) > 1 else "")
+        + str(counts[-1]), "bits")
+    put("primeASeeds", seed_list(sA), "seeds")
+    # (F5b) 1.5B prime B accuracy by the true number of trial divisions the trace performs
+    def ndiv(n):
+        ps_ = [q for q in range(2, math.isqrt(n) + 1) if all(q % d for d in range(2, math.isqrt(q) + 1))]
+        return next((i + 1 for i, q in enumerate(ps_) if n % q == 0), len(ps_))
+    kk = [ndiv(int(t["id"].split("-")[1])) for t in te]
+    sB = seeds("prime", "B", MAIN_N)
+    for (lo, hi), w in zip(((1, 1), (2, 3), (4, 8), (9, 16), (17, 99)), ("One", "Two", "Three", "Four", "Five")):
+        ix = [i for i, k in enumerate(kk) if lo <= k <= hi]
+        acc = mean(run("prime", "B", MAIN_N, s_)["bits_list"][i] for s_ in sB for i in ix) if (ix and sB) else None
+        put("primeBdivBin" + w, "%.0f" % (100 * acc) if acc is not None else TBD, "bits by trial divisions")
+        put("primeBdivBinN" + w, str(len(ix)), "items")
+    put("primeBSeeds", seed_list(sB), "seeds")
+    c0 = run("prime", "C", MAIN_N, 0)
+    if c0:
+        put("primeCsZeroPrimes", pct(class_acc(c0, "Yes")), "bits")
+        put("primeCsZeroComps", pct(class_acc(c0, "No")), "bits")
+    # (F3) 7B and 3B: collapse of 7B prime A seed 0, dose cells, S vs base
+    r7 = run("prime", "A", MAIN_N, 0, M7)
+    if r7:
+        pr, _ = preds(r7)
+        put("sevenBprimeAsZeroNo", str(sum(x == "No" for x in pr)), "7B prime A s0 predictions")
+    W = {90: "Ninety", 270: "TwoSeventy", 360: "ThreeSixty", 540: "FiveForty"}
+    for mpre, model in (("threeB", M3), ("sevenB", M7)):
+        for task, tp in (("div7", "divseven"), ("div13", "divthirteen")):
+            for n, w in W.items():
+                for arm in ("A", "B"):
+                    put(mpre + tp + arm + "n" + w, pct(acc_mean(task, arm, n, model)), "dose")
+                    r0 = run(task, arm, n, 0, model)
+                    put(mpre + tp + arm + "n" + w + "sZero", pct(r0["acc"]) if r0 else TBD, "dose seed 0")
+    for mpre, model in (("threeB", M3), ("sevenB", M7)):
+        s0, z = run("div7", "S", MAIN_N, 0, model), run("div7", "base", 0, 0, model)
+        if s0 and z:
+            b, c, p = mcnemar(s0["bits_list"], z["bits_list"])
+            put(mpre + "divsevenSBaseDisc", "%d:%d" % (b, c), "S-only : base-only correct, seed 0")
+            put(mpre + "divsevenSBasep", pval(p), "exact McNemar S vs base, seed 0")
+        for task, tp in (("div7", "divseven"), ("prime", "prime"), ("valid", "valid")):
+            ss = seeds(task, "S", MAIN_N, model)
+            put(mpre + tp + "SSeeds", seed_list(ss) if ss else DASH, "arm S seeds")
+    # (F7b) Holm-adjusted A vs base on 1.5B div7 (family: tasks within comparison, model and seed)
+    hs = sorted(((m["seed"], m["p_holm_tasks"]) for m in (STATS or {}).get("mcnemar", [])
+                 if m["comparison"] == "A-base" and m["task"] == "div7" and m["n"] == MAIN_N and m["model"] == M15
+                 and m.get("p_holm_tasks") is not None))
+    for s_, p in hs:
+        put("divsevenABaseHolms" + SEEDW[s_], pval(p), "stats.json p_holm_tasks")
+    put("divsevenABaseHolmSig", "%d of %d" % (sum(p < 0.05 for _, p in hs), len(hs)), "Holm < 0.05")
+    # (F8) arm S kept-trace audits: worker audit and the post hoc extended re-audit (analysis_steps.star_summary)
+    for c in (STEPS or {}).get("star", []):
+        if c["task"] != "div7" or c["seed"] != 0:
+            continue
+        mpre = {"Qwen2.5-1.5B-Instruct": "", "Qwen2.5-3B-Instruct": "threeB", "Qwen2.5-7B-Instruct": "sevenB"}.get(
+            c["model"])
+        if mpre is None:
+            continue
+        put(mpre + "selfKeep", pct(c["keep_rate"]), "star keep rate (samples)")
+        put(mpre + "selfKept", "%d/%d" % (c["n_kept"], c["n_items"]), "items kept")
+        put(mpre + "selfParsed", pct(c["kept_trace_parsed_frac"]), "worker audit coverage")
+        put(mpre + "selfCorrectAll", pct(c["kept_trace_correct_frac"]), "worker audit, over all kept")
+        if c.get("ext_kept_trace_parsed_frac") is not None:
+            put(mpre + "selfParsedExt", pct(c["ext_kept_trace_parsed_frac"]), "re-audit coverage")
+            put(mpre + "selfCorrectParsedExt", pct(c["ext_all_claims_correct_among_parsed"]), "re-audit, parsed")
+            put(mpre + "selfCorrectAllExt", pct(c["ext_kept_trace_correct_frac_all_kept"]), "re-audit, all kept")
+    # S10 as text: evaluable only with div7 seeds 0 and 1 and valid
+    d7 = [run("div7", "S", MAIN_N, s_) for s_ in (0, 1)]
+    va = run("valid", "S", MAIN_N, 0)
+    got = [r for r in d7 if r]
+    if got:
+        put("STenResult", "arm S reaches " + " and ".join(pct(r["acc"]) + "\\%" for r in got) + " on div7 ("
+            + seed_list([s_ for s_, r in zip((0, 1), d7) if r]) + ")" + (" and " + pct(va["acc"]) + "\\% on valid"
+                                                                          if va else ""), "arm S 1.5B")
+    else:
+        put("STenResult", "the arm-S fine-tuning runs had not finished by submission", "arm S 1.5B")
+    rr = [x for x in (RULES or {}).get("runs", []) if x["task"] == "prime" and x["arm"] == "B" and x["seed"] == 0
+          and x.get("model", "").endswith("3B-Instruct") and x["n"] == MAIN_N]
+    put("threeBprimeBnoFiveAgree", pct(rr[0]["agreement"]["no_factor_le_5"]) if rr else TBD, "rules.json")
+    src = open(os.path.join(ROOT, "experiments", "exp_thinking_ft_worker.py"), encoding="utf-8").read()
+    cap = dict((k, int(v)) for k, v in re.findall(r'"(\w+)": (\d+)', re.search(r"MAXNEW = \{[^}]*\}", src).group(0)))
+    caps = sorted({(r["task"], r["max_new"]) for r in RUNS if r.get("max_new") and r["arm"] != "base"})
+    for t, w in (("div13", "Divthirteen"), ("div11", "Diveleven"), ("div7_6d", "DivsevenSix")):
+        v = [c for tt, c in caps if tt == t]
+        put("maxNew" + w, str(v[0]) if v else str(cap.get(t, "")) or TBD, "runs max_new")
+    if any(r["acc"] > 0.65 for r in got):
+        put("verdictSTen", "failed", "a landed div7 S seed exceeds 65%, so the both-seeds clause cannot hold")
+    elif not (all(d7) and va):
+        put("verdictSTen", "not evaluable (two-seed rule)", "S10 incomplete")
+    words = {1: "one seed", 2: "two seeds", 3: "three seeds", 4: "four seeds", 5: "five seeds"}
+    for k in [k for k in OUT if k.endswith("nSeeds")]:
+        put(k[:-6] + "SeedTxt", words.get(int(OUT[k]), OUT[k] + " seeds"), "seed count")
+    put("divsevenSelfTrace", pct(mean(r["acc"] for r in got)) if got else DASH, "arm S 1.5B div7")
+    put("divsevenSelfSeeds", seed_list([s_ for s_, r in zip((0, 1), d7) if r]) if got else DASH, "seeds")
+    put("divsevenSelfsZero", pct(d7[0]["acc"]) if d7[0] else DASH, "arm S 1.5B div7 seed 0")
+    put("divsevenSelfsOne", pct(d7[1]["acc"]) if d7[1] else DASH, "arm S 1.5B div7 seed 1")
+    put("validSelfTrace", pct(va["acc"]) if va else DASH, "arm S 1.5B valid seed 0 (S10 predicted >= 90)")
+    # (F6c) post hoc logistic fits of q on ln m
+    for mdl, w in (("Qwen2.5-1.5B-Instruct", "OneFive"), ("Qwen2.5-3B-Instruct", "ThreeB")):
+        f = (TRANS or {}).get("post_hoc_fits", {}).get(mdl, {}).get("logistic_logit_p_vs_ln_m")
+        put("fitRsq" + w, "%.2f" % f["r2_logit_scale"] if f else TBD, "transitions.json post hoc fit")
+        put("fitN" + w, str(TRANS["post_hoc_fits"][mdl]["n_points"]) if f else TBD, "cells")
+    # (F6e) S5 secondary: the transfer model's own traces
+    sec = [c for c in (STEPS or {}).get("S5", {}).get("cells", []) if not c.get("primary")
+           and c["model"] == C.short_model(M15)]
+    if sec and sec[0].get("post_hoc"):
+        put("divsevenTransferTraceOK", pct(sec[0]["post_hoc"]["trace_correct_6digit"]), "post hoc")
+    # (F12) q excluding the first step, seed 0 (steps.json p_cond_after_first_step)
+    for task, n, w in (("div13", 180, "DivthirteenOneEighty"), ("div7", 90, "DivsevenNinety")):
+        cs = [c for c in (STEPS or {}).get("div", []) if c["task"] == task and c["n"] == n and c["seed"] == 0
+              and c["arm"] == "B" and c["model"] == C.short_model(M15) and c["prompt_mode"] == "plain"
+              and c["eval_task"] == task]
+        put("qAll" + w, "%.3f" % cs[0]["p_cond"] if cs else TBD, "steps.json s0")
+        put("qAfter" + w, "%.3f" % cs[0]["p_cond_after_first_step"] if cs and
+            cs[0].get("p_cond_after_first_step") is not None else TBD, "steps.json s0")
+    # (F5c) 3B prime trace claims: share of 'n mod p = r' claims that are correct (pooled over seeds)
+    pc = [c for c in (STEPS or {}).get("prime", []) if c["task"] == "prime" and c["model"] == "Qwen2.5-3B-Instruct"]
+    w_ = sum(c["n_steps_parsed"] for c in pc)
+    put("threeBprimeClaimAcc", "%.0f" % (100 * sum(c["step_arith_acc"] * c["n_steps_parsed"] for c in pc) / w_)
+        if w_ else TBD, "steps.json prime step_arith_acc")
+    # (F9c) generation-cap hits behind lower-bound cells
+    for key, mac in ((("prime", "base", 0, 0, M3), "threeBprimeBaseCap"), (("prime[fewshot4]", "base", 0, 0, M15),
+                     "primeFewCap"), (("div11", "base", 0, 0, M15), "divelevenBaseCap")):
+        r = run(*key)
+        put(mac, str(r.get("n_hit_cap")) if r and r.get("n_hit_cap") is not None else TBD, "n_hit_cap")
+
+
+def yes_rate(r):
+    pr, _ = preds(r)
+    return sum(x == "Yes" for x in pr) / len(pr) if pr else None
+
+
 # ------------------------------------------------------------------------------------------ run table
 def run_table():
-    arm_tex = {"base": "base", "A": "A", "B": "B", "C": "C", "Bprime": "B$'$", "A_tok": "A-full", "B_orn": "B-ext"}
+    arm_tex = {"base": "base", "A": "A", "B": "B", "C": "C", "Bprime": "B$'$", "A_tok": "A-full", "B_orn": "B-ext",
+               "D": "D", "S": "S"}
     order = list(PREFIX)
     rows = [r for r in RUNS if r["arm"] in arm_tex]
 
@@ -824,12 +1052,16 @@ def run_table():
                 r["n"], r["seed"])
     rows.sort(key=sort_key)
     L = ["% generated by paper/exp/make_numbers.py from the run files -- do not edit",
-         "\\begin{longtable}{lllrrrr}",
-         "\\caption{Every run, as logged (\\nTest{} test items per cell). Cell: the test set, prefixed by the "
-         "training task when they differ; [cot] and [fewshot4] mark prompting controls on the base model. "
-         "Train tokens: whitespace tokens in the completions.}\\label{tab:runs}\\\\",
-         "\\toprule", "model & cell & arm & $n$ & seed & train tokens & accuracy (\\%) \\\\", "\\midrule",
-         "\\endfirsthead", "\\toprule", "model & cell & arm & $n$ & seed & train tokens & accuracy (\\%) \\\\",
+         "\\begin{longtable}{lllrrrrrr}",
+         "\\caption{All logged runs of arms base, A, B, C, D, B$'$, S, A-full and B-ext (\\nTest{} test items per "
+         "cell). Cell: the test set, prefixed by the training task when they differ; [cot] and [fewshot4] mark "
+         "prompting controls on the base model. Train tokens: whitespace tokens in the completions. Cap: test "
+         "generations that hit the generation cap (scored wrong; -- where not logged). Yes: share of test items "
+         "answered Yes, from saved generations or recovered from per-item correctness; 0 or 100 marks a "
+         "constant-output collapse.}\\label{tab:runs}\\\\",
+         "\\toprule", "model & cell & arm & $n$ & seed & train tokens & cap & Yes (\\%) & acc.\\ (\\%) \\\\",
+         "\\midrule", "\\endfirsthead", "\\toprule",
+         "model & cell & arm & $n$ & seed & train tokens & cap & Yes (\\%) & acc.\\ (\\%) \\\\",
          "\\midrule", "\\endhead", "\\bottomrule", "\\endfoot"]
     last = None
     for r in rows:
@@ -838,12 +1070,103 @@ def run_table():
             L.append("\\midrule")
         last = grp
         cell = r["task"].replace("_", "\\_").replace("->", "$\\to$")
-        L.append("%s & %s & %s & %d & %d & %s & %.1f \\\\" % (
+        yr = yes_rate(r)
+        L.append("%s & %s & %s & %d & %d & %s & %s & %s & %.1f \\\\" % (
             C.short_model(r["model"]).replace("Qwen2.5-", "").replace("-Instruct", ""), cell, arm_tex[r["arm"]],
-            int(r["n"]), int(r["seed"]), thousands(r.get("train_tokens") or 0), 100 * r["acc"]))
+            int(r["n"]), int(r["seed"]), thousands(r.get("train_tokens") or 0),
+            str(r["n_hit_cap"]) if r.get("n_hit_cap") is not None else "--",
+            "%.0f" % (100 * yr) if yr is not None else "--", 100 * r["acc"]))
     L.append("\\end{longtable}")
     open(os.path.join(PAPER, "tab_runs.tex"), "w", encoding="utf-8").write("\n".join(L) + "\n")
     return len(rows)
+
+
+# ------------------------------------------------------------------------------------------ S12 + CoT evals
+def sweep_macros():
+    """S12 answer-only lr/epoch sweep (results/v2/sweep/, deliberately outside the main run files) and the
+    1.5B CoT-prompt evaluations of answer-only models (evals_*.jsonl, labelled '<task>[cot]')."""
+    sw_dir = os.path.join(ROOT, "results", "v2", "sweep")
+    test7 = TASKS["div7"]["test"]
+
+    def rows_of(fname):
+        f = os.path.join(sw_dir, fname)
+        return [json.loads(l) for l in open(f, encoding="utf-8") if l.strip()] if os.path.exists(f) else []
+
+    cells, configs = [], []
+    for lr_s, lw in (("2e-5", "Two"), ("5e-5", "Five")):
+        for ep, ew in ((10, "Ten"), (30, "Thirty")):
+            rows = rows_of("sweepA_div7_lr%s_ep%d.jsonl" % (lr_s, ep))
+            yes_by_seed, tok = {}, None
+            for s_, sw_ in ((0, "SZero"), (1, "SOne")):
+                r = next((x for x in rows if int(x["seed"]) == s_ and x.get("acc") is not None), None)
+                name = "sweepAlr%sEp%s%s" % (lw, ew, sw_)
+                if r:
+                    bits = C.decode_bits(r["bits"], int(r.get("n_test") or 240))
+                    pr = C.recover_preds(bits, test7)
+                    yes = sum(1 for p_ in pr if p_ == "Yes") / len(pr)
+                    yes_by_seed[s_] = yes
+                    put(name, pct(r["acc"]), "S12 sweep " + r.get("gens_path", ""))
+                    put(name + "Yes", "%.2f" % yes, "S12 Yes-rate (recovered from bits and labels)")
+                    cells.append((r["acc"], "lr %s, %d epochs, seed %d" % (lr_s, ep, s_)))
+                    tok = int(r.get("train_tokens") or 0) * int(r.get("epochs") or ep)
+                else:
+                    put(name, DASH, "S12 cell not landed")
+                    put(name + "Yes", DASH, "S12 cell not landed")
+            put("sweepAlr%sEp%sTok" % (lw, ew), thousands(tok) if tok else DASH,
+                "supervised whitespace tokens summed over epochs (train_tokens x epochs)")
+            configs.append(yes_by_seed)
+    n_cells = len(cells)
+    if cells:
+        best = max(cells)
+        put("sweepAmax", pct(best[0]), "best div7 A accuracy in the sweep")
+        put("sweepAmaxConfig", best[1], "config of the best cell")
+    else:
+        put("sweepAmax", DASH, "S12 not landed")
+        put("sweepAmaxConfig", DASH, "S12 not landed")
+    non_collapse = sum(1 for y in configs if len(y) == 2 and all(0.2 <= v <= 0.8 for v in y.values()))
+    put("sweepAnonCollapse", str(non_collapse) if n_cells else DASH, "configs with Yes-rate in [0.2, 0.8] in both seeds")
+    d3 = next((x for x in rows_of("sweepA_div3_lr5e-5_ep10.jsonl") if x.get("acc") is not None), None)
+    put("sweepDivthreeA", pct(d3["acc"]) if d3 else DASH, "S12 positive control div3 A lr 5e-5, 10 epochs")
+    if cells and max(c[0] for c in cells) >= 0.65:
+        verdict = "failed"
+    elif n_cells == 8 and d3:
+        verdict = "passed" if (non_collapse >= 1 and d3["acc"] >= 0.90) else "failed"
+    else:
+        verdict = "not complete"
+    put("STwelveVerdict", verdict, "S12 rule: no div7 A >= 65%, >= 1 non-collapsing config, div3 A >= 90%")
+    if n_cells:
+        put("STwelveResult", "the best of %d answer-only configurations reaches %s\\%% on div7 (%s), %d of 4 "
+            "configurations avoid a constant answer in both seeds, and the div3 control reaches %s\\%%"
+            % (n_cells, pct(max(cells)[0]), max(cells)[1], non_collapse, pct(d3["acc"]) if d3 else DASH),
+            "S12 summary")
+    else:
+        put("STwelveResult", "the answer-only sweep had not finished by submission", "S12 not landed")
+    # 1.5B CoT-prompt evaluations of answer-only models
+    a0, a1 = run("div7[cot]", "A", MAIN_N, 0), run("div7[cot]", "A", MAIN_N, 1)
+    put("divsevenAcotsZero", pct(a0["acc"]) if a0 else DASH, "A retrained, CoT-prompt eval, seed 0")
+    put("divsevenAcotsOne", pct(a1["acc"]) if a1 else DASH, "A retrained, CoT-prompt eval, seed 1")
+    got = [r["acc"] for r in (a0, a1) if r]
+    put("divsevenAcot", pct(mean(got)) if got else DASH, "mean over landed seeds")
+    b13 = run("div13[cot]", "base", 0, 0)
+    put("divthirteenBaseCot", pct(b13["acc"]) if b13 else DASH, "1.5B base, CoT prompt, div13")
+    a13 = run("div13[cot]", "A", MAIN_N, 0)
+    put("divthirteenAcot", pct(a13["acc"]) if a13 else DASH, "A seed-0 adapter, CoT-prompt eval, div13")
+    ap_ = run("prime[cot]", "A", MAIN_N, 0)
+    put("primeAcot", pct(ap_["acc"]) if ap_ else DASH, "A seed-0 adapter, CoT-prompt eval, prime")
+    # does the A model reason under the CoT prompt? generated-token counts from the saved gens
+    gdir = os.path.join(ROOT, "results", "v2", "gens", C.short_model(M15))
+
+    def gen_rows(name):
+        f = os.path.join(gdir, name + ".jsonl")
+        return [json.loads(l) for l in open(f, encoding="utf-8") if l.strip()] if os.path.exists(f) else []
+    a_rows = gen_rows("div7_A_180_0__cot") + gen_rows("div7_A_180_1__cot")
+    put("divsevenAcotMaxTok", str(max(r["n_gen_tokens"] for r in a_rows)) if a_rows else DASH,
+        "max generated tokens, A under the CoT prompt, landed seeds")
+    put("divsevenAcotYes", "%.2f" % (sum(1 for r in a_rows if r.get("pred") == "Yes") / len(a_rows)) if a_rows else DASH,
+        "Yes-rate of A under the CoT prompt, landed seeds pooled")
+    b_rows = gen_rows("div7_base_0_0__cot")
+    put("divsevenBaseCotMedTok", "%d" % median(r["n_gen_tokens"] for r in b_rows) if b_rows else DASH,
+        "median generated tokens, base under the CoT prompt")
 
 
 # ------------------------------------------------------------------------------------------ main
@@ -859,6 +1182,8 @@ def main():
     prereg_macros(p)
     review_macros()
     scale_macros()
+    late_macros()
+    sweep_macros()
     n_rows = run_table()
     with open(os.path.join(PAPER, "numbers.tex"), "w", encoding="utf-8") as f:
         f.write("% generated by paper/exp/make_numbers.py -- do not edit; re-run the script\n")

@@ -83,3 +83,45 @@ commit timestamps, which are the authoritative record.
   unlock the task: div7 S accuracy <= 65% in seeds 0 and 1, and fewer than half of the kept div7 traces have all
   remainders correct. On valid, where answers are surface-learnable, S >= 90%. Prime S is reported without a
   prediction.
+- 2026-09-26 (time = this commit) **S10 (primary) FAILED as preregistered on its accuracy clause.** 1.5B div7 arm S seed 0 =
+  77.9% (> 65%), so the rule "div7 S <= 65% in seeds 0 and 1" cannot hold whatever seed 1 gives. The trace clause holds:
+  36.5% of the 159 kept div7 traces have every remainder correct (< half). For reference, the 1.5B base model with the
+  chain-of-thought prompt scores 67.1% and arm A about 50%. Secondary cells point the same way: 3B div7 S 97.5% / 96.2%
+  (seeds 0/1; 13.9% / 14.5% of kept traces fully correct), 7B div7 S 82.1% (26.7%). Outcome-only filtering kept traces
+  whose steps are mostly wrong and still lifted answer accuracy above arm A at every size. Seed 1, prime S and valid S
+  at 1.5B are still running and will be reported.
+- 2026-09-26 (time = this commit) **Wording note (no change to any rule or verdict).** The seed-0 div7 B@180 value reported as
+  "reproduced by a re-run" (92.5%) came from a deterministic re-execution of the same cell with the same seed and code;
+  the paper now calls it that. The per-step accuracy written p in this file is written q in the paper, to keep it apart
+  from McNemar p-values.
+- 2026-09-26 (time = this commit) **S11 (second model family), preregistered before any of its cells ran.** Model:
+  meta-llama/Llama-3.2-3B-Instruct if the RTX 5090 machine can download it, otherwise HuggingFaceTB/SmolLM2-1.7B-Instruct;
+  the script records which one ran (results/v2/second_family_model.txt) before its first cell. Same data, prompts, LoRA
+  and n = 180 as the Qwen cells (queue results/queues/q5_family.txt). Predictions: (a, primary) div7 B - A >= 20 pp in
+  seeds 0 and 1; (b) div7 D (correct trace of a different number) within 10 pp of A in seed 0. S11 passes if (a) and
+  (b) hold. prime and valid A/B and div7 base are reported without a prediction.
+- 2026-09-26 (time = this commit) **Correction to the S10 entry above (post hoc, analysis only).** The trace-correctness
+  numbers quoted there (36.5% at 1.5B, 13.9% / 14.5% at 3B, 26.7% at 7B) come from the worker's parser, which only
+  recognises the long-division format. Self-generated traces often divide directly ("n / 7 = q", "\div", decimals). An
+  extended re-audit of the saved traces (experiments/analysis_steps.py, gate unchanged) finds 62.9% of kept 1.5B div7
+  traces fully correct, and at 3B it parses 97.7% of kept traces, 96.4% of which are correct. So the sentence "kept traces
+  whose steps are mostly wrong" is withdrawn. S10's accuracy clause failed either way; its trace clause holds under the
+  preregistered parser and fails under the re-audit. Both are reported.
+- 2026-09-26 (time = this commit) **S10, remaining 1.5B cells.** valid S seed 0 = 64.6%, so the clause "on valid, S >= 90%"
+  also fails. prime S seed 0 = 67.1% (no prediction). div7 S seed 1 is running and will be reported.
+- 2026-09-26 (time = this commit) **S10, last primary cell.** 1.5B div7 S seed 1 = 65.8% (limit <= 65%). With seed 0 at
+  77.9%, the accuracy clause fails in both seeds. S10 is reported as failed.
+- 2026-09-26 (time = this commit) **S12 (answer-only optimisation sweep), preregistered before any of its cells ran.**
+  Reviewers asked whether arm A's chance-level div7 accuracy (and its constant-answer collapse at 3B and at 1.5B n=540)
+  is an optimisation failure of the single untuned configuration (lr 2e-4, 3 epochs). Cells: 1.5B div7 arm A, n = 180,
+  lr in {2e-5, 5e-5} x epochs in {10, 30}, seeds 0 and 1 (10-30 epochs give A 3,600-10,800 supervised answer tokens,
+  about B's budget at 3 epochs); positive control 1.5B div3 A, lr 5e-5, 10 epochs, seed 0. Queues in
+  results/queues/sweepA/, rows in results/v2/sweep/ (kept out of the main analysis files). Decision rule: S12 holds if
+  no A configuration reaches div7 >= 65% in either seed, AND at least one configuration does not collapse (Yes-rate in
+  [0.2, 0.8]), AND div3 A >= 90%. If any configuration reaches >= 65% on div7, the claim that answer-only supervision
+  cannot learn div7 at this n is withdrawn and the paper says so. Every cell is reported.
+- 2026-09-26 (time = this commit) **Correction to the S12 entry (wording only; the decision rule is unchanged).** The
+  parenthesis "(10-30 epochs give A 3,600-10,800 supervised answer tokens, about B's budget at 3 epochs)" is off by a
+  factor of 3. Per epoch, A's 180 completions have 360 whitespace tokens and B's 10,800 (train_tokens in the run rows),
+  so A gets 3,600 tokens over 10 epochs and 10,800 over 30 epochs: A at 30 epochs matches B's tokens per epoch, not
+  B's 3-epoch total (32,400).

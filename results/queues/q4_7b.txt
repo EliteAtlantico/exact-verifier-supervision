@@ -1,0 +1,7 @@
+# fourth 5090 package, Qwen2.5-7B-Instruct: seed 1 for single-seed cells (valid collapse, controls D and B', div11)
+valid A 180 1
+valid B 180 1
+div7 D 180 1
+div7 Bprime 180 1
+div11 A 180 1
+div11 B 180 1

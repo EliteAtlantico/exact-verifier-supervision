@@ -1,0 +1,2 @@
+# fourth 5090 package, arm S seed 1 (run with the model given on the command line)
+div7 S 180 1

@@ -37,6 +37,7 @@ Z = 1.959963984540054
 # (name, X arm, Y arm, Y prompt mode or None = same as X). Base runs are seed-independent greedy decoding.
 COMPARISONS = [("B-A", "B", "A", None), ("B-C", "B", "C", None), ("A-base", "A", "base", None),
                ("B-base", "B", "base", None), ("D-A", "D", "A", None), ("B-D", "B", "D", None),
+               ("S-A", "S", "A", None), ("B-S", "B", "S", None),
                ("B-Bprime", "B", "Bprime", None), ("B-base[cot]", "B", "base", "cot"),
                ("B-base[fewshot4]", "B", "base", "fewshot4")]
 

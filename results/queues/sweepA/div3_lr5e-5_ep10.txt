@@ -1,0 +1,2 @@
+# S12 positive control, 1.5B div3 A n=180, lr 5e-5, 10 epochs
+div3 A 180 0 --lr 5e-5 --epochs 10 --no-save-adapter --save-dir results/v2/sweep/gens

@@ -75,6 +75,325 @@
    }
   },
   {
+   "task": "div11",
+   "eval_task": "div11",
+   "train_task": "div11",
+   "arm": "B",
+   "n": 180,
+   "seed": 0,
+   "model": "Qwen2.5-3B-Instruct",
+   "prompt_mode": "plain",
+   "gens_path": "results/v2/gens/Qwen2.5-3B-Instruct/div11_B_180_0.jsonl",
+   "n_items": 240,
+   "k": 4,
+   "answer_acc": 0.9958333333333333,
+   "parse_rate": 1.0,
+   "exact_k_steps_rate": 1.0,
+   "p_uncond": 0.9979166666666667,
+   "p_cond": 0.9989572471324296,
+   "p_cond_by_position": [
+    1.0,
+    1.0,
+    0.9958333333333333,
+    1.0
+   ],
+   "p_cond_after_first_step": 0.9986091794158554,
+   "p_uncond_by_position": [
+    1.0,
+    1.0,
+    0.9958333333333333,
+    0.9958333333333333
+   ],
+   "local_arith_acc": 0.9989583333333333,
+   "local_arith_by_position": [
+    1.0,
+    1.0,
+    0.9958333333333333,
+    1.0
+   ],
+   "local_arith_pow_k": 0.9958398392300545,
+   "arith_on_claimed_operands_acc": 0.9989583333333333,
+   "digit_copy_acc": 1.0,
+   "carry_consistency": 1.0,
+   "trace_correct_rate": 0.9958333333333333,
+   "answer_trace_consistency": 1.0,
+   "n_consistency_items": 240,
+   "answer_acc_given_trace_correct": 1.0,
+   "answer_acc_given_trace_wrong": 0.0,
+   "predicted_acc_p_cond_pow_k": 0.995835507996877,
+   "predicted_acc_prod_p_i": 0.9958333333333333,
+   "post_hoc_predicted_answer_acc_own_g": 0.995835507996877,
+   "observed_minus_predicted_pp": -0.00021746635436858952,
+   "ground_truth_mismatches": 0,
+   "yes_rate": 0.49583333333333335,
+   "error_anatomy": {
+    "n_wrong_traces": 1,
+    "first_error_position": {
+     "3": 1
+    },
+    "final_remainder_of_wrong_traces": {
+     "1": 1
+    },
+    "wrong_traces_ending_in_0": 0.0
+   }
+  },
+  {
+   "task": "div11",
+   "eval_task": "div11",
+   "train_task": "div11",
+   "arm": "B",
+   "n": 180,
+   "seed": 0,
+   "model": "Qwen2.5-7B-Instruct",
+   "prompt_mode": "plain",
+   "gens_path": "results/v2/gens/Qwen2.5-7B-Instruct/div11_B_180_0.jsonl",
+   "n_items": 240,
+   "k": 4,
+   "answer_acc": 0.9875,
+   "parse_rate": 1.0,
+   "exact_k_steps_rate": 1.0,
+   "p_uncond": 0.99375,
+   "p_cond": 0.9968652037617555,
+   "p_cond_by_position": [
+    1.0,
+    1.0,
+    0.9875,
+    1.0
+   ],
+   "p_cond_after_first_step": 0.99581589958159,
+   "p_uncond_by_position": [
+    1.0,
+    1.0,
+    0.9875,
+    0.9875
+   ],
+   "local_arith_acc": 0.996875,
+   "local_arith_by_position": [
+    1.0,
+    1.0,
+    0.9875,
+    1.0
+   ],
+   "local_arith_pow_k": 0.9875584717750547,
+   "arith_on_claimed_operands_acc": 0.9989583333333333,
+   "digit_copy_acc": 0.9979166666666667,
+   "carry_consistency": 1.0,
+   "trace_correct_rate": 0.9875,
+   "answer_trace_consistency": 1.0,
+   "n_consistency_items": 240,
+   "answer_acc_given_trace_correct": 1.0,
+   "answer_acc_given_trace_wrong": 0.0,
+   "predicted_acc_p_cond_pow_k": 0.987519653606411,
+   "predicted_acc_prod_p_i": 0.9875,
+   "post_hoc_predicted_answer_acc_own_g": 0.987519653606411,
+   "observed_minus_predicted_pp": -0.0019653606410985347,
+   "ground_truth_mismatches": 0,
+   "yes_rate": 0.4875,
+   "error_anatomy": {
+    "n_wrong_traces": 3,
+    "first_error_position": {
+     "3": 3
+    },
+    "final_remainder_of_wrong_traces": {
+     "3": 1,
+     "8": 1,
+     "10": 1
+    },
+    "wrong_traces_ending_in_0": 0.0
+   }
+  },
+  {
+   "task": "div11",
+   "eval_task": "div11",
+   "train_task": "div11",
+   "arm": "B",
+   "n": 180,
+   "seed": 1,
+   "model": "Qwen2.5-1.5B-Instruct",
+   "prompt_mode": "plain",
+   "gens_path": "results/v2/gens/Qwen2.5-1.5B-Instruct/div11_B_180_1.jsonl",
+   "n_items": 240,
+   "k": 4,
+   "answer_acc": 0.9916666666666667,
+   "parse_rate": 1.0,
+   "exact_k_steps_rate": 1.0,
+   "p_uncond": 0.9927083333333333,
+   "p_cond": 0.9937434827945777,
+   "p_cond_by_position": [
+    1.0,
+    1.0,
+    0.9958333333333333,
+    0.9790794979079498
+   ],
+   "p_cond_after_first_step": 0.9916550764951322,
+   "p_uncond_by_position": [
+    1.0,
+    1.0,
+    0.9958333333333333,
+    0.975
+   ],
+   "local_arith_acc": 0.99375,
+   "local_arith_by_position": [
+    1.0,
+    1.0,
+    0.9958333333333333,
+    0.9791666666666666
+   ],
+   "local_arith_pow_k": 0.975233399963379,
+   "arith_on_claimed_operands_acc": 0.99375,
+   "digit_copy_acc": 1.0,
+   "carry_consistency": 1.0,
+   "trace_correct_rate": 0.975,
+   "answer_trace_consistency": 0.9958333333333333,
+   "n_consistency_items": 240,
+   "answer_acc_given_trace_correct": 0.9957264957264957,
+   "answer_acc_given_trace_wrong": 0.8333333333333334,
+   "predicted_acc_p_cond_pow_k": 0.9752078171351879,
+   "predicted_acc_prod_p_i": 0.975,
+   "post_hoc_predicted_answer_acc_own_g": 0.9958679695225313,
+   "observed_minus_predicted_pp": 1.6458849531478803,
+   "ground_truth_mismatches": 0,
+   "yes_rate": 0.49166666666666664,
+   "error_anatomy": {
+    "n_wrong_traces": 6,
+    "first_error_position": {
+     "3": 1,
+     "4": 5
+    },
+    "final_remainder_of_wrong_traces": {
+     "1": 1,
+     "2": 1,
+     "9": 2,
+     "10": 2
+    },
+    "wrong_traces_ending_in_0": 0.0
+   }
+  },
+  {
+   "task": "div11",
+   "eval_task": "div11",
+   "train_task": "div11",
+   "arm": "B",
+   "n": 180,
+   "seed": 1,
+   "model": "Qwen2.5-3B-Instruct",
+   "prompt_mode": "plain",
+   "gens_path": "results/v2/gens/Qwen2.5-3B-Instruct/div11_B_180_1.jsonl",
+   "n_items": 240,
+   "k": 4,
+   "answer_acc": 1.0,
+   "parse_rate": 1.0,
+   "exact_k_steps_rate": 1.0,
+   "p_uncond": 1.0,
+   "p_cond": 1.0,
+   "p_cond_by_position": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "p_cond_after_first_step": 1.0,
+   "p_uncond_by_position": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "local_arith_acc": 1.0,
+   "local_arith_by_position": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "local_arith_pow_k": 1.0,
+   "arith_on_claimed_operands_acc": 1.0,
+   "digit_copy_acc": 1.0,
+   "carry_consistency": 1.0,
+   "trace_correct_rate": 1.0,
+   "answer_trace_consistency": 1.0,
+   "n_consistency_items": 240,
+   "answer_acc_given_trace_correct": 1.0,
+   "answer_acc_given_trace_wrong": null,
+   "predicted_acc_p_cond_pow_k": 1.0,
+   "predicted_acc_prod_p_i": 1.0,
+   "post_hoc_predicted_answer_acc_own_g": null,
+   "observed_minus_predicted_pp": 0.0,
+   "ground_truth_mismatches": 0,
+   "yes_rate": 0.5,
+   "error_anatomy": {
+    "n_wrong_traces": 0,
+    "first_error_position": {},
+    "final_remainder_of_wrong_traces": {},
+    "wrong_traces_ending_in_0": null
+   }
+  },
+  {
+   "task": "div11",
+   "eval_task": "div11",
+   "train_task": "div11",
+   "arm": "B",
+   "n": 180,
+   "seed": 2,
+   "model": "Qwen2.5-1.5B-Instruct",
+   "prompt_mode": "plain",
+   "gens_path": "results/v2/gens/Qwen2.5-1.5B-Instruct/div11_B_180_2.jsonl",
+   "n_items": 240,
+   "k": 4,
+   "answer_acc": 1.0,
+   "parse_rate": 1.0,
+   "exact_k_steps_rate": 0.9958333333333333,
+   "p_uncond": 0.996875,
+   "p_cond": 0.9979144942648592,
+   "p_cond_by_position": [
+    1.0,
+    1.0,
+    0.9958333333333333,
+    0.99581589958159
+   ],
+   "p_cond_after_first_step": 0.9972183588317107,
+   "p_uncond_by_position": [
+    1.0,
+    1.0,
+    0.9958333333333333,
+    0.9916666666666667
+   ],
+   "local_arith_acc": 0.996875,
+   "local_arith_by_position": [
+    1.0,
+    1.0,
+    0.9958333333333333,
+    0.9916666666666667
+   ],
+   "local_arith_pow_k": 0.9875584717750547,
+   "arith_on_claimed_operands_acc": 0.9989572471324296,
+   "digit_copy_acc": 0.9989572471324296,
+   "carry_consistency": 1.0,
+   "trace_correct_rate": 0.9916666666666667,
+   "answer_trace_consistency": 1.0,
+   "n_consistency_items": 240,
+   "answer_acc_given_trace_correct": 1.0,
+   "answer_acc_given_trace_wrong": 1.0,
+   "predicted_acc_p_cond_pow_k": 0.991684036801136,
+   "predicted_acc_prod_p_i": 0.9916666666666667,
+   "post_hoc_predicted_answer_acc_own_g": 1.0,
+   "observed_minus_predicted_pp": 0.8315963198863963,
+   "ground_truth_mismatches": 0,
+   "yes_rate": 0.5,
+   "error_anatomy": {
+    "n_wrong_traces": 2,
+    "first_error_position": {
+     "3": 1,
+     "4": 1
+    },
+    "final_remainder_of_wrong_traces": {
+     "3": 1,
+     "21": 1
+    },
+    "wrong_traces_ending_in_0": 0.0
+   }
+  },
+  {
    "task": "div13",
    "eval_task": "div13",
    "train_task": "div13",
@@ -151,6 +470,625 @@
    "eval_task": "div13",
    "train_task": "div13",
    "arm": "B",
+   "n": 180,
+   "seed": 0,
+   "model": "Qwen2.5-3B-Instruct",
+   "prompt_mode": "plain",
+   "gens_path": "results/v2/gens/Qwen2.5-3B-Instruct/div13_B_180_0.jsonl",
+   "n_items": 240,
+   "k": 4,
+   "answer_acc": 0.5291666666666667,
+   "parse_rate": 0.9875,
+   "exact_k_steps_rate": 0.9875,
+   "p_uncond": 0.459375,
+   "p_cond": 0.6112054329371817,
+   "p_cond_by_position": [
+    0.9875,
+    0.34177215189873417,
+    0.30864197530864196,
+    0.5483870967741935
+   ],
+   "p_cond_after_first_step": 0.3524355300859599,
+   "p_uncond_by_position": [
+    0.9875,
+    0.3375,
+    0.12916666666666668,
+    0.38333333333333336
+   ],
+   "local_arith_acc": 0.46875,
+   "local_arith_by_position": [
+    0.9875,
+    0.3375,
+    0.275,
+    0.275
+   ],
+   "local_arith_pow_k": 0.048279762268066406,
+   "arith_on_claimed_operands_acc": 0.47362869198312235,
+   "digit_copy_acc": 0.9978902953586498,
+   "carry_consistency": 1.0,
+   "trace_correct_rate": 0.058333333333333334,
+   "answer_trace_consistency": 1.0,
+   "n_consistency_items": 237,
+   "answer_acc_given_trace_correct": 1.0,
+   "answer_acc_given_trace_wrong": 0.5,
+   "predicted_acc_p_cond_pow_k": 0.13955609989089685,
+   "predicted_acc_prod_p_i": 0.05712365591397849,
+   "post_hoc_predicted_answer_acc_own_g": 0.5697780499454483,
+   "observed_minus_predicted_pp": 38.961056677576984,
+   "ground_truth_mismatches": 0,
+   "yes_rate": 0.6958333333333333,
+   "error_anatomy": {
+    "n_wrong_traces": 226,
+    "first_error_position": {
+     "2": 156,
+     "3": 56,
+     "4": 11,
+     "short": 3
+    },
+    "final_remainder_of_wrong_traces": {
+     "0": 154,
+     "1": 4,
+     "2": 2,
+     "3": 6,
+     "4": 3,
+     "5": 6,
+     "6": 6,
+     "7": 4,
+     "8": 2,
+     "9": 3,
+     "10": 6,
+     "11": 13,
+     "12": 14,
+     "none": 3
+    },
+    "wrong_traces_ending_in_0": 0.6814159292035398
+   }
+  },
+  {
+   "task": "div13",
+   "eval_task": "div13",
+   "train_task": "div13",
+   "arm": "B",
+   "n": 180,
+   "seed": 0,
+   "model": "Qwen2.5-7B-Instruct",
+   "prompt_mode": "plain",
+   "gens_path": "results/v2/gens/Qwen2.5-7B-Instruct/div13_B_180_0.jsonl",
+   "n_items": 240,
+   "k": 4,
+   "answer_acc": 0.6125,
+   "parse_rate": 1.0,
+   "exact_k_steps_rate": 1.0,
+   "p_uncond": 0.54375,
+   "p_cond": 0.7360114777618364,
+   "p_cond_by_position": [
+    1.0,
+    0.5416666666666666,
+    0.6384615384615384,
+    0.6896551724137931
+   ],
+   "p_cond_after_first_step": 0.5973741794310722,
+   "p_uncond_by_position": [
+    1.0,
+    0.5416666666666666,
+    0.3625,
+    0.2708333333333333
+   ],
+   "local_arith_acc": 0.7052083333333333,
+   "local_arith_by_position": [
+    1.0,
+    0.5416666666666666,
+    0.65,
+    0.6291666666666667
+   ],
+   "local_arith_pow_k": 0.24732598227159475,
+   "arith_on_claimed_operands_acc": 0.70625,
+   "digit_copy_acc": 0.9989583333333333,
+   "carry_consistency": 1.0,
+   "trace_correct_rate": 0.2375,
+   "answer_trace_consistency": 0.9583333333333334,
+   "n_consistency_items": 240,
+   "answer_acc_given_trace_correct": 0.9649122807017544,
+   "answer_acc_given_trace_wrong": 0.5027322404371585,
+   "predicted_acc_p_cond_pow_k": 0.2934528610395768,
+   "predicted_acc_prod_p_i": 0.23850574712643677,
+   "post_hoc_predicted_answer_acc_own_g": 0.6486568871836147,
+   "observed_minus_predicted_pp": 31.904713896042324,
+   "ground_truth_mismatches": 0,
+   "yes_rate": 0.2625,
+   "error_anatomy": {
+    "n_wrong_traces": 183,
+    "first_error_position": {
+     "2": 110,
+     "3": 47,
+     "4": 26
+    },
+    "final_remainder_of_wrong_traces": {
+     "0": 19,
+     "1": 9,
+     "2": 17,
+     "3": 10,
+     "4": 10,
+     "5": 14,
+     "6": 12,
+     "7": 18,
+     "8": 18,
+     "9": 35,
+     "10": 2,
+     "11": 11,
+     "12": 8
+    },
+    "wrong_traces_ending_in_0": 0.10382513661202186
+   }
+  },
+  {
+   "task": "div13",
+   "eval_task": "div13",
+   "train_task": "div13",
+   "arm": "B",
+   "n": 180,
+   "seed": 1,
+   "model": "Qwen2.5-1.5B-Instruct",
+   "prompt_mode": "plain",
+   "gens_path": "results/v2/gens/Qwen2.5-1.5B-Instruct/div13_B_180_1.jsonl",
+   "n_items": 240,
+   "k": 4,
+   "answer_acc": 0.49166666666666664,
+   "parse_rate": 1.0,
+   "exact_k_steps_rate": 1.0,
+   "p_uncond": 0.4239583333333333,
+   "p_cond": 0.608130081300813,
+   "p_cond_by_position": [
+    1.0,
+    0.39166666666666666,
+    0.2978723404255319,
+    0.2926829268292683
+   ],
+   "p_cond_after_first_step": 0.35733333333333334,
+   "p_uncond_by_position": [
+    1.0,
+    0.39166666666666666,
+    0.17083333333333334,
+    0.13333333333333333
+   ],
+   "local_arith_acc": 0.45729166666666665,
+   "local_arith_by_position": [
+    1.0,
+    0.39166666666666666,
+    0.19583333333333333,
+    0.24166666666666667
+   ],
+   "local_arith_pow_k": 0.043729362771540506,
+   "arith_on_claimed_operands_acc": 0.45729166666666665,
+   "digit_copy_acc": 1.0,
+   "carry_consistency": 0.9989583333333333,
+   "trace_correct_rate": 0.03333333333333333,
+   "answer_trace_consistency": 1.0,
+   "n_consistency_items": 240,
+   "answer_acc_given_trace_correct": 1.0,
+   "answer_acc_given_trace_wrong": 0.47413793103448276,
+   "predicted_acc_p_cond_pow_k": 0.13676845649371036,
+   "predicted_acc_prod_p_i": 0.03414634146341463,
+   "post_hoc_predicted_answer_acc_own_g": 0.5460592745354856,
+   "observed_minus_predicted_pp": 35.48982101729563,
+   "ground_truth_mismatches": 0,
+   "yes_rate": 0.18333333333333332,
+   "error_anatomy": {
+    "n_wrong_traces": 232,
+    "first_error_position": {
+     "2": 146,
+     "3": 66,
+     "4": 20
+    },
+    "final_remainder_of_wrong_traces": {
+     "0": 39,
+     "1": 7,
+     "2": 20,
+     "3": 1,
+     "4": 8,
+     "5": 33,
+     "6": 29,
+     "7": 35,
+     "8": 25,
+     "9": 11,
+     "10": 7,
+     "11": 4,
+     "12": 9,
+     "15": 2,
+     "16": 2
+    },
+    "wrong_traces_ending_in_0": 0.16810344827586207
+   }
+  },
+  {
+   "task": "div13",
+   "eval_task": "div13",
+   "train_task": "div13",
+   "arm": "B",
+   "n": 180,
+   "seed": 1,
+   "model": "Qwen2.5-3B-Instruct",
+   "prompt_mode": "plain",
+   "gens_path": "results/v2/gens/Qwen2.5-3B-Instruct/div13_B_180_1.jsonl",
+   "n_items": 240,
+   "k": 4,
+   "answer_acc": 0.5916666666666667,
+   "parse_rate": 1.0,
+   "exact_k_steps_rate": 1.0,
+   "p_uncond": 0.4895833333333333,
+   "p_cond": 0.6588050314465409,
+   "p_cond_by_position": [
+    1.0,
+    0.44166666666666665,
+    0.4056603773584906,
+    0.6
+   ],
+   "p_cond_after_first_step": 0.45202020202020204,
+   "p_uncond_by_position": [
+    1.0,
+    0.44166666666666665,
+    0.20833333333333334,
+    0.30833333333333335
+   ],
+   "local_arith_acc": 0.5375,
+   "local_arith_by_position": [
+    1.0,
+    0.44166666666666665,
+    0.35,
+    0.35833333333333334
+   ],
+   "local_arith_pow_k": 0.08346682128906249,
+   "arith_on_claimed_operands_acc": 0.5375,
+   "digit_copy_acc": 1.0,
+   "carry_consistency": 1.0,
+   "trace_correct_rate": 0.1125,
+   "answer_trace_consistency": 1.0,
+   "n_consistency_items": 240,
+   "answer_acc_given_trace_correct": 1.0,
+   "answer_acc_given_trace_wrong": 0.539906103286385,
+   "predicted_acc_p_cond_pow_k": 0.18837689286999196,
+   "predicted_acc_prod_p_i": 0.1075,
+   "post_hoc_predicted_answer_acc_own_g": 0.6265771619777428,
+   "observed_minus_predicted_pp": 40.32897737966748,
+   "ground_truth_mismatches": 0,
+   "yes_rate": 0.425,
+   "error_anatomy": {
+    "n_wrong_traces": 213,
+    "first_error_position": {
+     "2": 134,
+     "3": 63,
+     "4": 16
+    },
+    "final_remainder_of_wrong_traces": {
+     "0": 83,
+     "1": 10,
+     "2": 7,
+     "3": 10,
+     "4": 11,
+     "5": 10,
+     "6": 20,
+     "7": 24,
+     "8": 17,
+     "9": 7,
+     "10": 3,
+     "11": 6,
+     "12": 5
+    },
+    "wrong_traces_ending_in_0": 0.38967136150234744
+   }
+  },
+  {
+   "task": "div13",
+   "eval_task": "div13",
+   "train_task": "div13",
+   "arm": "B",
+   "n": 180,
+   "seed": 1,
+   "model": "Qwen2.5-7B-Instruct",
+   "prompt_mode": "plain",
+   "gens_path": "results/v2/gens/Qwen2.5-7B-Instruct/div13_B_180_1.jsonl",
+   "n_items": 240,
+   "k": 4,
+   "answer_acc": 0.6583333333333333,
+   "parse_rate": 1.0,
+   "exact_k_steps_rate": 0.9541666666666667,
+   "p_uncond": 0.5927083333333333,
+   "p_cond": 0.7573221757322176,
+   "p_cond_by_position": [
+    1.0,
+    0.5958333333333333,
+    0.6293706293706294,
+    0.7446808510638298
+   ],
+   "p_cond_after_first_step": 0.6352201257861635,
+   "p_uncond_by_position": [
+    1.0,
+    0.5958333333333333,
+    0.39166666666666666,
+    0.38333333333333336
+   ],
+   "local_arith_acc": 0.71875,
+   "local_arith_by_position": [
+    1.0,
+    0.5958333333333333,
+    0.6291666666666667,
+    0.65
+   ],
+   "local_arith_pow_k": 0.2668771743774414,
+   "arith_on_claimed_operands_acc": 0.7276550998948476,
+   "digit_copy_acc": 0.9957939011566772,
+   "carry_consistency": 1.0,
+   "trace_correct_rate": 0.2791666666666667,
+   "answer_trace_consistency": 0.9875,
+   "n_consistency_items": 240,
+   "answer_acc_given_trace_correct": 1.0,
+   "answer_acc_given_trace_wrong": 0.5260115606936416,
+   "predicted_acc_p_cond_pow_k": 0.3289445502605558,
+   "predicted_acc_prod_p_i": 0.27925531914893614,
+   "post_hoc_predicted_answer_acc_own_g": 0.6819274746899744,
+   "observed_minus_predicted_pp": 32.938878307277754,
+   "ground_truth_mismatches": 0,
+   "yes_rate": 0.35,
+   "error_anatomy": {
+    "n_wrong_traces": 173,
+    "first_error_position": {
+     "2": 97,
+     "3": 53,
+     "4": 20,
+     "short": 3
+    },
+    "final_remainder_of_wrong_traces": {
+     "0": 48,
+     "1": 12,
+     "2": 4,
+     "3": 3,
+     "4": 10,
+     "5": 14,
+     "6": 10,
+     "7": 11,
+     "8": 15,
+     "9": 23,
+     "10": 3,
+     "11": 11,
+     "12": 9
+    },
+    "wrong_traces_ending_in_0": 0.2774566473988439
+   }
+  },
+  {
+   "task": "div13",
+   "eval_task": "div13",
+   "train_task": "div13",
+   "arm": "B",
+   "n": 180,
+   "seed": 2,
+   "model": "Qwen2.5-1.5B-Instruct",
+   "prompt_mode": "plain",
+   "gens_path": "results/v2/gens/Qwen2.5-1.5B-Instruct/div13_B_180_2.jsonl",
+   "n_items": 240,
+   "k": 4,
+   "answer_acc": 0.5791666666666667,
+   "parse_rate": 1.0,
+   "exact_k_steps_rate": 1.0,
+   "p_uncond": 0.446875,
+   "p_cond": 0.6067796610169491,
+   "p_cond_by_position": [
+    1.0,
+    0.3125,
+    0.32,
+    0.5428571428571428
+   ],
+   "p_cond_after_first_step": 0.33714285714285713,
+   "p_uncond_by_position": [
+    1.0,
+    0.3125,
+    0.14583333333333334,
+    0.32916666666666666
+   ],
+   "local_arith_acc": 0.478125,
+   "local_arith_by_position": [
+    1.0,
+    0.3125,
+    0.2791666666666667,
+    0.32083333333333336
+   ],
+   "local_arith_pow_k": 0.05225956735610963,
+   "arith_on_claimed_operands_acc": 0.478125,
+   "digit_copy_acc": 1.0,
+   "carry_consistency": 1.0,
+   "trace_correct_rate": 0.05416666666666667,
+   "answer_trace_consistency": 1.0,
+   "n_consistency_items": 240,
+   "answer_acc_given_trace_correct": 1.0,
+   "answer_acc_given_trace_wrong": 0.5550660792951542,
+   "predicted_acc_p_cond_pow_k": 0.13555765893250188,
+   "predicted_acc_prod_p_i": 0.054285714285714284,
+   "post_hoc_predicted_answer_acc_own_g": 0.6153802799655625,
+   "observed_minus_predicted_pp": 44.36090077341648,
+   "ground_truth_mismatches": 0,
+   "yes_rate": 0.4875,
+   "error_anatomy": {
+    "n_wrong_traces": 227,
+    "first_error_position": {
+     "2": 165,
+     "3": 51,
+     "4": 11
+    },
+    "final_remainder_of_wrong_traces": {
+     "0": 109,
+     "1": 6,
+     "2": 17,
+     "3": 5,
+     "4": 7,
+     "5": 14,
+     "6": 25,
+     "7": 9,
+     "8": 12,
+     "9": 11,
+     "10": 1,
+     "11": 11
+    },
+    "wrong_traces_ending_in_0": 0.4801762114537445
+   }
+  },
+  {
+   "task": "div13",
+   "eval_task": "div13",
+   "train_task": "div13",
+   "arm": "B",
+   "n": 360,
+   "seed": 0,
+   "model": "Qwen2.5-1.5B-Instruct",
+   "prompt_mode": "plain",
+   "gens_path": "results/v2/gens/Qwen2.5-1.5B-Instruct/div13_B_360_0.jsonl",
+   "n_items": 240,
+   "k": 4,
+   "answer_acc": 0.7541666666666667,
+   "parse_rate": 1.0,
+   "exact_k_steps_rate": 1.0,
+   "p_uncond": 0.7322916666666667,
+   "p_cond": 0.8391777509068924,
+   "p_cond_by_position": [
+    1.0,
+    0.8291666666666667,
+    0.7286432160804021,
+    0.7432432432432432
+   ],
+   "p_cond_after_first_step": 0.7734241908006815,
+   "p_uncond_by_position": [
+    1.0,
+    0.8291666666666667,
+    0.6166666666666667,
+    0.48333333333333334
+   ],
+   "local_arith_acc": 0.8010416666666667,
+   "local_arith_by_position": [
+    1.0,
+    0.8291666666666667,
+    0.7041666666666667,
+    0.6708333333333333
+   ],
+   "local_arith_pow_k": 0.4117375036180755,
+   "arith_on_claimed_operands_acc": 0.803125,
+   "digit_copy_acc": 0.9979166666666667,
+   "carry_consistency": 1.0,
+   "trace_correct_rate": 0.45416666666666666,
+   "answer_trace_consistency": 1.0,
+   "n_consistency_items": 240,
+   "answer_acc_given_trace_correct": 1.0,
+   "answer_acc_given_trace_wrong": 0.549618320610687,
+   "predicted_acc_p_cond_pow_k": 0.4959248191363926,
+   "predicted_acc_prod_p_i": 0.4490427927927928,
+   "post_hoc_predicted_answer_acc_own_g": 0.7729737735041768,
+   "observed_minus_predicted_pp": 25.824184753027406,
+   "ground_truth_mismatches": 0,
+   "yes_rate": 0.2708333333333333,
+   "error_anatomy": {
+    "n_wrong_traces": 131,
+    "first_error_position": {
+     "2": 41,
+     "3": 54,
+     "4": 36
+    },
+    "final_remainder_of_wrong_traces": {
+     "0": 8,
+     "1": 1,
+     "2": 16,
+     "3": 10,
+     "4": 18,
+     "5": 15,
+     "6": 7,
+     "7": 11,
+     "8": 13,
+     "9": 5,
+     "10": 2,
+     "11": 14,
+     "12": 11
+    },
+    "wrong_traces_ending_in_0": 0.061068702290076333
+   }
+  },
+  {
+   "task": "div13",
+   "eval_task": "div13",
+   "train_task": "div13",
+   "arm": "B",
+   "n": 360,
+   "seed": 0,
+   "model": "Qwen2.5-3B-Instruct",
+   "prompt_mode": "plain",
+   "gens_path": "results/v2/gens/Qwen2.5-3B-Instruct/div13_B_360_0.jsonl",
+   "n_items": 240,
+   "k": 4,
+   "answer_acc": 0.8333333333333334,
+   "parse_rate": 1.0,
+   "exact_k_steps_rate": 1.0,
+   "p_uncond": 0.8427083333333333,
+   "p_cond": 0.9235159817351598,
+   "p_cond_by_position": [
+    1.0,
+    0.8791666666666667,
+    0.8767772511848341,
+    0.9351351351351351
+   ],
+   "p_cond_after_first_step": 0.8946540880503144,
+   "p_uncond_by_position": [
+    1.0,
+    0.8791666666666667,
+    0.7708333333333334,
+    0.7208333333333333
+   ],
+   "local_arith_acc": 0.9208333333333333,
+   "local_arith_by_position": [
+    1.0,
+    0.8791666666666667,
+    0.8916666666666667,
+    0.9125
+   ],
+   "local_arith_pow_k": 0.7189921154634451,
+   "arith_on_claimed_operands_acc": 0.9208333333333333,
+   "digit_copy_acc": 1.0,
+   "carry_consistency": 1.0,
+   "trace_correct_rate": 0.7208333333333333,
+   "answer_trace_consistency": 1.0,
+   "n_consistency_items": 240,
+   "answer_acc_given_trace_correct": 1.0,
+   "answer_acc_given_trace_wrong": 0.40298507462686567,
+   "predicted_acc_p_cond_pow_k": 0.7274073110742396,
+   "predicted_acc_prod_p_i": 0.7208333333333332,
+   "post_hoc_predicted_answer_acc_own_g": 0.8372580961637252,
+   "observed_minus_predicted_pp": 10.592602225909376,
+   "ground_truth_mismatches": 0,
+   "yes_rate": 0.3333333333333333,
+   "error_anatomy": {
+    "n_wrong_traces": 67,
+    "first_error_position": {
+     "2": 29,
+     "3": 26,
+     "4": 12
+    },
+    "final_remainder_of_wrong_traces": {
+     "1": 4,
+     "2": 1,
+     "3": 3,
+     "4": 3,
+     "5": 5,
+     "6": 10,
+     "7": 3,
+     "8": 7,
+     "9": 12,
+     "10": 2,
+     "11": 2,
+     "12": 15
+    },
+    "wrong_traces_ending_in_0": 0.0
+   }
+  },
+  {
+   "task": "div13",
+   "eval_task": "div13",
+   "train_task": "div13",
+   "arm": "B",
    "n": 540,
    "seed": 0,
    "model": "Qwen2.5-1.5B-Instruct",
@@ -220,6 +1158,134 @@
    }
   },
   {
+   "task": "div13",
+   "eval_task": "div13",
+   "train_task": "div13",
+   "arm": "B",
+   "n": 540,
+   "seed": 0,
+   "model": "Qwen2.5-3B-Instruct",
+   "prompt_mode": "plain",
+   "gens_path": "results/v2/gens/Qwen2.5-3B-Instruct/div13_B_540_0.jsonl",
+   "n_items": 240,
+   "k": 4,
+   "answer_acc": 0.9958333333333333,
+   "parse_rate": 1.0,
+   "exact_k_steps_rate": 1.0,
+   "p_uncond": 0.9989583333333333,
+   "p_cond": 0.9989583333333333,
+   "p_cond_by_position": [
+    1.0,
+    1.0,
+    1.0,
+    0.9958333333333333
+   ],
+   "p_cond_after_first_step": 0.9986111111111111,
+   "p_uncond_by_position": [
+    1.0,
+    1.0,
+    1.0,
+    0.9958333333333333
+   ],
+   "local_arith_acc": 0.9989583333333333,
+   "local_arith_by_position": [
+    1.0,
+    1.0,
+    1.0,
+    0.9958333333333333
+   ],
+   "local_arith_pow_k": 0.9958398392300545,
+   "arith_on_claimed_operands_acc": 1.0,
+   "digit_copy_acc": 0.9989583333333333,
+   "carry_consistency": 1.0,
+   "trace_correct_rate": 0.9958333333333333,
+   "answer_trace_consistency": 1.0,
+   "n_consistency_items": 240,
+   "answer_acc_given_trace_correct": 1.0,
+   "answer_acc_given_trace_wrong": 0.0,
+   "predicted_acc_p_cond_pow_k": 0.9958398392300545,
+   "predicted_acc_prod_p_i": 0.9958333333333333,
+   "post_hoc_predicted_answer_acc_own_g": 0.9958398392300545,
+   "observed_minus_predicted_pp": -0.0006505896721131776,
+   "ground_truth_mismatches": 0,
+   "yes_rate": 0.49583333333333335,
+   "error_anatomy": {
+    "n_wrong_traces": 1,
+    "first_error_position": {
+     "4": 1
+    },
+    "final_remainder_of_wrong_traces": {
+     "12": 1
+    },
+    "wrong_traces_ending_in_0": 0.0
+   }
+  },
+  {
+   "task": "div2",
+   "eval_task": "div2",
+   "train_task": "div2",
+   "arm": "B",
+   "n": 180,
+   "seed": 0,
+   "model": "Qwen2.5-1.5B-Instruct",
+   "prompt_mode": "plain",
+   "gens_path": "results/v2/gens/Qwen2.5-1.5B-Instruct/div2_B_180_0.jsonl",
+   "n_items": 240,
+   "k": 4,
+   "answer_acc": 1.0,
+   "parse_rate": 1.0,
+   "exact_k_steps_rate": 1.0,
+   "p_uncond": 0.9927083333333333,
+   "p_cond": 0.9926547743966422,
+   "p_cond_by_position": [
+    1.0,
+    0.9833333333333333,
+    0.9872881355932204,
+    1.0
+   ],
+   "p_cond_after_first_step": 0.9901823281907434,
+   "p_uncond_by_position": [
+    1.0,
+    0.9833333333333333,
+    0.9875,
+    1.0
+   ],
+   "local_arith_acc": 0.9927083333333333,
+   "local_arith_by_position": [
+    1.0,
+    0.9833333333333333,
+    0.9875,
+    1.0
+   ],
+   "local_arith_pow_k": 0.971150795831798,
+   "arith_on_claimed_operands_acc": 1.0,
+   "digit_copy_acc": 0.9927083333333333,
+   "carry_consistency": 1.0,
+   "trace_correct_rate": 0.9708333333333333,
+   "answer_trace_consistency": 1.0,
+   "n_consistency_items": 240,
+   "answer_acc_given_trace_correct": 1.0,
+   "answer_acc_given_trace_wrong": 1.0,
+   "predicted_acc_p_cond_pow_k": 0.970941229363997,
+   "predicted_acc_prod_p_i": 0.9708333333333333,
+   "post_hoc_predicted_answer_acc_own_g": 1.0,
+   "observed_minus_predicted_pp": 2.905877063600304,
+   "ground_truth_mismatches": 0,
+   "yes_rate": 0.5,
+   "error_anatomy": {
+    "n_wrong_traces": 7,
+    "first_error_position": {
+     "2": 4,
+     "3": 3
+    },
+    "final_remainder_of_wrong_traces": {
+     "0": 4,
+     "1": 3
+    },
+    "wrong_traces_ending_in_0": 0.5714285714285714
+   }
+  },
+  {
    "task": "div3",
    "eval_task": "div3",
    "train_task": "div3",
@@ -259,6 +1325,242 @@
    "local_arith_pow_k": 1.0,
    "arith_on_claimed_operands_acc": 1.0,
    "digit_copy_acc": 1.0,
+   "carry_consistency": 1.0,
+   "trace_correct_rate": 1.0,
+   "answer_trace_consistency": 1.0,
+   "n_consistency_items": 240,
+   "answer_acc_given_trace_correct": 1.0,
+   "answer_acc_given_trace_wrong": null,
+   "predicted_acc_p_cond_pow_k": 1.0,
+   "predicted_acc_prod_p_i": 1.0,
+   "post_hoc_predicted_answer_acc_own_g": null,
+   "observed_minus_predicted_pp": 0.0,
+   "ground_truth_mismatches": 0,
+   "yes_rate": 0.5,
+   "error_anatomy": {
+    "n_wrong_traces": 0,
+    "first_error_position": {},
+    "final_remainder_of_wrong_traces": {},
+    "wrong_traces_ending_in_0": null
+   }
+  },
+  {
+   "task": "div3",
+   "eval_task": "div3",
+   "train_task": "div3",
+   "arm": "B",
+   "n": 180,
+   "seed": 0,
+   "model": "Qwen2.5-3B-Instruct",
+   "prompt_mode": "plain",
+   "gens_path": "results/v2/gens/Qwen2.5-3B-Instruct/div3_B_180_0.jsonl",
+   "n_items": 240,
+   "k": 4,
+   "answer_acc": 1.0,
+   "parse_rate": 1.0,
+   "exact_k_steps_rate": 1.0,
+   "p_uncond": 1.0,
+   "p_cond": 1.0,
+   "p_cond_by_position": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "p_cond_after_first_step": 1.0,
+   "p_uncond_by_position": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "local_arith_acc": 1.0,
+   "local_arith_by_position": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "local_arith_pow_k": 1.0,
+   "arith_on_claimed_operands_acc": 1.0,
+   "digit_copy_acc": 1.0,
+   "carry_consistency": 1.0,
+   "trace_correct_rate": 1.0,
+   "answer_trace_consistency": 1.0,
+   "n_consistency_items": 240,
+   "answer_acc_given_trace_correct": 1.0,
+   "answer_acc_given_trace_wrong": null,
+   "predicted_acc_p_cond_pow_k": 1.0,
+   "predicted_acc_prod_p_i": 1.0,
+   "post_hoc_predicted_answer_acc_own_g": null,
+   "observed_minus_predicted_pp": 0.0,
+   "ground_truth_mismatches": 0,
+   "yes_rate": 0.5,
+   "error_anatomy": {
+    "n_wrong_traces": 0,
+    "first_error_position": {},
+    "final_remainder_of_wrong_traces": {},
+    "wrong_traces_ending_in_0": null
+   }
+  },
+  {
+   "task": "div3",
+   "eval_task": "div3",
+   "train_task": "div3",
+   "arm": "B",
+   "n": 180,
+   "seed": 1,
+   "model": "Qwen2.5-1.5B-Instruct",
+   "prompt_mode": "plain",
+   "gens_path": "results/v2/gens/Qwen2.5-1.5B-Instruct/div3_B_180_1.jsonl",
+   "n_items": 240,
+   "k": 4,
+   "answer_acc": 1.0,
+   "parse_rate": 1.0,
+   "exact_k_steps_rate": 1.0,
+   "p_uncond": 1.0,
+   "p_cond": 1.0,
+   "p_cond_by_position": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "p_cond_after_first_step": 1.0,
+   "p_uncond_by_position": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "local_arith_acc": 1.0,
+   "local_arith_by_position": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "local_arith_pow_k": 1.0,
+   "arith_on_claimed_operands_acc": 1.0,
+   "digit_copy_acc": 1.0,
+   "carry_consistency": 1.0,
+   "trace_correct_rate": 1.0,
+   "answer_trace_consistency": 1.0,
+   "n_consistency_items": 240,
+   "answer_acc_given_trace_correct": 1.0,
+   "answer_acc_given_trace_wrong": null,
+   "predicted_acc_p_cond_pow_k": 1.0,
+   "predicted_acc_prod_p_i": 1.0,
+   "post_hoc_predicted_answer_acc_own_g": null,
+   "observed_minus_predicted_pp": 0.0,
+   "ground_truth_mismatches": 0,
+   "yes_rate": 0.5,
+   "error_anatomy": {
+    "n_wrong_traces": 0,
+    "first_error_position": {},
+    "final_remainder_of_wrong_traces": {},
+    "wrong_traces_ending_in_0": null
+   }
+  },
+  {
+   "task": "div3",
+   "eval_task": "div3",
+   "train_task": "div3",
+   "arm": "B",
+   "n": 180,
+   "seed": 1,
+   "model": "Qwen2.5-3B-Instruct",
+   "prompt_mode": "plain",
+   "gens_path": "results/v2/gens/Qwen2.5-3B-Instruct/div3_B_180_1.jsonl",
+   "n_items": 240,
+   "k": 4,
+   "answer_acc": 1.0,
+   "parse_rate": 1.0,
+   "exact_k_steps_rate": 1.0,
+   "p_uncond": 1.0,
+   "p_cond": 1.0,
+   "p_cond_by_position": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "p_cond_after_first_step": 1.0,
+   "p_uncond_by_position": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "local_arith_acc": 1.0,
+   "local_arith_by_position": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "local_arith_pow_k": 1.0,
+   "arith_on_claimed_operands_acc": 1.0,
+   "digit_copy_acc": 1.0,
+   "carry_consistency": 1.0,
+   "trace_correct_rate": 1.0,
+   "answer_trace_consistency": 1.0,
+   "n_consistency_items": 240,
+   "answer_acc_given_trace_correct": 1.0,
+   "answer_acc_given_trace_wrong": null,
+   "predicted_acc_p_cond_pow_k": 1.0,
+   "predicted_acc_prod_p_i": 1.0,
+   "post_hoc_predicted_answer_acc_own_g": null,
+   "observed_minus_predicted_pp": 0.0,
+   "ground_truth_mismatches": 0,
+   "yes_rate": 0.5,
+   "error_anatomy": {
+    "n_wrong_traces": 0,
+    "first_error_position": {},
+    "final_remainder_of_wrong_traces": {},
+    "wrong_traces_ending_in_0": null
+   }
+  },
+  {
+   "task": "div3",
+   "eval_task": "div3",
+   "train_task": "div3",
+   "arm": "B",
+   "n": 180,
+   "seed": 2,
+   "model": "Qwen2.5-1.5B-Instruct",
+   "prompt_mode": "plain",
+   "gens_path": "results/v2/gens/Qwen2.5-1.5B-Instruct/div3_B_180_2.jsonl",
+   "n_items": 240,
+   "k": 4,
+   "answer_acc": 1.0,
+   "parse_rate": 1.0,
+   "exact_k_steps_rate": 1.0,
+   "p_uncond": 1.0,
+   "p_cond": 1.0,
+   "p_cond_by_position": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "p_cond_after_first_step": 1.0,
+   "p_uncond_by_position": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "local_arith_acc": 1.0,
+   "local_arith_by_position": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "local_arith_pow_k": 1.0,
+   "arith_on_claimed_operands_acc": 1.0,
+   "digit_copy_acc": 0.9989583333333333,
    "carry_consistency": 1.0,
    "trace_correct_rate": 1.0,
    "answer_trace_consistency": 1.0,
@@ -354,6 +1656,151 @@
    "eval_task": "div7",
    "train_task": "div7",
    "arm": "B",
+   "n": 90,
+   "seed": 0,
+   "model": "Qwen2.5-3B-Instruct",
+   "prompt_mode": "plain",
+   "gens_path": "results/v2/gens/Qwen2.5-3B-Instruct/div7_B_90_0.jsonl",
+   "n_items": 240,
+   "k": 4,
+   "answer_acc": 0.6,
+   "parse_rate": 1.0,
+   "exact_k_steps_rate": 0.9916666666666667,
+   "p_uncond": 0.6197916666666666,
+   "p_cond": 0.7714285714285715,
+   "p_cond_by_position": [
+    0.9958333333333333,
+    0.6610878661087866,
+    0.5886075949367089,
+    0.7857142857142857
+   ],
+   "p_cond_after_first_step": 0.6626262626262627,
+   "p_uncond_by_position": [
+    0.9958333333333333,
+    0.6583333333333333,
+    0.4083333333333333,
+    0.4166666666666667
+   ],
+   "local_arith_acc": 0.7260416666666667,
+   "local_arith_by_position": [
+    0.9958333333333333,
+    0.6625,
+    0.5833333333333334,
+    0.6625
+   ],
+   "local_arith_pow_k": 0.2778728914625851,
+   "arith_on_claimed_operands_acc": 0.7296450939457203,
+   "digit_copy_acc": 0.9979123173277662,
+   "carry_consistency": 1.0,
+   "trace_correct_rate": 0.3,
+   "answer_trace_consistency": 1.0,
+   "n_consistency_items": 240,
+   "answer_acc_given_trace_correct": 1.0,
+   "answer_acc_given_trace_wrong": 0.42857142857142855,
+   "predicted_acc_p_cond_pow_k": 0.3541464389837568,
+   "predicted_acc_prod_p_i": 0.30446428571428574,
+   "post_hoc_predicted_answer_acc_own_g": 0.6309408222764324,
+   "observed_minus_predicted_pp": 24.585356101624317,
+   "ground_truth_mismatches": 0,
+   "yes_rate": 0.45,
+   "error_anatomy": {
+    "n_wrong_traces": 168,
+    "first_error_position": {
+     "1": 1,
+     "2": 81,
+     "3": 65,
+     "4": 21
+    },
+    "final_remainder_of_wrong_traces": {
+     "0": 63,
+     "1": 19,
+     "2": 37,
+     "3": 10,
+     "4": 11,
+     "5": 12,
+     "6": 16
+    },
+    "wrong_traces_ending_in_0": 0.375
+   }
+  },
+  {
+   "task": "div7",
+   "eval_task": "div7",
+   "train_task": "div7",
+   "arm": "B",
+   "n": 180,
+   "seed": 0,
+   "model": "Qwen2.5-0.5B-Instruct",
+   "prompt_mode": "plain",
+   "gens_path": "results/v2/gens/Qwen2.5-0.5B-Instruct/div7_B_180_0.jsonl",
+   "n_items": 240,
+   "k": 4,
+   "answer_acc": 0.7916666666666666,
+   "parse_rate": 0.9958333333333333,
+   "exact_k_steps_rate": 0.9958333333333333,
+   "p_uncond": 0.784375,
+   "p_cond": 0.8845700824499411,
+   "p_cond_by_position": [
+    0.9958333333333333,
+    0.8702928870292888,
+    0.7740384615384616,
+    0.8827160493827161
+   ],
+   "p_cond_after_first_step": 0.8407224958949097,
+   "p_uncond_by_position": [
+    0.9958333333333333,
+    0.8666666666666667,
+    0.675,
+    0.6
+   ],
+   "local_arith_acc": 0.8729166666666667,
+   "local_arith_by_position": [
+    0.9958333333333333,
+    0.8666666666666667,
+    0.7833333333333333,
+    0.8458333333333333
+   ],
+   "local_arith_pow_k": 0.5806188648553542,
+   "arith_on_claimed_operands_acc": 0.8776150627615062,
+   "digit_copy_acc": 0.9989539748953975,
+   "carry_consistency": 1.0,
+   "trace_correct_rate": 0.5916666666666667,
+   "answer_trace_consistency": 1.0,
+   "n_consistency_items": 239,
+   "answer_acc_given_trace_correct": 1.0,
+   "answer_acc_given_trace_wrong": 0.4897959183673469,
+   "predicted_acc_p_cond_pow_k": 0.6122502724274387,
+   "predicted_acc_prod_p_i": 0.5921553497942388,
+   "post_hoc_predicted_answer_acc_own_g": 0.8021685063405299,
+   "observed_minus_predicted_pp": 17.941639423922794,
+   "ground_truth_mismatches": 0,
+   "yes_rate": 0.3416666666666667,
+   "error_anatomy": {
+    "n_wrong_traces": 98,
+    "first_error_position": {
+     "2": 31,
+     "3": 47,
+     "4": 19,
+     "short": 1
+    },
+    "final_remainder_of_wrong_traces": {
+     "0": 7,
+     "1": 6,
+     "2": 23,
+     "3": 12,
+     "4": 11,
+     "5": 22,
+     "6": 16,
+     "none": 1
+    },
+    "wrong_traces_ending_in_0": 0.07142857142857142
+   }
+  },
+  {
+   "task": "div7",
+   "eval_task": "div7",
+   "train_task": "div7",
+   "arm": "B",
    "n": 180,
    "seed": 0,
    "model": "Qwen2.5-1.5B-Instruct",
@@ -425,6 +1872,295 @@
    "eval_task": "div7",
    "train_task": "div7",
    "arm": "B",
+   "n": 180,
+   "seed": 0,
+   "model": "Qwen2.5-3B-Instruct",
+   "prompt_mode": "plain",
+   "gens_path": "results/v2/gens/Qwen2.5-3B-Instruct/div7_B_180_0.jsonl",
+   "n_items": 240,
+   "k": 4,
+   "answer_acc": 0.6833333333333333,
+   "parse_rate": 1.0,
+   "exact_k_steps_rate": 1.0,
+   "p_uncond": 0.678125,
+   "p_cond": 0.8250319284802043,
+   "p_cond_by_position": [
+    1.0,
+    0.7208333333333333,
+    0.7514450867052023,
+    0.7923076923076923
+   ],
+   "p_cond_after_first_step": 0.7476979742173112,
+   "p_uncond_by_position": [
+    1.0,
+    0.7208333333333333,
+    0.5416666666666666,
+    0.45
+   ],
+   "local_arith_acc": 0.8177083333333334,
+   "local_arith_by_position": [
+    1.0,
+    0.7208333333333333,
+    0.7666666666666667,
+    0.7833333333333333
+   ],
+   "local_arith_pow_k": 0.44708870148953106,
+   "arith_on_claimed_operands_acc": 0.81875,
+   "digit_copy_acc": 0.9989583333333333,
+   "carry_consistency": 0.9989583333333333,
+   "trace_correct_rate": 0.42916666666666664,
+   "answer_trace_consistency": 1.0,
+   "n_consistency_items": 240,
+   "answer_acc_given_trace_correct": 1.0,
+   "answer_acc_given_trace_wrong": 0.44525547445255476,
+   "predicted_acc_p_cond_pow_k": 0.46332210815026487,
+   "predicted_acc_prod_p_i": 0.42916666666666664,
+   "post_hoc_predicted_answer_acc_own_g": 0.7022808775140156,
+   "observed_minus_predicted_pp": 22.001122518306847,
+   "ground_truth_mismatches": 0,
+   "yes_rate": 0.26666666666666666,
+   "error_anatomy": {
+    "n_wrong_traces": 137,
+    "first_error_position": {
+     "2": 67,
+     "3": 43,
+     "4": 27
+    },
+    "final_remainder_of_wrong_traces": {
+     "0": 11,
+     "1": 16,
+     "2": 28,
+     "3": 20,
+     "4": 12,
+     "5": 32,
+     "6": 17,
+     "8": 1
+    },
+    "wrong_traces_ending_in_0": 0.08029197080291971
+   }
+  },
+  {
+   "task": "div7",
+   "eval_task": "div7",
+   "train_task": "div7",
+   "arm": "B",
+   "n": 180,
+   "seed": 0,
+   "model": "Qwen2.5-7B-Instruct",
+   "prompt_mode": "plain",
+   "gens_path": "results/v2/gens/Qwen2.5-7B-Instruct/div7_B_180_0.jsonl",
+   "n_items": 240,
+   "k": 4,
+   "answer_acc": 0.8666666666666667,
+   "parse_rate": 1.0,
+   "exact_k_steps_rate": 0.9875,
+   "p_uncond": 0.8645833333333334,
+   "p_cond": 0.9334836527621195,
+   "p_cond_by_position": [
+    1.0,
+    0.9,
+    0.8796296296296297,
+    0.9528795811518325
+   ],
+   "p_cond_after_first_step": 0.9088098918083463,
+   "p_uncond_by_position": [
+    1.0,
+    0.9,
+    0.7958333333333333,
+    0.7625
+   ],
+   "local_arith_acc": 0.9354166666666667,
+   "local_arith_by_position": [
+    1.0,
+    0.9,
+    0.8875,
+    0.9541666666666667
+   ],
+   "local_arith_pow_k": 0.7656325955049491,
+   "arith_on_claimed_operands_acc": 0.936656282450675,
+   "digit_copy_acc": 0.995846313603323,
+   "carry_consistency": 1.0,
+   "trace_correct_rate": 0.7458333333333333,
+   "answer_trace_consistency": 1.0,
+   "n_consistency_items": 240,
+   "answer_acc_given_trace_correct": 1.0,
+   "answer_acc_given_trace_wrong": 0.47540983606557374,
+   "predicted_acc_p_cond_pow_k": 0.7593235470672711,
+   "predicted_acc_prod_p_i": 0.7543630017452008,
+   "post_hoc_predicted_answer_acc_own_g": 0.8737435001008635,
+   "observed_minus_predicted_pp": 10.734311959939557,
+   "ground_truth_mismatches": 0,
+   "yes_rate": 0.43333333333333335,
+   "error_anatomy": {
+    "n_wrong_traces": 61,
+    "first_error_position": {
+     "2": 24,
+     "3": 26,
+     "4": 9,
+     "extra_steps": 2
+    },
+    "final_remainder_of_wrong_traces": {
+     "0": 10,
+     "1": 7,
+     "2": 9,
+     "3": 12,
+     "4": 7,
+     "5": 7,
+     "6": 8,
+     "8": 1
+    },
+    "wrong_traces_ending_in_0": 0.16393442622950818
+   }
+  },
+  {
+   "task": "div7",
+   "eval_task": "div7",
+   "train_task": "div7",
+   "arm": "B",
+   "n": 180,
+   "seed": 1,
+   "model": "Qwen2.5-3B-Instruct",
+   "prompt_mode": "plain",
+   "gens_path": "results/v2/gens/Qwen2.5-3B-Instruct/div7_B_180_1.jsonl",
+   "n_items": 240,
+   "k": 4,
+   "answer_acc": 0.8208333333333333,
+   "parse_rate": 1.0,
+   "exact_k_steps_rate": 1.0,
+   "p_uncond": 0.8520833333333333,
+   "p_cond": 0.9137737961926092,
+   "p_cond_by_position": [
+    1.0,
+    0.925,
+    0.8603603603603603,
+    0.8534031413612565
+   ],
+   "p_cond_after_first_step": 0.8820826952526799,
+   "p_uncond_by_position": [
+    1.0,
+    0.925,
+    0.7958333333333333,
+    0.6875
+   ],
+   "local_arith_acc": 0.915625,
+   "local_arith_by_position": [
+    1.0,
+    0.925,
+    0.8666666666666667,
+    0.8708333333333333
+   ],
+   "local_arith_pow_k": 0.702862815952301,
+   "arith_on_claimed_operands_acc": 0.915625,
+   "digit_copy_acc": 0.9989583333333333,
+   "carry_consistency": 1.0,
+   "trace_correct_rate": 0.6791666666666667,
+   "answer_trace_consistency": 1.0,
+   "n_consistency_items": 240,
+   "answer_acc_given_trace_correct": 1.0,
+   "answer_acc_given_trace_wrong": 0.44155844155844154,
+   "predicted_acc_p_cond_pow_k": 0.6971958598202623,
+   "predicted_acc_prod_p_i": 0.6791666666666667,
+   "post_hoc_predicted_answer_acc_own_g": 0.8309015840554712,
+   "observed_minus_predicted_pp": 12.363747351307097,
+   "ground_truth_mismatches": 0,
+   "yes_rate": 0.4125,
+   "error_anatomy": {
+    "n_wrong_traces": 77,
+    "first_error_position": {
+     "2": 18,
+     "3": 31,
+     "4": 28
+    },
+    "final_remainder_of_wrong_traces": {
+     "0": 13,
+     "1": 3,
+     "2": 17,
+     "3": 11,
+     "4": 14,
+     "5": 8,
+     "6": 11
+    },
+    "wrong_traces_ending_in_0": 0.16883116883116883
+   }
+  },
+  {
+   "task": "div7",
+   "eval_task": "div7",
+   "train_task": "div7",
+   "arm": "B",
+   "n": 180,
+   "seed": 1,
+   "model": "Qwen2.5-7B-Instruct",
+   "prompt_mode": "plain",
+   "gens_path": "results/v2/gens/Qwen2.5-7B-Instruct/div7_B_180_1.jsonl",
+   "n_items": 240,
+   "k": 4,
+   "answer_acc": 0.9041666666666667,
+   "parse_rate": 0.9666666666666667,
+   "exact_k_steps_rate": 0.9625,
+   "p_uncond": 0.8864583333333333,
+   "p_cond": 0.9487179487179487,
+   "p_cond_by_position": [
+    0.9666666666666667,
+    0.9396551724137931,
+    0.9495412844036697,
+    0.9371980676328503
+   ],
+   "p_cond_after_first_step": 0.9421613394216134,
+   "p_uncond_by_position": [
+    0.9666666666666667,
+    0.9083333333333333,
+    0.8625,
+    0.8083333333333333
+   ],
+   "local_arith_acc": 0.925,
+   "local_arith_by_position": [
+    0.9666666666666667,
+    0.9083333333333333,
+    0.9166666666666666,
+    0.9083333333333333
+   ],
+   "local_arith_pow_k": 0.7320941406250001,
+   "arith_on_claimed_operands_acc": 0.9590075512405609,
+   "digit_copy_acc": 0.9989212513484358,
+   "carry_consistency": 1.0,
+   "trace_correct_rate": 0.8083333333333333,
+   "answer_trace_consistency": 1.0,
+   "n_consistency_items": 232,
+   "answer_acc_given_trace_correct": 1.0,
+   "answer_acc_given_trace_wrong": 0.5,
+   "predicted_acc_p_cond_pow_k": 0.8101183475178315,
+   "predicted_acc_prod_p_i": 0.8083333333333335,
+   "post_hoc_predicted_answer_acc_own_g": 0.9050591737589158,
+   "observed_minus_predicted_pp": 9.404831914883516,
+   "ground_truth_mismatches": 0,
+   "yes_rate": 0.4625,
+   "error_anatomy": {
+    "n_wrong_traces": 46,
+    "first_error_position": {
+     "2": 14,
+     "3": 11,
+     "4": 12,
+     "short": 9
+    },
+    "final_remainder_of_wrong_traces": {
+     "0": 7,
+     "1": 6,
+     "2": 5,
+     "3": 5,
+     "4": 3,
+     "5": 8,
+     "6": 4,
+     "none": 8
+    },
+    "wrong_traces_ending_in_0": 0.15217391304347827
+   }
+  },
+  {
+   "task": "div7",
+   "eval_task": "div7",
+   "train_task": "div7",
+   "arm": "B",
    "n": 270,
    "seed": 0,
    "model": "Qwen2.5-1.5B-Instruct",
@@ -481,6 +2217,75 @@
     "final_remainder_of_wrong_traces": {
      "5": 2,
      "6": 1
+    },
+    "wrong_traces_ending_in_0": 0.0
+   }
+  },
+  {
+   "task": "div7",
+   "eval_task": "div7",
+   "train_task": "div7",
+   "arm": "B",
+   "n": 270,
+   "seed": 0,
+   "model": "Qwen2.5-3B-Instruct",
+   "prompt_mode": "plain",
+   "gens_path": "results/v2/gens/Qwen2.5-3B-Instruct/div7_B_270_0.jsonl",
+   "n_items": 240,
+   "k": 4,
+   "answer_acc": 0.9791666666666666,
+   "parse_rate": 1.0,
+   "exact_k_steps_rate": 1.0,
+   "p_uncond": 0.9739583333333334,
+   "p_cond": 0.9862869198312236,
+   "p_cond_by_position": [
+    1.0,
+    0.9875,
+    0.9746835443037974,
+    0.9826839826839827
+   ],
+   "p_cond_after_first_step": 0.981638418079096,
+   "p_uncond_by_position": [
+    1.0,
+    0.9875,
+    0.9625,
+    0.9458333333333333
+   ],
+   "local_arith_acc": 0.9864583333333333,
+   "local_arith_by_position": [
+    1.0,
+    0.9875,
+    0.975,
+    0.9833333333333333
+   ],
+   "local_arith_pow_k": 0.946923694470488,
+   "arith_on_claimed_operands_acc": 0.9864583333333333,
+   "digit_copy_acc": 1.0,
+   "carry_consistency": 1.0,
+   "trace_correct_rate": 0.9458333333333333,
+   "answer_trace_consistency": 1.0,
+   "n_consistency_items": 240,
+   "answer_acc_given_trace_correct": 1.0,
+   "answer_acc_given_trace_wrong": 0.6153846153846154,
+   "predicted_acc_p_cond_pow_k": 0.9462656911931112,
+   "predicted_acc_prod_p_i": 0.9458333333333334,
+   "post_hoc_predicted_answer_acc_own_g": 0.9793329581511966,
+   "observed_minus_predicted_pp": 3.2900975473555416,
+   "ground_truth_mismatches": 0,
+   "yes_rate": 0.4791666666666667,
+   "error_anatomy": {
+    "n_wrong_traces": 13,
+    "first_error_position": {
+     "2": 3,
+     "3": 6,
+     "4": 4
+    },
+    "final_remainder_of_wrong_traces": {
+     "1": 2,
+     "2": 1,
+     "3": 1,
+     "4": 7,
+     "5": 2
     },
     "wrong_traces_ending_in_0": 0.0
    }
@@ -554,6 +2359,507 @@
      "6": 9
     },
     "wrong_traces_ending_in_0": 0.16363636363636364
+   }
+  },
+  {
+   "task": "div7",
+   "eval_task": "div7",
+   "train_task": "div7",
+   "arm": "Bprime",
+   "n": 180,
+   "seed": 0,
+   "model": "Qwen2.5-3B-Instruct",
+   "prompt_mode": "plain",
+   "gens_path": "results/v2/gens/Qwen2.5-3B-Instruct/div7_Bprime_180_0.jsonl",
+   "n_items": 240,
+   "k": 4,
+   "answer_acc": 0.5083333333333333,
+   "parse_rate": 1.0,
+   "exact_k_steps_rate": 0.9708333333333333,
+   "p_uncond": 0.725,
+   "p_cond": 0.8166047087980174,
+   "p_cond_by_position": [
+    1.0,
+    0.8041666666666667,
+    0.6839378238341969,
+    0.7014925373134329
+   ],
+   "p_cond_after_first_step": 0.7389770723104057,
+   "p_uncond_by_position": [
+    1.0,
+    0.8041666666666667,
+    0.5583333333333333,
+    0.5375
+   ],
+   "local_arith_acc": 0.7572916666666667,
+   "local_arith_by_position": [
+    1.0,
+    0.8041666666666667,
+    0.6666666666666666,
+    0.5583333333333333
+   ],
+   "local_arith_pow_k": 0.3288915467450649,
+   "arith_on_claimed_operands_acc": 0.7609805924412666,
+   "digit_copy_acc": 0.9775280898876404,
+   "carry_consistency": 0.9989785495403473,
+   "trace_correct_rate": 0.375,
+   "answer_trace_consistency": 0.7666666666666667,
+   "n_consistency_items": 240,
+   "answer_acc_given_trace_correct": 0.7111111111111111,
+   "answer_acc_given_trace_wrong": 0.38666666666666666,
+   "predicted_acc_p_cond_pow_k": 0.44467992064550776,
+   "predicted_acc_prod_p_i": 0.38582089552238813,
+   "post_hoc_predicted_answer_acc_own_g": 0.6594036846625781,
+   "observed_minus_predicted_pp": 6.365341268782554,
+   "ground_truth_mismatches": 0,
+   "yes_rate": 0.9583333333333334,
+   "error_anatomy": {
+    "n_wrong_traces": 150,
+    "first_error_position": {
+     "2": 47,
+     "3": 61,
+     "4": 40,
+     "extra_steps": 2
+    },
+    "final_remainder_of_wrong_traces": {
+     "0": 115,
+     "1": 3,
+     "2": 8,
+     "3": 5,
+     "4": 5,
+     "5": 4,
+     "6": 10
+    },
+    "wrong_traces_ending_in_0": 0.7666666666666667
+   }
+  },
+  {
+   "task": "div7",
+   "eval_task": "div7",
+   "train_task": "div7",
+   "arm": "Bprime",
+   "n": 180,
+   "seed": 0,
+   "model": "Qwen2.5-7B-Instruct",
+   "prompt_mode": "plain",
+   "gens_path": "results/v2/gens/Qwen2.5-7B-Instruct/div7_Bprime_180_0.jsonl",
+   "n_items": 240,
+   "k": 4,
+   "answer_acc": 0.5333333333333333,
+   "parse_rate": 1.0,
+   "exact_k_steps_rate": 0.9833333333333333,
+   "p_uncond": 0.85625,
+   "p_cond": 0.9172259507829977,
+   "p_cond_by_position": [
+    1.0,
+    0.9125,
+    0.8904109589041096,
+    0.8512820512820513
+   ],
+   "p_cond_after_first_step": 0.8868501529051988,
+   "p_uncond_by_position": [
+    1.0,
+    0.9125,
+    0.8125,
+    0.7
+   ],
+   "local_arith_acc": 0.91875,
+   "local_arith_by_position": [
+    1.0,
+    0.9125,
+    0.9,
+    0.8625
+   ],
+   "local_arith_pow_k": 0.7125074478149412,
+   "arith_on_claimed_operands_acc": 0.9175257731958762,
+   "digit_copy_acc": 0.988659793814433,
+   "carry_consistency": 0.9958762886597938,
+   "trace_correct_rate": 0.6791666666666667,
+   "answer_trace_consistency": 0.6958333333333333,
+   "n_consistency_items": 240,
+   "answer_acc_given_trace_correct": 0.6012269938650306,
+   "answer_acc_given_trace_wrong": 0.38961038961038963,
+   "predicted_acc_p_cond_pow_k": 0.7077914862151407,
+   "predicted_acc_prod_p_i": 0.6916666666666667,
+   "post_hoc_predicted_answer_acc_own_g": 0.8216389591183326,
+   "observed_minus_predicted_pp": -17.445815288180732,
+   "ground_truth_mismatches": 0,
+   "yes_rate": 0.15833333333333333,
+   "error_anatomy": {
+    "n_wrong_traces": 77,
+    "first_error_position": {
+     "2": 21,
+     "3": 24,
+     "4": 29,
+     "extra_steps": 3
+    },
+    "final_remainder_of_wrong_traces": {
+     "0": 13,
+     "1": 7,
+     "2": 11,
+     "3": 22,
+     "4": 4,
+     "5": 10,
+     "6": 8,
+     "7": 2
+    },
+    "wrong_traces_ending_in_0": 0.16883116883116883
+   }
+  },
+  {
+   "task": "div7",
+   "eval_task": "div7",
+   "train_task": "div7",
+   "arm": "Bprime",
+   "n": 180,
+   "seed": 1,
+   "model": "Qwen2.5-1.5B-Instruct",
+   "prompt_mode": "plain",
+   "gens_path": "results/v2/gens/Qwen2.5-1.5B-Instruct/div7_Bprime_180_1.jsonl",
+   "n_items": 240,
+   "k": 4,
+   "answer_acc": 0.5083333333333333,
+   "parse_rate": 1.0,
+   "exact_k_steps_rate": 1.0,
+   "p_uncond": 0.6833333333333333,
+   "p_cond": 0.8179519595448799,
+   "p_cond_by_position": [
+    1.0,
+    0.7375,
+    0.7457627118644068,
+    0.7313432835820896
+   ],
+   "p_cond_after_first_step": 0.7386569872958257,
+   "p_uncond_by_position": [
+    1.0,
+    0.7375,
+    0.5583333333333333,
+    0.4375
+   ],
+   "local_arith_acc": 0.8041666666666667,
+   "local_arith_by_position": [
+    1.0,
+    0.7375,
+    0.7583333333333333,
+    0.7208333333333333
+   ],
+   "local_arith_pow_k": 0.41820023178288973,
+   "arith_on_claimed_operands_acc": 0.8041666666666667,
+   "digit_copy_acc": 1.0,
+   "carry_consistency": 1.0,
+   "trace_correct_rate": 0.4041666666666667,
+   "answer_trace_consistency": 0.8041666666666667,
+   "n_consistency_items": 240,
+   "answer_acc_given_trace_correct": 0.6185567010309279,
+   "answer_acc_given_trace_wrong": 0.43356643356643354,
+   "predicted_acc_p_cond_pow_k": 0.44762175813088484,
+   "predicted_acc_prod_p_i": 0.40223880597014927,
+   "post_hoc_predicted_answer_acc_own_g": 0.6871144224377739,
+   "observed_minus_predicted_pp": 6.071157520244847,
+   "ground_truth_mismatches": 0,
+   "yes_rate": 0.10833333333333334,
+   "error_anatomy": {
+    "n_wrong_traces": 143,
+    "first_error_position": {
+     "2": 63,
+     "3": 45,
+     "4": 35
+    },
+    "final_remainder_of_wrong_traces": {
+     "0": 24,
+     "1": 11,
+     "2": 24,
+     "3": 36,
+     "4": 18,
+     "5": 13,
+     "6": 17
+    },
+    "wrong_traces_ending_in_0": 0.16783216783216784
+   }
+  },
+  {
+   "task": "div7",
+   "eval_task": "div7",
+   "train_task": "div7",
+   "arm": "D",
+   "n": 180,
+   "seed": 0,
+   "model": "Qwen2.5-1.5B-Instruct",
+   "prompt_mode": "plain",
+   "gens_path": "results/v2/gens/Qwen2.5-1.5B-Instruct/div7_D_180_0.jsonl",
+   "n_items": 240,
+   "k": 4,
+   "answer_acc": 0.5,
+   "parse_rate": 1.0,
+   "exact_k_steps_rate": 1.0,
+   "p_uncond": 0.121875,
+   "p_cond": 0.06097560975609756,
+   "p_cond_by_position": [
+    0.058333333333333334,
+    0.07142857142857142,
+    0.07142857142857142,
+    0.06521739130434782
+   ],
+   "p_cond_after_first_step": 0.06818181818181818,
+   "p_uncond_by_position": [
+    0.058333333333333334,
+    0.11666666666666667,
+    0.19166666666666668,
+    0.12083333333333333
+   ],
+   "local_arith_acc": 0.05625,
+   "local_arith_by_position": [
+    0.058333333333333334,
+    0.04583333333333333,
+    0.08333333333333333,
+    0.0375
+   ],
+   "local_arith_pow_k": 1.001129150390625e-05,
+   "arith_on_claimed_operands_acc": 0.9291666666666667,
+   "digit_copy_acc": 0.0,
+   "carry_consistency": 1.0,
+   "trace_correct_rate": 0.0,
+   "answer_trace_consistency": 0.15416666666666667,
+   "n_consistency_items": 240,
+   "answer_acc_given_trace_correct": null,
+   "answer_acc_given_trace_wrong": 0.5,
+   "predicted_acc_p_cond_pow_k": 1.382370979003532e-05,
+   "predicted_acc_prod_p_i": 1.9409937888198755e-05,
+   "post_hoc_predicted_answer_acc_own_g": 0.500006911854895,
+   "observed_minus_predicted_pp": 49.998617629021,
+   "ground_truth_mismatches": 0,
+   "yes_rate": 1.0,
+   "error_anatomy": {
+    "n_wrong_traces": 240,
+    "first_error_position": {
+     "1": 226,
+     "2": 13,
+     "3": 1
+    },
+    "final_remainder_of_wrong_traces": {
+     "0": 37,
+     "1": 29,
+     "2": 37,
+     "3": 33,
+     "4": 20,
+     "5": 48,
+     "6": 36
+    },
+    "wrong_traces_ending_in_0": 0.15416666666666667
+   }
+  },
+  {
+   "task": "div7",
+   "eval_task": "div7",
+   "train_task": "div7",
+   "arm": "D",
+   "n": 180,
+   "seed": 0,
+   "model": "Qwen2.5-3B-Instruct",
+   "prompt_mode": "plain",
+   "gens_path": "results/v2/gens/Qwen2.5-3B-Instruct/div7_D_180_0.jsonl",
+   "n_items": 240,
+   "k": 4,
+   "answer_acc": 0.5,
+   "parse_rate": 1.0,
+   "exact_k_steps_rate": 1.0,
+   "p_uncond": 0.12395833333333334,
+   "p_cond": 0.06289308176100629,
+   "p_cond_by_position": [
+    0.05416666666666667,
+    0.07692307692307693,
+    0.1,
+    0.08571428571428572
+   ],
+   "p_cond_after_first_step": 0.08974358974358974,
+   "p_uncond_by_position": [
+    0.05416666666666667,
+    0.125,
+    0.14583333333333334,
+    0.17083333333333334
+   ],
+   "local_arith_acc": 0.07395833333333333,
+   "local_arith_by_position": [
+    0.05416666666666667,
+    0.12083333333333333,
+    0.07083333333333333,
+    0.05
+   ],
+   "local_arith_pow_k": 2.9919095686924312e-05,
+   "arith_on_claimed_operands_acc": 0.7916666666666666,
+   "digit_copy_acc": 0.0,
+   "carry_consistency": 1.0,
+   "trace_correct_rate": 0.0,
+   "answer_trace_consistency": 0.2125,
+   "n_consistency_items": 240,
+   "answer_acc_given_trace_correct": null,
+   "answer_acc_given_trace_wrong": 0.5,
+   "predicted_acc_p_cond_pow_k": 1.5646294582479418e-05,
+   "predicted_acc_prod_p_i": 3.571428571428572e-05,
+   "post_hoc_predicted_answer_acc_own_g": 0.5000078231472912,
+   "observed_minus_predicted_pp": 49.99843537054175,
+   "ground_truth_mismatches": 0,
+   "yes_rate": 1.0,
+   "error_anatomy": {
+    "n_wrong_traces": 240,
+    "first_error_position": {
+     "1": 227,
+     "2": 12,
+     "3": 1
+    },
+    "final_remainder_of_wrong_traces": {
+     "0": 51,
+     "1": 39,
+     "2": 19,
+     "3": 27,
+     "4": 53,
+     "5": 38,
+     "6": 13
+    },
+    "wrong_traces_ending_in_0": 0.2125
+   }
+  },
+  {
+   "task": "div7",
+   "eval_task": "div7",
+   "train_task": "div7",
+   "arm": "D",
+   "n": 180,
+   "seed": 0,
+   "model": "Qwen2.5-7B-Instruct",
+   "prompt_mode": "plain",
+   "gens_path": "results/v2/gens/Qwen2.5-7B-Instruct/div7_D_180_0.jsonl",
+   "n_items": 240,
+   "k": 4,
+   "answer_acc": 0.4791666666666667,
+   "parse_rate": 0.8375,
+   "exact_k_steps_rate": 0.8375,
+   "p_uncond": 0.09791666666666667,
+   "p_cond": 0.06168831168831169,
+   "p_cond_by_position": [
+    0.06666666666666667,
+    0.0,
+    0.041666666666666664,
+    0.07142857142857142
+   ],
+   "p_cond_after_first_step": 0.04411764705882353,
+   "p_uncond_by_position": [
+    0.06666666666666667,
+    0.1,
+    0.11666666666666667,
+    0.10833333333333334
+   ],
+   "local_arith_acc": 0.04791666666666667,
+   "local_arith_by_position": [
+    0.06666666666666667,
+    0.025,
+    0.0375,
+    0.0625
+   ],
+   "local_arith_pow_k": 5.2716478889371155e-06,
+   "arith_on_claimed_operands_acc": 0.9925373134328358,
+   "digit_copy_acc": 0.0,
+   "carry_consistency": 1.0,
+   "trace_correct_rate": 0.0,
+   "answer_trace_consistency": 0.736318407960199,
+   "n_consistency_items": 201,
+   "answer_acc_given_trace_correct": null,
+   "answer_acc_given_trace_wrong": 0.4791666666666667,
+   "predicted_acc_p_cond_pow_k": 1.4481432950566068e-05,
+   "predicted_acc_prod_p_i": 0.0,
+   "post_hoc_predicted_answer_acc_own_g": 0.4791742090796618,
+   "observed_minus_predicted_pp": 47.915218523371614,
+   "ground_truth_mismatches": 0,
+   "yes_rate": 0.3875,
+   "error_anatomy": {
+    "n_wrong_traces": 240,
+    "first_error_position": {
+     "1": 185,
+     "2": 16,
+     "short": 39
+    },
+    "final_remainder_of_wrong_traces": {
+     "0": 13,
+     "1": 28,
+     "2": 30,
+     "3": 31,
+     "4": 37,
+     "5": 33,
+     "6": 29,
+     "none": 39
+    },
+    "wrong_traces_ending_in_0": 0.05416666666666667
+   }
+  },
+  {
+   "task": "div7",
+   "eval_task": "div7",
+   "train_task": "div7",
+   "arm": "D",
+   "n": 180,
+   "seed": 1,
+   "model": "Qwen2.5-1.5B-Instruct",
+   "prompt_mode": "plain",
+   "gens_path": "results/v2/gens/Qwen2.5-1.5B-Instruct/div7_D_180_1.jsonl",
+   "n_items": 240,
+   "k": 4,
+   "answer_acc": 0.5041666666666667,
+   "parse_rate": 1.0,
+   "exact_k_steps_rate": 1.0,
+   "p_uncond": 0.15,
+   "p_cond": 0.0764525993883792,
+   "p_cond_by_position": [
+    0.020833333333333332,
+    0.4,
+    0.08333333333333333,
+    0.32608695652173914
+   ],
+   "p_cond_after_first_step": 0.22988505747126436,
+   "p_uncond_by_position": [
+    0.020833333333333332,
+    0.15,
+    0.19166666666666668,
+    0.2375
+   ],
+   "local_arith_acc": 0.08645833333333333,
+   "local_arith_by_position": [
+    0.020833333333333332,
+    0.07916666666666666,
+    0.0875,
+    0.15833333333333333
+   ],
+   "local_arith_pow_k": 5.587627387341157e-05,
+   "arith_on_claimed_operands_acc": 0.74375,
+   "digit_copy_acc": 0.0,
+   "carry_consistency": 1.0,
+   "trace_correct_rate": 0.0,
+   "answer_trace_consistency": 0.6458333333333334,
+   "n_consistency_items": 240,
+   "answer_acc_given_trace_correct": null,
+   "answer_acc_given_trace_wrong": 0.5041666666666667,
+   "predicted_acc_p_cond_pow_k": 3.41640244533756e-05,
+   "predicted_acc_prod_p_i": 0.00022644927536231882,
+   "post_hoc_predicted_answer_acc_own_g": 0.5041836063287914,
+   "observed_minus_predicted_pp": 50.41325026422133,
+   "ground_truth_mismatches": 0,
+   "yes_rate": 0.004166666666666667,
+   "error_anatomy": {
+    "n_wrong_traces": 240,
+    "first_error_position": {
+     "1": 235,
+     "2": 3,
+     "3": 2
+    },
+    "final_remainder_of_wrong_traces": {
+     "0": 84,
+     "1": 17,
+     "2": 43,
+     "3": 6,
+     "4": 45,
+     "5": 18,
+     "6": 27
+    },
+    "wrong_traces_ending_in_0": 0.35
    }
   },
   {
@@ -635,6 +2941,167 @@
      "6": 23
     },
     "wrong_traces_ending_in_0": 0.08064516129032258
+   }
+  },
+  {
+   "task": "div7->div7_6d",
+   "eval_task": "div7_6d",
+   "train_task": "div7",
+   "arm": "B",
+   "n": 180,
+   "seed": 0,
+   "model": "Qwen2.5-3B-Instruct",
+   "prompt_mode": "plain",
+   "gens_path": "results/v2/gens/Qwen2.5-3B-Instruct/div7_B_180_0__on-div7_6d__reeval.jsonl",
+   "n_items": 240,
+   "k": 6,
+   "answer_acc": 0.5416666666666666,
+   "parse_rate": 1.0,
+   "exact_k_steps_rate": 0.5875,
+   "p_uncond": 0.47291666666666665,
+   "p_cond": 0.7231638418079096,
+   "p_cond_by_position": [
+    1.0,
+    0.7041666666666667,
+    0.5976331360946746,
+    0.5882352941176471,
+    0.5942028985507246,
+    0.4461538461538462
+   ],
+   "p_cond_after_first_step": 0.6201550387596899,
+   "p_uncond_by_position": [
+    1.0,
+    0.7041666666666667,
+    0.425,
+    0.2875,
+    0.2708333333333333,
+    0.15
+   ],
+   "local_arith_acc": 0.6486111111111111,
+   "local_arith_by_position": [
+    1.0,
+    0.7041666666666667,
+    0.675,
+    0.575,
+    0.5375,
+    0.4
+   ],
+   "local_arith_pow_k": 0.07445713219037897,
+   "arith_on_claimed_operands_acc": 0.7708955223880597,
+   "digit_copy_acc": 0.8708955223880597,
+   "carry_consistency": 0.996268656716418,
+   "trace_correct_rate": 0.0875,
+   "answer_trace_consistency": 1.0,
+   "n_consistency_items": 240,
+   "answer_acc_given_trace_correct": 1.0,
+   "answer_acc_given_trace_wrong": 0.4977168949771689,
+   "predicted_acc_p_cond_pow_k": 0.14302772134858688,
+   "predicted_acc_prod_p_i": 0.06562670776225764,
+   "post_hoc_predicted_answer_acc_own_g": 0.5695573029604775,
+   "observed_minus_predicted_pp": 39.86389453180797,
+   "ground_truth_mismatches": 0,
+   "yes_rate": 0.21666666666666667,
+   "error_anatomy": {
+    "n_wrong_traces": 219,
+    "first_error_position": {
+     "2": 71,
+     "3": 68,
+     "4": 42,
+     "5": 22,
+     "6": 7,
+     "short": 9
+    },
+    "final_remainder_of_wrong_traces": {
+     "0": 37,
+     "1": 26,
+     "2": 45,
+     "3": 28,
+     "4": 28,
+     "5": 36,
+     "6": 18,
+     "8": 1
+    },
+    "wrong_traces_ending_in_0": 0.1689497716894977
+   }
+  },
+  {
+   "task": "div7->div7_6d",
+   "eval_task": "div7_6d",
+   "train_task": "div7",
+   "arm": "B",
+   "n": 180,
+   "seed": 1,
+   "model": "Qwen2.5-3B-Instruct",
+   "prompt_mode": "plain",
+   "gens_path": "results/v2/gens/Qwen2.5-3B-Instruct/div7_B_180_1__on-div7_6d__reeval.jsonl",
+   "n_items": 240,
+   "k": 6,
+   "answer_acc": 0.65,
+   "parse_rate": 1.0,
+   "exact_k_steps_rate": 0.9666666666666667,
+   "p_uncond": 0.6736111111111112,
+   "p_cond": 0.8526504941599281,
+   "p_cond_by_position": [
+    1.0,
+    0.9041666666666667,
+    0.7695852534562212,
+    0.7904191616766467,
+    0.7375886524822695,
+    0.8240740740740741
+   ],
+   "p_cond_after_first_step": 0.8121420389461627,
+   "p_uncond_by_position": [
+    1.0,
+    0.9041666666666667,
+    0.6958333333333333,
+    0.5875,
+    0.45,
+    0.4041666666666667
+   ],
+   "local_arith_acc": 0.8180555555555555,
+   "local_arith_by_position": [
+    1.0,
+    0.9041666666666667,
+    0.7791666666666667,
+    0.7333333333333333,
+    0.6916666666666667,
+    0.8
+   ],
+   "local_arith_pow_k": 0.2997069334923787,
+   "arith_on_claimed_operands_acc": 0.8763888888888889,
+   "digit_copy_acc": 0.9215277777777777,
+   "carry_consistency": 1.0,
+   "trace_correct_rate": 0.35,
+   "answer_trace_consistency": 1.0,
+   "n_consistency_items": 240,
+   "answer_acc_given_trace_correct": 1.0,
+   "answer_acc_given_trace_wrong": 0.46153846153846156,
+   "predicted_acc_p_cond_pow_k": 0.3842609822408573,
+   "predicted_acc_prod_p_i": 0.3343052272130286,
+   "post_hoc_predicted_answer_acc_own_g": 0.6684482212066154,
+   "observed_minus_predicted_pp": 26.573901775914273,
+   "ground_truth_mismatches": 0,
+   "yes_rate": 0.3333333333333333,
+   "error_anatomy": {
+    "n_wrong_traces": 156,
+    "first_error_position": {
+     "2": 23,
+     "3": 50,
+     "4": 35,
+     "5": 33,
+     "6": 14,
+     "short": 1
+    },
+    "final_remainder_of_wrong_traces": {
+     "0": 35,
+     "1": 14,
+     "2": 37,
+     "3": 27,
+     "4": 19,
+     "5": 18,
+     "6": 6
+    },
+    "wrong_traces_ending_in_0": 0.22435897435897437
    }
   },
   {
@@ -787,9 +3254,703 @@
     },
     "wrong_traces_ending_in_0": 0.17647058823529413
    }
+  },
+  {
+   "task": "div7_6d",
+   "eval_task": "div7_6d",
+   "train_task": "div7_6d",
+   "arm": "B",
+   "n": 180,
+   "seed": 0,
+   "model": "Qwen2.5-3B-Instruct",
+   "prompt_mode": "plain",
+   "gens_path": "results/v2/gens/Qwen2.5-3B-Instruct/div7_6d_B_180_0.jsonl",
+   "n_items": 240,
+   "k": 6,
+   "answer_acc": 0.825,
+   "parse_rate": 1.0,
+   "exact_k_steps_rate": 1.0,
+   "p_uncond": 0.83125,
+   "p_cond": 0.941594317284925,
+   "p_cond_by_position": [
+    1.0,
+    0.9208333333333333,
+    0.9095022624434389,
+    0.9306930693069307,
+    0.9206349206349206,
+    0.9657142857142857
+   ],
+   "p_cond_after_first_step": 0.9279454722492697,
+   "p_uncond_by_position": [
+    1.0,
+    0.9208333333333333,
+    0.8416666666666667,
+    0.7875,
+    0.7291666666666666,
+    0.7083333333333334
+   ],
+   "local_arith_acc": 0.9402777777777778,
+   "local_arith_by_position": [
+    1.0,
+    0.9208333333333333,
+    0.9125,
+    0.9333333333333333,
+    0.9208333333333333,
+    0.9541666666666667
+   ],
+   "local_arith_pow_k": 0.6910938584274211,
+   "arith_on_claimed_operands_acc": 0.9423611111111111,
+   "digit_copy_acc": 0.9972222222222222,
+   "carry_consistency": 1.0,
+   "trace_correct_rate": 0.6916666666666667,
+   "answer_trace_consistency": 1.0,
+   "n_consistency_items": 240,
+   "answer_acc_given_trace_correct": 1.0,
+   "answer_acc_given_trace_wrong": 0.43243243243243246,
+   "predicted_acc_p_cond_pow_k": 0.6969200718441588,
+   "predicted_acc_prod_p_i": 0.6929906827417435,
+   "post_hoc_predicted_answer_acc_own_g": 0.8279816623980361,
+   "observed_minus_predicted_pp": 12.807992815584113,
+   "ground_truth_mismatches": 0,
+   "yes_rate": 0.35,
+   "error_anatomy": {
+    "n_wrong_traces": 74,
+    "first_error_position": {
+     "2": 19,
+     "3": 20,
+     "4": 14,
+     "5": 15,
+     "6": 6
+    },
+    "final_remainder_of_wrong_traces": {
+     "0": 6,
+     "1": 16,
+     "2": 11,
+     "3": 12,
+     "4": 10,
+     "5": 5,
+     "6": 14
+    },
+    "wrong_traces_ending_in_0": 0.08108108108108109
+   }
+  },
+  {
+   "task": "div7_6d",
+   "eval_task": "div7_6d",
+   "train_task": "div7_6d",
+   "arm": "B",
+   "n": 180,
+   "seed": 1,
+   "model": "Qwen2.5-1.5B-Instruct",
+   "prompt_mode": "plain",
+   "gens_path": "results/v2/gens/Qwen2.5-1.5B-Instruct/div7_6d_B_180_1.jsonl",
+   "n_items": 240,
+   "k": 6,
+   "answer_acc": 0.9,
+   "parse_rate": 1.0,
+   "exact_k_steps_rate": 1.0,
+   "p_uncond": 0.8729166666666667,
+   "p_cond": 0.9572519083969465,
+   "p_cond_by_position": [
+    1.0,
+    0.9166666666666666,
+    0.9590909090909091,
+    0.966824644549763,
+    0.946078431372549,
+    0.9538461538461539
+   ],
+   "p_cond_after_first_step": 0.9476635514018692,
+   "p_uncond_by_position": [
+    1.0,
+    0.9166666666666666,
+    0.8791666666666667,
+    0.85,
+    0.8125,
+    0.7791666666666667
+   ],
+   "local_arith_acc": 0.9493055555555555,
+   "local_arith_by_position": [
+    1.0,
+    0.9166666666666666,
+    0.9625,
+    0.9625,
+    0.9291666666666667,
+    0.925
+   ],
+   "local_arith_pow_k": 0.7318736896181954,
+   "arith_on_claimed_operands_acc": 0.9652777777777778,
+   "digit_copy_acc": 0.9847222222222223,
+   "carry_consistency": 0.9993055555555556,
+   "trace_correct_rate": 0.7708333333333334,
+   "answer_trace_consistency": 1.0,
+   "n_consistency_items": 240,
+   "answer_acc_given_trace_correct": 1.0,
+   "answer_acc_given_trace_wrong": 0.5636363636363636,
+   "predicted_acc_p_cond_pow_k": 0.769409324145773,
+   "predicted_acc_prod_p_i": 0.767051282051282,
+   "post_hoc_predicted_answer_acc_own_g": 0.8993786141727009,
+   "observed_minus_predicted_pp": 13.059067585422701,
+   "ground_truth_mismatches": 0,
+   "yes_rate": 0.43333333333333335,
+   "error_anatomy": {
+    "n_wrong_traces": 55,
+    "first_error_position": {
+     "2": 20,
+     "3": 9,
+     "4": 7,
+     "5": 11,
+     "6": 8
+    },
+    "final_remainder_of_wrong_traces": {
+     "0": 6,
+     "1": 9,
+     "2": 7,
+     "3": 7,
+     "4": 13,
+     "5": 7,
+     "6": 6
+    },
+    "wrong_traces_ending_in_0": 0.10909090909090909
+   }
   }
  ],
  "prime": [
+  {
+   "task": "prime",
+   "eval_task": "prime",
+   "train_task": "prime",
+   "arm": "B",
+   "n": 180,
+   "seed": 0,
+   "model": "Qwen2.5-0.5B-Instruct",
+   "prompt_mode": "plain",
+   "gens_path": "results/v2/gens/Qwen2.5-0.5B-Instruct/prime_B_180_0.jsonl",
+   "n_items": 240,
+   "answer_acc": 0.575,
+   "n_errors": 102,
+   "n_truncated_no_answer_line": 0,
+   "n_hit_cap": 0,
+   "n_wrong_with_answer_line": 102,
+   "n_truncated_and_wrong": 0,
+   "per_class": {
+    "primes": {
+     "n": 120,
+     "acc": 0.19166666666666668,
+     "truncated_rate": 0.0
+    },
+    "composites": {
+     "n": 120,
+     "acc": 0.9583333333333334,
+     "truncated_rate": 0.0
+    }
+   },
+   "truncated_share_of_errors": 0.0,
+   "step_arith_acc": 0.3779527559055118,
+   "n_steps_parsed": 889,
+   "divisor_sequence_faithful_rate": 0.9666666666666667,
+   "answer_vs_own_conclusion_consistency": 1.0,
+   "by_true_trial_divisions": {
+    "1-1": {
+     "n": 63,
+     "acc": 1.0,
+     "truncated_rate": 0.0,
+     "mean_model_steps": 1.0
+    },
+    "2-3": {
+     "n": 34,
+     "acc": 0.9411764705882353,
+     "truncated_rate": 0.0,
+     "mean_model_steps": 3.235294117647059
+    },
+    "4-8": {
+     "n": 17,
+     "acc": 0.8823529411764706,
+     "truncated_rate": 0.0,
+     "mean_model_steps": 4.117647058823529
+    },
+    "9-16": {
+     "n": 47,
+     "acc": 0.2553191489361702,
+     "truncated_rate": 0.0,
+     "mean_model_steps": 4.319148936170213
+    },
+    "17-99": {
+     "n": 79,
+     "acc": 0.20253164556962025,
+     "truncated_rate": 0.0,
+     "mean_model_steps": 5.6075949367088604
+    }
+   }
+  },
+  {
+   "task": "prime",
+   "eval_task": "prime",
+   "train_task": "prime",
+   "arm": "B",
+   "n": 180,
+   "seed": 0,
+   "model": "Qwen2.5-3B-Instruct",
+   "prompt_mode": "plain",
+   "gens_path": "results/v2/gens/Qwen2.5-3B-Instruct/prime_B_180_0.jsonl",
+   "n_items": 240,
+   "answer_acc": 0.9041666666666667,
+   "n_errors": 23,
+   "n_truncated_no_answer_line": 0,
+   "n_hit_cap": 0,
+   "n_wrong_with_answer_line": 23,
+   "n_truncated_and_wrong": 0,
+   "per_class": {
+    "primes": {
+     "n": 120,
+     "acc": 1.0,
+     "truncated_rate": 0.0
+    },
+    "composites": {
+     "n": 120,
+     "acc": 0.8083333333333333,
+     "truncated_rate": 0.0
+    }
+   },
+   "truncated_share_of_errors": 0.0,
+   "step_arith_acc": 0.21246062303115157,
+   "n_steps_parsed": 2857,
+   "divisor_sequence_faithful_rate": 0.8875,
+   "answer_vs_own_conclusion_consistency": 1.0,
+   "by_true_trial_divisions": {
+    "1-1": {
+     "n": 63,
+     "acc": 1.0,
+     "truncated_rate": 0.0,
+     "mean_model_steps": 1.0
+    },
+    "2-3": {
+     "n": 34,
+     "acc": 1.0,
+     "truncated_rate": 0.0,
+     "mean_model_steps": 2.264705882352941
+    },
+    "4-8": {
+     "n": 17,
+     "acc": 0.0,
+     "truncated_rate": 0.0,
+     "mean_model_steps": 19.470588235294116
+    },
+    "9-16": {
+     "n": 47,
+     "acc": 0.8936170212765957,
+     "truncated_rate": 0.0,
+     "mean_model_steps": 14.25531914893617
+    },
+    "17-99": {
+     "n": 79,
+     "acc": 0.9873417721518988,
+     "truncated_rate": 0.0,
+     "mean_model_steps": 21.72151898734177
+    }
+   }
+  },
+  {
+   "task": "prime",
+   "eval_task": "prime",
+   "train_task": "prime",
+   "arm": "B",
+   "n": 180,
+   "seed": 0,
+   "model": "Qwen2.5-7B-Instruct",
+   "prompt_mode": "plain",
+   "gens_path": "results/v2/gens/Qwen2.5-7B-Instruct/prime_B_180_0.jsonl",
+   "n_items": 240,
+   "answer_acc": 0.8916666666666667,
+   "n_errors": 26,
+   "n_truncated_no_answer_line": 1,
+   "n_hit_cap": 1,
+   "n_wrong_with_answer_line": 25,
+   "n_truncated_and_wrong": 1,
+   "per_class": {
+    "primes": {
+     "n": 120,
+     "acc": 0.9916666666666667,
+     "truncated_rate": 0.008333333333333333
+    },
+    "composites": {
+     "n": 120,
+     "acc": 0.7916666666666666,
+     "truncated_rate": 0.0
+    }
+   },
+   "truncated_share_of_errors": 0.038461538461538464,
+   "step_arith_acc": 0.21404456448345713,
+   "n_steps_parsed": 2962,
+   "divisor_sequence_faithful_rate": 0.7333333333333333,
+   "answer_vs_own_conclusion_consistency": 1.0,
+   "by_true_trial_divisions": {
+    "1-1": {
+     "n": 63,
+     "acc": 1.0,
+     "truncated_rate": 0.0,
+     "mean_model_steps": 1.0
+    },
+    "2-3": {
+     "n": 34,
+     "acc": 0.9411764705882353,
+     "truncated_rate": 0.0,
+     "mean_model_steps": 3.2058823529411766
+    },
+    "4-8": {
+     "n": 17,
+     "acc": 0.0,
+     "truncated_rate": 0.0,
+     "mean_model_steps": 20.176470588235293
+    },
+    "9-16": {
+     "n": 47,
+     "acc": 0.8723404255319149,
+     "truncated_rate": 0.02127659574468085,
+     "mean_model_steps": 14.680851063829786
+    },
+    "17-99": {
+     "n": 79,
+     "acc": 0.9873417721518988,
+     "truncated_rate": 0.0,
+     "mean_model_steps": 22.240506329113924
+    }
+   }
+  },
+  {
+   "task": "prime",
+   "eval_task": "prime",
+   "train_task": "prime",
+   "arm": "B",
+   "n": 180,
+   "seed": 1,
+   "model": "Qwen2.5-3B-Instruct",
+   "prompt_mode": "plain",
+   "gens_path": "results/v2/gens/Qwen2.5-3B-Instruct/prime_B_180_1.jsonl",
+   "n_items": 240,
+   "answer_acc": 0.7958333333333333,
+   "n_errors": 49,
+   "n_truncated_no_answer_line": 0,
+   "n_hit_cap": 0,
+   "n_wrong_with_answer_line": 49,
+   "n_truncated_and_wrong": 0,
+   "per_class": {
+    "primes": {
+     "n": 120,
+     "acc": 0.7083333333333334,
+     "truncated_rate": 0.0
+    },
+    "composites": {
+     "n": 120,
+     "acc": 0.8833333333333333,
+     "truncated_rate": 0.0
+    }
+   },
+   "truncated_share_of_errors": 0.0,
+   "step_arith_acc": 0.2572595281306715,
+   "n_steps_parsed": 2204,
+   "divisor_sequence_faithful_rate": 0.8916666666666667,
+   "answer_vs_own_conclusion_consistency": 1.0,
+   "by_true_trial_divisions": {
+    "1-1": {
+     "n": 63,
+     "acc": 1.0,
+     "truncated_rate": 0.0,
+     "mean_model_steps": 1.0
+    },
+    "2-3": {
+     "n": 34,
+     "acc": 1.0,
+     "truncated_rate": 0.0,
+     "mean_model_steps": 2.264705882352941
+    },
+    "4-8": {
+     "n": 17,
+     "acc": 0.4117647058823529,
+     "truncated_rate": 0.0,
+     "mean_model_steps": 13.470588235294118
+    },
+    "9-16": {
+     "n": 47,
+     "acc": 0.723404255319149,
+     "truncated_rate": 0.0,
+     "mean_model_steps": 11.617021276595745
+    },
+    "17-99": {
+     "n": 79,
+     "acc": 0.6708860759493671,
+     "truncated_rate": 0.0,
+     "mean_model_steps": 16.31645569620253
+    }
+   }
+  },
+  {
+   "task": "prime",
+   "eval_task": "prime",
+   "train_task": "prime",
+   "arm": "B",
+   "n": 180,
+   "seed": 1,
+   "model": "Qwen2.5-7B-Instruct",
+   "prompt_mode": "plain",
+   "gens_path": "results/v2/gens/Qwen2.5-7B-Instruct/prime_B_180_1.jsonl",
+   "n_items": 240,
+   "answer_acc": 0.8,
+   "n_errors": 48,
+   "n_truncated_no_answer_line": 0,
+   "n_hit_cap": 0,
+   "n_wrong_with_answer_line": 48,
+   "n_truncated_and_wrong": 0,
+   "per_class": {
+    "primes": {
+     "n": 120,
+     "acc": 0.6583333333333333,
+     "truncated_rate": 0.0
+    },
+    "composites": {
+     "n": 120,
+     "acc": 0.9416666666666667,
+     "truncated_rate": 0.0
+    }
+   },
+   "truncated_share_of_errors": 0.0,
+   "step_arith_acc": 0.286848635235732,
+   "n_steps_parsed": 2015,
+   "divisor_sequence_faithful_rate": 0.925,
+   "answer_vs_own_conclusion_consistency": 0.9813953488372092,
+   "by_true_trial_divisions": {
+    "1-1": {
+     "n": 63,
+     "acc": 1.0,
+     "truncated_rate": 0.0,
+     "mean_model_steps": 1.0
+    },
+    "2-3": {
+     "n": 34,
+     "acc": 1.0,
+     "truncated_rate": 0.0,
+     "mean_model_steps": 2.235294117647059
+    },
+    "4-8": {
+     "n": 17,
+     "acc": 0.7058823529411765,
+     "truncated_rate": 0.0,
+     "mean_model_steps": 9.588235294117647
+    },
+    "9-16": {
+     "n": 47,
+     "acc": 0.7446808510638298,
+     "truncated_rate": 0.0,
+     "mean_model_steps": 11.27659574468085
+    },
+    "17-99": {
+     "n": 79,
+     "acc": 0.6075949367088608,
+     "truncated_rate": 0.0,
+     "mean_model_steps": 14.974683544303797
+    }
+   }
+  },
+  {
+   "task": "prime",
+   "eval_task": "prime",
+   "train_task": "prime",
+   "arm": "B",
+   "n": 180,
+   "seed": 2,
+   "model": "Qwen2.5-1.5B-Instruct",
+   "prompt_mode": "plain",
+   "gens_path": "results/v2/gens/Qwen2.5-1.5B-Instruct/prime_B_180_2.jsonl",
+   "n_items": 240,
+   "answer_acc": 0.5208333333333334,
+   "n_errors": 115,
+   "n_truncated_no_answer_line": 13,
+   "n_hit_cap": 13,
+   "n_wrong_with_answer_line": 102,
+   "n_truncated_and_wrong": 13,
+   "per_class": {
+    "primes": {
+     "n": 120,
+     "acc": 0.2,
+     "truncated_rate": 0.075
+    },
+    "composites": {
+     "n": 120,
+     "acc": 0.8416666666666667,
+     "truncated_rate": 0.03333333333333333
+    }
+   },
+   "truncated_share_of_errors": 0.11304347826086956,
+   "step_arith_acc": 0.23476297968397292,
+   "n_steps_parsed": 1772,
+   "divisor_sequence_faithful_rate": 0.7791666666666667,
+   "answer_vs_own_conclusion_consistency": 1.0,
+   "by_true_trial_divisions": {
+    "1-1": {
+     "n": 63,
+     "acc": 1.0,
+     "truncated_rate": 0.0,
+     "mean_model_steps": 1.0
+    },
+    "2-3": {
+     "n": 34,
+     "acc": 0.6764705882352942,
+     "truncated_rate": 0.08823529411764706,
+     "mean_model_steps": 11.235294117647058
+    },
+    "4-8": {
+     "n": 17,
+     "acc": 0.6470588235294118,
+     "truncated_rate": 0.058823529411764705,
+     "mean_model_steps": 10.176470588235293
+    },
+    "9-16": {
+     "n": 47,
+     "acc": 0.2127659574468085,
+     "truncated_rate": 0.0851063829787234,
+     "mean_model_steps": 8.191489361702128
+    },
+    "17-99": {
+     "n": 79,
+     "acc": 0.22784810126582278,
+     "truncated_rate": 0.06329113924050633,
+     "mean_model_steps": 9.734177215189874
+    }
+   }
+  },
+  {
+   "task": "prime->prime_hard",
+   "eval_task": "prime_hard",
+   "train_task": "prime",
+   "arm": "B",
+   "n": 180,
+   "seed": 0,
+   "model": "Qwen2.5-3B-Instruct",
+   "prompt_mode": "plain",
+   "gens_path": "results/v2/gens/Qwen2.5-3B-Instruct/prime_B_180_0__on-prime_hard__reeval.jsonl",
+   "n_items": 240,
+   "answer_acc": 0.5041666666666667,
+   "n_errors": 119,
+   "n_truncated_no_answer_line": 0,
+   "n_hit_cap": 0,
+   "n_wrong_with_answer_line": 119,
+   "n_truncated_and_wrong": 0,
+   "per_class": {
+    "primes": {
+     "n": 120,
+     "acc": 1.0,
+     "truncated_rate": 0.0
+    },
+    "composites": {
+     "n": 120,
+     "acc": 0.008333333333333333,
+     "truncated_rate": 0.0
+    }
+   },
+   "truncated_share_of_errors": 0.0,
+   "step_arith_acc": 0.1658955717118308,
+   "n_steps_parsed": 4539,
+   "divisor_sequence_faithful_rate": 0.49583333333333335,
+   "answer_vs_own_conclusion_consistency": 1.0,
+   "by_true_trial_divisions": {
+    "1-1": {
+     "n": 0,
+     "acc": null,
+     "truncated_rate": null,
+     "mean_model_steps": null
+    },
+    "2-3": {
+     "n": 0,
+     "acc": null,
+     "truncated_rate": null,
+     "mean_model_steps": null
+    },
+    "4-8": {
+     "n": 62,
+     "acc": 0.016129032258064516,
+     "truncated_rate": 0.0,
+     "mean_model_steps": 17.887096774193548
+    },
+    "9-16": {
+     "n": 84,
+     "acc": 0.44047619047619047,
+     "truncated_rate": 0.0,
+     "mean_model_steps": 16.678571428571427
+    },
+    "17-99": {
+     "n": 94,
+     "acc": 0.8829787234042553,
+     "truncated_rate": 0.0,
+     "mean_model_steps": 21.585106382978722
+    }
+   }
+  },
+  {
+   "task": "prime->prime_hard",
+   "eval_task": "prime_hard",
+   "train_task": "prime",
+   "arm": "B",
+   "n": 180,
+   "seed": 1,
+   "model": "Qwen2.5-3B-Instruct",
+   "prompt_mode": "plain",
+   "gens_path": "results/v2/gens/Qwen2.5-3B-Instruct/prime_B_180_1__on-prime_hard__reeval.jsonl",
+   "n_items": 240,
+   "answer_acc": 0.5375,
+   "n_errors": 111,
+   "n_truncated_no_answer_line": 0,
+   "n_hit_cap": 0,
+   "n_wrong_with_answer_line": 111,
+   "n_truncated_and_wrong": 0,
+   "per_class": {
+    "primes": {
+     "n": 120,
+     "acc": 0.725,
+     "truncated_rate": 0.0
+    },
+    "composites": {
+     "n": 120,
+     "acc": 0.35,
+     "truncated_rate": 0.0
+    }
+   },
+   "truncated_share_of_errors": 0.0,
+   "step_arith_acc": 0.20238441407385868,
+   "n_steps_parsed": 3439,
+   "divisor_sequence_faithful_rate": 0.6166666666666667,
+   "answer_vs_own_conclusion_consistency": 1.0,
+   "by_true_trial_divisions": {
+    "1-1": {
+     "n": 0,
+     "acc": null,
+     "truncated_rate": null,
+     "mean_model_steps": null
+    },
+    "2-3": {
+     "n": 0,
+     "acc": null,
+     "truncated_rate": null,
+     "mean_model_steps": null
+    },
+    "4-8": {
+     "n": 62,
+     "acc": 0.3548387096774194,
+     "truncated_rate": 0.0,
+     "mean_model_steps": 13.03225806451613
+    },
+    "9-16": {
+     "n": 84,
+     "acc": 0.5714285714285714,
+     "truncated_rate": 0.0,
+     "mean_model_steps": 13.892857142857142
+    },
+    "17-99": {
+     "n": 94,
+     "acc": 0.6276595744680851,
+     "truncated_rate": 0.0,
+     "mean_model_steps": 15.574468085106384
+    }
+   }
+  },
   {
    "task": "prime[fewshot4]",
    "eval_task": "prime",
@@ -858,12 +4019,730 @@
    }
   }
  ],
+ "valid": [
+  {
+   "task": "valid",
+   "eval_task": "valid",
+   "train_task": "valid",
+   "arm": "B",
+   "n": 180,
+   "seed": 0,
+   "model": "Qwen2.5-3B-Instruct",
+   "prompt_mode": "plain",
+   "gens_path": "results/v2/gens/Qwen2.5-3B-Instruct/valid_B_180_0.jsonl",
+   "n_items": 240,
+   "answer_acc": 0.9125,
+   "by_gold": {
+    "Yes": {
+     "asserts_contradiction": 120,
+     "n": 120,
+     "correct": 120,
+     "claims_checked": 120,
+     "claims_actually_satisfiable": 1,
+     "frac_asserts_contradiction": 1.0,
+     "frac_asserts_countermodel": 0.0,
+     "acc": 1.0
+    },
+    "No": {
+     "asserts_countermodel": 117,
+     "n": 120,
+     "correct": 99,
+     "asserts_contradiction": 3,
+     "claims_checked": 3,
+     "claims_actually_satisfiable": 3,
+     "frac_asserts_contradiction": 0.025,
+     "frac_asserts_countermodel": 0.975,
+     "acc": 0.825
+    }
+   },
+   "hybrid_opener_then_contradiction": 0,
+   "claimed_contradictions_checked": 123,
+   "claimed_contradictions_actually_satisfiable": 4,
+   "errors_by_schema": {
+    "converse_error": {
+     "n": 15,
+     "errors": 1
+    },
+    "deny_antecedent": {
+     "n": 19,
+     "errors": 2
+    },
+    "fake_chain": {
+     "n": 30,
+     "errors": 18
+    }
+   }
+  },
+  {
+   "task": "valid",
+   "eval_task": "valid",
+   "train_task": "valid",
+   "arm": "B",
+   "n": 180,
+   "seed": 0,
+   "model": "Qwen2.5-7B-Instruct",
+   "prompt_mode": "plain",
+   "gens_path": "results/v2/gens/Qwen2.5-7B-Instruct/valid_B_180_0.jsonl",
+   "n_items": 240,
+   "answer_acc": 0.5833333333333334,
+   "by_gold": {
+    "Yes": {
+     "asserts_contradiction": 120,
+     "n": 120,
+     "correct": 120,
+     "claims_checked": 101,
+     "claims_actually_satisfiable": 0,
+     "frac_asserts_contradiction": 1.0,
+     "frac_asserts_countermodel": 0.0,
+     "acc": 1.0
+    },
+    "No": {
+     "asserts_contradiction": 99,
+     "n": 120,
+     "correct": 20,
+     "claims_checked": 40,
+     "claims_actually_satisfiable": 40,
+     "asserts_countermodel": 13,
+     "neither": 8,
+     "frac_asserts_contradiction": 0.825,
+     "frac_asserts_countermodel": 0.10833333333333334,
+     "acc": 0.16666666666666666
+    }
+   },
+   "hybrid_opener_then_contradiction": 99,
+   "claimed_contradictions_checked": 141,
+   "claimed_contradictions_actually_satisfiable": 40,
+   "errors_by_schema": {
+    "affirm_consequent": {
+     "n": 11,
+     "errors": 10
+    },
+    "affirm_disjunct": {
+     "n": 20,
+     "errors": 19
+    },
+    "converse_error": {
+     "n": 15,
+     "errors": 13
+    },
+    "deny_antecedent": {
+     "n": 19,
+     "errors": 19
+    },
+    "fake_chain": {
+     "n": 30,
+     "errors": 20
+    },
+    "illicit_conj": {
+     "n": 25,
+     "errors": 19
+    }
+   }
+  },
+  {
+   "task": "valid",
+   "eval_task": "valid",
+   "train_task": "valid",
+   "arm": "B",
+   "n": 180,
+   "seed": 1,
+   "model": "Qwen2.5-3B-Instruct",
+   "prompt_mode": "plain",
+   "gens_path": "results/v2/gens/Qwen2.5-3B-Instruct/valid_B_180_1.jsonl",
+   "n_items": 240,
+   "answer_acc": 1.0,
+   "by_gold": {
+    "Yes": {
+     "asserts_contradiction": 120,
+     "n": 120,
+     "correct": 120,
+     "claims_checked": 120,
+     "claims_actually_satisfiable": 0,
+     "frac_asserts_contradiction": 1.0,
+     "frac_asserts_countermodel": 0.0,
+     "acc": 1.0
+    },
+    "No": {
+     "asserts_countermodel": 120,
+     "n": 120,
+     "correct": 120,
+     "frac_asserts_contradiction": 0.0,
+     "frac_asserts_countermodel": 1.0,
+     "acc": 1.0
+    }
+   },
+   "hybrid_opener_then_contradiction": 0,
+   "claimed_contradictions_checked": 120,
+   "claimed_contradictions_actually_satisfiable": 0,
+   "errors_by_schema": {}
+  },
+  {
+   "task": "valid",
+   "eval_task": "valid",
+   "train_task": "valid",
+   "arm": "B",
+   "n": 180,
+   "seed": 2,
+   "model": "Qwen2.5-1.5B-Instruct",
+   "prompt_mode": "plain",
+   "gens_path": "results/v2/gens/Qwen2.5-1.5B-Instruct/valid_B_180_2.jsonl",
+   "n_items": 240,
+   "answer_acc": 0.85,
+   "by_gold": {
+    "Yes": {
+     "asserts_contradiction": 86,
+     "n": 120,
+     "correct": 86,
+     "claims_checked": 85,
+     "claims_actually_satisfiable": 17,
+     "asserts_countermodel": 34,
+     "frac_asserts_contradiction": 0.7166666666666667,
+     "frac_asserts_countermodel": 0.2833333333333333,
+     "acc": 0.7166666666666667
+    },
+    "No": {
+     "asserts_countermodel": 118,
+     "n": 120,
+     "correct": 118,
+     "asserts_contradiction": 2,
+     "claims_checked": 2,
+     "claims_actually_satisfiable": 0,
+     "frac_asserts_contradiction": 0.016666666666666666,
+     "frac_asserts_countermodel": 0.9833333333333333,
+     "acc": 0.9833333333333333
+    }
+   },
+   "hybrid_opener_then_contradiction": 0,
+   "claimed_contradictions_checked": 87,
+   "claimed_contradictions_actually_satisfiable": 17,
+   "errors_by_schema": {
+    "affirm_consequent": {
+     "n": 11,
+     "errors": 2
+    },
+    "hyp_syllogism": {
+     "n": 21,
+     "errors": 21
+    },
+    "modus_ponens": {
+     "n": 9,
+     "errors": 9
+    },
+    "modus_tollens": {
+     "n": 20,
+     "errors": 4
+    }
+   }
+  },
+  {
+   "task": "valid",
+   "eval_task": "valid",
+   "train_task": "valid",
+   "arm": "S",
+   "n": 180,
+   "seed": 0,
+   "model": "Qwen2.5-3B-Instruct",
+   "prompt_mode": "plain",
+   "gens_path": "results/v2/gens/Qwen2.5-3B-Instruct/valid_S_180_0.jsonl",
+   "n_items": 240,
+   "answer_acc": 0.9208333333333333,
+   "by_gold": {
+    "Yes": {
+     "neither": 119,
+     "n": 120,
+     "correct": 119,
+     "asserts_contradiction": 1,
+     "frac_asserts_contradiction": 0.008333333333333333,
+     "frac_asserts_countermodel": 0.0,
+     "acc": 0.9916666666666667
+    },
+    "No": {
+     "neither": 105,
+     "n": 120,
+     "correct": 102,
+     "asserts_contradiction": 15,
+     "frac_asserts_contradiction": 0.125,
+     "frac_asserts_countermodel": 0.0,
+     "acc": 0.85
+    }
+   },
+   "hybrid_opener_then_contradiction": 0,
+   "claimed_contradictions_checked": 0,
+   "claimed_contradictions_actually_satisfiable": 0,
+   "errors_by_schema": {
+    "affirm_consequent": {
+     "n": 11,
+     "errors": 2
+    },
+    "affirm_disjunct": {
+     "n": 20,
+     "errors": 13
+    },
+    "deny_antecedent": {
+     "n": 19,
+     "errors": 3
+    },
+    "modus_tollens": {
+     "n": 20,
+     "errors": 1
+    }
+   }
+  },
+  {
+   "task": "valid",
+   "eval_task": "valid",
+   "train_task": "valid",
+   "arm": "base",
+   "n": 0,
+   "seed": 0,
+   "model": "Qwen2.5-3B-Instruct",
+   "prompt_mode": "plain",
+   "gens_path": "results/v2/gens/Qwen2.5-3B-Instruct/valid_base_0_0.jsonl",
+   "n_items": 240,
+   "answer_acc": 0.8583333333333333,
+   "by_gold": {
+    "Yes": {
+     "neither": 118,
+     "n": 120,
+     "correct": 105,
+     "asserts_contradiction": 2,
+     "frac_asserts_contradiction": 0.016666666666666666,
+     "frac_asserts_countermodel": 0.0,
+     "acc": 0.875
+    },
+    "No": {
+     "neither": 120,
+     "n": 120,
+     "correct": 101,
+     "frac_asserts_contradiction": 0.0,
+     "frac_asserts_countermodel": 0.0,
+     "acc": 0.8416666666666667
+    }
+   },
+   "hybrid_opener_then_contradiction": 0,
+   "claimed_contradictions_checked": 0,
+   "claimed_contradictions_actually_satisfiable": 0,
+   "errors_by_schema": {
+    "affirm_consequent": {
+     "n": 11,
+     "errors": 8
+    },
+    "affirm_disjunct": {
+     "n": 20,
+     "errors": 11
+    },
+    "constr_dilemma": {
+     "n": 25,
+     "errors": 9
+    },
+    "disj_syllogism": {
+     "n": 27,
+     "errors": 1
+    },
+    "modus_tollens": {
+     "n": 20,
+     "errors": 5
+    }
+   }
+  },
+  {
+   "task": "valid",
+   "eval_task": "valid",
+   "train_task": "valid",
+   "arm": "base",
+   "n": 0,
+   "seed": 0,
+   "model": "Qwen2.5-7B-Instruct",
+   "prompt_mode": "plain",
+   "gens_path": "results/v2/gens/Qwen2.5-7B-Instruct/valid_base_0_0.jsonl",
+   "n_items": 240,
+   "answer_acc": 0.8958333333333334,
+   "by_gold": {
+    "Yes": {
+     "neither": 120,
+     "n": 120,
+     "correct": 98,
+     "frac_asserts_contradiction": 0.0,
+     "frac_asserts_countermodel": 0.0,
+     "acc": 0.8166666666666667
+    },
+    "No": {
+     "neither": 119,
+     "n": 120,
+     "correct": 117,
+     "asserts_contradiction": 1,
+     "frac_asserts_contradiction": 0.008333333333333333,
+     "frac_asserts_countermodel": 0.0,
+     "acc": 0.975
+    }
+   },
+   "hybrid_opener_then_contradiction": 0,
+   "claimed_contradictions_checked": 0,
+   "claimed_contradictions_actually_satisfiable": 0,
+   "errors_by_schema": {
+    "affirm_consequent": {
+     "n": 11,
+     "errors": 1
+    },
+    "affirm_disjunct": {
+     "n": 20,
+     "errors": 2
+    },
+    "constr_dilemma": {
+     "n": 25,
+     "errors": 1
+    },
+    "modus_ponens": {
+     "n": 9,
+     "errors": 8
+    },
+    "modus_tollens": {
+     "n": 20,
+     "errors": 13
+    }
+   }
+  },
+  {
+   "task": "valid[cot]",
+   "eval_task": "valid",
+   "train_task": "valid",
+   "arm": "base",
+   "n": 0,
+   "seed": 0,
+   "model": "Qwen2.5-1.5B-Instruct",
+   "prompt_mode": "cot",
+   "gens_path": "results/v2/gens/Qwen2.5-1.5B-Instruct/valid_base_0_0__cot.jsonl",
+   "n_items": 240,
+   "answer_acc": 0.6666666666666666,
+   "by_gold": {
+    "Yes": {
+     "neither": 111,
+     "n": 120,
+     "correct": 88,
+     "asserts_contradiction": 9,
+     "frac_asserts_contradiction": 0.075,
+     "frac_asserts_countermodel": 0.0,
+     "acc": 0.7333333333333333
+    },
+    "No": {
+     "neither": 103,
+     "n": 120,
+     "correct": 72,
+     "asserts_contradiction": 17,
+     "frac_asserts_contradiction": 0.14166666666666666,
+     "frac_asserts_countermodel": 0.0,
+     "acc": 0.6
+    }
+   },
+   "hybrid_opener_then_contradiction": 0,
+   "claimed_contradictions_checked": 0,
+   "claimed_contradictions_actually_satisfiable": 0,
+   "errors_by_schema": {
+    "affirm_consequent": {
+     "n": 11,
+     "errors": 5
+    },
+    "affirm_disjunct": {
+     "n": 20,
+     "errors": 11
+    },
+    "constr_dilemma": {
+     "n": 25,
+     "errors": 9
+    },
+    "contraposition": {
+     "n": 18,
+     "errors": 5
+    },
+    "converse_error": {
+     "n": 15,
+     "errors": 12
+    },
+    "deny_antecedent": {
+     "n": 19,
+     "errors": 14
+    },
+    "disj_syllogism": {
+     "n": 27,
+     "errors": 13
+    },
+    "fake_chain": {
+     "n": 30,
+     "errors": 6
+    },
+    "hyp_syllogism": {
+     "n": 21,
+     "errors": 1
+    },
+    "modus_tollens": {
+     "n": 20,
+     "errors": 4
+    }
+   }
+  },
+  {
+   "task": "valid[fewshot4]",
+   "eval_task": "valid",
+   "train_task": "valid",
+   "arm": "base",
+   "n": 0,
+   "seed": 0,
+   "model": "Qwen2.5-1.5B-Instruct",
+   "prompt_mode": "fewshot4",
+   "gens_path": "results/v2/gens/Qwen2.5-1.5B-Instruct/valid_base_0_0__fewshot4.jsonl",
+   "n_items": 240,
+   "answer_acc": 0.6875,
+   "by_gold": {
+    "Yes": {
+     "neither": 44,
+     "n": 120,
+     "correct": 59,
+     "asserts_contradiction": 76,
+     "claims_checked": 71,
+     "claims_actually_satisfiable": 27,
+     "frac_asserts_contradiction": 0.6333333333333333,
+     "frac_asserts_countermodel": 0.0,
+     "acc": 0.49166666666666664
+    },
+    "No": {
+     "neither": 40,
+     "n": 120,
+     "correct": 106,
+     "asserts_contradiction": 80,
+     "claims_checked": 62,
+     "claims_actually_satisfiable": 49,
+     "frac_asserts_contradiction": 0.6666666666666666,
+     "frac_asserts_countermodel": 0.0,
+     "acc": 0.8833333333333333
+    }
+   },
+   "hybrid_opener_then_contradiction": 0,
+   "claimed_contradictions_checked": 133,
+   "claimed_contradictions_actually_satisfiable": 76,
+   "errors_by_schema": {
+    "affirm_consequent": {
+     "n": 11,
+     "errors": 1
+    },
+    "affirm_disjunct": {
+     "n": 20,
+     "errors": 2
+    },
+    "constr_dilemma": {
+     "n": 25,
+     "errors": 9
+    },
+    "contraposition": {
+     "n": 18,
+     "errors": 18
+    },
+    "converse_error": {
+     "n": 15,
+     "errors": 9
+    },
+    "deny_antecedent": {
+     "n": 19,
+     "errors": 2
+    },
+    "hyp_syllogism": {
+     "n": 21,
+     "errors": 18
+    },
+    "modus_ponens": {
+     "n": 9,
+     "errors": 6
+    },
+    "modus_tollens": {
+     "n": 20,
+     "errors": 10
+    }
+   }
+  }
+ ],
+ "star": [
+  {
+   "ext_kept_trace_parsed_frac": 0.89937106918239,
+   "ext_kept_trace_correct_frac_all_kept": 0.6289308176100629,
+   "ext_all_claims_correct_among_parsed": 0.6993006993006993,
+   "ext_n_parsed": 143,
+   "ext_definition": "POST HOC re-audit (analysis_steps.audit_trace_ext): adds \\div, approximately, truncated/repeating decimals; parsed = >= 1 recognized claim",
+   "model": "Qwen2.5-1.5B-Instruct",
+   "task": "div7",
+   "n": 180,
+   "seed": 0,
+   "samples_path": "results/v2/star_samples/Qwen2.5-1.5B-Instruct/div7_S_180_0.jsonl",
+   "n_items": 180,
+   "K": 4,
+   "keep_rate": 0.5694444444444444,
+   "item_keep_rate": 0.8833333333333333,
+   "n_kept": 159,
+   "n_kept_yes": 83,
+   "n_kept_no": 76,
+   "n_trunc_rejected": 85,
+   "kept_trace_correct_frac": 0.36477987421383645,
+   "kept_trace_parsed_frac": 0.5157232704402516,
+   "all_claims_correct_among_parsed": 0.7073170731707317,
+   "definition": "kept_trace_correct_frac = kept traces with >= 1 audited remainder/quotient claim, all exactly correct (exp_worker_star.audit_trace), over ALL kept traces"
+  },
+  {
+   "model": "Qwen2.5-1.5B-Instruct",
+   "task": "prime",
+   "n": 180,
+   "seed": 0,
+   "samples_path": "results/v2/star_samples/Qwen2.5-1.5B-Instruct/prime_S_180_0.jsonl",
+   "n_items": 180,
+   "K": 4,
+   "keep_rate": 0.5958333333333333,
+   "item_keep_rate": 0.8333333333333334,
+   "n_kept": 150,
+   "n_kept_yes": 60,
+   "n_kept_no": 90,
+   "n_trunc_rejected": 3,
+   "kept_trace_correct_frac": null,
+   "kept_trace_parsed_frac": null,
+   "all_claims_correct_among_parsed": null,
+   "definition": "kept_trace_correct_frac = kept traces with >= 1 audited remainder/quotient claim, all exactly correct (exp_worker_star.audit_trace), over ALL kept traces"
+  },
+  {
+   "ext_kept_trace_parsed_frac": 0.976878612716763,
+   "ext_kept_trace_correct_frac_all_kept": 0.9421965317919075,
+   "ext_all_claims_correct_among_parsed": 0.9644970414201184,
+   "ext_n_parsed": 169,
+   "ext_definition": "POST HOC re-audit (analysis_steps.audit_trace_ext): adds \\div, approximately, truncated/repeating decimals; parsed = >= 1 recognized claim",
+   "model": "Qwen2.5-3B-Instruct",
+   "task": "div7",
+   "n": 180,
+   "seed": 0,
+   "samples_path": "results/v2/star_samples/Qwen2.5-3B-Instruct/div7_S_180_0.jsonl",
+   "n_items": 180,
+   "K": 4,
+   "keep_rate": 0.7916666666666666,
+   "item_keep_rate": 0.9611111111111111,
+   "n_kept": 173,
+   "n_kept_yes": 90,
+   "n_kept_no": 83,
+   "n_trunc_rejected": 98,
+   "kept_trace_correct_frac": 0.13872832369942195,
+   "kept_trace_parsed_frac": 0.15028901734104047,
+   "all_claims_correct_among_parsed": 0.9230769230769231,
+   "definition": "kept_trace_correct_frac = kept traces with >= 1 audited remainder/quotient claim, all exactly correct (exp_worker_star.audit_trace), over ALL kept traces"
+  },
+  {
+   "ext_kept_trace_parsed_frac": 0.976878612716763,
+   "ext_kept_trace_correct_frac_all_kept": 0.9421965317919075,
+   "ext_all_claims_correct_among_parsed": 0.9644970414201184,
+   "ext_n_parsed": 169,
+   "ext_definition": "POST HOC re-audit (analysis_steps.audit_trace_ext): adds \\div, approximately, truncated/repeating decimals; parsed = >= 1 recognized claim",
+   "model": "Qwen2.5-3B-Instruct",
+   "task": "div7",
+   "n": 180,
+   "seed": 1,
+   "samples_path": "results/v2/star_samples/Qwen2.5-3B-Instruct/div7_S_180_1.jsonl",
+   "n_items": 180,
+   "K": 4,
+   "keep_rate": 0.8125,
+   "item_keep_rate": 0.9611111111111111,
+   "n_kept": 173,
+   "n_kept_yes": 89,
+   "n_kept_no": 84,
+   "n_trunc_rejected": 88,
+   "kept_trace_correct_frac": 0.14450867052023122,
+   "kept_trace_parsed_frac": 0.16184971098265896,
+   "all_claims_correct_among_parsed": 0.8928571428571429,
+   "definition": "kept_trace_correct_frac = kept traces with >= 1 audited remainder/quotient claim, all exactly correct (exp_worker_star.audit_trace), over ALL kept traces"
+  },
+  {
+   "model": "Qwen2.5-3B-Instruct",
+   "task": "prime",
+   "n": 180,
+   "seed": 0,
+   "samples_path": "results/v2/star_samples/Qwen2.5-3B-Instruct/prime_S_180_0.jsonl",
+   "n_items": 180,
+   "K": 4,
+   "keep_rate": 0.5222222222222223,
+   "item_keep_rate": 0.7111111111111111,
+   "n_kept": 128,
+   "n_kept_yes": 43,
+   "n_kept_no": 85,
+   "n_trunc_rejected": 260,
+   "kept_trace_correct_frac": null,
+   "kept_trace_parsed_frac": null,
+   "all_claims_correct_among_parsed": null,
+   "definition": "kept_trace_correct_frac = kept traces with >= 1 audited remainder/quotient claim, all exactly correct (exp_worker_star.audit_trace), over ALL kept traces"
+  },
+  {
+   "model": "Qwen2.5-3B-Instruct",
+   "task": "valid",
+   "n": 180,
+   "seed": 0,
+   "samples_path": "results/v2/star_samples/Qwen2.5-3B-Instruct/valid_S_180_0.jsonl",
+   "n_items": 180,
+   "K": 4,
+   "keep_rate": 0.8097222222222222,
+   "item_keep_rate": 0.9888888888888889,
+   "n_kept": 178,
+   "n_kept_yes": 90,
+   "n_kept_no": 88,
+   "n_trunc_rejected": 64,
+   "kept_trace_correct_frac": null,
+   "kept_trace_parsed_frac": null,
+   "all_claims_correct_among_parsed": null,
+   "definition": "kept_trace_correct_frac = kept traces with >= 1 audited remainder/quotient claim, all exactly correct (exp_worker_star.audit_trace), over ALL kept traces"
+  },
+  {
+   "ext_kept_trace_parsed_frac": 0.9875776397515528,
+   "ext_kept_trace_correct_frac_all_kept": 0.8819875776397516,
+   "ext_all_claims_correct_among_parsed": 0.8930817610062893,
+   "ext_n_parsed": 159,
+   "ext_definition": "POST HOC re-audit (analysis_steps.audit_trace_ext): adds \\div, approximately, truncated/repeating decimals; parsed = >= 1 recognized claim",
+   "model": "Qwen2.5-7B-Instruct",
+   "task": "div7",
+   "n": 180,
+   "seed": 0,
+   "samples_path": "results/v2/star_samples/Qwen2.5-7B-Instruct/div7_S_180_0.jsonl",
+   "n_items": 180,
+   "K": 4,
+   "keep_rate": 0.7180555555555556,
+   "item_keep_rate": 0.8944444444444445,
+   "n_kept": 161,
+   "n_kept_yes": 78,
+   "n_kept_no": 83,
+   "n_trunc_rejected": 90,
+   "kept_trace_correct_frac": 0.2670807453416149,
+   "kept_trace_parsed_frac": 0.2919254658385093,
+   "all_claims_correct_among_parsed": 0.9148936170212766,
+   "definition": "kept_trace_correct_frac = kept traces with >= 1 audited remainder/quotient claim, all exactly correct (exp_worker_star.audit_trace), over ALL kept traces"
+  },
+  {
+   "model": "Qwen2.5-7B-Instruct",
+   "task": "prime",
+   "n": 180,
+   "seed": 0,
+   "samples_path": "results/v2/star_samples/Qwen2.5-7B-Instruct/prime_S_180_0.jsonl",
+   "n_items": 180,
+   "K": 4,
+   "keep_rate": 0.6291666666666667,
+   "item_keep_rate": 0.8722222222222222,
+   "n_kept": 157,
+   "n_kept_yes": 69,
+   "n_kept_no": 88,
+   "n_trunc_rejected": 140,
+   "kept_trace_correct_frac": null,
+   "kept_trace_parsed_frac": null,
+   "all_claims_correct_among_parsed": null,
+   "definition": "kept_trace_correct_frac = kept traces with >= 1 audited remainder/quotient claim, all exactly correct (exp_worker_star.audit_trace), over ALL kept traces"
+  }
+ ],
  "S5": {
-  "status": "FAIL (seed(s) [0] outside 10 pp; seed(s) [1] not yet run)",
+  "status": "FAIL (seed(s) [0, 1] outside 10 pp)",
   "status_by_model": {
    "Qwen2.5-1.5B-Instruct": {
-    "primary": "FAIL (seed(s) [0] outside 10 pp; seed(s) [1] not yet run)",
+    "primary": "FAIL (seed(s) [0, 1] outside 10 pp)",
     "secondary": "PASS"
+   },
+   "Qwen2.5-3B-Instruct": {
+    "primary": "FAIL (seed(s) [0] outside 10 pp; seed(s) [1] not yet run)",
+    "secondary": "FAIL (seed(s) [0, 1] outside 10 pp)"
    }
   },
   "tolerance_pp": 10.0,
@@ -877,28 +4756,92 @@
     "seed": 0,
     "n": 180,
     "p": 0.955,
-    "p_source": "fixed 0.955 (PREDICTIONS.md decision log: 4-digit div7 B seed 0)",
+    "p_source": "fixed 0.955 = decision-log value (4-digit div7 B seed 0)",
     "predicted_p6": 0.7586129105100154,
     "observed_acc": 0.7708333333333334,
     "obs_source": "gens",
     "diff_pp": 1.2220422823317922,
     "within_10pp": true,
     "same_seed_p_secondary": {
-     "p": 0.9968586387434555,
+     "p": 0.954945054945055,
      "source": "div7 B seed 0 generations",
-     "predicted_p6": 0.9812992361892503,
-     "diff_pp": -21.046590285591694,
-     "within_10pp": false
+     "predicted_p6": 0.7583510715581868,
+     "diff_pp": 1.2482261775146553,
+     "within_10pp": true
     },
     "post_hoc": {
      "label": "post hoc (decision log 2026-09-25 21:27)",
      "trace_correct_6digit": 0.48333333333333334,
      "trace_correct_minus_p6_pp": -27.52795771766821,
-     "g_4digit_answer_acc_when_trace_wrong": 0.6666666666666666,
-     "predicted_answer_acc_with_guessing": 0.9195376368366718,
-     "answer_minus_guess_model_pp": -14.87043035033384,
-     "p_after_first_step": 0.9958041958041958,
-     "p_after_first_step_pow5": 0.979196289636016
+     "g_4digit_answer_acc_when_trace_wrong": 0.5609756097560976,
+     "predicted_answer_acc_with_guessing": 0.8940251802239092,
+     "answer_minus_guess_model_pp": -12.319184689057582,
+     "p_after_first_step": 0.9388059701492537,
+     "p_after_first_step_pow5": 0.7292546612433968
+    }
+   },
+   {
+    "task": "div7->div7_6d",
+    "role": "secondary",
+    "primary": false,
+    "model": "Qwen2.5-3B-Instruct",
+    "seed": 0,
+    "n": 180,
+    "p": 0.8250319284802043,
+    "p_source": "this model's 4-digit div7 B seed 0 (secondary model)",
+    "predicted_p6": 0.3153730190638487,
+    "observed_acc": 0.5416666666666666,
+    "obs_source": "gens",
+    "diff_pp": 22.629364760281796,
+    "within_10pp": false,
+    "same_seed_p_secondary": {
+     "p": 0.8250319284802043,
+     "source": "div7 B seed 0 generations",
+     "predicted_p6": 0.3153730190638487,
+     "diff_pp": 22.629364760281796,
+     "within_10pp": false
+    },
+    "post_hoc": {
+     "label": "post hoc (decision log 2026-09-25 21:27)",
+     "trace_correct_6digit": 0.0875,
+     "trace_correct_minus_p6_pp": -22.78730190638487,
+     "g_4digit_answer_acc_when_trace_wrong": 0.44525547445255476,
+     "predicted_answer_acc_with_guessing": 0.6202069302835949,
+     "answer_minus_guess_model_pp": -7.8540263616928225,
+     "p_after_first_step": 0.7476979742173112,
+     "p_after_first_step_pow5": 0.23368509877601135
+    }
+   },
+   {
+    "task": "div7->div7_6d",
+    "role": "secondary",
+    "primary": false,
+    "model": "Qwen2.5-3B-Instruct",
+    "seed": 1,
+    "n": 180,
+    "p": 0.8250319284802043,
+    "p_source": "this model's 4-digit div7 B seed 0 (secondary model)",
+    "predicted_p6": 0.3153730190638487,
+    "observed_acc": 0.65,
+    "obs_source": "gens",
+    "diff_pp": 33.46269809361513,
+    "within_10pp": false,
+    "same_seed_p_secondary": {
+     "p": 0.9137737961926092,
+     "source": "div7 B seed 1 generations",
+     "predicted_p6": 0.5821463773062361,
+     "diff_pp": 6.785362269376394,
+     "within_10pp": true
+    },
+    "post_hoc": {
+     "label": "post hoc (decision log 2026-09-25 21:27)",
+     "trace_correct_6digit": 0.35,
+     "trace_correct_minus_p6_pp": 3.4626980936151295,
+     "g_4digit_answer_acc_when_trace_wrong": 0.44525547445255476,
+     "predicted_answer_acc_with_guessing": 0.6202069302835949,
+     "answer_minus_guess_model_pp": 2.9793069716405163,
+     "p_after_first_step": 0.7476979742173112,
+     "p_after_first_step_pow5": 0.23368509877601135
     }
    },
    {
@@ -909,28 +4852,86 @@
     "seed": 0,
     "n": 180,
     "p": 0.955,
-    "p_source": "fixed 0.955 (PREDICTIONS.md decision log: 4-digit div7 B seed 0)",
+    "p_source": "fixed 0.955 = decision-log value (4-digit div7 B seed 0)",
     "predicted_p6": 0.7586129105100154,
     "observed_acc": 0.9625,
     "obs_source": "gens",
     "diff_pp": 20.388708948998456,
     "within_10pp": false,
     "same_seed_p_secondary": {
-     "p": 0.9968586387434555,
+     "p": 0.954945054945055,
      "source": "div7 B seed 0 generations",
-     "predicted_p6": 0.9812992361892503,
-     "diff_pp": -1.879923618925028,
-     "within_10pp": true
+     "predicted_p6": 0.7583510715581868,
+     "diff_pp": 20.41489284418132,
+     "within_10pp": false
     },
     "post_hoc": {
      "label": "post hoc (decision log 2026-09-25 21:27)",
      "trace_correct_6digit": 0.9291666666666667,
      "trace_correct_minus_p6_pp": 17.055375615665124,
-     "g_4digit_answer_acc_when_trace_wrong": 0.6666666666666666,
-     "predicted_answer_acc_with_guessing": 0.9195376368366718,
-     "answer_minus_guess_model_pp": 4.296236316332824,
-     "p_after_first_step": 0.9958041958041958,
-     "p_after_first_step_pow5": 0.979196289636016
+     "g_4digit_answer_acc_when_trace_wrong": 0.5609756097560976,
+     "predicted_answer_acc_with_guessing": 0.8940251802239092,
+     "answer_minus_guess_model_pp": 6.847481977609082,
+     "p_after_first_step": 0.9388059701492537,
+     "p_after_first_step_pow5": 0.7292546612433968
+    }
+   },
+   {
+    "task": "div7_6d",
+    "role": "primary",
+    "primary": true,
+    "model": "Qwen2.5-1.5B-Instruct",
+    "seed": 1,
+    "n": 180,
+    "p": 0.955,
+    "p_source": "fixed 0.955 = decision-log value (4-digit div7 B seed 0)",
+    "predicted_p6": 0.7586129105100154,
+    "observed_acc": 0.9,
+    "obs_source": "gens",
+    "diff_pp": 14.138708948998458,
+    "within_10pp": false,
+    "same_seed_p_secondary": null,
+    "post_hoc": {
+     "label": "post hoc (decision log 2026-09-25 21:27)",
+     "trace_correct_6digit": 0.7708333333333334,
+     "trace_correct_minus_p6_pp": 1.2220422823317922,
+     "g_4digit_answer_acc_when_trace_wrong": 0.5609756097560976,
+     "predicted_answer_acc_with_guessing": 0.8940251802239092,
+     "answer_minus_guess_model_pp": 0.5974819776090823,
+     "p_after_first_step": 0.9388059701492537,
+     "p_after_first_step_pow5": 0.7292546612433968
+    }
+   },
+   {
+    "task": "div7_6d",
+    "role": "primary",
+    "primary": true,
+    "model": "Qwen2.5-3B-Instruct",
+    "seed": 0,
+    "n": 180,
+    "p": 0.8250319284802043,
+    "p_source": "this model's 4-digit div7 B seed 0 (secondary model)",
+    "predicted_p6": 0.3153730190638487,
+    "observed_acc": 0.825,
+    "obs_source": "gens",
+    "diff_pp": 50.96269809361513,
+    "within_10pp": false,
+    "same_seed_p_secondary": {
+     "p": 0.8250319284802043,
+     "source": "div7 B seed 0 generations",
+     "predicted_p6": 0.3153730190638487,
+     "diff_pp": 50.96269809361513,
+     "within_10pp": false
+    },
+    "post_hoc": {
+     "label": "post hoc (decision log 2026-09-25 21:27)",
+     "trace_correct_6digit": 0.6916666666666667,
+     "trace_correct_minus_p6_pp": 37.629364760281796,
+     "g_4digit_answer_acc_when_trace_wrong": 0.44525547445255476,
+     "predicted_answer_acc_with_guessing": 0.6202069302835949,
+     "answer_minus_guess_model_pp": 20.47930697164051,
+     "p_after_first_step": 0.7476979742173112,
+     "p_after_first_step_pow5": 0.23368509877601135
     }
    }
   ]

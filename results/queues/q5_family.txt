@@ -1,0 +1,11 @@
+# fifth 5090 package: a second model family (S11). Same LoRA, data, prompts and n as the Qwen cells.
+div7 A 180 0
+div7 B 180 0
+div7 D 180 0
+div7 A 180 1
+div7 B 180 1
+div7 base 0 0
+prime A 180 0
+prime B 180 0
+valid A 180 0
+valid B 180 0
