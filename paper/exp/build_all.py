@@ -3,7 +3,7 @@
   1. analysis:  experiments/analysis_stats.py, analysis_probe.py (only for tasks missing from probe.json,
                 or all tasks with --probe), analysis_rules.py, analysis_tokens.py, analysis_report.py
   2. paper/exp/make_numbers.py  -> paper/numbers.tex, paper/tab_runs.tex
-  3. paper/exp/make_figures.py  -> paper/fig_map.pdf, paper/fig_arms.pdf
+  3. paper/exp/make_figures.py  -> paper/fig_map.pdf, paper/fig_arms.pdf; make_fig_story.py -> paper/fig_story.pdf
   4. pdflatex, bibtex, pdflatex, pdflatex in paper/
   5. report: total pages, the page on which the main text ends, overfull boxes, undefined references
 
@@ -77,6 +77,7 @@ def main():
         step("analysis_report", [PY, os.path.join(EXP, "analysis_report.py")])
     step("make_numbers", [PY, os.path.join(HERE, "make_numbers.py")])
     step("make_figures", [PY, os.path.join(HERE, "make_figures.py")])
+    step("make_fig_story", [PY, os.path.join(HERE, "make_fig_story.py")])
     for ext in ("aux", "bbl", "blg", "out"):
         f = os.path.join(PAPER, "main." + ext)
         if os.path.exists(f):

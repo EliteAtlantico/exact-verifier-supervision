@@ -31,7 +31,7 @@ from matplotlib.lines import Line2D  # noqa: E402
 INK, MUTED, GRID = "#0b0b0b", "#52514e", "#e4e3df"
 COL = {"base": "#8a8984", "A": "#2a78d6", "B": "#eb6834", "C": "#1baf7a", "Bprime": "#4a3aa7",
        "D": "#b9a11c", "S": "#c2185b", "cot": "#8a8984", "fewshot4": "#8a8984"}
-plt.rcParams.update({"font.size": 8, "axes.edgecolor": MUTED, "axes.labelcolor": INK, "xtick.color": MUTED,
+plt.rcParams.update({"font.size": 9, "axes.edgecolor": MUTED, "axes.labelcolor": INK, "xtick.color": MUTED,
                      "ytick.color": MUTED, "axes.spines.top": False, "axes.spines.right": False,
                      "pdf.fonttype": 42, "font.family": "serif"})
 MODELS = ["Qwen2.5-1.5B-Instruct", "Qwen2.5-3B-Instruct", "Qwen2.5-7B-Instruct"]
@@ -96,10 +96,10 @@ def panel_a(ax, runs):
         ax.text(gi * 5 + 1.5, 103, SHORT[model], ha="center", fontsize=8, color=INK)
     ax.axhline(50, color=MUTED, lw=0.7, ls=(0, (1, 2)), zorder=1)
     ax.set_xticks([gi * 5 + ai for gi in range(3) for ai in range(4)])
-    ax.set_xticklabels([labels[a] for _ in range(3) for a in arms], rotation=60, ha="right", fontsize=6.3)
+    ax.set_xticklabels([labels[a] for _ in range(3) for a in arms], rotation=60, ha="right", fontsize=7.2)
     ax.set_ylim(40, 108)
     ax.set_ylabel("div7 accuracy (%)")
-    ax.set_title("(a) erasure and retention (div7)", fontsize=7.6, loc="left")
+    ax.set_title("(a) erasure and retention (div7)", fontsize=8.6, loc="left")
     ax.grid(axis="y", color=GRID, lw=0.6, zorder=0)
 
 
@@ -132,14 +132,14 @@ def panel_b(ax):
         xt.append(i)
         xl.append(f"{arm} {SHORT[model]}")
     ax.set_xticks(xt)
-    ax.set_xticklabels(xl, rotation=60, ha="right", fontsize=6.3)
+    ax.set_xticklabels(xl, rotation=60, ha="right", fontsize=7.2)
     ax.set_ylim(-5, 105)
     ax.set_ylabel("primality accuracy (%)")
-    ax.set_title("(b) the primality shortcut", fontsize=7.6, loc="left")
+    ax.set_title("(b) the primality shortcut", fontsize=8.6, loc="left")
     ax.grid(axis="y", color=GRID, lw=0.6, zorder=0)
     h = [Line2D([], [], marker="o", color=MUTED, lw=0, markersize=4, label="rule correct (198 items)"),
          Line2D([], [], marker="X", color=MUTED, lw=0, markersize=5, label="rule wrong (42 composites)")]
-    ax.legend(handles=h, loc="lower left", frameon=False, fontsize=6, handletextpad=0.3, borderaxespad=0.2)
+    ax.legend(handles=h, loc="lower left", frameon=False, fontsize=6.8, handletextpad=0.3, borderaxespad=0.2)
 
 
 def panel_c(ax, runs, model="Qwen2.5-1.5B-Instruct"):
@@ -153,16 +153,16 @@ def panel_c(ax, runs, model="Qwen2.5-1.5B-Instruct"):
         xl.append(lab)
     ax.axhline(50, color=MUTED, lw=0.7, ls=(0, (1, 2)), zorder=1)
     ax.set_xticks(range(len(items)))
-    ax.set_xticklabels(xl, rotation=60, ha="right", fontsize=6.3)
+    ax.set_xticklabels(xl, rotation=60, ha="right", fontsize=7.2)
     ax.set_ylim(40, 108)
     ax.set_ylabel("div7 accuracy (%), 1.5B")
-    ax.set_title("(c) what the trace must be (div7, 1.5B)", fontsize=7.6, loc="left")
+    ax.set_title("(c) what the trace must be (div7, 1.5B)", fontsize=8.6, loc="left")
     ax.grid(axis="y", color=GRID, lw=0.6, zorder=0)
 
 
 def main():
     runs = load_runs()
-    fig, axes = plt.subplots(1, 3, figsize=(7.0, 2.35), gridspec_kw={"width_ratios": [1.35, 0.85, 1.05]})
+    fig, axes = plt.subplots(1, 3, figsize=(7.0, 2.55), gridspec_kw={"width_ratios": [1.35, 0.85, 1.05]})
     panel_a(axes[0], runs)
     panel_b(axes[1])
     panel_c(axes[2], runs)
