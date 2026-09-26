@@ -1175,6 +1175,36 @@ def sweep_macros():
     b_rows = gen_rows("div7_base_0_0__cot")
     put("divsevenBaseCotMedTok", "%d" % median(r["n_gen_tokens"] for r in b_rows) if b_rows else DASH,
         "median generated tokens, base under the CoT prompt")
+    # S11: second model family (fallback SmolLM2-1.7B-Instruct when Llama-3.2-3B was not downloadable)
+    fam_f = os.path.join(ROOT, "results", "v2", "second_family_model.txt")
+    fam = open(fam_f, encoding="utf-8").read().strip() if os.path.exists(fam_f) else None
+    put("secondFamilyModel", fam.split("/")[-1] if fam else DASH, "results/v2/second_family_model.txt")
+    fr = lambda t, a, s_: run(t, a, (0 if a == "base" else MAIN_N), s_, fam) if fam else None
+    for t, tp in (("div7", "Divseven"), ("prime", "Prime"), ("valid", "Valid")):
+        for a in ("A", "B", "D", "base"):
+            for s_, sw_ in ((0, "sZero"), (1, "sOne")):
+                r = fr(t, a, s_)
+                if r:
+                    put("fam" + tp + ("Base" if a == "base" else a) + sw_, pct(r["acc"]), "S11 " + fam)
+    d = {s_: (fr("div7", "B", s_), fr("div7", "A", s_)) for s_ in (0, 1)}
+    diffs = {s_: 100 * (b["acc"] - a["acc"]) for s_, (b, a) in d.items() if a and b}
+    for s_, sw_ in ((0, "sZero"), (1, "sOne")):
+        if s_ in diffs:
+            b, a = d[s_]
+            put("famDivsevenBAdiff" + sw_, "%+.1f" % diffs[s_], "S11 B - A, pp")
+            put("famDivsevenBAp" + sw_, pval(mcnemar(b["bits_list"], a["bits_list"])[2]), "S11 McNemar B vs A")
+    dd, a0 = fr("div7", "D", 0), fr("div7", "A", 0)
+    if len(diffs) == 2 and dd and a0:
+        ok_a = all(v >= 20 for v in diffs.values())
+        ok_b = abs(dd["acc"] - a0["acc"]) <= 0.10
+        put("SElevenVerdict", "passed" if (ok_a and ok_b) else "failed", "S11 rule: B - A >= 20 pp both seeds and |D - A| <= 10 pp")
+        put("SElevenResult", "on %s, traces beat answers on div7 by %+.1f and %+.1f points (seeds 0 and 1), "
+            "significant in both, so the %d-point threshold %s; the grounding control stays within %.1f points of A"
+            % (fam.split("/")[-1], diffs[0], diffs[1], 20, "holds" if ok_a else "fails in seed 0" if diffs[0] < 20 else "fails in seed 1",
+               100 * abs(dd["acc"] - a0["acc"])), "S11 summary")
+    else:
+        put("SElevenVerdict", "not complete", "S11 incomplete")
+        put("SElevenResult", "the second-family cells had not finished by submission", "S11 incomplete")
 
 
 # ------------------------------------------------------------------------------------------ main
