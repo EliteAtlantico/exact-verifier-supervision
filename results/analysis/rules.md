@@ -17,6 +17,7 @@ Agreement = fraction of test items where the model's (recovered) answer equals t
 | B | 180 | 0 | Qwen2.5-7B-Instruct | gens | 98.8 | 0.49 | 51.2 | 48.8 | 49.2 | 48.3 | 52.9 | 51.7 | 49.6 | 49.2 | 98.8 | last_digit_even (52.9; kappa 0.06 vs truth 0.98) |
 | B | 180 | 1 | Qwen2.5-1.5B-Instruct | gens | 99.2 | 0.49 | 50.8 | 49.2 | 48.8 | 49.6 | 53.3 | 51.2 | 50.0 | 48.8 | 99.2 | last_digit_even (53.3; kappa 0.07 vs truth 0.98) |
 | B | 180 | 1 | Qwen2.5-3B-Instruct | gens | 100.0 | 0.50 | 50.0 | 50.0 | 47.9 | 48.8 | 54.2 | 50.4 | 49.2 | 47.9 | 100.0 | last_digit_even (54.2; kappa 0.08 vs truth 1.00) |
+| B | 180 | 2 | Qwen2.5-1.5B-Instruct | gens | 100.0 | 0.50 | 50.0 | 50.0 | 47.9 | 48.8 | 54.2 | 50.4 | 49.2 | 47.9 | 100.0 | last_digit_even (54.2; kappa 0.08 vs truth 1.00) |
 | base | 0 | 0 | Qwen2.5-1.5B-Instruct | gens | 55.0 | 0.14 | 74.2 | 13.8 | 68.8 | 59.6 | 42.5 | 67.9 | 56.7 | 54.2 | 55.0 | last_digit_even (42.5; kappa -0.05 vs truth 0.10) |
 
 Best agreement by ANY function of the last digit / digit sum (vs permutation-null mean, q95)
@@ -34,6 +35,7 @@ Best agreement by ANY function of the last digit / digit sum (vs permutation-nul
 | B | 180 | 0 | 60.4 | 57.7 / 60.8 | 63.3 | 62.4 / 65.8 |
 | B | 180 | 1 | 59.2 | 57.7 / 60.8 | 62.9 | 62.4 / 65.8 |
 | B | 180 | 1 | 60.0 | 57.7 / 61.3 | 63.7 | 62.4 / 65.8 |
+| B | 180 | 2 | 60.0 | 57.7 / 61.3 | 63.7 | 62.4 / 65.8 |
 | base | 0 | 0 | 74.2 | 74.2 / 74.2 | 74.6 | 74.9 / 75.8 |
 
 ## div13
@@ -49,6 +51,7 @@ Best agreement by ANY function of the last digit / digit sum (vs permutation-nul
 | A | 180 | 2 | Qwen2.5-1.5B-Instruct | gens | 51.2 | 0.08 | 92.1 | 7.9 | 82.1 | 77.5 | 47.9 | 88.8 | 64.6 | 62.1 | 51.2 | digit_sum_div_13 (88.8; kappa 0.21 vs truth 0.02) |
 | A | 360 | 0 | Qwen2.5-1.5B-Instruct | gens | 50.0 | 0.00 | 100.0 | 0.0 | 87.5 | 82.9 | 49.2 | 92.5 | 67.5 | 62.5 | 50.0 | last_digit_0_or_5 (82.9; kappa 0.00 vs truth 0.00) |
 | A | 360 | 0 | Qwen2.5-3B-Instruct | gens | 50.0 | 0.00 | 100.0 | 0.0 | 87.5 | 82.9 | 49.2 | 92.5 | 67.5 | 62.5 | 50.0 | last_digit_0_or_5 (82.9; kappa 0.00 vs truth 0.00) |
+| A | 540 | 0 | Qwen2.5-3B-Instruct | gens | 50.0 | 0.00 | 100.0 | 0.0 | 87.5 | 82.9 | 49.2 | 92.5 | 67.5 | 62.5 | 50.0 | last_digit_0_or_5 (82.9; kappa 0.00 vs truth 0.00) |
 | B | 180 | 0 | Qwen2.5-1.5B-Instruct | gens | 54.6 | 0.76 | 23.8 | 76.2 | 29.6 | 24.2 | 36.2 | 29.6 | 39.6 | 48.8 | 54.6 | contains_digit_7 (48.8; kappa 0.09 vs truth 0.09) |
 | B | 180 | 0 | Qwen2.5-3B-Instruct | gens | 52.9 | 0.70 | 30.4 | 69.6 | 30.4 | 29.2 | 47.1 | 33.8 | 44.6 | 46.2 | 52.9 | digit_sum_div_3 (44.6; kappa 0.03 vs truth 0.06) |
 | B | 180 | 0 | Qwen2.5-7B-Instruct | gens | 61.3 | 0.26 | 73.8 | 26.2 | 66.2 | 65.0 | 52.9 | 72.1 | 57.1 | 53.8 | 61.3 | last_digit_even (52.9; kappa 0.07 vs truth 0.23) |
@@ -59,6 +62,7 @@ Best agreement by ANY function of the last digit / digit sum (vs permutation-nul
 | B | 360 | 0 | Qwen2.5-1.5B-Instruct | gens | 75.4 | 0.27 | 72.9 | 27.1 | 63.7 | 65.0 | 50.4 | 71.2 | 57.1 | 54.6 | 75.4 | digit_sum_div_13 (71.2; kappa 0.06 vs truth 0.51) |
 | B | 360 | 0 | Qwen2.5-3B-Instruct | gens | 83.3 | 0.33 | 66.7 | 33.3 | 59.2 | 61.3 | 50.8 | 65.8 | 59.2 | 56.7 | 83.3 | digit_sum_div_3 (59.2; kappa 0.08 vs truth 0.67) |
 | B | 540 | 0 | Qwen2.5-1.5B-Instruct | gens | 94.6 | 0.46 | 53.8 | 46.2 | 48.8 | 51.7 | 51.2 | 54.6 | 52.9 | 51.2 | 94.6 | digit_sum_div_3 (52.9; kappa 0.03 vs truth 0.89) |
+| B | 540 | 0 | Qwen2.5-3B-Instruct | gens | 99.6 | 0.50 | 50.4 | 49.6 | 47.9 | 49.2 | 52.1 | 53.8 | 52.1 | 50.4 | 99.6 | digit_sum_div_13 (53.8; kappa 0.07 vs truth 0.99) |
 | C | 180 | 0 | Qwen2.5-1.5B-Instruct | gens | 45.0 | 0.49 | 50.8 | 49.2 | 50.8 | 50.4 | 48.3 | 49.2 | 48.3 | 50.8 | 45.0 | contains_digit_7 (50.8; kappa 0.01 vs truth -0.10) |
 | base | 0 | 0 | Qwen2.5-1.5B-Instruct | gens | 50.4 | 0.23 | 76.7 | 22.9 | 70.0 | 67.9 | 50.4 | 73.8 | 74.2 | 55.0 | 50.4 | digit_sum_div_3 (74.2; kappa 0.36 vs truth 0.01) |
 | base | 0 | 0 | Qwen2.5-3B-Instruct | gens | 92.1 | 0.53 | 47.1 | 52.9 | 47.9 | 45.0 | 50.4 | 50.4 | 49.6 | 53.8 | 92.1 | contains_digit_7 (53.8; kappa 0.09 vs truth 0.84) |
@@ -77,6 +81,7 @@ Best agreement by ANY function of the last digit / digit sum (vs permutation-nul
 | A | 180 | 2 | 92.1 | 92.1 / 92.1 | 92.1 | 92.2 / 92.5 |
 | A | 360 | 0 | 100.0 | 100.0 / 100.0 | 100.0 | 100.0 / 100.0 |
 | A | 360 | 0 | 100.0 | 100.0 / 100.0 | 100.0 | 100.0 / 100.0 |
+| A | 540 | 0 | 100.0 | 100.0 / 100.0 | 100.0 | 100.0 / 100.0 |
 | B | 180 | 0 | 84.6 | 76.3 / 76.2 | 77.1 | 77.2 / 78.3 |
 | B | 180 | 0 | 77.5 | 69.7 / 70.8 | 71.2 | 71.5 / 73.3 |
 | B | 180 | 0 | 73.8 | 73.8 / 74.2 | 74.2 | 74.9 / 76.2 |
@@ -87,6 +92,7 @@ Best agreement by ANY function of the last digit / digit sum (vs permutation-nul
 | B | 360 | 0 | 72.9 | 73.0 / 73.3 | 74.2 | 74.3 / 75.8 |
 | B | 360 | 0 | 67.9 | 67.0 / 68.3 | 69.6 | 69.3 / 71.2 |
 | B | 540 | 0 | 60.8 | 58.3 / 61.3 | 63.3 | 63.0 / 66.2 |
+| B | 540 | 0 | 59.2 | 57.7 / 61.3 | 62.9 | 62.6 / 65.8 |
 | C | 180 | 0 | 57.9 | 57.7 / 60.8 | 62.9 | 62.5 / 65.8 |
 | base | 0 | 0 | 76.7 | 76.7 / 76.7 | 82.1 | 77.5 / 78.8 |
 | base | 0 | 0 | 55.8 | 58.1 / 61.3 | 63.7 | 62.9 / 66.2 |
@@ -116,10 +122,12 @@ Best agreement by ANY function of the last digit / digit sum (vs permutation-nul
 | A | 180 | 0 | Qwen2.5-3B-Instruct | gens | 99.2 | 0.50 | 50.0 | 50.0 | 48.8 | 48.8 | 48.8 | 99.2 | 55.0 | 99.2 | digit_sum_div_3 (99.2; kappa 0.98 vs truth 0.98) |
 | A | 180 | 1 | Qwen2.5-1.5B-Instruct | gens | 62.5 | 0.77 | 23.3 | 76.7 | 26.2 | 29.6 | 52.1 | 62.5 | 50.0 | 62.5 | digit_sum_div_3 (62.5; kappa 0.25 vs truth 0.25) |
 | A | 180 | 1 | Qwen2.5-3B-Instruct | gens | 99.2 | 0.50 | 50.0 | 50.0 | 48.8 | 49.6 | 47.1 | 99.2 | 55.8 | 99.2 | digit_sum_div_3 (99.2; kappa 0.98 vs truth 0.98) |
+| A | 180 | 2 | Qwen2.5-1.5B-Instruct | gens | 49.6 | 0.15 | 84.6 | 15.4 | 80.0 | 70.0 | 47.5 | 49.6 | 62.9 | 49.6 | contains_digit_7 (62.9; kappa 0.09 vs truth -0.01) |
 | B | 180 | 0 | Qwen2.5-1.5B-Instruct | gens | 100.0 | 0.50 | 50.0 | 50.0 | 48.8 | 49.6 | 47.9 | 100.0 | 55.0 | 100.0 | digit_sum_div_3 (100.0; kappa 1.00 vs truth 1.00) |
 | B | 180 | 0 | Qwen2.5-3B-Instruct | gens | 100.0 | 0.50 | 50.0 | 50.0 | 48.8 | 49.6 | 47.9 | 100.0 | 55.0 | 100.0 | digit_sum_div_3 (100.0; kappa 1.00 vs truth 1.00) |
 | B | 180 | 1 | Qwen2.5-1.5B-Instruct | gens | 100.0 | 0.50 | 50.0 | 50.0 | 48.8 | 49.6 | 47.9 | 100.0 | 55.0 | 100.0 | digit_sum_div_3 (100.0; kappa 1.00 vs truth 1.00) |
 | B | 180 | 1 | Qwen2.5-3B-Instruct | gens | 100.0 | 0.50 | 50.0 | 50.0 | 48.8 | 49.6 | 47.9 | 100.0 | 55.0 | 100.0 | digit_sum_div_3 (100.0; kappa 1.00 vs truth 1.00) |
+| B | 180 | 2 | Qwen2.5-1.5B-Instruct | gens | 100.0 | 0.50 | 50.0 | 50.0 | 48.8 | 49.6 | 47.9 | 100.0 | 55.0 | 100.0 | digit_sum_div_3 (100.0; kappa 1.00 vs truth 1.00) |
 | base | 0 | 0 | Qwen2.5-1.5B-Instruct | gens | 78.3 | 0.29 | 70.8 | 29.2 | 65.4 | 61.3 | 51.2 | 78.3 | 59.2 | 78.3 | digit_sum_div_3 (78.3; kappa 0.57 vs truth 0.57) |
 
 Best agreement by ANY function of the last digit / digit sum (vs permutation-null mean, q95)
@@ -130,10 +138,12 @@ Best agreement by ANY function of the last digit / digit sum (vs permutation-nul
 | A | 180 | 0 | 55.4 | 57.7 / 61.3 | 99.2 | 62.9 / 66.2 |
 | A | 180 | 1 | 76.7 | 76.7 / 76.7 | 80.8 | 77.8 / 79.2 |
 | A | 180 | 1 | 55.0 | 57.7 / 60.8 | 99.2 | 62.9 / 66.2 |
+| A | 180 | 2 | 84.6 | 84.6 / 84.6 | 85.4 | 85.1 / 85.8 |
 | B | 180 | 0 | 55.0 | 57.6 / 60.8 | 100.0 | 62.9 / 66.2 |
 | B | 180 | 0 | 55.0 | 57.6 / 60.8 | 100.0 | 62.9 / 66.2 |
 | B | 180 | 1 | 55.0 | 57.6 / 60.8 | 100.0 | 62.9 / 66.2 |
 | B | 180 | 1 | 55.0 | 57.6 / 60.8 | 100.0 | 62.9 / 66.2 |
+| B | 180 | 2 | 55.0 | 57.6 / 60.8 | 100.0 | 62.9 / 66.2 |
 | base | 0 | 0 | 70.8 | 70.9 / 71.2 | 92.1 | 72.8 / 74.6 |
 
 ## div7
@@ -152,6 +162,7 @@ Best agreement by ANY function of the last digit / digit sum (vs permutation-nul
 | A | 540 | 0 | Qwen2.5-1.5B-Instruct | bits | 50.0 | 0.00 | 100.0 | 0.0 | 88.3 | 78.8 | 48.8 | 87.5 | 71.7 | 64.2 | 50.0 | contains_digit_7 (64.2; kappa 0.00 vs truth 0.00) |
 | B | 60 | 0 | Qwen2.5-1.5B-Instruct | bits | 50.0 | 0.73 | 26.7 | 73.3 | 30.0 | 28.7 | 49.6 | 34.2 | 37.5 | 34.2 | 50.0 | digit_sum_div_7 (34.2; kappa 0.02 vs truth 0.00) |
 | B | 90 | 0 | Qwen2.5-1.5B-Instruct | gens | 62.1 | 0.52 | 47.9 | 52.1 | 41.2 | 41.7 | 51.7 | 48.8 | 52.9 | 37.9 | 62.1 | digit_sum_div_3 (52.9; kappa 0.08 vs truth 0.24) |
+| B | 90 | 0 | Qwen2.5-3B-Instruct | gens | 60.0 | 0.45 | 55.0 | 45.0 | 51.7 | 47.9 | 51.2 | 52.5 | 50.0 | 54.2 | 60.0 | contains_digit_7 (54.2; kappa 0.06 vs truth 0.20) |
 | B | 180 | 0 | Qwen2.5-1.5B-Instruct | gens | 92.5 | 0.47 | 53.3 | 46.7 | 53.3 | 51.2 | 49.6 | 50.8 | 52.5 | 53.3 | 92.5 | contains_digit_7 (53.3; kappa 0.05 vs truth 0.85) |
 | B | 180 | 0 | Qwen2.5-0.5B-Instruct | gens | 79.2 | 0.34 | 65.8 | 34.2 | 63.3 | 57.1 | 41.2 | 60.0 | 60.0 | 56.7 | 79.2 | digit_sum_div_3 (60.0; kappa 0.07 vs truth 0.58) |
 | B | 180 | 0 | Qwen2.5-3B-Instruct | gens | 68.3 | 0.27 | 73.3 | 26.7 | 68.3 | 67.9 | 51.2 | 67.5 | 58.3 | 59.2 | 68.3 | last_digit_0_or_5 (67.9; kappa 0.12 vs truth 0.37) |
@@ -161,6 +172,7 @@ Best agreement by ANY function of the last digit / digit sum (vs permutation-nul
 | B | 180 | 1 | Qwen2.5-7B-Instruct | gens | 90.4 | 0.46 | 53.8 | 46.2 | 53.8 | 53.3 | 49.2 | 51.2 | 52.9 | 52.9 | 90.4 | contains_digit_7 (52.9; kappa 0.04 vs truth 0.81) |
 | B | 180 | 2 | Qwen2.5-1.5B-Instruct | bits | 82.5 | 0.41 | 59.2 | 40.8 | 59.2 | 54.6 | 47.9 | 55.8 | 51.7 | 56.7 | 82.5 | contains_digit_7 (56.7; kappa 0.09 vs truth 0.65) |
 | B | 270 | 0 | Qwen2.5-1.5B-Instruct | gens | 99.6 | 0.50 | 50.4 | 49.6 | 50.4 | 47.5 | 48.3 | 47.9 | 52.1 | 50.4 | 99.6 | digit_sum_div_3 (52.1; kappa 0.04 vs truth 0.99) |
+| B | 270 | 0 | Qwen2.5-3B-Instruct | gens | 97.9 | 0.48 | 52.1 | 47.9 | 52.1 | 47.5 | 49.2 | 48.8 | 52.9 | 50.4 | 97.9 | digit_sum_div_3 (52.9; kappa 0.04 vs truth 0.96) |
 | Bprime | 180 | 0 | Qwen2.5-1.5B-Instruct | gens | 48.3 | 0.47 | 52.5 | 47.5 | 55.8 | 49.6 | 49.6 | 51.7 | 54.2 | 61.7 | 48.3 | contains_digit_7 (61.7; kappa 0.22 vs truth -0.03) |
 | Bprime | 180 | 0 | Qwen2.5-3B-Instruct | gens | 50.8 | 0.96 | 4.2 | 95.8 | 15.0 | 23.8 | 52.1 | 15.8 | 27.5 | 38.3 | 50.8 | contains_digit_7 (38.3; kappa 0.02 vs truth 0.02) |
 | Bprime | 180 | 0 | Qwen2.5-7B-Instruct | gens | 53.3 | 0.16 | 84.2 | 15.8 | 80.0 | 72.9 | 52.9 | 75.8 | 63.3 | 61.7 | 53.3 | last_digit_is_7 (80.0; kappa 0.16 vs truth 0.07) |
@@ -171,7 +183,10 @@ Best agreement by ANY function of the last digit / digit sum (vs permutation-nul
 | D | 180 | 0 | Qwen2.5-3B-Instruct | gens | 50.0 | 1.00 | 0.0 | 100.0 | 11.7 | 21.2 | 51.2 | 12.5 | 28.3 | 35.8 | 50.0 | last_digit_is_7 (11.7; kappa 0.00 vs truth 0.00) |
 | D | 180 | 0 | Qwen2.5-7B-Instruct | gens | 47.9 | 0.39 | 61.3 | 38.8 | 58.8 | 59.2 | 50.0 | 60.4 | 57.1 | 51.2 | 47.9 | last_digit_0_or_5 (59.2; kappa 0.06 vs truth -0.04) |
 | D | 180 | 1 | Qwen2.5-1.5B-Instruct | gens | 50.4 | 0.00 | 99.6 | 0.4 | 87.9 | 79.2 | 48.3 | 87.9 | 72.1 | 63.7 | 50.4 | digit_sum_div_7 (87.9; kappa 0.06 vs truth 0.01) |
+| S | 180 | 0 | Qwen2.5-1.5B-Instruct | gens | 77.9 | 0.57 | 42.9 | 56.7 | 45.4 | 44.2 | 52.9 | 41.2 | 45.4 | 47.9 | 77.9 | last_digit_even (52.9; kappa 0.06 vs truth 0.56) |
 | S | 180 | 0 | Qwen2.5-3B-Instruct | gens | 97.5 | 0.52 | 48.3 | 51.7 | 50.0 | 46.2 | 47.9 | 45.8 | 50.8 | 50.0 | 97.5 | digit_sum_div_3 (50.8; kappa 0.03 vs truth 0.95) |
+| S | 180 | 0 | Qwen2.5-7B-Instruct | gens | 82.1 | 0.41 | 58.8 | 41.2 | 57.9 | 51.7 | 49.2 | 53.8 | 55.4 | 56.2 | 82.1 | contains_digit_7 (56.2; kappa 0.08 vs truth 0.64) |
+| S | 180 | 1 | Qwen2.5-3B-Instruct | gens | 96.2 | 0.54 | 46.2 | 53.8 | 48.8 | 44.2 | 47.5 | 44.6 | 50.4 | 50.4 | 96.2 | digit_sum_div_3 (50.4; kappa 0.04 vs truth 0.93) |
 | base | 0 | 0 | Qwen2.5-1.5B-Instruct | bits | 62.5 | 0.72 | 28.3 | 71.7 | 36.7 | 30.4 | 46.2 | 30.8 | 39.2 | 45.8 | 62.5 | last_digit_is_7 (36.7; kappa 0.05 vs truth 0.25) |
 | base | 0 | 0 | Qwen2.5-3B-Instruct | gens | 94.2 | 0.55 | 45.0 | 55.0 | 47.5 | 42.9 | 47.9 | 44.2 | 51.7 | 49.2 | 94.2 | digit_sum_div_3 (51.7; kappa 0.07 vs truth 0.88) |
 | base | 0 | 0 | Qwen2.5-7B-Instruct | gens | 82.5 | 0.45 | 54.2 | 45.4 | 55.0 | 49.2 | 47.5 | 49.2 | 54.6 | 53.3 | 82.5 | digit_sum_div_3 (54.6; kappa 0.05 vs truth 0.65) |
@@ -192,6 +207,7 @@ Best agreement by ANY function of the last digit / digit sum (vs permutation-nul
 | A | 540 | 0 | 100.0 | 100.0 / 100.0 | 100.0 | 100.0 / 100.0 |
 | B | 60 | 0 | 78.8 | 73.4 / 73.3 | 76.2 | 74.6 / 76.2 |
 | B | 90 | 0 | 67.5 | 57.9 / 61.3 | 64.2 | 62.3 / 65.4 |
+| B | 90 | 0 | 61.3 | 58.7 / 61.7 | 61.3 | 63.0 / 66.2 |
 | B | 180 | 0 | 55.8 | 58.2 / 61.7 | 61.7 | 62.5 / 65.4 |
 | B | 180 | 0 | 66.7 | 66.2 / 67.9 | 67.9 | 68.6 / 70.8 |
 | B | 180 | 0 | 73.3 | 73.4 / 73.3 | 74.6 | 74.7 / 76.2 |
@@ -201,6 +217,7 @@ Best agreement by ANY function of the last digit / digit sum (vs permutation-nul
 | B | 180 | 1 | 56.7 | 58.2 / 61.7 | 60.4 | 62.7 / 66.2 |
 | B | 180 | 2 | 60.0 | 60.9 / 63.7 | 65.4 | 64.5 / 67.1 |
 | B | 270 | 0 | 56.2 | 57.7 / 60.8 | 60.4 | 62.3 / 65.4 |
+| B | 270 | 0 | 57.1 | 57.9 / 61.3 | 62.1 | 62.4 / 65.4 |
 | Bprime | 180 | 0 | 61.3 | 57.8 / 60.8 | 65.0 | 62.4 / 65.8 |
 | Bprime | 180 | 0 | 95.8 | 95.8 / 95.8 | 95.8 | 95.9 / 96.2 |
 | Bprime | 180 | 0 | 84.2 | 84.2 / 84.2 | 85.0 | 84.7 / 85.4 |
@@ -211,7 +228,10 @@ Best agreement by ANY function of the last digit / digit sum (vs permutation-nul
 | D | 180 | 0 | 100.0 | 100.0 / 100.0 | 100.0 | 100.0 / 100.0 |
 | D | 180 | 0 | 61.3 | 62.4 / 64.6 | 65.4 | 65.6 / 68.3 |
 | D | 180 | 1 | 99.6 | 99.6 / 99.6 | 99.6 | 99.6 / 99.6 |
+| S | 180 | 0 | 58.8 | 59.2 / 62.1 | 65.0 | 63.4 / 66.2 |
 | S | 180 | 0 | 57.9 | 57.8 / 61.3 | 60.8 | 62.4 / 65.8 |
+| S | 180 | 0 | 63.7 | 60.6 / 63.3 | 63.3 | 64.4 / 67.1 |
+| S | 180 | 1 | 60.0 | 58.2 / 61.7 | 60.0 | 62.6 / 65.8 |
 | base | 0 | 0 | 71.7 | 71.8 / 72.5 | 72.1 | 73.2 / 75.0 |
 | base | 0 | 0 | 60.4 | 58.7 / 61.7 | 61.7 | 62.9 / 66.2 |
 | base | 0 | 0 | 61.7 | 58.2 / 61.3 | 61.7 | 62.7 / 65.8 |
@@ -311,6 +331,8 @@ Best agreement by ANY function of the last digit / digit sum (vs permutation-nul
 | B_orn | 9 | 1 | Qwen2.5-1.5B-Instruct | bits | 60.0 | 0.12 | 88.3 | 11.7 | 37.9 | 44.2 | 48.3 | 52.1 | 54.6 | 55.8 | 56.7 | 57.5 | 57.5 | 57.5 | 57.5 | 58.3 | 60.0 | no_factor_le_17 (57.5; kappa 0.19 vs truth 0.20) |
 | C | 180 | 0 | Qwen2.5-1.5B-Instruct | bits | 50.0 | 0.99 | 0.8 | 99.2 | 73.8 | 67.5 | 63.3 | 59.6 | 56.2 | 55.0 | 54.2 | 53.3 | 52.5 | 52.5 | 52.5 | 51.7 | 50.0 | odd (73.8; kappa 0.01 vs truth 0.00) |
 | C | 180 | 1 | Qwen2.5-1.5B-Instruct | bits | 54.2 | 0.12 | 87.5 | 12.5 | 37.9 | 44.2 | 45.0 | 48.8 | 50.4 | 50.8 | 51.7 | 52.5 | 53.3 | 53.3 | 53.3 | 54.2 | 54.2 | last_digit_1379 (44.2; kappa 0.12 vs truth 0.08) |
+| S | 180 | 0 | Qwen2.5-3B-Instruct | gens | 69.6 | 0.23 | 60.0 | 22.5 | 48.8 | 55.0 | 59.2 | 62.9 | 66.2 | 67.1 | 67.9 | 68.8 | 69.6 | 69.6 | 69.6 | 70.4 | 69.6 | no_factor_le_31 (70.4; kappa 0.42 vs truth 0.39) |
+| S | 180 | 0 | Qwen2.5-7B-Instruct | gens | 72.1 | 0.33 | 59.6 | 32.5 | 58.3 | 64.2 | 68.8 | 72.1 | 71.2 | 71.7 | 71.7 | 71.7 | 71.7 | 71.7 | 71.7 | 72.1 | 72.1 | no_factor_le_5 (72.1; kappa 0.48 vs truth 0.44) |
 | base | 0 | 0 | Qwen2.5-1.5B-Instruct | bits | 59.6 | 0.28 | 72.1 | 27.9 | 54.2 | 57.1 | 60.4 | 60.8 | 60.8 | 61.3 | 62.1 | 61.3 | 61.3 | 61.3 | 61.3 | 60.4 | 59.6 | no_factor_le_3 (60.4; kappa 0.29 vs truth 0.19) |
 | base | 0 | 0 | Qwen2.5-3B-Instruct | gens | 47.1 | 0.02 | 52.5 | 1.7 | 27.9 | 34.2 | 38.3 | 42.1 | 44.2 | 45.4 | 45.8 | 46.7 | 47.1 | 47.1 | 47.1 | 47.1 | 47.1 | no_factor_le_5 (42.1; kappa 0.02 vs truth -0.06) |
 | base | 0 | 0 | Qwen2.5-7B-Instruct | gens | 72.1 | 0.30 | 68.8 | 29.6 | 55.8 | 62.1 | 64.6 | 68.3 | 71.7 | 72.1 | 72.1 | 72.9 | 72.9 | 72.9 | 72.9 | 72.9 | 72.1 | no_factor_le_17 (72.9; kappa 0.47 vs truth 0.44) |
@@ -344,6 +366,8 @@ Per stratum: accuracy % / P(pred prime)
 | B_orn | 9 | 1 | 100 / 0.00 | 93 / 0.07 | 98 / 0.02 | 22 / 0.22 |
 | C | 180 | 0 | 2 / 0.98 | 0 / 1.00 | 0 / 1.00 | 99 / 0.99 |
 | C | 180 | 1 | 98 / 0.02 | 80 / 0.20 | 86 / 0.14 | 17 / 0.17 |
+| S | 180 | 0 | 100 / 0.00 | 67 / 0.13 | 100 / 0.00 | 43 / 0.43 |
+| S | 180 | 0 | 98 / 0.00 | 53 / 0.40 | 86 / 0.12 | 56 / 0.56 |
 | base | 0 | 0 | 100 / 0.00 | 40 / 0.60 | 69 / 0.31 | 38 / 0.38 |
 | base | 0 | 0 | 100 / 0.00 | 47 / 0.00 | 93 / 0.00 | 3 / 0.03 |
 | base | 0 | 0 | 100 / 0.00 | 53 / 0.47 | 95 / 0.05 | 52 / 0.52 |

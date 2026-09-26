@@ -104,15 +104,25 @@ def main():
                 main_end = i + 1
             if refs is None and "REFERENCES" in t:
                 refs = i + 1
-        tbd = sum(pg.get_text().count("[TBD]") for pg in doc)
+        text = "\n".join(pg.get_text() for pg in doc)
+        tbd = text.count("[TBD]")
+        # upload guard: no placeholder or provisional wording may survive in the PDF
+        # (the verbatim preregistration quote in the appendix is exempt: it may not be edited)
+        guard = re.sub(r"PREREGISTRATION TEXT AND DECISION LOG.*?THE COMPOUNDING APPROXIMATION", " ", text,
+                       flags=re.S | re.I)
+        stale = {w: len(re.findall(r"\b" + w + r"\b", guard, re.I)) for w in ("pending", "so far")}
+        hashes = sorted(set(re.findall(r"\b(?=[0-9a-f]*[a-f])(?=[0-9a-f]*\d)[0-9a-f]{7}\b", text)))
     except Exception:
-        tbd = None
+        tbd, stale, hashes = None, {}, []
     print("\n== build report")
     print("pages: %s total; main text (through Limitations) ends on page %s; references start on page %s"
           % (pages, main_end, refs))
     print("overfull hboxes: %d; undefined refs/cites: %s; undefined control sequences: %d; [TBD] cells: %s"
           % (overfull, ", ".join(undef) or "none", undef_cs, tbd))
-    bad = FAILED or undef or undef_cs or (main_end is not None and main_end > 9)
+    print("upload guard: 'pending' %s, 'so far' %s, 7-hex commit-like strings: %s"
+          % (stale.get("pending"), stale.get("so far"), ", ".join(hashes) or "none"))
+    bad = FAILED or undef or undef_cs or (main_end is not None and main_end > 9) or overfull or tbd \
+        or any(stale.values()) or hashes
     if FAILED:
         print("failed steps:", ", ".join(FAILED))
     sys.exit(1 if bad else 0)

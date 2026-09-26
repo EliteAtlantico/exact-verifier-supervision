@@ -329,6 +329,71 @@
    }
   },
   {
+   "task": "div11",
+   "eval_task": "div11",
+   "train_task": "div11",
+   "arm": "B",
+   "n": 180,
+   "seed": 2,
+   "model": "Qwen2.5-1.5B-Instruct",
+   "prompt_mode": "plain",
+   "gens_path": "results/v2/gens/Qwen2.5-1.5B-Instruct/div11_B_180_2.jsonl",
+   "n_items": 240,
+   "k": 4,
+   "answer_acc": 1.0,
+   "parse_rate": 1.0,
+   "exact_k_steps_rate": 0.9958333333333333,
+   "p_uncond": 0.996875,
+   "p_cond": 0.9979144942648592,
+   "p_cond_by_position": [
+    1.0,
+    1.0,
+    0.9958333333333333,
+    0.99581589958159
+   ],
+   "p_cond_after_first_step": 0.9972183588317107,
+   "p_uncond_by_position": [
+    1.0,
+    1.0,
+    0.9958333333333333,
+    0.9916666666666667
+   ],
+   "local_arith_acc": 0.996875,
+   "local_arith_by_position": [
+    1.0,
+    1.0,
+    0.9958333333333333,
+    0.9916666666666667
+   ],
+   "local_arith_pow_k": 0.9875584717750547,
+   "arith_on_claimed_operands_acc": 0.9989572471324296,
+   "digit_copy_acc": 0.9989572471324296,
+   "carry_consistency": 1.0,
+   "trace_correct_rate": 0.9916666666666667,
+   "answer_trace_consistency": 1.0,
+   "n_consistency_items": 240,
+   "answer_acc_given_trace_correct": 1.0,
+   "answer_acc_given_trace_wrong": 1.0,
+   "predicted_acc_p_cond_pow_k": 0.991684036801136,
+   "predicted_acc_prod_p_i": 0.9916666666666667,
+   "post_hoc_predicted_answer_acc_own_g": 1.0,
+   "observed_minus_predicted_pp": 0.8315963198863963,
+   "ground_truth_mismatches": 0,
+   "yes_rate": 0.5,
+   "error_anatomy": {
+    "n_wrong_traces": 2,
+    "first_error_position": {
+     "3": 1,
+     "4": 1
+    },
+    "final_remainder_of_wrong_traces": {
+     "3": 1,
+     "21": 1
+    },
+    "wrong_traces_ending_in_0": 0.0
+   }
+  },
+  {
    "task": "div13",
    "eval_task": "div13",
    "train_task": "div13",
@@ -1093,6 +1158,69 @@
    }
   },
   {
+   "task": "div13",
+   "eval_task": "div13",
+   "train_task": "div13",
+   "arm": "B",
+   "n": 540,
+   "seed": 0,
+   "model": "Qwen2.5-3B-Instruct",
+   "prompt_mode": "plain",
+   "gens_path": "results/v2/gens/Qwen2.5-3B-Instruct/div13_B_540_0.jsonl",
+   "n_items": 240,
+   "k": 4,
+   "answer_acc": 0.9958333333333333,
+   "parse_rate": 1.0,
+   "exact_k_steps_rate": 1.0,
+   "p_uncond": 0.9989583333333333,
+   "p_cond": 0.9989583333333333,
+   "p_cond_by_position": [
+    1.0,
+    1.0,
+    1.0,
+    0.9958333333333333
+   ],
+   "p_cond_after_first_step": 0.9986111111111111,
+   "p_uncond_by_position": [
+    1.0,
+    1.0,
+    1.0,
+    0.9958333333333333
+   ],
+   "local_arith_acc": 0.9989583333333333,
+   "local_arith_by_position": [
+    1.0,
+    1.0,
+    1.0,
+    0.9958333333333333
+   ],
+   "local_arith_pow_k": 0.9958398392300545,
+   "arith_on_claimed_operands_acc": 1.0,
+   "digit_copy_acc": 0.9989583333333333,
+   "carry_consistency": 1.0,
+   "trace_correct_rate": 0.9958333333333333,
+   "answer_trace_consistency": 1.0,
+   "n_consistency_items": 240,
+   "answer_acc_given_trace_correct": 1.0,
+   "answer_acc_given_trace_wrong": 0.0,
+   "predicted_acc_p_cond_pow_k": 0.9958398392300545,
+   "predicted_acc_prod_p_i": 0.9958333333333333,
+   "post_hoc_predicted_answer_acc_own_g": 0.9958398392300545,
+   "observed_minus_predicted_pp": -0.0006505896721131776,
+   "ground_truth_mismatches": 0,
+   "yes_rate": 0.49583333333333335,
+   "error_anatomy": {
+    "n_wrong_traces": 1,
+    "first_error_position": {
+     "4": 1
+    },
+    "final_remainder_of_wrong_traces": {
+     "12": 1
+    },
+    "wrong_traces_ending_in_0": 0.0
+   }
+  },
+  {
    "task": "div2",
    "eval_task": "div2",
    "train_task": "div2",
@@ -1394,6 +1522,65 @@
    }
   },
   {
+   "task": "div3",
+   "eval_task": "div3",
+   "train_task": "div3",
+   "arm": "B",
+   "n": 180,
+   "seed": 2,
+   "model": "Qwen2.5-1.5B-Instruct",
+   "prompt_mode": "plain",
+   "gens_path": "results/v2/gens/Qwen2.5-1.5B-Instruct/div3_B_180_2.jsonl",
+   "n_items": 240,
+   "k": 4,
+   "answer_acc": 1.0,
+   "parse_rate": 1.0,
+   "exact_k_steps_rate": 1.0,
+   "p_uncond": 1.0,
+   "p_cond": 1.0,
+   "p_cond_by_position": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "p_cond_after_first_step": 1.0,
+   "p_uncond_by_position": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "local_arith_acc": 1.0,
+   "local_arith_by_position": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "local_arith_pow_k": 1.0,
+   "arith_on_claimed_operands_acc": 1.0,
+   "digit_copy_acc": 0.9989583333333333,
+   "carry_consistency": 1.0,
+   "trace_correct_rate": 1.0,
+   "answer_trace_consistency": 1.0,
+   "n_consistency_items": 240,
+   "answer_acc_given_trace_correct": 1.0,
+   "answer_acc_given_trace_wrong": null,
+   "predicted_acc_p_cond_pow_k": 1.0,
+   "predicted_acc_prod_p_i": 1.0,
+   "post_hoc_predicted_answer_acc_own_g": null,
+   "observed_minus_predicted_pp": 0.0,
+   "ground_truth_mismatches": 0,
+   "yes_rate": 0.5,
+   "error_anatomy": {
+    "n_wrong_traces": 0,
+    "first_error_position": {},
+    "final_remainder_of_wrong_traces": {},
+    "wrong_traces_ending_in_0": null
+   }
+  },
+  {
    "task": "div7",
    "eval_task": "div7",
    "train_task": "div7",
@@ -1462,6 +1649,78 @@
      "6": 14
     },
     "wrong_traces_ending_in_0": 0.4627659574468085
+   }
+  },
+  {
+   "task": "div7",
+   "eval_task": "div7",
+   "train_task": "div7",
+   "arm": "B",
+   "n": 90,
+   "seed": 0,
+   "model": "Qwen2.5-3B-Instruct",
+   "prompt_mode": "plain",
+   "gens_path": "results/v2/gens/Qwen2.5-3B-Instruct/div7_B_90_0.jsonl",
+   "n_items": 240,
+   "k": 4,
+   "answer_acc": 0.6,
+   "parse_rate": 1.0,
+   "exact_k_steps_rate": 0.9916666666666667,
+   "p_uncond": 0.6197916666666666,
+   "p_cond": 0.7714285714285715,
+   "p_cond_by_position": [
+    0.9958333333333333,
+    0.6610878661087866,
+    0.5886075949367089,
+    0.7857142857142857
+   ],
+   "p_cond_after_first_step": 0.6626262626262627,
+   "p_uncond_by_position": [
+    0.9958333333333333,
+    0.6583333333333333,
+    0.4083333333333333,
+    0.4166666666666667
+   ],
+   "local_arith_acc": 0.7260416666666667,
+   "local_arith_by_position": [
+    0.9958333333333333,
+    0.6625,
+    0.5833333333333334,
+    0.6625
+   ],
+   "local_arith_pow_k": 0.2778728914625851,
+   "arith_on_claimed_operands_acc": 0.7296450939457203,
+   "digit_copy_acc": 0.9979123173277662,
+   "carry_consistency": 1.0,
+   "trace_correct_rate": 0.3,
+   "answer_trace_consistency": 1.0,
+   "n_consistency_items": 240,
+   "answer_acc_given_trace_correct": 1.0,
+   "answer_acc_given_trace_wrong": 0.42857142857142855,
+   "predicted_acc_p_cond_pow_k": 0.3541464389837568,
+   "predicted_acc_prod_p_i": 0.30446428571428574,
+   "post_hoc_predicted_answer_acc_own_g": 0.6309408222764324,
+   "observed_minus_predicted_pp": 24.585356101624317,
+   "ground_truth_mismatches": 0,
+   "yes_rate": 0.45,
+   "error_anatomy": {
+    "n_wrong_traces": 168,
+    "first_error_position": {
+     "1": 1,
+     "2": 81,
+     "3": 65,
+     "4": 21
+    },
+    "final_remainder_of_wrong_traces": {
+     "0": 63,
+     "1": 19,
+     "2": 37,
+     "3": 10,
+     "4": 11,
+     "5": 12,
+     "6": 16
+    },
+    "wrong_traces_ending_in_0": 0.375
    }
   },
   {
@@ -1958,6 +2217,75 @@
     "final_remainder_of_wrong_traces": {
      "5": 2,
      "6": 1
+    },
+    "wrong_traces_ending_in_0": 0.0
+   }
+  },
+  {
+   "task": "div7",
+   "eval_task": "div7",
+   "train_task": "div7",
+   "arm": "B",
+   "n": 270,
+   "seed": 0,
+   "model": "Qwen2.5-3B-Instruct",
+   "prompt_mode": "plain",
+   "gens_path": "results/v2/gens/Qwen2.5-3B-Instruct/div7_B_270_0.jsonl",
+   "n_items": 240,
+   "k": 4,
+   "answer_acc": 0.9791666666666666,
+   "parse_rate": 1.0,
+   "exact_k_steps_rate": 1.0,
+   "p_uncond": 0.9739583333333334,
+   "p_cond": 0.9862869198312236,
+   "p_cond_by_position": [
+    1.0,
+    0.9875,
+    0.9746835443037974,
+    0.9826839826839827
+   ],
+   "p_cond_after_first_step": 0.981638418079096,
+   "p_uncond_by_position": [
+    1.0,
+    0.9875,
+    0.9625,
+    0.9458333333333333
+   ],
+   "local_arith_acc": 0.9864583333333333,
+   "local_arith_by_position": [
+    1.0,
+    0.9875,
+    0.975,
+    0.9833333333333333
+   ],
+   "local_arith_pow_k": 0.946923694470488,
+   "arith_on_claimed_operands_acc": 0.9864583333333333,
+   "digit_copy_acc": 1.0,
+   "carry_consistency": 1.0,
+   "trace_correct_rate": 0.9458333333333333,
+   "answer_trace_consistency": 1.0,
+   "n_consistency_items": 240,
+   "answer_acc_given_trace_correct": 1.0,
+   "answer_acc_given_trace_wrong": 0.6153846153846154,
+   "predicted_acc_p_cond_pow_k": 0.9462656911931112,
+   "predicted_acc_prod_p_i": 0.9458333333333334,
+   "post_hoc_predicted_answer_acc_own_g": 0.9793329581511966,
+   "observed_minus_predicted_pp": 3.2900975473555416,
+   "ground_truth_mismatches": 0,
+   "yes_rate": 0.4791666666666667,
+   "error_anatomy": {
+    "n_wrong_traces": 13,
+    "first_error_position": {
+     "2": 3,
+     "3": 6,
+     "4": 4
+    },
+    "final_remainder_of_wrong_traces": {
+     "1": 2,
+     "2": 1,
+     "3": 1,
+     "4": 7,
+     "5": 2
     },
     "wrong_traces_ending_in_0": 0.0
    }
@@ -4233,6 +4561,54 @@
  ],
  "star": [
   {
+   "ext_kept_trace_parsed_frac": 0.89937106918239,
+   "ext_kept_trace_correct_frac_all_kept": 0.6289308176100629,
+   "ext_all_claims_correct_among_parsed": 0.6993006993006993,
+   "ext_n_parsed": 143,
+   "ext_definition": "POST HOC re-audit (analysis_steps.audit_trace_ext): adds \\div, approximately, truncated/repeating decimals; parsed = >= 1 recognized claim",
+   "model": "Qwen2.5-1.5B-Instruct",
+   "task": "div7",
+   "n": 180,
+   "seed": 0,
+   "samples_path": "results/v2/star_samples/Qwen2.5-1.5B-Instruct/div7_S_180_0.jsonl",
+   "n_items": 180,
+   "K": 4,
+   "keep_rate": 0.5694444444444444,
+   "item_keep_rate": 0.8833333333333333,
+   "n_kept": 159,
+   "n_kept_yes": 83,
+   "n_kept_no": 76,
+   "n_trunc_rejected": 85,
+   "kept_trace_correct_frac": 0.36477987421383645,
+   "kept_trace_parsed_frac": 0.5157232704402516,
+   "all_claims_correct_among_parsed": 0.7073170731707317,
+   "definition": "kept_trace_correct_frac = kept traces with >= 1 audited remainder/quotient claim, all exactly correct (exp_worker_star.audit_trace), over ALL kept traces"
+  },
+  {
+   "model": "Qwen2.5-1.5B-Instruct",
+   "task": "prime",
+   "n": 180,
+   "seed": 0,
+   "samples_path": "results/v2/star_samples/Qwen2.5-1.5B-Instruct/prime_S_180_0.jsonl",
+   "n_items": 180,
+   "K": 4,
+   "keep_rate": 0.5958333333333333,
+   "item_keep_rate": 0.8333333333333334,
+   "n_kept": 150,
+   "n_kept_yes": 60,
+   "n_kept_no": 90,
+   "n_trunc_rejected": 3,
+   "kept_trace_correct_frac": null,
+   "kept_trace_parsed_frac": null,
+   "all_claims_correct_among_parsed": null,
+   "definition": "kept_trace_correct_frac = kept traces with >= 1 audited remainder/quotient claim, all exactly correct (exp_worker_star.audit_trace), over ALL kept traces"
+  },
+  {
+   "ext_kept_trace_parsed_frac": 0.976878612716763,
+   "ext_kept_trace_correct_frac_all_kept": 0.9421965317919075,
+   "ext_all_claims_correct_among_parsed": 0.9644970414201184,
+   "ext_n_parsed": 169,
+   "ext_definition": "POST HOC re-audit (analysis_steps.audit_trace_ext): adds \\div, approximately, truncated/repeating decimals; parsed = >= 1 recognized claim",
    "model": "Qwen2.5-3B-Instruct",
    "task": "div7",
    "n": 180,
@@ -4252,6 +4628,49 @@
    "definition": "kept_trace_correct_frac = kept traces with >= 1 audited remainder/quotient claim, all exactly correct (exp_worker_star.audit_trace), over ALL kept traces"
   },
   {
+   "ext_kept_trace_parsed_frac": 0.976878612716763,
+   "ext_kept_trace_correct_frac_all_kept": 0.9421965317919075,
+   "ext_all_claims_correct_among_parsed": 0.9644970414201184,
+   "ext_n_parsed": 169,
+   "ext_definition": "POST HOC re-audit (analysis_steps.audit_trace_ext): adds \\div, approximately, truncated/repeating decimals; parsed = >= 1 recognized claim",
+   "model": "Qwen2.5-3B-Instruct",
+   "task": "div7",
+   "n": 180,
+   "seed": 1,
+   "samples_path": "results/v2/star_samples/Qwen2.5-3B-Instruct/div7_S_180_1.jsonl",
+   "n_items": 180,
+   "K": 4,
+   "keep_rate": 0.8125,
+   "item_keep_rate": 0.9611111111111111,
+   "n_kept": 173,
+   "n_kept_yes": 89,
+   "n_kept_no": 84,
+   "n_trunc_rejected": 88,
+   "kept_trace_correct_frac": 0.14450867052023122,
+   "kept_trace_parsed_frac": 0.16184971098265896,
+   "all_claims_correct_among_parsed": 0.8928571428571429,
+   "definition": "kept_trace_correct_frac = kept traces with >= 1 audited remainder/quotient claim, all exactly correct (exp_worker_star.audit_trace), over ALL kept traces"
+  },
+  {
+   "model": "Qwen2.5-3B-Instruct",
+   "task": "prime",
+   "n": 180,
+   "seed": 0,
+   "samples_path": "results/v2/star_samples/Qwen2.5-3B-Instruct/prime_S_180_0.jsonl",
+   "n_items": 180,
+   "K": 4,
+   "keep_rate": 0.5222222222222223,
+   "item_keep_rate": 0.7111111111111111,
+   "n_kept": 128,
+   "n_kept_yes": 43,
+   "n_kept_no": 85,
+   "n_trunc_rejected": 260,
+   "kept_trace_correct_frac": null,
+   "kept_trace_parsed_frac": null,
+   "all_claims_correct_among_parsed": null,
+   "definition": "kept_trace_correct_frac = kept traces with >= 1 audited remainder/quotient claim, all exactly correct (exp_worker_star.audit_trace), over ALL kept traces"
+  },
+  {
    "model": "Qwen2.5-3B-Instruct",
    "task": "valid",
    "n": 180,
@@ -4265,6 +4684,49 @@
    "n_kept_yes": 90,
    "n_kept_no": 88,
    "n_trunc_rejected": 64,
+   "kept_trace_correct_frac": null,
+   "kept_trace_parsed_frac": null,
+   "all_claims_correct_among_parsed": null,
+   "definition": "kept_trace_correct_frac = kept traces with >= 1 audited remainder/quotient claim, all exactly correct (exp_worker_star.audit_trace), over ALL kept traces"
+  },
+  {
+   "ext_kept_trace_parsed_frac": 0.9875776397515528,
+   "ext_kept_trace_correct_frac_all_kept": 0.8819875776397516,
+   "ext_all_claims_correct_among_parsed": 0.8930817610062893,
+   "ext_n_parsed": 159,
+   "ext_definition": "POST HOC re-audit (analysis_steps.audit_trace_ext): adds \\div, approximately, truncated/repeating decimals; parsed = >= 1 recognized claim",
+   "model": "Qwen2.5-7B-Instruct",
+   "task": "div7",
+   "n": 180,
+   "seed": 0,
+   "samples_path": "results/v2/star_samples/Qwen2.5-7B-Instruct/div7_S_180_0.jsonl",
+   "n_items": 180,
+   "K": 4,
+   "keep_rate": 0.7180555555555556,
+   "item_keep_rate": 0.8944444444444445,
+   "n_kept": 161,
+   "n_kept_yes": 78,
+   "n_kept_no": 83,
+   "n_trunc_rejected": 90,
+   "kept_trace_correct_frac": 0.2670807453416149,
+   "kept_trace_parsed_frac": 0.2919254658385093,
+   "all_claims_correct_among_parsed": 0.9148936170212766,
+   "definition": "kept_trace_correct_frac = kept traces with >= 1 audited remainder/quotient claim, all exactly correct (exp_worker_star.audit_trace), over ALL kept traces"
+  },
+  {
+   "model": "Qwen2.5-7B-Instruct",
+   "task": "prime",
+   "n": 180,
+   "seed": 0,
+   "samples_path": "results/v2/star_samples/Qwen2.5-7B-Instruct/prime_S_180_0.jsonl",
+   "n_items": 180,
+   "K": 4,
+   "keep_rate": 0.6291666666666667,
+   "item_keep_rate": 0.8722222222222222,
+   "n_kept": 157,
+   "n_kept_yes": 69,
+   "n_kept_no": 88,
+   "n_trunc_rejected": 140,
    "kept_trace_correct_frac": null,
    "kept_trace_parsed_frac": null,
    "all_claims_correct_among_parsed": null,

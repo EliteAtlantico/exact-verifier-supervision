@@ -124,8 +124,12 @@ def fig_map():
         for arm, ls, mk in (("B", "-", "o"), ("A", (0, (3, 2)), "x")):
             pts = dose_points(task, arm)
             if pts:
-                ax.plot([n for n, _ in pts], [100 * a for _, a in pts], ls=ls, color=col, lw=1.3, marker=mk,
-                        markersize=4, zorder=3)
+                ax.plot([n for n, _ in pts], [100 * a for _, a in pts], ls=ls, color=col, lw=1.3, zorder=2)
+                for n_, a_ in pts:          # filled: mean over >= 2 seeds; hollow: a single seed
+                    multi = len(MN.seeds(task, arm, n_)) > 1
+                    ax.plot([n_], [100 * a_], marker=mk, markersize=4, color=col,
+                            markerfacecolor=col if (multi or mk == "x") else "white", zorder=3,
+                            markeredgewidth=1.0 if multi else 0.8, alpha=1.0 if multi else 0.9)
     ax.axhline(50, color=MUTED, lw=0.7, ls=(0, (1, 2)), zorder=1)
     ax.set_xlabel("training examples $n$")
     ax.set_ylabel("accuracy (%)")
@@ -160,7 +164,7 @@ def fig_map():
     bx.set_xlim(2.5, 45)
     bx.set_ylim(40, 103)
     bx.set_xlabel("transitions per table entry $m$")
-    bx.set_title("(b) per-step $p$ and accuracy vs. $m$", fontsize=8, loc="left")
+    bx.set_title("(b) per-step $q$ and accuracy vs. $m$", fontsize=8, loc="left")
     bx.grid(color=GRID, lw=0.6, zorder=0)
     # marker key (squares = p, circles = accuracy, hollow/filled) is given in the figure caption
     for task in TASK_ORDER:
@@ -205,6 +209,11 @@ def fig_arms():
                 rs = [MN.run(task, arm, n, s, model) for s in MN.seeds(task, arm, n, model)]
                 k, tot = sum(r["k"] for r in rs), sum(r["n_test"] for r in rs)
                 lo, hi = wilson(k, tot)
+                # several seeds: bootstrap interval over items and seeds (stats.json), not a pooled Wilson interval
+                bo = [x for x in (MN.STATS or {}).get("pooled", []) if x["task"] == task and x["arm"] == arm
+                      and x["n"] == n and x["model"] == model and len(x.get("seeds", [])) > 1 and x.get("boot95")]
+                if bo:
+                    lo, hi = bo[0]["boot95"]
                 xpos = i + (j - (len(present) - 1) / 2) * width
                 ax.plot([xpos, xpos], [100 * lo, 100 * hi], color=ARM_COLOR[arm], lw=2, solid_capstyle="round",
                         zorder=2)

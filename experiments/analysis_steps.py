@@ -423,6 +423,55 @@ def score_valid(rows, test_by_id):
 
 
 # --------------------------------------------------------------------------- STaR samples (arm S)
+# POST HOC re-audit (analysis side only; the gate and exp_worker_star.audit_trace are unchanged). The worker's
+# audit recognizes "a mod d = r", "(10*r + x) mod d = r'", "a divided by d ... remainder r" and "a / d = q" with q an
+# integer or a terminating decimal; it misses LaTeX "\div", a mangled division sign, "approximately"/"\approx",
+# and repeating or truncated decimals ("391.428571..."), and it counts a trace with no recognized claim as incorrect.
+_XN = r"(\d[\d,]*)"
+_XRES = [
+    (re.compile(r"\(\s*10\s*\*\s*(\d+)\s*\+\s*(\d)\s*\)\s*(?:mod|%)\s*(\d+)\s*(?:=|is|equals)\s*(\d+)", re.I), "step"),
+    (re.compile(_XN + r"\s*(?:mod|%)\s*(\d+)\s*(?:=|is|equals)\s*(\d+)", re.I), "mod"),
+    (re.compile(_XN + r"\s*(?:divided by|÷|/)\s*(\d+)[^.\n]{0,40}?remainder(?:\s+(?:of|is))?\s*(\d+)", re.I), "rem"),
+    (re.compile(_XN + r"\s*(?:divided by|÷|/)\s*(\d+)\s*(?:=|is|equals|≈)\s*(\d+(?:\.\d+)?)", re.I), "quot"),
+]
+
+
+def audit_trace_ext(text, n, d):
+    t = (text or "").replace("\\div", "÷").replace("\ufffd", "÷").replace("\\approx", "≈")
+    t = re.sub(r"\\[()\[\]]|\$", " ", t)
+    t = re.sub(r"(?:is\s+)?approximately", "≈", t, flags=re.I)
+    s, rems, r = str(n), [], 0
+    for ch in s:
+        r = (10 * r + int(ch)) % d
+        rems.append(r)
+    claims, seen, step_i = [], set(), 0
+    for rx, kind in _XRES:
+        for m in rx.finditer(t):
+            if any(a < m.end() and m.start() < b for a, b in seen):
+                continue
+            seen.add(m.span())
+            if kind == "step":
+                r0, dig, dd, rr = int(m.group(1)), m.group(2), int(m.group(3)), int(m.group(4))
+                if dd != d:
+                    continue
+                i, step_i = step_i, step_i + 1
+                claims.append(i < len(rems) and dig == s[i] and r0 == (rems[i - 1] if i else 0) and rr == rems[i])
+                continue
+            a, dd, v = int(m.group(1).replace(",", "")), int(m.group(2)), m.group(3)
+            if dd != d:
+                continue
+            if kind == "quot":
+                if "." in v and not float(v).is_integer():
+                    claims.append(a % d != 0 and abs(a / d - float(v)) < 0.01)   # truncated / repeating decimal
+                else:
+                    claims.append(a == d * int(float(v)))
+            else:
+                a_s = str(a)
+                claims.append(int(v) == (rems[len(a_s) - 1] if s.startswith(a_s) and len(a_s) <= len(rems)
+                                         else a % d))
+    return {"n_claims": len(claims), "all_ok": bool(claims) and all(claims)}
+
+
 def star_summary():
     root = os.path.join(C.V2, "star_samples")
     out = []
@@ -444,7 +493,20 @@ def star_summary():
             aud = [r["audit"] for r in kept if r.get("audit")]
             parsed = [a for a in aud if a.get("n_claims", 0) > 0]
             trunc_rej = sum(bool(x.get("hit_cap")) and not x.get("pass") for r in rows for x in r.get("samples") or [])
-            out.append({"model": model, "task": m.group(1), "n": int(m.group(2)), "seed": int(m.group(3)),
+            ext = {}
+            dm = re.match(r"div(\d+)", m.group(1))
+            if dm and kept:
+                d = int(dm.group(1))
+                ax = [audit_trace_ext(r["samples"][r["kept_index"]].get("text"), int(r["id"].split("-")[1]), d)
+                      for r in kept]
+                px = [a for a in ax if a["n_claims"]]
+                ext = {"ext_kept_trace_parsed_frac": len(px) / len(kept),
+                       "ext_kept_trace_correct_frac_all_kept": sum(a["all_ok"] for a in ax) / len(kept),
+                       "ext_all_claims_correct_among_parsed": (sum(a["all_ok"] for a in px) / len(px)) if px else None,
+                       "ext_n_parsed": len(px),
+                       "ext_definition": "POST HOC re-audit (analysis_steps.audit_trace_ext): adds \\div, approximately, "
+                                         "truncated/repeating decimals; parsed = >= 1 recognized claim"}
+            out.append({**ext,"model": model, "task": m.group(1), "n": int(m.group(2)), "seed": int(m.group(3)),
                         "samples_path": os.path.relpath(f, C.ROOT).replace("\\", "/"), "n_items": len(rows), "K": K,
                         "keep_rate": n_pass / n_samp if n_samp else None, "item_keep_rate": len(kept) / len(rows),
                         "n_kept": len(kept), "n_kept_yes": sum(r["gold"] == "Yes" for r in kept),
