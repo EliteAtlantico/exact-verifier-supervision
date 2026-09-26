@@ -37,7 +37,8 @@ MODELS = {"halfB": "Qwen/Qwen2.5-0.5B-Instruct", "": M15, "threeB": "Qwen/Qwen2.
           "sevenB": "Qwen/Qwen2.5-7B-Instruct"}
 PREFIX = {"prime": "prime", "div7": "divseven", "valid": "valid", "div2": "divtwo", "div3": "divthree",
           "div11": "diveleven", "div13": "divthirteen", "div7_6d": "divsevenSix"}
-ARMS = {"base": "Base", "A": "A", "B": "B", "C": "C", "Bprime": "Bp", "A_tok": "Atok", "B_orn": "Born"}
+ARMS = {"base": "Base", "A": "A", "B": "B", "C": "C", "Bprime": "Bp", "A_tok": "Atok", "B_orn": "Born", "D": "D",
+        "S": "S"}
 SEEDW = ["Zero", "One", "Two", "Three", "Four"]
 TBD = "\\TBD"
 MAIN_N, SMALL_N, LARGE_N = 180, 60, 540
@@ -578,7 +579,11 @@ def step_macros():
 # ------------------------------------------------------------------------------------------ preregistered tests
 def word(status):
     status = (status or "").upper()
-    return "passed" if status.startswith("PASS") else ("failed" if status.startswith("FAIL") else TBD)
+    if status.startswith("PASS"):
+        return "passed"
+    if status.startswith("FAIL"):
+        return "failed"
+    return "pending" if status.startswith("PENDING") else TBD
 
 
 def prereg_macros(p_step):
@@ -588,9 +593,15 @@ def prereg_macros(p_step):
     m15 = C.short_model(M15)
     for rule, mac in (("S1", "verdictSOne"), (f"S2 [{m15}]", "verdictSTwo"), (f"S3 [{m15}]", "verdictSThree"),
                       ("S4", "verdictSFour"), ("S5", "verdictSFive"), (f"S6 [{m15}]", "verdictSSix"),
-                      ("S7", "verdictSSeven")):
+                      ("S7", "verdictSSeven"), ("S8", "verdictSEight"), ("S9", "verdictSNine"),
+                      ("S10", "verdictSTen")):
         r = res.get(rule, {})
-        put(mac, word(r.get("status")), "; ".join(r.get("detail", [])))
+        put(mac, word(r.get("status")) if r else "pending", "; ".join(r.get("detail", [])))
+    st7 = res.get("S7", {}).get("status", "")
+    mm = re.search(r"\((\d+)/5 hold, (\d+) pending\)", st7)
+    put("SsevenHeld", mm.group(1) if mm else TBD, st7)
+    put("SsevenPending", mm.group(2) if mm else TBD, st7)
+    put("SsevenScored", str(5 - int(mm.group(2))) if mm else TBD, st7)
     # S6 cell values: the prime adapters on prime_hard (every item odd with no prime factor <= 7, so the
     # shortcut rule calls every item prime); accuracy overall (the S6 statistic) and on the hard negatives
     lab = "prime->prime_hard"
@@ -714,17 +725,27 @@ def review_macros():
     put("divsevenSixTraceOK", pct(ph[0]["trace_correct_6digit"]) if ph and ph[0] else TBD, "post hoc")
     put("stepLocalPowFour", pct(float(OUT["stepLocalAcc"]) ** 4) if OUT.get("stepLocalAcc", TBD) != TBD else TBD,
         "local^4")
-    d_ = [run("div7", "D", MAIN_N, s_) for s_ in seeds("div7", "D", MAIN_N)]
-    put("divsevenD", pct(mean(r["acc"] for r in d_)) if d_ else TBD, "arm D")
-    put("verdictSEight", TBD if len(d_) < 2 and all(r["acc"] <= 0.60 for r in d_) else
-        ("failed" if any(r["acc"] > 0.60 for r in d_) else "passed"), "S8")
     b9, a9 = run("div13", "B", 360, 0), run("div13", "A", 360, 0)
     put("divthirteenBmid", pct(b9["acc"]) if b9 else TBD, "S9")
     put("divthirteenAmid", pct(a9["acc"]) if a9 else TBD, "S9")
-    s9 = TBD if not (a9 and b9) else ("passed" if (b9["acc"] >= 0.80 and a9["acc"] <= 0.60) else "failed")
-    if b9 and b9["acc"] < 0.80:
-        s9 = "failed"
-    put("verdictSNine", s9, "S9")
+    # dose: accuracy (A, B), per-step p and m at every n run, for div7 and div13
+    W = {60: "Sixty", 90: "Ninety", 180: "OneEighty", 270: "TwoSeventy", 360: "ThreeSixty", 540: "FiveForty"}
+    for task, tp, cap in (("div7", "divseven", "Divseven"), ("div13", "divthirteen", "Divthirteen")):
+        for n, w in W.items():
+            for arm in ("A", "B"):
+                put(tp + arm + "n" + w, pct(acc_mean(task, arm, n)), "dose")
+            rows = [r for r in trans_rows() if r["task"] == task and r["n"] == n]
+            put("p" + cap + "n" + w, "%.3f" % mean(r["p"] for r in rows) if rows else TBD, "transitions.json")
+            put("m" + cap + "n" + w, "%.1f" % (4 * n / (10 * int(task[3:]))), "k n / (10 d)")
+    # B' still writes a trace after its answer: its per-step accuracy (steps.json, pooled over seeds)
+    cells = steps_cells("div7", arm="Bprime", eval_task="div7")
+    put("pDivsevenBp", "%.3f" % pooled(cells, "p_cond") if cells else TBD, "steps.json Bprime")
+    tr = steps_cells("div7->div7_6d", eval_task="div7_6d")
+    put("pDivsevenTransfer", "%.3f" % pooled(tr, "p_cond") if tr else TBD, "steps.json transfer")
+    # S6: agreement of prime A with the last-digit rule on prime_hard (rules.json)
+    ag = [x["agreement"]["last_digit_1379"] for x in (RULES or {}).get("runs", [])
+          if x["task"] == "prime->prime_hard" and x["arm"] == "A" and x.get("model", M15) == M15]
+    put("primeHardAagree", pct(mean(ag)) if ag else TBD, "rules.json")
     for task, tp in (("div7", "divseven"), ("prime", "prime")):
         sr = [run(task, "S", MAIN_N, s_) for s_ in seeds(task, "S", MAIN_N)]
         put(tp + "SelfTrace", pct(mean(r["acc"] for r in sr)) if sr else TBD, "arm S")
