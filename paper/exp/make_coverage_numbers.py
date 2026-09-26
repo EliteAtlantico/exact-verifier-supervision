@@ -57,8 +57,12 @@ def main():
     M["covSteps"] = f"{lk['n_steps_primary']:,}"
     M["covAccPooled"] = pct(lk["acc_primary"]["acc"])
     curve(lk["curve_by_trivial"]["nontrivial"], "covNT")
-    curve(lk["curve_n180_4digit_by_task"]["div7"], "covDseven")
-    curve(lk["curve_n180_4digit_by_task"]["div13"], "covDthirteen")
+    curve(lk["curve_div7_by_n"]["n=180|1.5B"], "covDseven")      # size-matched: 1.5B, n = 180
+    curve(lk["curve_div13_by_n"]["n=180|1.5B"], "covDthirteen")
+    for task, name in (("div11", "Eleven"), ("div7", "Seven")):
+        z = lk["curve_by_task_nontrivial"][task].get("0", {"n_steps": 0, "n_correct": 0})
+        M["covCzero" + name + "N"] = str(z["n_steps"])
+        M["covCzero" + name + "K"] = str(z["n_correct"])
     M["covDlookup"] = pct(pooled(lk["curve_secondary_roles"]["arm_D"]))
     M["covDlocal"] = pct(pooled(lc["curve_secondary_roles"]["arm_D"]))
     sp = lk["within_cell_spearman"]["summary"]
