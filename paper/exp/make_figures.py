@@ -189,7 +189,9 @@ def fig_map():
 
 
 def fig_arms():
-    models = [m for m in MN.MODELS.values() if any(k[4] == m for k in MN.IDX)]
+    # one row per model with at least three tasks (sparser models appear in the scale table)
+    models = [m for m in MN.MODELS.values()
+              if len({k[0] for k in MN.IDX if k[4] == m and k[0] in TASK_ORDER}) >= 3]
     arms = ["base", "A", "B", "C", "Bprime"]
     fig, axes = plt.subplots(len(models), 1, figsize=(5.5, 1.9 * len(models) + 0.35), squeeze=False)
     for row, model in enumerate(models):
