@@ -1,0 +1,5 @@
+# third 5090 package, Qwen2.5-3B-Instruct: dose curve
+div7 B 90 0
+div7 B 270 0
+div13 B 540 0
+div13 A 540 0

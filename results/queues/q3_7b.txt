@@ -1,0 +1,15 @@
+# third 5090 package, Qwen2.5-7B-Instruct: zero-shot baselines, second seeds, controls
+div7 base 0 0
+div13 base 0 0
+prime base 0 0
+valid base 0 0
+div7 A 180 1
+div7 B 180 1
+div13 A 180 1
+div13 B 180 1
+prime A 180 1
+prime B 180 1
+div7 D 180 0
+div7 Bprime 180 0
+div11 A 180 0
+div11 B 180 0
