@@ -78,6 +78,7 @@ def main():
     step("make_numbers", [PY, os.path.join(HERE, "make_numbers.py")])
     step("make_figures", [PY, os.path.join(HERE, "make_figures.py")])
     step("make_fig_story", [PY, os.path.join(HERE, "make_fig_story.py")])
+    step("make_coverage_numbers", [PY, os.path.join(HERE, "make_coverage_numbers.py")])
     for ext in ("aux", "bbl", "blg", "out"):
         f = os.path.join(PAPER, "main." + ext)
         if os.path.exists(f):
