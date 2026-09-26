@@ -177,7 +177,7 @@ def panel_d(ax, runs, model="Qwen2.5-1.5B-Instruct"):
                         fontsize=6.5, color=MUTED)
     ax.axhline(50, color=MUTED, lw=0.7, ls=(0, (1, 2)), zorder=1)
     ax.set_xscale("log")
-    ax.set_xlabel("supervised completion tokens (train)")
+    ax.set_xlabel("supervised completion tokens per epoch")
     ax.set_ylabel("div7 accuracy (%), 1.5B")
     ax.set_ylim(40, 108)
     ax.set_title("(d) tokens are not matched", fontsize=9.5, loc="left")
