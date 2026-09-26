@@ -76,3 +76,10 @@ commit timestamps, which are the authoritative record.
   label) at n = 180, seeds 0 and 1: accuracy <= 60% in both seeds, i.e. within 10 pp of A, far below B.
   S9 (dose, step difficulty fixed): div13 B at n = 360, seed 0 (m = 11.1 transitions per table entry, close to
   div7's 10.3 at n = 180): accuracy >= 80%; div13 A at n = 360 seed 0 stays <= 60%.
+- (timestamp below) **S10, preregistered before any arm-S cell ran.** Arm S = self-generated traces filtered by the
+  exact verifier on the final answer only (STaR / rejection-sampling fine-tuning, K = 4 samples per item at
+  temperature 0.7 from the base model's chain-of-thought prompt; one kept completion per item; same 180 items and
+  LoRA as A/B). Prediction: outcome-only verification does not supply correct steps, so on div7 arm S does not
+  unlock the task: div7 S accuracy <= 65% in seeds 0 and 1, and fewer than half of the kept div7 traces have all
+  remainders correct. On valid, where answers are surface-learnable, S >= 90%. Prime S is reported without a
+  prediction.
