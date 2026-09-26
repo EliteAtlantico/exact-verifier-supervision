@@ -28,6 +28,11 @@ TRIVIAL = {"majority", "odd", "last_digit_1379", "no_factor_le_3", "no_factor_le
            "last_digit_is_7", "last_digit_is_3", "last_digit_is_1", "last_digit_0_or_5", "last_digit_even",
            "digit_sum_div_7", "digit_sum_div_3", "digit_sum_div_11", "digit_sum_div_13", "digit_sum_div_2",
            "contains_digit_7"}
+# Rules whose outcome was effectively known before they were preregistered (flagged in the README; reviewer request)
+SETTLED = {"S3": "NOTE: effectively settled before preregistration -- divisibility by 2 is a last-digit rule, which the "
+                 "prior grid already showed A learns (prime A follows the last-digit rule; one-hot probes reach 100% on div2).",
+           "S6": "NOTE: effectively settled before preregistration -- in the prior 240-item prime runs A already called all "
+                 "15 hard composites (odd, no factor <= 7) prime (rules.json), so prime_hard mostly re-measures a known shortcut."}
 STEPS = [("analysis_stats.py", []), ("analysis_rules.py", []), ("analysis_steps.py", []),
          ("analysis_tokens.py", ["--if-changed"]), ("analysis_probe.py", ["--if-changed"])]
 
@@ -101,7 +106,7 @@ def prereg(st, ru, sp, tn=None):
         if not a2 and m != M15:
             continue
         res[f"S3 [{m}]"] = {"status": "PENDING" if not a2 else ("PASS" if all(v >= 0.95 for _, v in a2) else "FAIL"),
-                            "detail": [f"s{s}: A {pct(v)}" for s, v in a2] or ["no div2 A run yet"]}
+                            "detail": ([f"s{s}: A {pct(v)}" for s, v in a2] or ["no div2 A run yet"]) + [SETTLED["S3"]]}
     # S4: div7 B > A for Qwen2.5-3B (every seed)
     m3 = [m for m in models if "3B" in m]
     trs = [x for m in m3 for x in ba("div7", m)]
@@ -174,7 +179,37 @@ def prereg(st, ru, sp, tn=None):
             det.append(f"n={x['n']} s{x['seed']} ({x['pred_source'].split('_')[0]}): acc {pct(ag_true)}, agree rule {pct(ag_rule)}"
                        f" -> {'pass' if c else 'FAIL'}")
         res[f"S6 [{m}]"] = {"status": "PENDING" if not xs else ("PASS" if ok else "FAIL"),
-                            "detail": det or ["needs prime A evaluated on prime_hard (prime->prime_hard)"]}
+                            "detail": (det or ["needs prime A evaluated on prime_hard (prime->prime_hard)"]) + [SETTLED["S6"]]}
+    # S8 (PREDICTIONS.md 1163562, grounding control): div7 arm D n=180, seeds 0 and 1: acc <= 60% and within 10 pp of A
+    det, ok, pend = [], True, False
+    for sd in (0, 1):
+        dacc, aacc = acc.get(("div7", M15, "D", MAIN_N, sd)), acc.get(("div7", M15, "A", MAIN_N, sd))
+        if dacc is None or aacc is None:
+            pend = True
+            det.append(f"s{sd}: pending (" + ", ".join(a for a, v in (("D", dacc), ("A", aacc)) if v is None) + " missing)")
+            continue
+        c = dacc <= 0.60 and abs(dacc - aacc) <= 0.10
+        ok &= c
+        bd = next((x for x in tests if x["comparison"] == "B-D" and x["task"] == "div7" and x["seed"] == sd
+                   and C.short_model(x["model"]) == M15 and x["n"] == MAIN_N), None)
+        det.append(f"s{sd}: D {pct(dacc)} A {pct(aacc)} (D-A {100 * (dacc - aacc):+.1f} pp)"
+                   + (f", B-D {100 * bd['diff']:+.1f} pp p={bd['p_exact']:.1g}" if bd else "") + f" -> {'pass' if c else 'FAIL'}")
+    res["S8"] = {"status": "FAIL" if not ok else ("PENDING" if pend else "PASS"), "detail": det}
+    # S9 (PREDICTIONS.md 1163562, dose at fixed step difficulty): div13 B n=360 s0 >= 80% and div13 A n=360 s0 <= 60%
+    b9, a9 = acc.get(("div13", M15, "B", 360, 0)), acc.get(("div13", M15, "A", 360, 0))
+    det, ok, pend = [], True, False
+    for name, v, cond in (("B", b9, lambda x: x >= 0.80), ("A", a9, lambda x: x <= 0.60)):
+        if v is None:
+            pend = True
+            det.append(f"div13 {name} n=360 s0: pending")
+        else:
+            ok &= cond(v)
+            det.append(f"div13 {name} n=360 s0: {pct(v)} -> {'pass' if cond(v) else 'FAIL'}")
+    t9 = next((r for r in (tn or {}).get("rows", []) if r["task"] == "div13" and r["n"] == 360 and r["seed"] == 0
+               and r["arm"] == "B"), None)
+    if t9:
+        det.append(f"(context: m={t9['m']:.1f}, p={t9['p']:.3f}, fully correct {pct(t9['trace_correct'])})")
+    res["S9"] = {"status": "FAIL" if not ok else ("PENDING" if pend else "PASS"), "detail": det}
     return res
 
 
@@ -191,6 +226,7 @@ def main():
     pooled = {(r["task"], C.short_model(r["model"]), r["arm"], r["n"]): r for r in st["pooled"]} if st else {}
     boots = {(b["comparison"], b["task"], C.short_model(b["model"]), b["n"]): b for b in st["bootstrap"]} if st else {}
     tests = st["mcnemar"] if st else []
+    per_run = st["per_run"] if st else []
     rules_by = {}
     for x in (ru or {}).get("runs", []):
         rules_by.setdefault((x["task"], x["arm"], x["n"], C.short_model(x["model"])), []).append(x)
@@ -200,25 +236,30 @@ def main():
     tn = load("transitions.json")
     pre = prereg(st, ru, sp, tn)
     L += ["## Preregistered decision rules (PREDICTIONS.md), evaluated from the runs that exist", ""]
-    L += [f"- **{k}: {v['status']}** -- " + "; ".join(v["detail"]) for k, v in pre.items()]
+    order = sorted(pre, key=lambda k: (int(k[1:].split()[0]), k))
+    L += [f"- **{k}: {pre[k]['status']}** -- " + "; ".join(pre[k]["detail"]) for k in order]
     L.append("")
 
     # ---------------------------------------------------------------- 1. main tables per model
     for m in models:
         L += [f"## 1. Main cell n = {MAIN_N}: {m}", "",
-              "A = answer-only, B = trace then answer, C = scrambled trace. Accuracy pooled over seeds [Wilson 95%]; "
-              "B-A = paired bootstrap over items and seeds [95% CI]; p = exact McNemar per seed (Holm across tasks within "
+              "A = answer-only, B = trace then answer, C = scrambled trace. Accuracy pooled over seeds with a bootstrap 95% CI "
+              "(items and seeds resampled) and the seed SD; B-A = paired bootstrap over items and seeds [95% CI], the lead "
+              "numbers; p = exact McNemar per seed (Holm across tasks within "
               "comparison, model and seed). Best probe = chosen by 5-fold CV on the same 180 training items (mean over "
               "seeds 0-2); best rule = best fixed trivial rule on the test set.", "",
-              "| task | base | A | B | C | B-A pp [95% CI] | McNemar B vs A per seed | best probe | best trivial rule | A's closest shortcut rule |",
-              "|---|---|---|---|---|---|---|---|---|---|"]
+              "| task | base | A | B | C | B-A pp [95% CI] | McNemar B vs A per seed | B vs base (McNemar) | B parse-fail % | "
+              "best probe | best trivial rule | A's closest shortcut rule |",
+              "|---|---|---|---|---|---|---|---|---|---|---|---|"]
         tasks = sorted({k[0] for k in pooled if k[1] == m and k[3] == MAIN_N},
                        key=lambda t: (t not in ("prime", "valid", "div7"), t))
         for t in tasks:
             cells = {}
             for arm in ("A", "B", "C"):
                 r = pooled.get((t, m, arm, MAIN_N))
-                cells[arm] = (f"{pct(r['acc'])} [{pct(r['wilson95'][0], 0)}, {pct(r['wilson95'][1], 0)}] "
+                ci = r.get("boot95", r["wilson95"]) if r else None
+                sd = f" sd {100 * r['seed_sd']:.1f}" if r and r.get("seed_sd") is not None else ""
+                cells[arm] = (f"{pct(r['acc'])} [{pct(ci[0], 0)}, {pct(ci[1], 0)}]{sd} "
                               f"(s{','.join(map(str, r['seeds']))})") if r else "-"
             if all(v == "-" for v in cells.values()):
                 continue
@@ -229,6 +270,12 @@ def main():
             mc = "; ".join(f"s{x['seed']}: {100 * x['diff']:+.1f}, p={x['p_exact']:.1g} (Holm {x['p_holm_tasks']:.1g})"
                            for x in tests if x["comparison"] == "B-A" and x["task"] == t and C.short_model(x["model"]) == m
                            and x["n"] == MAIN_N) or "-"
+            vb = "; ".join(f"s{x['seed']}: {100 * x['diff']:+.1f}, p={x['p_exact']:.1g}"
+                           for x in tests if x["comparison"] == "B-base" and x["task"] == t and C.short_model(x["model"]) == m
+                           and x["n"] == MAIN_N) or "-"
+            pfs = [(r["seed"], r["parse_fail_rate"]) for r in per_run if r["task"] == t and C.short_model(r["model"]) == m
+                   and r["arm"] == "B" and r["n"] == MAIN_N and "parse_fail_rate" in r]
+            pf = ", ".join(f"s{sd}: {pct(v)}" for sd, v in sorted(pfs)) or "-"
             pt = (pr or {}).get("tasks", {}).get(et) if "->" not in t or t.startswith("prime->prime_hard") else None
             br = None
             if pt:
@@ -255,7 +302,7 @@ def main():
                     kl += f"; B - A {ba} pp (seeds {','.join(map(str, b['seeds']))})"
                 KEY.append(kl + ".")
             L.append(f"| {t} | {pct(base['acc']) if base else '-'} | {cells['A']} | {cells['B']} | {cells['C']} | {ba} | "
-                     f"{mc} | {probe} | {rule} | {'; '.join(sh) or '-'} |")
+                     f"{mc} | {vb} | {pf} | {probe} | {rule} | {'; '.join(sh) or '-'} |")
         other = sorted(b for b in boots if b[2] == m and b[0] not in ("B-A",) and b[3] == MAIN_N)
         if other:
             L += ["", "Other paired comparisons (bootstrap 95% CI, pp): " + "; ".join(
@@ -310,6 +357,14 @@ def main():
                            f"(best-kappa shortcut {x.get('best_shortcut_rule')}, kappa {x.get('best_shortcut_kappa', 0):.2f}).")
         L += ["", "On prime_hard every item is odd with no factor <= 7, so 'odd', 'last digit in {1,3,7,9}' and 'no factor <= 7' "
               "all say Yes on every item (agreement with them = P(pred prime)).", ""]
+        pc = [r for r in per_run if r["task"] == "prime" and r["arm"] in ("A", "B", "C") and "acc_on_yes" in r]
+        if pc:
+            L += ["Per-class accuracy on prime (from the correctness bitmaps): primes = gold Yes, composites = gold No.", "",
+                  "| model | arm | n | seed | acc | primes acc | composites acc | P(pred prime) |", "|---|---|---|---|---|---|---|---|"]
+            for r in sorted(pc, key=lambda r: (r["model"], r["arm"], r["n"], r["seed"])):
+                L.append(f"| {C.short_model(r['model'])} | {r['arm']} | {r['n']} | {r['seed']} | {pct(r['acc'])} | "
+                         f"{pct(r['acc_on_yes'])} | {pct(r['acc_on_no'])} | {r['p_pred_yes']:.2f} |")
+            L.append("")
 
     # ---------------------------------------------------------------- 4. steps
     if sp and (sp.get("div") or sp.get("prime")):
@@ -317,31 +372,53 @@ def main():
         if sp.get("div"):
             L += ["p_cond = P(step correct | previous correct); p after 1 excludes the near-trivial first step; guess model "
                   "(post hoc) = p^k + (1 - p^k) g, g = the cell's answer accuracy when its trace is wrong.", "",
-                  "| model | task | arm | mode | seed | k | answer acc | trace correct | p_cond | p after 1 | p_cond^k | guess model | "
-                  "local arith | answer-trace consistency |", "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
+                  "Non-circular check: local arith = P(r_i == (10 r_{i-1} + x_i) mod d) with r_{i-1} the model's OWN previous "
+                  "remainder and x_i the true digit, over all k positions; all k locally correct <=> trace fully correct, so "
+                  "local^k predicts the fully-correct fraction without conditioning on correctness.", "",
+                  "| model | task | arm | mode | n | seed | k | answer acc | trace correct | local arith | local^k | p_cond | p after 1 | "
+                  "p_cond^k | guess model | answer-trace consistency | Yes-rate |",
+                  "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
             for c in sorted(sp["div"], key=lambda c: (c["model"], C.divisor_of_task(c["eval_task"]) or 0, c["task"], c["arm"], c["seed"])):
-                L.append(f"| {c['model']} | {c['task']} | {c['arm']} | {c['prompt_mode']} | {c['seed']} | {c['k']} | "
-                         f"{pct(c['answer_acc'])} | {pct(c['trace_correct_rate'])} | {pct(c['p_cond'])} | "
-                         f"{pct(c.get('p_cond_after_first_step'))} | {pct(c['predicted_acc_p_cond_pow_k'])} | "
-                         f"{pct(c.get('post_hoc_predicted_answer_acc_own_g'))} | {pct(c['local_arith_acc'])} | "
-                         f"{pct(c['answer_trace_consistency'])} |")
+                L.append(f"| {c['model']} | {c['task']} | {c['arm']} | {c['prompt_mode']} | {c['n']} | {c['seed']} | {c['k']} | "
+                         f"{pct(c['answer_acc'])} | {pct(c['trace_correct_rate'])} | {pct(c['local_arith_acc'])} | "
+                         f"{pct(c.get('local_arith_pow_k'))} | {pct(c['p_cond'])} | {pct(c.get('p_cond_after_first_step'))} | "
+                         f"{pct(c['predicted_acc_p_cond_pow_k'])} | {pct(c.get('post_hoc_predicted_answer_acc_own_g'))} | "
+                         f"{pct(c['answer_trace_consistency'])} | {pct(c.get('yes_rate'))} |")
+            anat = [c for c in sp["div"] if c.get("error_anatomy") and c["error_anatomy"]["n_wrong_traces"]]
+            if anat:
+                L += ["", "Error anatomy of wrong traces (first wrong step position; the model's final remainder):", "",
+                      "| model | task | arm | n | seed | wrong traces | first-error position | final remainder of wrong traces | "
+                      "wrong traces ending in 0 | Yes-rate (all items) |", "|---|---|---|---|---|---|---|---|---|---|"]
+                for c in anat:
+                    ea = c["error_anatomy"]
+                    L.append(f"| {c['model']} | {c['task']} | {c['arm']} | {c['n']} | {c['seed']} | {ea['n_wrong_traces']} | "
+                             f"{ea['first_error_position']} | {ea['final_remainder_of_wrong_traces']} | "
+                             f"{pct(ea['wrong_traces_ending_in_0'])} | {pct(c.get('yes_rate'))} |")
         if sp.get("prime"):
-            L += ["", "| model | task | arm | seed | acc | errors | truncated & wrong | wrong with Answer line | "
-                  "acc by true #trial divisions (1 / 2-3 / 4-8 / 9-16 / 17+) |", "|---|---|---|---|---|---|---|---|---|"]
+            L += ["", "| model | task | arm | seed | acc | primes acc | composites acc | errors | truncated & wrong | "
+                  "wrong with Answer line | acc by true #trial divisions (1 / 2-3 / 4-8 / 9-16 / 17+) |",
+                  "|---|---|---|---|---|---|---|---|---|---|---|"]
             for c in sp["prime"]:
-                L.append(f"| {c['model']} | {c['task']} | {c['arm']} | {c['seed']} | {pct(c['answer_acc'])} | {c['n_errors']} | "
-                         f"{c['n_truncated_and_wrong']} | {c['n_wrong_with_answer_line']} | " + " / ".join(
+                pcl = c.get("per_class", {})
+                L.append(f"| {c['model']} | {c['task']} | {c['arm']} | {c['seed']} | {pct(c['answer_acc'])} | "
+                         f"{pct((pcl.get('primes') or {}).get('acc'))} | {pct((pcl.get('composites') or {}).get('acc'))} | "
+                         f"{c['n_errors']} | {c['n_truncated_and_wrong']} | {c['n_wrong_with_answer_line']} | " + " / ".join(
                              pct(v["acc"], 0) for v in c["by_true_trial_divisions"].values()) + " |")
         L.append("")
 
     # ---------------------------------------------------------------- 4b. transitions per table entry (S7)
     if tn and tn.get("rows"):
         L += ["### Transitions per (remainder, digit) table entry (S7): m = k_train * n / (10 d)", "",
-              "| model | task | arm | n | seed | k | d | m | p | fully correct | accuracy |", "|---|---|---|---|---|---|---|---|---|---|---|"]
+              "Step difficulty: 10 mod d (signed) = the multiplier each step applies to the running remainder (+1 add, -1 subtract, "
+              "0 = only the last digit matters); trivial = share of the 10d (r, x) entries whose result is just x mod d; max "
+              "intermediate = 10(d-1)+9.", "",
+              "| model | task | arm | n | seed | k | d | 10 mod d (signed) | trivial entries | max intermediate | m | p | local arith | "
+              "fully correct | accuracy |", "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
         for r in tn["rows"]:
             mm = "-" if r["m"] is None else f"{r['m']:.1f}"
             L.append(f"| {r['model']} | {r['task']} | {r['arm']} | {r['n']} | {r['seed']} | {r['k_test']} | {r['d']} | "
-                     f"{mm} | {pct(r['p'])} | {pct(r['trace_correct'])} | {pct(r['accuracy'])} |")
+                     f"{r.get('ten_mod_d_signed', '-')} | {pct(r.get('trivial_entry_fraction'), 0)} | {r.get('max_intermediate', '-')} | "
+                     f"{mm} | {pct(r['p'])} | {pct(r.get('local_arith'))} | {pct(r['trace_correct'])} | {pct(r['accuracy'])} |")
         for m, f in tn["post_hoc_fits"].items():
             lg = f.get("logistic_logit_p_vs_ln_m")
             if lg:

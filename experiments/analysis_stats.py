@@ -36,6 +36,7 @@ import numpy as np  # noqa: E402
 Z = 1.959963984540054
 # (name, X arm, Y arm, Y prompt mode or None = same as X). Base runs are seed-independent greedy decoding.
 COMPARISONS = [("B-A", "B", "A", None), ("B-C", "B", "C", None), ("A-base", "A", "base", None),
+               ("B-base", "B", "base", None), ("D-A", "D", "A", None), ("B-D", "B", "D", None),
                ("B-Bprime", "B", "Bprime", None), ("B-base[cot]", "B", "base", "cot"),
                ("B-base[fewshot4]", "B", "base", "fewshot4")]
 
@@ -95,7 +96,9 @@ def main():
     n_boot = int(sys.argv[sys.argv.index("--boot") + 1]) if "--boot" in sys.argv else 10000
     runs, problems = C.load_runs()
     tasks = C.load_tasks()
+    gens, _ = C.load_gens(tasks)
     by_key = {r["key"]: r for r in runs}
+    rng = np.random.default_rng(20260925)
 
     # ---------------------------------------------------------------- per run
     per_run = []
@@ -104,6 +107,12 @@ def main():
         row = {"task": r["task"], "model": r["model"], "arm": r["arm"], "n": r["n"], "seed": r["seed"],
                "k": r["k"], "n_test": r["n_test"], "acc": r["k"] / r["n_test"], "wilson95": [lo, hi],
                "count_check": r["count_check"], "source": r["source"]}
+        g = gens.get((r["task"], r["arm"], r["n"], r["seed"], C.short_model(r["model"])))
+        if g and g["rows"]:
+            preds = [C.gen_pred(x) for x in g["rows"]]
+            row["parse_fail_rate"] = sum(p not in ("Yes", "No") for p in preds) / len(preds)
+            row["hit_cap_rate"] = sum(bool(x.get("hit_cap")) for x in g["rows"]) / len(g["rows"])
+            row["gens_path"] = g["path"]
         test = tasks.get(r["eval_task"], {}).get("test")
         if test and len(test) == r["n_test"]:
             preds = C.recover_preds(r["bits_list"], test)
@@ -124,8 +133,10 @@ def main():
         N = sum(r["n_test"] for r in rs)
         accs = [r["k"] / r["n_test"] for r in rs]
         lo, hi = wilson(k, N)
+        rs_sorted = sorted(rs, key=lambda r: r["seed"])
+        _, blo, bhi = paired_bootstrap([(r["bits_list"], [0] * r["n_test"]) for r in rs_sorted], n_boot, rng)
         pooled.append({"task": t, "model": m, "arm": a, "n": n, "seeds": sorted(r["seed"] for r in rs),
-                       "k": k, "N": N, "acc": k / N, "wilson95": [lo, hi],
+                       "k": k, "N": N, "acc": k / N, "wilson95": [lo, hi], "boot95": [blo, bhi],
                        "seed_mean": float(np.mean(accs)),
                        "seed_sd": float(np.std(accs, ddof=1)) if len(accs) > 1 else None})
 
@@ -166,7 +177,6 @@ def main():
     tests.sort(key=lambda d: (d["comparison"], d["model"], d["n"], d["task"], d["seed"]))
 
     # ---------------------------------------------------------------- paired bootstrap
-    rng = np.random.default_rng(20260925)
     boots = []
     pair_groups = defaultdict(list)
     for tr in tests:
@@ -199,20 +209,23 @@ def write_md(o):
          f"Runs: {o['n_runs']} from {', '.join(o['run_files'])}. Accuracy in %, Wilson 95% CI.", ""]
     L.append("## Accuracy per run")
     L.append("")
-    L.append("| task | model | arm | n | seed | acc % [95% CI] | P(pred=Yes) | acc on Yes | acc on No |")
-    L.append("|---|---|---|---|---|---|---|---|---|")
+    L.append("| task | model | arm | n | seed | acc % [Wilson 95% CI] | P(pred=Yes) | acc on Yes | acc on No | parse fail % (gens) |")
+    L.append("|---|---|---|---|---|---|---|---|---|---|")
     for r in o["per_run"]:
         py = f"{r['p_pred_yes']:.2f}" if "p_pred_yes" in r else "-"
+        pf = f"{100 * r['parse_fail_rate']:.1f}" if "parse_fail_rate" in r else "-"
         ay = f"{100 * r['acc_on_yes']:.1f}" if "acc_on_yes" in r else "-"
         an = f"{100 * r['acc_on_no']:.1f}" if "acc_on_no" in r else "-"
         L.append(f"| {r['task']} | {C.short_model(r['model'])} | {r['arm']} | {r['n']} | {r['seed']} | "
-                 f"{fmt_acc(r['acc'], *r['wilson95'])} | {py} | {ay} | {an} |")
+                 f"{fmt_acc(r['acc'], *r['wilson95'])} | {py} | {ay} | {an} | {pf} |")
     L += ["", "### Pooled over seeds", "",
-          "| task | model | arm | n | seeds | pooled acc % [95% CI] | seed mean (sd) |", "|---|---|---|---|---|---|---|"]
+          "| task | model | arm | n | seeds | acc % [bootstrap 95%, items x seeds] | Wilson 95% (pooled counts) | seed mean (sd) |",
+          "|---|---|---|---|---|---|---|---|"]
     for r in o["pooled"]:
         sd = f" ({100 * r['seed_sd']:.1f})" if r["seed_sd"] is not None else ""
         L.append(f"| {r['task']} | {C.short_model(r['model'])} | {r['arm']} | {r['n']} | "
-                 f"{','.join(map(str, r['seeds']))} | {fmt_acc(r['acc'], *r['wilson95'])} | "
+                 f"{','.join(map(str, r['seeds']))} | {fmt_acc(r['acc'], *r['boot95'])} | "
+                 f"[{100 * r['wilson95'][0]:.1f}, {100 * r['wilson95'][1]:.1f}] | "
                  f"{100 * r['seed_mean']:.1f}{sd} |")
     L += ["", "## Exact McNemar per seed (diff = X - Y in pp; b = X-only correct, c = Y-only correct)", "",
           "Holm: across tasks within (comparison, n, model, seed); 'Holm t x s' also pools seeds.", "",

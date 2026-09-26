@@ -4,11 +4,12 @@
 
 p_cond = P(step correct | previous step correct), pooled over positions; p after 1 = the same over steps 2..k (step 1 is r = digit mod d, near-trivial); guess model (post hoc) = p^k + (1 - p^k) g with g = this cell's answer accuracy when its trace is wrong.
 
-| task | model | arm | mode | n | seed | k | answer acc | trace correct | p_cond | p after 1 | p_uncond | p_cond^k | prod p_i | guess model | local arith | digit copy | answer-trace consistency | acc given trace wrong |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| div13 | Qwen2.5-1.5B-Instruct | B | plain | 180 | 0 | 4 | 54.6 | 2.1 | 56.6 | 23.7 | 43.4 | 10.2 | 2.2 | 58.4 | 35.4 | 99.8 | 100.0 | 53.6 |
-| div7 | Qwen2.5-1.5B-Instruct | B | plain | 180 | 0 | 4 | 92.5 | 82.9 | 95.5 | 93.9 | 90.7 | 83.2 | 82.9 | 92.6 | 94.7 | 100.0 | 100.0 | 56.1 |
-| div7_6d | Qwen2.5-1.5B-Instruct | B | plain | 180 | 0 | 6 | 96.2 | 92.9 | 98.8 | 98.5 | 96.7 | 93.0 | 92.9 | 96.3 | 99.4 | 98.9 | 100.0 | 47.1 |
+| task | model | arm | mode | n | seed | k | answer acc | trace correct | p_cond | p after 1 | p_uncond | p_cond^k | prod p_i | guess model | local arith | local^k | digit copy | answer-trace consistency | acc given trace wrong | Yes-rate | first-error position (wrong traces) | final remainder of wrong traces |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| div11 | Qwen2.5-1.5B-Instruct | B | plain | 180 | 0 | 4 | 99.2 | 95.8 | 98.9 | 98.6 | 97.9 | 95.9 | 95.8 | 99.2 | 98.6 | 94.7 | 99.4 | 100.0 | 80.0 | 50.0 | {'2': 2, '3': 6, '4': 2} | {'0': 1, '1': 1, '2': 1, '3': 2, '6': 1, '8': 1, '9': 2, '10': 1} |
+| div13 | Qwen2.5-1.5B-Instruct | B | plain | 180 | 0 | 4 | 54.6 | 2.1 | 56.6 | 23.7 | 43.4 | 10.2 | 2.2 | 58.4 | 35.4 | 1.6 | 99.8 | 100.0 | 53.6 | 76.2 | {'2': 188, '3': 41, '4': 6} | {'0': 179, '2': 12, '4': 3, '5': 10, '6': 12, '7': 7, '8': 9, '9': 3} |
+| div7 | Qwen2.5-1.5B-Instruct | B | plain | 180 | 0 | 4 | 92.5 | 82.9 | 95.5 | 93.9 | 90.7 | 83.2 | 82.9 | 92.6 | 94.7 | 80.4 | 100.0 | 100.0 | 56.1 | 46.7 | {'2': 18, '3': 15, '4': 8} | {'0': 6, '1': 5, '2': 10, '3': 5, '4': 6, '5': 1, '6': 8} |
+| div7_6d | Qwen2.5-1.5B-Instruct | B | plain | 180 | 0 | 6 | 96.2 | 92.9 | 98.8 | 98.5 | 96.7 | 93.0 | 92.9 | 96.3 | 98.3 | 90.0 | 98.9 | 100.0 | 47.1 | 47.9 | {'2': 3, '3': 2, '4': 6, '5': 3, '6': 3} | {'0': 3, '1': 4, '2': 3, '3': 1, '4': 3, '5': 2, '6': 1} |
 
 ## S5 (primary, Qwen2.5-1.5B-Instruct): FAIL (seed(s) [0] outside 10 pp; seed(s) [1] not yet run)
 

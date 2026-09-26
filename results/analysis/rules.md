@@ -7,12 +7,14 @@ Agreement = fraction of test items where the model's (recovered) answer equals t
 | arm | n | seed | model | src | acc | P(Yes) | always_No | always_Yes | last_digit_is_1 | last_digit_0_or_5 | last_digit_even | digit_sum_div_11 | digit_sum_div_3 | contains_digit_7 | true_label | best shortcut |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | A | 180 | 0 | Qwen2.5-1.5B-Instruct | gens | 50.8 | 0.09 | 90.8 | 9.2 | 85.4 | 72.9 | 44.2 | 84.6 | 66.7 | 69.6 | 50.8 | contains_digit_7 (69.6; kappa 0.11 vs truth 0.02) |
+| B | 180 | 0 | Qwen2.5-1.5B-Instruct | gens | 99.2 | 0.50 | 50.0 | 50.0 | 48.8 | 47.9 | 54.2 | 50.4 | 48.3 | 47.1 | 99.2 | last_digit_even (54.2; kappa 0.08 vs truth 0.98) |
 
 Best agreement by ANY function of the last digit / digit sum (vs permutation-null mean, q95)
 
 | arm | n | seed | last digit | null mean / q95 | digit sum | null mean / q95 |
 |---|---|---|---|---|---|---|
 | A | 180 | 0 | 90.8 | 90.8 / 90.8 | 90.8 | 91.0 / 91.7 |
+| B | 180 | 0 | 59.6 | 57.7 / 60.8 | 63.3 | 62.4 / 65.8 |
 
 ## div13
 
@@ -27,6 +29,18 @@ Best agreement by ANY function of the last digit / digit sum (vs permutation-nul
 |---|---|---|---|---|---|---|
 | A | 180 | 0 | 99.6 | 99.6 / 99.6 | 99.6 | 99.6 / 99.6 |
 | B | 180 | 0 | 84.6 | 76.3 / 76.2 | 77.1 | 77.2 / 78.3 |
+
+## div3
+
+| arm | n | seed | model | src | acc | P(Yes) | always_No | always_Yes | last_digit_is_3 | last_digit_0_or_5 | last_digit_even | digit_sum_div_3 | contains_digit_7 | true_label | best shortcut |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| A | 180 | 0 | Qwen2.5-1.5B-Instruct | gens | 50.0 | 0.00 | 100.0 | 0.0 | 92.9 | 77.9 | 45.4 | 50.0 | 63.3 | 50.0 | last_digit_is_3 (92.9; kappa 0.00 vs truth 0.00) |
+
+Best agreement by ANY function of the last digit / digit sum (vs permutation-null mean, q95)
+
+| arm | n | seed | last digit | null mean / q95 | digit sum | null mean / q95 |
+|---|---|---|---|---|---|---|
+| A | 180 | 0 | 100.0 | 100.0 / 100.0 | 100.0 | 100.0 / 100.0 |
 
 ## div7
 

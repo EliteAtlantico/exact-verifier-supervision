@@ -77,6 +77,77 @@
    "true_label_kappa": 0.016666666666666607
   },
   {
+   "task": "div11",
+   "eval_task": "div11",
+   "arm": "B",
+   "n": 180,
+   "seed": 0,
+   "model": "Qwen/Qwen2.5-1.5B-Instruct",
+   "pred_source": "observed_generations",
+   "gens_path": "results/v2/gens/Qwen2.5-1.5B-Instruct/div11_B_180_0.jsonl",
+   "gens_match_bits": true,
+   "n_hit_cap": 0,
+   "mean_gen_tokens": 117.85,
+   "n_items": 240,
+   "acc": 0.9916666666666667,
+   "p_pred_yes": 0.5,
+   "n_unparsed": 0,
+   "agreement": {
+    "always_No": 0.5,
+    "always_Yes": 0.5,
+    "last_digit_is_1": 0.4875,
+    "last_digit_0_or_5": 0.4791666666666667,
+    "last_digit_even": 0.5416666666666666,
+    "digit_sum_div_11": 0.5041666666666667,
+    "digit_sum_div_3": 0.48333333333333334,
+    "contains_digit_7": 0.4708333333333333,
+    "true_label": 0.9916666666666667
+   },
+   "kappa": {
+    "always_No": 0.0,
+    "always_Yes": 0.0,
+    "last_digit_is_1": -0.025000000000000022,
+    "last_digit_0_or_5": -0.04166666666666663,
+    "last_digit_even": 0.08333333333333326,
+    "digit_sum_div_11": 0.008333333333333304,
+    "digit_sum_div_3": -0.033333333333333326,
+    "contains_digit_7": -0.05833333333333335,
+    "true_label": 0.9833333333333334
+   },
+   "best_fn_of_last_digit": {
+    "agreement": 0.5958333333333333,
+    "perm_null_mean": 0.5766416666666666,
+    "perm_null_q95": 0.6083333333333333,
+    "excess_over_null": 0.019191666666666718,
+    "beyond_null_q95": false
+   },
+   "best_fn_of_digit_sum": {
+    "agreement": 0.6333333333333333,
+    "perm_null_mean": 0.6238374999999999,
+    "perm_null_q95": 0.6583333333333333,
+    "excess_over_null": 0.00949583333333337,
+    "beyond_null_q95": false
+   },
+   "p_pred_yes_by_last_digit": {
+    "0": 0.43333333333333335,
+    "1": 0.4117647058823529,
+    "2": 0.625,
+    "3": 0.5238095238095238,
+    "4": 0.5769230769230769,
+    "5": 0.4782608695652174,
+    "6": 0.34615384615384615,
+    "7": 0.4444444444444444,
+    "8": 0.7,
+    "9": 0.4
+   },
+   "best_rule": "true_label",
+   "best_rule_agreement": 0.9916666666666667,
+   "best_shortcut_rule": "last_digit_even",
+   "best_shortcut_agreement": 0.5416666666666666,
+   "best_shortcut_kappa": 0.08333333333333326,
+   "true_label_kappa": 0.9833333333333334
+  },
+  {
    "task": "div13",
    "eval_task": "div13",
    "arm": "A",
@@ -217,6 +288,75 @@
    "best_shortcut_agreement": 0.4875,
    "best_shortcut_kappa": 0.09392265193370171,
    "true_label_kappa": 0.09166666666666656
+  },
+  {
+   "task": "div3",
+   "eval_task": "div3",
+   "arm": "A",
+   "n": 180,
+   "seed": 0,
+   "model": "Qwen/Qwen2.5-1.5B-Instruct",
+   "pred_source": "observed_generations",
+   "gens_path": "results/v2/gens/Qwen2.5-1.5B-Instruct/div3_A_180_0.jsonl",
+   "gens_match_bits": true,
+   "n_hit_cap": 0,
+   "mean_gen_tokens": 3.0,
+   "n_items": 240,
+   "acc": 0.5,
+   "p_pred_yes": 0.0,
+   "n_unparsed": 0,
+   "agreement": {
+    "always_No": 1.0,
+    "always_Yes": 0.0,
+    "last_digit_is_3": 0.9291666666666667,
+    "last_digit_0_or_5": 0.7791666666666667,
+    "last_digit_even": 0.45416666666666666,
+    "digit_sum_div_3": 0.5,
+    "contains_digit_7": 0.6333333333333333,
+    "true_label": 0.5
+   },
+   "kappa": {
+    "always_No": 0.0,
+    "always_Yes": 0.0,
+    "last_digit_is_3": 0.0,
+    "last_digit_0_or_5": 0.0,
+    "last_digit_even": -1.0169981904963267e-16,
+    "digit_sum_div_3": 0.0,
+    "contains_digit_7": 0.0,
+    "true_label": 0.0
+   },
+   "best_fn_of_last_digit": {
+    "agreement": 1.0,
+    "perm_null_mean": 1.0,
+    "perm_null_q95": 1.0,
+    "excess_over_null": 0.0,
+    "beyond_null_q95": false
+   },
+   "best_fn_of_digit_sum": {
+    "agreement": 1.0,
+    "perm_null_mean": 1.0,
+    "perm_null_q95": 1.0,
+    "excess_over_null": 0.0,
+    "beyond_null_q95": false
+   },
+   "p_pred_yes_by_last_digit": {
+    "0": 0.0,
+    "1": 0.0,
+    "2": 0.0,
+    "3": 0.0,
+    "4": 0.0,
+    "5": 0.0,
+    "6": 0.0,
+    "7": 0.0,
+    "8": 0.0,
+    "9": 0.0
+   },
+   "best_rule": "last_digit_is_3",
+   "best_rule_agreement": 0.9291666666666667,
+   "best_shortcut_rule": "last_digit_is_3",
+   "best_shortcut_agreement": 0.9291666666666667,
+   "best_shortcut_kappa": 0.0,
+   "true_label_kappa": 0.0
   },
   {
    "task": "div7",

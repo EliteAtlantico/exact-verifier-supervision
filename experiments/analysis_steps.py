@@ -14,7 +14,12 @@ with the true remainder after digit i.
   p_cond     = P(step i correct | step i-1 correct), pooled over positions (step 0 = the initial r = 0);
                the remainder is a Markov state, so P(whole trace correct) ~= p_cond^k
   p_cond_by_position, prod_p_i = product of the per-position conditional rates
-  local_arith = fraction of parsed steps with r' == (10*a + d) mod m for the model's OWN a, d, m
+  local_arith = non-circular local step accuracy over the k true positions: r_i == (10 * r_{i-1} + x_i) mod d with
+               r_{i-1} the MODEL's own previous remainder (0 at step 1) and x_i the true digit (missing step = wrong).
+               All k locally correct <=> trace fully correct, so local_arith^k is a non-circular predictor of the
+               fully-correct fraction (exact under independence). arith_on_claimed_operands = the same check on the
+               operands the model wrote in the step.
+  error_anatomy = first wrong position among wrong traces, the model's final remainder in wrong traces, Yes-rate
   digit_copy  = fraction of parsed steps whose digit d equals the item's digit at that position
   carry       = fraction of parsed steps whose a equals the model's previous r' (0 for the first step)
   trace_correct = exactly k steps, all remainders correct
@@ -77,6 +82,11 @@ def score_div(rows, test_by_id, d, step_truth):
     ans_ok = 0
     truth_mismatch = 0
     ans_ok_trace_ok = ans_ok_trace_bad = n_trace_bad = 0
+    loc2_ok = loc2_tot = 0                 # non-circular local step accuracy over the k true positions
+    loc2_pos = defaultdict(int)
+    first_err = defaultdict(int)           # wrong traces: position of the first wrong remainder (or 'short')
+    final_rem_wrong = defaultdict(int)     # wrong traces: the model's own last remainder
+    yes = 0
     ks = []
     for row in rows:
         item = test_by_id.get(row.get("id"))
@@ -93,6 +103,7 @@ def score_div(rows, test_by_id, d, step_truth):
         pred = C.gen_pred(row)
         good_answer = pred == item["label"]
         ans_ok += good_answer
+        yes += pred == "Yes"
         steps = [tuple(int(x) for x in m) for m in DIV_STEP.findall(C.gen_text(row))]
         if steps:
             parsed_items += 1
@@ -113,6 +124,19 @@ def score_div(rows, test_by_id, d, step_truth):
                 cond_num[i] += ok
             prev_ok = ok
             all_ok &= ok
+        prev_model_r = 0
+        first_bad = None
+        for i in range(k):                 # local: r_i == (10 * r_{i-1}^model + x_i) mod d, x_i = the TRUE digit
+            if i < len(steps):
+                ok_l = steps[i][3] == (10 * prev_model_r + digits[i]) % d
+                prev_model_r = steps[i][3]
+            else:
+                ok_l = False
+            loc2_ok += ok_l
+            loc2_tot += 1
+            loc2_pos[i] += ok_l
+            if first_bad is None and (i >= len(steps) or steps[i][3] != truth[i]):
+                first_bad = "short" if i >= len(steps) else str(i + 1)
         for i, (a, dg, m, r) in enumerate(steps):
             parsed_steps += 1
             loc_ok += r == (10 * a + dg) % m if m else 0
@@ -125,6 +149,8 @@ def score_div(rows, test_by_id, d, step_truth):
         else:
             n_trace_bad += 1
             ans_ok_trace_bad += good_answer
+            first_err[first_bad or ("extra_steps" if len(steps) > k else "?")] += 1
+            final_rem_wrong[str(steps[-1][3]) if steps else "none"] += 1
         if steps and pred in ("Yes", "No"):
             cons_tot += 1
             cons_ok += pred == ("Yes" if steps[-1][3] == 0 else "No")
@@ -144,7 +170,11 @@ def score_div(rows, test_by_id, d, step_truth):
             "p_uncond": unc_ok / max(1, unc_tot), "p_cond": p_cond, "p_cond_by_position": p_by_pos,
             "p_cond_after_first_step": p_cond_after_first,
             "p_uncond_by_position": [per_pos_ok[i] / len(ks) for i in range(kmax)],
-            "local_arith_acc": loc_ok / max(1, parsed_steps), "digit_copy_acc": copy_ok / max(1, parsed_steps),
+            "local_arith_acc": loc2_ok / max(1, loc2_tot),
+            "local_arith_by_position": [loc2_pos[i] / len(ks) for i in range(kmax)],
+            "local_arith_pow_k": (loc2_ok / max(1, loc2_tot)) ** k_mode,
+            "arith_on_claimed_operands_acc": loc_ok / max(1, parsed_steps),
+            "digit_copy_acc": copy_ok / max(1, parsed_steps),
             "carry_consistency": carry_ok / max(1, parsed_steps),
             "trace_correct_rate": trace_ok / n_items,
             "answer_trace_consistency": cons_ok / cons_tot if cons_tot else None, "n_consistency_items": cons_tot,
@@ -154,7 +184,13 @@ def score_div(rows, test_by_id, d, step_truth):
             "post_hoc_predicted_answer_acc_own_g": (None if n_trace_bad == 0 else
                                                      p_cond ** k_mode + (1 - p_cond ** k_mode) * (ans_ok_trace_bad / n_trace_bad)),
             "observed_minus_predicted_pp": 100 * (ans_ok / n_items - p_cond ** k_mode),
-            "ground_truth_mismatches": truth_mismatch}
+            "ground_truth_mismatches": truth_mismatch,
+            "yes_rate": yes / n_items,
+            "error_anatomy": {"n_wrong_traces": n_trace_bad,
+                              "first_error_position": dict(sorted(first_err.items())),
+                              "final_remainder_of_wrong_traces": dict(sorted(final_rem_wrong.items(),
+                                                                             key=lambda kv: (len(kv[0]), kv[0]))),
+                              "wrong_traces_ending_in_0": (final_rem_wrong.get("0", 0) / n_trace_bad) if n_trace_bad else None}}
 
 
 # --------------------------------------------------------------------------- prime tasks
@@ -164,6 +200,7 @@ LEN_BINS = [(1, 1), (2, 3), (4, 8), (9, 16), (17, 99)]
 def score_prime(rows, test_by_id):
     out_bins = {f"{a}-{b}": {"n": 0, "ok": 0, "trunc": 0, "model_steps": 0} for a, b in LEN_BINS}
     n = ok = trunc = trunc_wrong = cap = wrong_with_line = 0
+    cls = {"Yes": [0, 0, 0], "No": [0, 0, 0]}          # gold class -> [n, correct, truncated]
     ar_ok = ar_tot = seq_ok = seq_tot = cons_ok = cons_tot = 0
     for row in rows:
         item = test_by_id.get(row.get("id"))
@@ -178,6 +215,10 @@ def score_prime(rows, test_by_id):
         ok += good
         trunc += not has_line
         trunc_wrong += (not has_line) and not good
+        cc = cls.setdefault(item["label"], [0, 0, 0])
+        cc[0] += 1
+        cc[1] += good
+        cc[2] += not has_line
         cap += bool(row.get("hit_cap"))
         wrong_with_line += (not good) and has_line
         tried = true_divisions(num)
@@ -209,6 +250,9 @@ def score_prime(rows, test_by_id):
     return {"n_items": n, "answer_acc": ok / n, "n_errors": err, "n_truncated_no_answer_line": trunc,
             "n_hit_cap": cap, "n_wrong_with_answer_line": wrong_with_line,
             "n_truncated_and_wrong": trunc_wrong,
+            "per_class": {("primes" if k == "Yes" else "composites"): {"n": v[0], "acc": v[1] / v[0] if v[0] else None,
+                                                                        "truncated_rate": v[2] / v[0] if v[0] else None}
+                          for k, v in cls.items()},
             "truncated_share_of_errors": (trunc_wrong / err) if err else None,
             "step_arith_acc": ar_ok / ar_tot if ar_tot else None, "n_steps_parsed": ar_tot,
             "divisor_sequence_faithful_rate": seq_ok / seq_tot if seq_tot else None,
@@ -287,9 +331,14 @@ def transitions(div_cells, tasks):
         tt = tasks.get(c["train_task"], {}).get("test") or []
         k_train = len(str(C.number_of(tt[0]["prompt"]))) if tt else c["k"]
         m = k_train * c["n"] / (10 * d) if c["n"] else None
+        trivial = sum((10 * r + x) % d == x % d for r in range(d) for x in range(10)) / (10 * d)
         rows.append({"task": c["task"], "train_task": c["train_task"], "eval_task": c["eval_task"], "arm": c["arm"],
                      "prompt_mode": c["prompt_mode"], "model": c["model"], "n": c["n"], "seed": c["seed"],
                      "k_train": k_train, "k_test": c["k"], "d": d, "m": m, "p": c["p_cond"],
+                     "table_entries": 10 * d, "ten_mod_d": 10 % d,
+                     "ten_mod_d_signed": min(((10 % d), (10 % d) - d), key=abs), "trivial_entry_fraction": trivial,
+                     "max_intermediate": 10 * (d - 1) + 9, "local_arith": c["local_arith_acc"],
+                     "local_arith_pow_k": c["local_arith_pow_k"], "yes_rate": c["yes_rate"],
                      "p_after_first_step": c["p_cond_after_first_step"], "trace_correct": c["trace_correct_rate"],
                      "accuracy": c["answer_acc"], "fit_eligible": bool(m) and c["arm"] == "B" and c["prompt_mode"] == "plain"
                      and c["train_task"] == c["eval_task"]})
@@ -316,7 +365,11 @@ def transitions(div_cells, tasks):
             entry["note"] = "fewer than 3 distinct m values; no fit"
         fits[model] = entry
     return {"generated_by": "experiments/analysis_steps.py", "definition": "m = k_train * n / (10 * d); p = P(step correct "
-            "| previous step correct) (steps.json p_cond)", "rows": rows, "post_hoc_fits": fits}
+            "| previous step correct) (steps.json p_cond). Step difficulty: table_entries = 10 d; ten_mod_d = the multiplier "
+            "10 mod d, ten_mod_d_signed = its smallest-magnitude representative (+1 = add the digit, -1 = subtract, 0 = only "
+            "the last digit matters, |3| = multiply by 3); trivial_entry_fraction = share of (r, x) entries whose result equals "
+            "x mod d (r = 0, or every entry when d divides 10); max_intermediate = 10 (d - 1) + 9.",
+            "rows": rows, "post_hoc_fits": fits}
 
 
 def s5_check(div_cells, run_acc):
@@ -396,15 +449,18 @@ def write_md(o):
               "over steps 2..k (step 1 is r = digit mod d, near-trivial); guess model (post hoc) = p^k + (1 - p^k) g with g = this "
               "cell's answer accuracy when its trace is wrong.", "",
               "| task | model | arm | mode | n | seed | k | answer acc | trace correct | p_cond | p after 1 | p_uncond | "
-              "p_cond^k | prod p_i | guess model | local arith | digit copy | answer-trace consistency | acc given trace wrong |",
-              "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
+              "p_cond^k | prod p_i | guess model | local arith | local^k | digit copy | answer-trace consistency | acc given trace wrong | "
+              "Yes-rate | first-error position (wrong traces) | final remainder of wrong traces |",
+              "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
         f = lambda v: "-" if v is None else f"{100 * v:.1f}"   # noqa: E731
         for c in o["div"]:
             L.append(f"| {c['task']} | {c['model']} | {c['arm']} | {c['prompt_mode']} | {c['n']} | {c['seed']} | {c['k']} | "
                      f"{f(c['answer_acc'])} | {f(c['trace_correct_rate'])} | {f(c['p_cond'])} | {f(c['p_cond_after_first_step'])} | "
                      f"{f(c['p_uncond'])} | {f(c['predicted_acc_p_cond_pow_k'])} | {f(c['predicted_acc_prod_p_i'])} | "
-                     f"{f(c['post_hoc_predicted_answer_acc_own_g'])} | {f(c['local_arith_acc'])} | "
-                     f"{f(c['digit_copy_acc'])} | {f(c['answer_trace_consistency'])} | {f(c['answer_acc_given_trace_wrong'])} |")
+                     f"{f(c['post_hoc_predicted_answer_acc_own_g'])} | {f(c['local_arith_acc'])} | {f(c['local_arith_pow_k'])} | "
+                     f"{f(c['digit_copy_acc'])} | {f(c['answer_trace_consistency'])} | {f(c['answer_acc_given_trace_wrong'])} | "
+                     f"{f(c['yes_rate'])} | {c['error_anatomy']['first_error_position']} | "
+                     f"{c['error_anatomy']['final_remainder_of_wrong_traces']} |")
     if o["prime"]:
         f = lambda v: "-" if v is None else f"{100 * v:.1f}"   # noqa: E731
         L += ["", "## prime tasks", "", "| task | model | arm | n | seed | acc | errors | truncated (no Answer line) | "

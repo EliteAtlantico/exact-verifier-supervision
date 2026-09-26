@@ -5,7 +5,7 @@
   "results\\thinking_vs_data\\runs_L1.jsonl",
   "results\\v2\\runs_Qwen2.5-1.5B-Instruct.jsonl"
  ],
- "n_runs": 43,
+ "n_runs": 45,
  "problems": [
   "runs.jsonl:36 skipped valid/B_mv (no AI traces available)",
   "duplicate ('div7', 'B', 180, 0, 'Qwen/Qwen2.5-1.5B-Instruct'): keeping first (results/thinking_vs_data/runs.jsonl:30, acc 0.925), ignoring results/v2/runs_Qwen2.5-1.5B-Instruct.jsonl:1 (acc 0.925)"
@@ -26,9 +26,34 @@
    ],
    "count_check": true,
    "source": "results/v2/runs_Qwen2.5-1.5B-Instruct.jsonl",
+   "parse_fail_rate": 0.0,
+   "hit_cap_rate": 0.0,
+   "gens_path": "results/v2/gens/Qwen2.5-1.5B-Instruct/div11_A_180_0.jsonl",
    "p_pred_yes": 0.09166666666666666,
    "acc_on_yes": 0.1,
    "acc_on_no": 0.9166666666666666
+  },
+  {
+   "task": "div11",
+   "model": "Qwen/Qwen2.5-1.5B-Instruct",
+   "arm": "B",
+   "n": 180,
+   "seed": 0,
+   "k": 238,
+   "n_test": 240,
+   "acc": 0.9916666666666667,
+   "wilson95": [
+    0.9701302620111081,
+    0.9977117167130258
+   ],
+   "count_check": true,
+   "source": "results/v2/runs_Qwen2.5-1.5B-Instruct.jsonl",
+   "parse_fail_rate": 0.0,
+   "hit_cap_rate": 0.0,
+   "gens_path": "results/v2/gens/Qwen2.5-1.5B-Instruct/div11_B_180_0.jsonl",
+   "p_pred_yes": 0.5,
+   "acc_on_yes": 0.9916666666666667,
+   "acc_on_no": 0.9916666666666667
   },
   {
    "task": "div13",
@@ -45,6 +70,9 @@
    ],
    "count_check": true,
    "source": "results/v2/runs_Qwen2.5-1.5B-Instruct.jsonl",
+   "parse_fail_rate": 0.0,
+   "hit_cap_rate": 0.0,
+   "gens_path": "results/v2/gens/Qwen2.5-1.5B-Instruct/div13_A_180_0.jsonl",
    "p_pred_yes": 0.004166666666666667,
    "acc_on_yes": 0.0,
    "acc_on_no": 0.9916666666666667
@@ -64,9 +92,34 @@
    ],
    "count_check": true,
    "source": "results/v2/runs_Qwen2.5-1.5B-Instruct.jsonl",
+   "parse_fail_rate": 0.0,
+   "hit_cap_rate": 0.0,
+   "gens_path": "results/v2/gens/Qwen2.5-1.5B-Instruct/div13_B_180_0.jsonl",
    "p_pred_yes": 0.7625,
    "acc_on_yes": 0.8083333333333333,
    "acc_on_no": 0.2833333333333333
+  },
+  {
+   "task": "div3",
+   "model": "Qwen/Qwen2.5-1.5B-Instruct",
+   "arm": "A",
+   "n": 180,
+   "seed": 0,
+   "k": 120,
+   "n_test": 240,
+   "acc": 0.5,
+   "wilson95": [
+    0.43724268978525527,
+    0.5627573102147447
+   ],
+   "count_check": true,
+   "source": "results/v2/runs_Qwen2.5-1.5B-Instruct.jsonl",
+   "parse_fail_rate": 0.0,
+   "hit_cap_rate": 0.0,
+   "gens_path": "results/v2/gens/Qwen2.5-1.5B-Instruct/div3_A_180_0.jsonl",
+   "p_pred_yes": 0.0,
+   "acc_on_yes": 0.0,
+   "acc_on_no": 1.0
   },
   {
    "task": "div7",
@@ -197,6 +250,9 @@
    ],
    "count_check": true,
    "source": "results/thinking_vs_data/runs.jsonl",
+   "parse_fail_rate": 0.0,
+   "hit_cap_rate": 0.0,
+   "gens_path": "results/v2/gens/Qwen2.5-1.5B-Instruct/div7_B_180_0.jsonl",
    "p_pred_yes": 0.4666666666666667,
    "acc_on_yes": 0.8916666666666667,
    "acc_on_no": 0.9583333333333334
@@ -311,6 +367,9 @@
    ],
    "count_check": true,
    "source": "results/v2/runs_Qwen2.5-1.5B-Instruct.jsonl",
+   "parse_fail_rate": 0.0,
+   "hit_cap_rate": 0.0,
+   "gens_path": "results/v2/gens/Qwen2.5-1.5B-Instruct/div7_6d_A_180_0.jsonl",
    "p_pred_yes": 0.07083333333333333,
    "acc_on_yes": 0.05,
    "acc_on_no": 0.9083333333333333
@@ -330,6 +389,9 @@
    ],
    "count_check": true,
    "source": "results/v2/runs_Qwen2.5-1.5B-Instruct.jsonl",
+   "parse_fail_rate": 0.0,
+   "hit_cap_rate": 0.0,
+   "gens_path": "results/v2/gens/Qwen2.5-1.5B-Instruct/div7_6d_B_180_0.jsonl",
    "p_pred_yes": 0.4791666666666667,
    "acc_on_yes": 0.9416666666666667,
    "acc_on_no": 0.9833333333333333
@@ -845,7 +907,33 @@
     0.4454533200161677,
     0.5709507813181396
    ],
+   "boot95": [
+    0.44166666666666665,
+    0.5708333333333333
+   ],
    "seed_mean": 0.5083333333333333,
+   "seed_sd": null
+  },
+  {
+   "task": "div11",
+   "model": "Qwen/Qwen2.5-1.5B-Instruct",
+   "arm": "B",
+   "n": 180,
+   "seeds": [
+    0
+   ],
+   "k": 238,
+   "N": 240,
+   "acc": 0.9916666666666667,
+   "wilson95": [
+    0.9701302620111081,
+    0.9977117167130258
+   ],
+   "boot95": [
+    0.9791666666666666,
+    1.0
+   ],
+   "seed_mean": 0.9916666666666667,
    "seed_sd": null
   },
   {
@@ -862,6 +950,10 @@
    "wilson95": [
     0.4331438092326537,
     0.5586541401001927
+   ],
+   "boot95": [
+    0.43333333333333335,
+    0.5583333333333333
    ],
    "seed_mean": 0.49583333333333335,
    "seed_sd": null
@@ -881,7 +973,33 @@
     0.48261402131969794,
     0.6076085360189925
    ],
+   "boot95": [
+    0.48333333333333334,
+    0.6083333333333333
+   ],
    "seed_mean": 0.5458333333333333,
+   "seed_sd": null
+  },
+  {
+   "task": "div3",
+   "model": "Qwen/Qwen2.5-1.5B-Instruct",
+   "arm": "A",
+   "n": 180,
+   "seeds": [
+    0
+   ],
+   "k": 120,
+   "N": 240,
+   "acc": 0.5,
+   "wilson95": [
+    0.43724268978525527,
+    0.5627573102147447
+   ],
+   "boot95": [
+    0.4375,
+    0.5625
+   ],
+   "seed_mean": 0.5,
    "seed_sd": null
   },
   {
@@ -898,6 +1016,10 @@
    "wilson95": [
     0.43724268978525527,
     0.5627573102147447
+   ],
+   "boot95": [
+    0.4375,
+    0.5625
    ],
    "seed_mean": 0.5,
    "seed_sd": null
@@ -919,6 +1041,10 @@
     0.46633886285094406,
     0.5391872091241497
    ],
+   "boot95": [
+    0.45,
+    0.55
+   ],
    "seed_mean": 0.5027777777777779,
    "seed_sd": 0.021381672664362018
   },
@@ -937,6 +1063,10 @@
     0.43724268978525527,
     0.5627573102147447
    ],
+   "boot95": [
+    0.4375,
+    0.5625
+   ],
    "seed_mean": 0.5,
    "seed_sd": null
   },
@@ -954,6 +1084,10 @@
    "wilson95": [
     0.43724268978525527,
     0.5627573102147447
+   ],
+   "boot95": [
+    0.4375,
+    0.5625
    ],
    "seed_mean": 0.5,
    "seed_sd": null
@@ -975,6 +1109,10 @@
     0.8578243189599722,
     0.9047736136029626
    ],
+   "boot95": [
+    0.8208333333333333,
+    0.9361111111111112
+   ],
    "seed_mean": 0.8833333333333334,
    "seed_sd": 0.05204164998665336
   },
@@ -994,6 +1132,10 @@
     0.4554480665759668,
     0.5445519334240332
    ],
+   "boot95": [
+    0.44166666666666665,
+    0.5541666666666667
+   ],
    "seed_mean": 0.5,
    "seed_sd": 0.005892556509887875
   },
@@ -1011,6 +1153,10 @@
    "wilson95": [
     0.5622343547480164,
     0.6838271652665939
+   ],
+   "boot95": [
+    0.5666666666666667,
+    0.6875
    ],
    "seed_mean": 0.625,
    "seed_sd": null
@@ -1030,6 +1176,10 @@
     0.4167912046504396,
     0.542198542013792
    ],
+   "boot95": [
+    0.4166666666666667,
+    0.5416666666666666
+   ],
    "seed_mean": 0.4791666666666667,
    "seed_sd": null
   },
@@ -1048,6 +1198,10 @@
     0.9302797673678065,
     0.9801478566862516
    ],
+   "boot95": [
+    0.9375,
+    0.9833333333333333
+   ],
    "seed_mean": 0.9625,
    "seed_sd": null
   },
@@ -1065,6 +1219,10 @@
    "wilson95": [
     0.5327112876809579,
     0.6559358776635766
+   ],
+   "boot95": [
+    0.5333333333333333,
+    0.6583333333333333
    ],
    "seed_mean": 0.5958333333333333,
    "seed_sd": null
@@ -1085,6 +1243,10 @@
     0.7862419454578691,
     0.8544637947149305
    ],
+   "boot95": [
+    0.7729166666666667,
+    0.8708333333333333
+   ],
    "seed_mean": 0.8229166666666666,
    "seed_sd": 0.0029462782549439376
   },
@@ -1102,6 +1264,10 @@
    "wilson95": [
     0.6915695792009672,
     0.8005534608282535
+   ],
+   "boot95": [
+    0.6958333333333333,
+    0.8041666666666667
    ],
    "seed_mean": 0.75,
    "seed_sd": null
@@ -1121,6 +1287,10 @@
     0.7538335694073647,
     0.8531181799620075
    ],
+   "boot95": [
+    0.7583333333333333,
+    0.8583333333333333
+   ],
    "seed_mean": 0.8083333333333333,
    "seed_sd": null
   },
@@ -1138,6 +1308,10 @@
    "wilson95": [
     0.5075830430993526,
     0.6318518182422599
+   ],
+   "boot95": [
+    0.5083333333333333,
+    0.6333333333333333
    ],
    "seed_mean": 0.5708333333333333,
    "seed_sd": null
@@ -1158,6 +1332,10 @@
     0.532447767450401,
     0.6204948931069768
    ],
+   "boot95": [
+    0.5145833333333334,
+    0.6375
+   ],
    "seed_mean": 0.5770833333333334,
    "seed_sd": 0.002946278254944016
   },
@@ -1175,6 +1353,10 @@
    "wilson95": [
     0.6262936162349089,
     0.7427986637870065
+   ],
+   "boot95": [
+    0.6291666666666667,
+    0.7458333333333333
    ],
    "seed_mean": 0.6875,
    "seed_sd": null
@@ -1195,6 +1377,10 @@
     0.5660791555332616,
     0.6530008717516314
    ],
+   "boot95": [
+    0.55,
+    0.6708333333333333
+   ],
    "seed_mean": 0.6104166666666666,
    "seed_sd": 0.014731391274719766
   },
@@ -1214,6 +1400,10 @@
     0.4761543767171544,
     0.5651814774875425
    ],
+   "boot95": [
+    0.4583333333333333,
+    0.5833333333333334
+   ],
    "seed_mean": 0.5208333333333333,
    "seed_sd": 0.029462782549439452
   },
@@ -1232,6 +1422,10 @@
     0.5327112876809579,
     0.6559358776635766
    ],
+   "boot95": [
+    0.5333333333333333,
+    0.6583333333333333
+   ],
    "seed_mean": 0.5958333333333333,
    "seed_sd": null
   },
@@ -1249,6 +1443,10 @@
    "wilson95": [
     0.9465407405415174,
     0.9884930355140018
+   ],
+   "boot95": [
+    0.9541666666666667,
+    0.9916666666666667
    ],
    "seed_mean": 0.975,
    "seed_sd": null
@@ -1269,6 +1467,10 @@
     0.9849367250249965,
     0.9988566050467862
    ],
+   "boot95": [
+    0.9833333333333333,
+    1.0
+   ],
    "seed_mean": 0.9958333333333333,
    "seed_sd": 0.005892556509887875
   },
@@ -1285,6 +1487,10 @@
    "acc": 1.0,
    "wilson95": [
     0.9842460800584412,
+    1.0
+   ],
+   "boot95": [
+    1.0,
     1.0
    ],
    "seed_mean": 1.0,
@@ -1305,6 +1511,10 @@
     0.9842460800584412,
     1.0
    ],
+   "boot95": [
+    1.0,
+    1.0
+   ],
    "seed_mean": 1.0,
    "seed_sd": null
   },
@@ -1322,6 +1532,10 @@
    "wilson95": [
     0.8271639346103987,
     0.9110206254334321
+   ],
+   "boot95": [
+    0.8333333333333334,
+    0.9166666666666666
    ],
    "seed_mean": 0.875,
    "seed_sd": null
@@ -1342,6 +1556,10 @@
     0.8699050506538495,
     0.9237433500763281
    ],
+   "boot95": [
+    0.7666666666666667,
+    1.0
+   ],
    "seed_mean": 0.9,
    "seed_sd": 0.14142135623730948
   },
@@ -1358,6 +1576,10 @@
    "acc": 1.0,
    "wilson95": [
     0.9842460800584412,
+    1.0
+   ],
+   "boot95": [
+    1.0,
     1.0
    ],
    "seed_mean": 1.0,
@@ -1379,6 +1601,10 @@
     0.4803048611637716,
     0.5692981638818645
    ],
+   "boot95": [
+    0.4625,
+    0.5875
+   ],
    "seed_mean": 0.5249999999999999,
    "seed_sd": 0.02357022603955158
   },
@@ -1396,6 +1622,10 @@
    "wilson95": [
     0.2455465252267553,
     0.3607550427498682
+   ],
+   "boot95": [
+    0.24166666666666667,
+    0.35833333333333334
    ],
    "seed_mean": 0.3,
    "seed_sd": null
@@ -1884,6 +2114,36 @@
   },
   {
    "comparison": "B-A",
+   "task": "div11",
+   "model": "Qwen/Qwen2.5-1.5B-Instruct",
+   "n": 180,
+   "seed": 0,
+   "acc_x": 0.9916666666666667,
+   "acc_y": 0.5083333333333333,
+   "diff": 0.48333333333333334,
+   "b_x_only": 117,
+   "c_y_only": 1,
+   "p_exact": 7.162051980690033e-34,
+   "x_key": [
+    "div11",
+    "B",
+    180,
+    0,
+    "Qwen/Qwen2.5-1.5B-Instruct"
+   ],
+   "y_key": [
+    "div11",
+    "A",
+    180,
+    0,
+    "Qwen/Qwen2.5-1.5B-Instruct"
+   ],
+   "p_holm_tasks": 4.29723118841402e-33,
+   "holm_family_size": 6,
+   "p_holm_tasks_x_seeds": 7.162051980690033e-33
+  },
+  {
+   "comparison": "B-A",
    "task": "div13",
    "model": "Qwen/Qwen2.5-1.5B-Instruct",
    "n": 180,
@@ -1909,7 +2169,7 @@
     "Qwen/Qwen2.5-1.5B-Instruct"
    ],
    "p_holm_tasks": 0.8298627979842247,
-   "holm_family_size": 5,
+   "holm_family_size": 6,
    "p_holm_tasks_x_seeds": 0.8298627979842247
   },
   {
@@ -1939,7 +2199,7 @@
     "Qwen/Qwen2.5-1.5B-Instruct"
    ],
    "p_holm_tasks": 1.625684553479461e-26,
-   "holm_family_size": 5,
+   "holm_family_size": 6,
    "p_holm_tasks_x_seeds": 3.251369106958922e-26
   },
   {
@@ -2029,7 +2289,7 @@
     "Qwen/Qwen2.5-1.5B-Instruct"
    ],
    "p_holm_tasks": 5.462569268045203e-32,
-   "holm_family_size": 5,
+   "holm_family_size": 6,
    "p_holm_tasks_x_seeds": 9.832624682481365e-32
   },
   {
@@ -2059,7 +2319,7 @@
     "Qwen/Qwen2.5-1.5B-Instruct"
    ],
    "p_holm_tasks": 1.7165936329790837e-06,
-   "holm_family_size": 5,
+   "holm_family_size": 6,
    "p_holm_tasks_x_seeds": 1.7165936329790837e-06
   },
   {
@@ -2119,7 +2379,7 @@
     "Qwen/Qwen2.5-1.5B-Instruct"
    ],
    "p_holm_tasks": 0.8298627979842247,
-   "holm_family_size": 5,
+   "holm_family_size": 6,
    "p_holm_tasks_x_seeds": 0.8298627979842247
   },
   {
@@ -2391,6 +2651,366 @@
    "p_holm_tasks": 1.0842336053075686e-09,
    "holm_family_size": 3,
    "p_holm_tasks_x_seeds": 1.6263504079613528e-09
+  },
+  {
+   "comparison": "B-base",
+   "task": "div7",
+   "model": "Qwen/Qwen2.5-1.5B-Instruct",
+   "n": 60,
+   "seed": 0,
+   "acc_x": 0.5,
+   "acc_y": 0.625,
+   "diff": -0.125,
+   "b_x_only": 29,
+   "c_y_only": 59,
+   "p_exact": 0.001824028645627199,
+   "x_key": [
+    "div7",
+    "B",
+    60,
+    0,
+    "Qwen/Qwen2.5-1.5B-Instruct"
+   ],
+   "y_key": [
+    "div7",
+    "base",
+    0,
+    0,
+    "Qwen/Qwen2.5-1.5B-Instruct"
+   ],
+   "p_holm_tasks": 0.003648057291254398,
+   "holm_family_size": 3,
+   "p_holm_tasks_x_seeds": 0.003648057291254398
+  },
+  {
+   "comparison": "B-base",
+   "task": "prime",
+   "model": "Qwen/Qwen2.5-1.5B-Instruct",
+   "n": 60,
+   "seed": 0,
+   "acc_x": 0.5708333333333333,
+   "acc_y": 0.5958333333333333,
+   "diff": -0.025,
+   "b_x_only": 34,
+   "c_y_only": 40,
+   "p_exact": 0.5613807442989819,
+   "x_key": [
+    "prime",
+    "B",
+    60,
+    0,
+    "Qwen/Qwen2.5-1.5B-Instruct"
+   ],
+   "y_key": [
+    "prime",
+    "base",
+    0,
+    0,
+    "Qwen/Qwen2.5-1.5B-Instruct"
+   ],
+   "p_holm_tasks": 0.5613807442989819,
+   "holm_family_size": 3,
+   "p_holm_tasks_x_seeds": 0.5613807442989819
+  },
+  {
+   "comparison": "B-base",
+   "task": "valid",
+   "model": "Qwen/Qwen2.5-1.5B-Instruct",
+   "n": 60,
+   "seed": 0,
+   "acc_x": 0.875,
+   "acc_y": 0.3,
+   "diff": 0.575,
+   "b_x_only": 145,
+   "c_y_only": 7,
+   "p_exact": 1.1891783915075953e-34,
+   "x_key": [
+    "valid",
+    "B",
+    60,
+    0,
+    "Qwen/Qwen2.5-1.5B-Instruct"
+   ],
+   "y_key": [
+    "valid",
+    "base",
+    0,
+    0,
+    "Qwen/Qwen2.5-1.5B-Instruct"
+   ],
+   "p_holm_tasks": 3.567535174522786e-34,
+   "holm_family_size": 3,
+   "p_holm_tasks_x_seeds": 3.567535174522786e-34
+  },
+  {
+   "comparison": "B-base",
+   "task": "div7",
+   "model": "Qwen/Qwen2.5-1.5B-Instruct",
+   "n": 180,
+   "seed": 0,
+   "acc_x": 0.925,
+   "acc_y": 0.625,
+   "diff": 0.3,
+   "b_x_only": 86,
+   "c_y_only": 14,
+   "p_exact": 8.284451872080076e-14,
+   "x_key": [
+    "div7",
+    "B",
+    180,
+    0,
+    "Qwen/Qwen2.5-1.5B-Instruct"
+   ],
+   "y_key": [
+    "div7",
+    "base",
+    0,
+    0,
+    "Qwen/Qwen2.5-1.5B-Instruct"
+   ],
+   "p_holm_tasks": 1.6568903744160152e-13,
+   "holm_family_size": 3,
+   "p_holm_tasks_x_seeds": 4.142225936040038e-13
+  },
+  {
+   "comparison": "B-base",
+   "task": "div7",
+   "model": "Qwen/Qwen2.5-1.5B-Instruct",
+   "n": 180,
+   "seed": 1,
+   "acc_x": 0.9,
+   "acc_y": 0.625,
+   "diff": 0.275,
+   "b_x_only": 81,
+   "c_y_only": 15,
+   "p_exact": 4.026516223148182e-12,
+   "x_key": [
+    "div7",
+    "B",
+    180,
+    1,
+    "Qwen/Qwen2.5-1.5B-Instruct"
+   ],
+   "y_key": [
+    "div7",
+    "base",
+    0,
+    0,
+    "Qwen/Qwen2.5-1.5B-Instruct"
+   ],
+   "p_holm_tasks": 8.053032446296363e-12,
+   "holm_family_size": 3,
+   "p_holm_tasks_x_seeds": 1.6106064892592727e-11
+  },
+  {
+   "comparison": "B-base",
+   "task": "div7",
+   "model": "Qwen/Qwen2.5-1.5B-Instruct",
+   "n": 180,
+   "seed": 2,
+   "acc_x": 0.825,
+   "acc_y": 0.625,
+   "diff": 0.2,
+   "b_x_only": 77,
+   "c_y_only": 29,
+   "p_exact": 3.4525612188472387e-06,
+   "x_key": [
+    "div7",
+    "B",
+    180,
+    2,
+    "Qwen/Qwen2.5-1.5B-Instruct"
+   ],
+   "y_key": [
+    "div7",
+    "base",
+    0,
+    0,
+    "Qwen/Qwen2.5-1.5B-Instruct"
+   ],
+   "p_holm_tasks": 3.4525612188472387e-06,
+   "holm_family_size": 1,
+   "p_holm_tasks_x_seeds": 1.0357683656541716e-05
+  },
+  {
+   "comparison": "B-base",
+   "task": "prime",
+   "model": "Qwen/Qwen2.5-1.5B-Instruct",
+   "n": 180,
+   "seed": 0,
+   "acc_x": 0.5791666666666667,
+   "acc_y": 0.5958333333333333,
+   "diff": -0.016666666666666666,
+   "b_x_only": 37,
+   "c_y_only": 41,
+   "p_exact": 0.7343420330298468,
+   "x_key": [
+    "prime",
+    "B",
+    180,
+    0,
+    "Qwen/Qwen2.5-1.5B-Instruct"
+   ],
+   "y_key": [
+    "prime",
+    "base",
+    0,
+    0,
+    "Qwen/Qwen2.5-1.5B-Instruct"
+   ],
+   "p_holm_tasks": 0.7343420330298468,
+   "holm_family_size": 3,
+   "p_holm_tasks_x_seeds": 1.0
+  },
+  {
+   "comparison": "B-base",
+   "task": "prime",
+   "model": "Qwen/Qwen2.5-1.5B-Instruct",
+   "n": 180,
+   "seed": 1,
+   "acc_x": 0.575,
+   "acc_y": 0.5958333333333333,
+   "diff": -0.020833333333333332,
+   "b_x_only": 37,
+   "c_y_only": 42,
+   "p_exact": 0.6529643755164596,
+   "x_key": [
+    "prime",
+    "B",
+    180,
+    1,
+    "Qwen/Qwen2.5-1.5B-Instruct"
+   ],
+   "y_key": [
+    "prime",
+    "base",
+    0,
+    0,
+    "Qwen/Qwen2.5-1.5B-Instruct"
+   ],
+   "p_holm_tasks": 0.6529643755164596,
+   "holm_family_size": 3,
+   "p_holm_tasks_x_seeds": 1.0
+  },
+  {
+   "comparison": "B-base",
+   "task": "valid",
+   "model": "Qwen/Qwen2.5-1.5B-Instruct",
+   "n": 180,
+   "seed": 0,
+   "acc_x": 1.0,
+   "acc_y": 0.3,
+   "diff": 0.7,
+   "b_x_only": 168,
+   "c_y_only": 0,
+   "p_exact": 5.345529420184391e-51,
+   "x_key": [
+    "valid",
+    "B",
+    180,
+    0,
+    "Qwen/Qwen2.5-1.5B-Instruct"
+   ],
+   "y_key": [
+    "valid",
+    "base",
+    0,
+    0,
+    "Qwen/Qwen2.5-1.5B-Instruct"
+   ],
+   "p_holm_tasks": 1.6036588260553174e-50,
+   "holm_family_size": 3,
+   "p_holm_tasks_x_seeds": 3.741870594129074e-50
+  },
+  {
+   "comparison": "B-base",
+   "task": "valid",
+   "model": "Qwen/Qwen2.5-1.5B-Instruct",
+   "n": 180,
+   "seed": 1,
+   "acc_x": 0.8,
+   "acc_y": 0.3,
+   "diff": 0.5,
+   "b_x_only": 129,
+   "c_y_only": 9,
+   "p_exact": 2.361702323072511e-28,
+   "x_key": [
+    "valid",
+    "B",
+    180,
+    1,
+    "Qwen/Qwen2.5-1.5B-Instruct"
+   ],
+   "y_key": [
+    "valid",
+    "base",
+    0,
+    0,
+    "Qwen/Qwen2.5-1.5B-Instruct"
+   ],
+   "p_holm_tasks": 7.085106969217533e-28,
+   "holm_family_size": 3,
+   "p_holm_tasks_x_seeds": 1.4170213938435066e-27
+  },
+  {
+   "comparison": "B-base",
+   "task": "prime",
+   "model": "Qwen/Qwen2.5-1.5B-Instruct",
+   "n": 540,
+   "seed": 0,
+   "acc_x": 0.6875,
+   "acc_y": 0.5958333333333333,
+   "diff": 0.09166666666666666,
+   "b_x_only": 56,
+   "c_y_only": 34,
+   "p_exact": 0.02630166513112228,
+   "x_key": [
+    "prime",
+    "B",
+    540,
+    0,
+    "Qwen/Qwen2.5-1.5B-Instruct"
+   ],
+   "y_key": [
+    "prime",
+    "base",
+    0,
+    0,
+    "Qwen/Qwen2.5-1.5B-Instruct"
+   ],
+   "p_holm_tasks": 0.02630166513112228,
+   "holm_family_size": 2,
+   "p_holm_tasks_x_seeds": 0.02630166513112228
+  },
+  {
+   "comparison": "B-base",
+   "task": "valid",
+   "model": "Qwen/Qwen2.5-1.5B-Instruct",
+   "n": 540,
+   "seed": 0,
+   "acc_x": 1.0,
+   "acc_y": 0.3,
+   "diff": 0.7,
+   "b_x_only": 168,
+   "c_y_only": 0,
+   "p_exact": 5.345529420184391e-51,
+   "x_key": [
+    "valid",
+    "B",
+    540,
+    0,
+    "Qwen/Qwen2.5-1.5B-Instruct"
+   ],
+   "y_key": [
+    "valid",
+    "base",
+    0,
+    0,
+    "Qwen/Qwen2.5-1.5B-Instruct"
+   ],
+   "p_holm_tasks": 1.0691058840368783e-50,
+   "holm_family_size": 2,
+   "p_holm_tasks_x_seeds": 1.0691058840368783e-50
   }
  ],
  "bootstrap": [
@@ -2423,7 +3043,7 @@
    "diff": -0.12222222222222222,
    "ci95": [
     -0.19166666666666668,
-    -0.04861111111111111
+    -0.04722222222222223
    ],
    "n_boot": 10000,
    "excludes_zero": true
@@ -2455,7 +3075,7 @@
    "diff": 0.0,
    "ci95": [
     -0.1,
-    0.1
+    0.10416666666666667
    ],
    "n_boot": 10000,
    "excludes_zero": false
@@ -2472,7 +3092,7 @@
    "diff": 0.22708333333333333,
    "ci95": [
     0.15,
-    0.30416666666666664
+    0.3020833333333333
    ],
    "n_boot": 10000,
    "excludes_zero": true
@@ -2503,7 +3123,7 @@
    ],
    "diff": 0.675,
    "ci95": [
-    0.6166666666666667,
+    0.6165625000000001,
     0.7333333333333333
    ],
    "n_boot": 10000,
@@ -2537,7 +3157,23 @@
    "diff": 0.7,
    "ci95": [
     0.6416666666666667,
-    0.7583333333333333
+    0.7541666666666667
+   ],
+   "n_boot": 10000,
+   "excludes_zero": true
+  },
+  {
+   "comparison": "B-A",
+   "task": "div11",
+   "model": "Qwen/Qwen2.5-1.5B-Instruct",
+   "n": 180,
+   "seeds": [
+    0
+   ],
+   "diff": 0.48333333333333334,
+   "ci95": [
+    0.4166666666666667,
+    0.5458333333333333
    ],
    "n_boot": 10000,
    "excludes_zero": true
@@ -2553,7 +3189,7 @@
    "diff": 0.05,
    "ci95": [
     -0.058333333333333334,
-    0.15833333333333333
+    0.1625
    ],
    "n_boot": 10000,
    "excludes_zero": false
@@ -2568,7 +3204,7 @@
    ],
    "diff": 0.0,
    "ci95": [
-    -0.06666666666666667,
+    -0.07083333333333333,
     0.07083333333333333
    ],
    "n_boot": 10000,
@@ -2586,8 +3222,8 @@
    ],
    "diff": 0.38055555555555554,
    "ci95": [
-    0.30833333333333335,
-    0.4388888888888889
+    0.3111111111111111,
+    0.44027777777777777
    ],
    "n_boot": 10000,
    "excludes_zero": true
@@ -2603,7 +3239,7 @@
    "diff": 0.48333333333333334,
    "ci95": [
     0.4166666666666667,
-    0.5458333333333333
+    0.55
    ],
    "n_boot": 10000,
    "excludes_zero": true
@@ -2619,7 +3255,7 @@
    "diff": -0.025,
    "ci95": [
     -0.1375,
-    0.08333333333333333
+    0.0875
    ],
    "n_boot": 10000,
    "excludes_zero": false
@@ -2635,8 +3271,8 @@
    ],
    "diff": -0.24583333333333332,
    "ci95": [
-    -0.3333333333333333,
-    -0.15625
+    -0.33333333333333337,
+    -0.15416666666666667
    ],
    "n_boot": 10000,
    "excludes_zero": true
@@ -2668,7 +3304,7 @@
    "diff": -0.1,
    "ci95": [
     -0.14583333333333334,
-    -0.058229166666668185
+    -0.058333333333333334
    ],
    "n_boot": 10000,
    "excludes_zero": true
@@ -2734,7 +3370,7 @@
    ],
    "diff": 0.05625,
    "ci95": [
-    -0.020833333333333332,
+    -0.020833333333333336,
     0.15833333333333333
    ],
    "n_boot": 10000,
@@ -2753,6 +3389,138 @@
    "ci95": [
     0.2375,
     0.5
+   ],
+   "n_boot": 10000,
+   "excludes_zero": true
+  },
+  {
+   "comparison": "B-base",
+   "task": "div7",
+   "model": "Qwen/Qwen2.5-1.5B-Instruct",
+   "n": 60,
+   "seeds": [
+    0
+   ],
+   "diff": -0.125,
+   "ci95": [
+    -0.2,
+    -0.05
+   ],
+   "n_boot": 10000,
+   "excludes_zero": true
+  },
+  {
+   "comparison": "B-base",
+   "task": "div7",
+   "model": "Qwen/Qwen2.5-1.5B-Instruct",
+   "n": 180,
+   "seeds": [
+    0,
+    1,
+    2
+   ],
+   "diff": 0.25833333333333336,
+   "ci95": [
+    0.1708333333333333,
+    0.3416666666666666
+   ],
+   "n_boot": 10000,
+   "excludes_zero": true
+  },
+  {
+   "comparison": "B-base",
+   "task": "prime",
+   "model": "Qwen/Qwen2.5-1.5B-Instruct",
+   "n": 60,
+   "seeds": [
+    0
+   ],
+   "diff": -0.025,
+   "ci95": [
+    -0.09583333333333334,
+    0.04583333333333333
+   ],
+   "n_boot": 10000,
+   "excludes_zero": false
+  },
+  {
+   "comparison": "B-base",
+   "task": "prime",
+   "model": "Qwen/Qwen2.5-1.5B-Instruct",
+   "n": 180,
+   "seeds": [
+    0,
+    1
+   ],
+   "diff": -0.01875,
+   "ci95": [
+    -0.0875,
+    0.05
+   ],
+   "n_boot": 10000,
+   "excludes_zero": false
+  },
+  {
+   "comparison": "B-base",
+   "task": "prime",
+   "model": "Qwen/Qwen2.5-1.5B-Instruct",
+   "n": 540,
+   "seeds": [
+    0
+   ],
+   "diff": 0.09166666666666666,
+   "ci95": [
+    0.016666666666666666,
+    0.1667708333333318
+   ],
+   "n_boot": 10000,
+   "excludes_zero": true
+  },
+  {
+   "comparison": "B-base",
+   "task": "valid",
+   "model": "Qwen/Qwen2.5-1.5B-Instruct",
+   "n": 60,
+   "seeds": [
+    0
+   ],
+   "diff": 0.575,
+   "ci95": [
+    0.5041666666666667,
+    0.6458333333333334
+   ],
+   "n_boot": 10000,
+   "excludes_zero": true
+  },
+  {
+   "comparison": "B-base",
+   "task": "valid",
+   "model": "Qwen/Qwen2.5-1.5B-Instruct",
+   "n": 180,
+   "seeds": [
+    0,
+    1
+   ],
+   "diff": 0.6,
+   "ci95": [
+    0.45,
+    0.7375
+   ],
+   "n_boot": 10000,
+   "excludes_zero": true
+  },
+  {
+   "comparison": "B-base",
+   "task": "valid",
+   "model": "Qwen/Qwen2.5-1.5B-Instruct",
+   "n": 540,
+   "seeds": [
+    0
+   ],
+   "diff": 0.7,
+   "ci95": [
+    0.6416666666666667,
+    0.7583333333333333
    ],
    "n_boot": 10000,
    "excludes_zero": true
