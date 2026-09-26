@@ -779,6 +779,20 @@ def scale_macros():
         cells = steps_cells("div7", model=model, eval_task="div7")
         put(mpre + "pDivseven", "%.3f" % pooled(cells, "p_cond") if cells else TBD, "steps.json")
         put(mpre + "divsevenFullTrace", pct(pooled(cells, "trace_correct_rate")) if cells else TBD, "steps.json")
+    # 3B dose cell (div13 at n = 360) and the 7B valid trace-arm failure pattern
+    for arm in ("A", "B"):
+        put("threeBdivthirteen" + arm + "nThreeSixty", pct(acc_mean("div13", arm, 360, MODELS["threeB"])), "3B n=360")
+    g = gens_rows("valid", "B", MAIN_N, 0, MODELS["sevenB"])
+    if g:
+        err = [x for x in g if not x.get("correct")]
+        yes = [x for x in err if x.get("pred") == "Yes"]
+        tmpl = [x for x in yes if any(w in (x.get("gen") or "") for w in ("contradiction", "impossible", "no model"))]
+        put("sevenBvalidBerrN", str(len(err)), "gens")
+        put("sevenBvalidBerrYes", str(len(yes)), "gens")
+        put("sevenBvalidBerrTemplate", str(len(tmpl)), "gens")
+    else:
+        for mac in ("sevenBvalidBerrN", "sevenBvalidBerrYes", "sevenBvalidBerrTemplate"):
+            put(mac, TBD)
     # what the 3B base model does on div7 / div13 (saved generations)
     for task, tp in (("div7", "divseven"), ("div13", "divthirteen")):
         g = gens_rows(task, "base", 0, 0, MODELS["threeB"])
