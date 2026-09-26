@@ -1,6 +1,6 @@
 # Preregistered predictions and decision rules (frozen before any run listed here)
 
-Committed 2026-09-25 ~20:35 Toronto, before any of the runs below were started. The commit hash of this file is
+Committed 2026-09-25 20:29:47 Toronto (commit b0370f5), before any of the runs below were started. The commit hash of this file is
 the preregistration. Earlier results (results/THINKING_VS_DATA.md, frozen 2026-08-04, and its later staged
 results block) are prior data, reported as such.
 
